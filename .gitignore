@@ -1,0 +1,38 @@
+# General
+**/node_modules/
+
+# 🌐 AngularJS (client)
+TodoListAngularJS/node_modules/
+TodoListAngularJS/dist/
+TodoListAngularJS/.angular/
+TodoListAngularJS/.env
+TodoListAngularJS/config.json
+TodoListAngularJS/config.*.json
+
+# 🧠 Visual Studio / .NET (server)
+TodoListServerC#/bin/
+TodoListServerC#/obj/
+TodoListServerC#/*.user
+TodoListServerC#/*.suo
+TodoListServerC#/.vs/
+TodoListServerC#/appsettings.json
+TodoListServerC#/appsettings.*.json
+
+# 📦 NuGet
+*.nupkg
+packages/
+*.snupkg
+
+# 🚫 Sistema / editor
+*.log
+*.DS_Store
+*.Thumbs.db
+.vscode/
+*.swp
+*.tmp
+.idea/
+
+# 🔒 Backup temporanei
+*~
+*.bak
+*.old
