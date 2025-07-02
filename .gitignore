@@ -8,6 +8,7 @@ TodoListAngularJS/.angular/
 TodoListAngularJS/.env
 TodoListAngularJS/config.json
 TodoListAngularJS/config.*.json
+TodoListAngularJS/package-lock.json
 
 # 🧠 Visual Studio / .NET (server)
 TodoListServerC#/bin/

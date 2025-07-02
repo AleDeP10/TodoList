@@ -174,9 +174,8 @@ window.registerTaskController = function (app) {
           // 🆕 CREAZIONE
           TaskService.create(task).then((res) => {
             $scope.tasks.push(res.data);
-            showToast("🆕 Task creato correttamente");
-
             closeModal("taskModal"); // ✅ chiusura DOPO il salvataggio
+            showToast("🆕 Task creato correttamente");
           });
         }
       };
