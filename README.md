@@ -36,9 +36,26 @@ Implements dual-mode filtering: server-driven by default, with optional client-s
 - [.NET 8 SDK](https://dotnet.microsoft.com/)
 - [Node.js + npm](https://nodejs.org/)
 
+## 🧬 Database Setup
+
+Restore the demo database using:
+
+```bash
+psql -U your_user -d todolist -f db-backup/todolist.sql
+```
+
 ### Run the backend
 
 ```bash
 cd TodoListServerC#
 dotnet run
 ```
+
+### Run the frontend
+
+```bash
+cd TodoListSAngularJS
+npm run start
+```
+
+The project will be running on [http://127.0.0.1:8080/index.html](http://127.0.0.1:8080/index.html)
