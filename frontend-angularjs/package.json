@@ -1,0 +1,27 @@
+{
+  "name": "todolistangularjs",
+  "version": "1.0.0",
+  "main": "app.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "clean": "rimraf dist && mkdir dist",
+    "build-css": "sass styles/style.scss dist/style.css",
+    "copy-static": "node copy-static.js",
+    "build": "npm run clean && npm run build-css && npm run copy-static",
+    "start": "npm run build && http-server ./dist -p 8080",
+    "serve": "npm run build && echo. && echo Server started. && echo Visit http://localhost:8080/ to explore the application && nginx -p . -c nginx.dev.conf -g \"daemon off;\""
+
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "fs-extra": "^11.3.0",
+    "http-server": "^14.1.1",
+    "rimraf": "^6.0.1",
+    "sass": "^1.89.2"
+  }
+}

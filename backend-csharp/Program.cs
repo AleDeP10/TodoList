@@ -1,0 +1,76 @@
+﻿using Microsoft.EntityFrameworkCore;
+using TodoList.Models;
+
+// 1. Set up the application builder
+var builder = WebApplication.CreateBuilder(args);
+
+// 2. Configure Kestrel to listen on HTTPS 
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(5000, listen =>
+    {
+        // Load the development certificate for HTTPS
+        listen.UseHttps("https/aspnet-dev.pfx", "WebS3cur1ty2025!");
+    });
+});
+
+// 3. Load appsettings files and environment variables
+builder.Configuration
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
+    .AddEnvironmentVariables();
+
+// 4. Register the PostgreSQL database context using Entity Framework Core
+builder.Services.AddDbContext<TodoListContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// 5. Register core ASP.NET services
+builder.Services.AddControllers(options =>
+{
+    options.Conventions.Insert(0, new RoutePrefixConvention("api"));
+});
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddCors();
+
+try
+{
+    var app = builder.Build();
+
+    // 6. Enable Swagger UI in Development and Docker environments
+    if (app.Environment.IsDevelopment() || app.Environment.EnvironmentName == "Docker")
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
+
+    // 7. Configure the request handling pipeline
+    app.UseRouting();
+
+    // 8. Redirect HTTP requests to HTTPS (optional but encouraged)
+    app.UseHttpsRedirection();
+
+    // 9. Enable Cross-Origin Resource Sharing to allow frontend access
+    app.UseCors(policy =>
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod());
+
+    // 10. Enable authorization middleware (keep even without Identity/Auth)
+    app.UseAuthorization();
+
+    // 11. Map controller routes (e.g., /api/tasks)
+    app.MapControllers();
+
+    // 12. Start the application
+    app.Logger.LogInformation($"🌐 HTTPS server listening on port " + $"{(app.Environment.EnvironmentName == "Docker" ? 5001 : 5000)}");
+    app.Run();
+}
+catch (Exception ex)
+{
+    // Log any unexpected errors during startup
+    Console.WriteLine("Error during application startup:");
+    Console.WriteLine(ex.Message);
+    throw;
+}

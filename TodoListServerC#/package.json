@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "angular-redux": "^1.0.0-beta",
-    "redux": "^5.0.1"
-  }
-}

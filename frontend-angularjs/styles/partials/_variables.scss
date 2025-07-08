@@ -1,0 +1,10 @@
+$primary-color: #6a11cb; 
+$secondary-color: #2575fc; 
+$light-bg: #f7f9fc;
+
+$gradient-main: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
+
+.bg-gradient-app {
+  background: $gradient-main;
+  color: white;
+}

@@ -1,0 +1,33 @@
+services:
+  db:
+    build: ./db-backup
+    container_name: todolist-db
+    ports:
+      - "5433:5432"
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d todolist"]
+      interval: 5s
+      retries: 5
+
+  backend:
+    build: ./backend-csharp
+    container_name: todolist-api
+    ports:
+      - "5001:5000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+    depends_on:
+      - db
+
+  frontend:
+    build: ./frontend-angularjs
+    container_name: todolist-ui
+    ports:
+      - "8081:8080"
+    depends_on:
+      - backend
+
+volumes:
+  dbdata:

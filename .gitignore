@@ -2,22 +2,24 @@
 **/node_modules/
 
 # 🌐 AngularJS (client)
-TodoListAngularJS/node_modules/
-TodoListAngularJS/dist/
-TodoListAngularJS/.angular/
-TodoListAngularJS/.env
-TodoListAngularJS/config.json
-TodoListAngularJS/config.*.json
-TodoListAngularJS/package-lock.json
+frontend-angularjs/node_modules/
+frontend-angularjs/dist/
+frontend-angularjs/logs/
+frontend-angularjs/temp/
+frontend-angularjs/.angular/
+frontend-angularjs/.env
+frontend-angularjs/config.json
+frontend-angularjs/config.*.json
+frontend-angularjs/package-lock.json
 
 # 🧠 Visual Studio / .NET (server)
-TodoListServerC#/bin/
-TodoListServerC#/obj/
-TodoListServerC#/*.user
-TodoListServerC#/*.suo
-TodoListServerC#/.vs/
-TodoListServerC#/appsettings.json
-TodoListServerC#/appsettings.*.json
+backend-csharp/bin/
+backend-csharp/obj/
+backend-csharp/*.user
+backend-csharp/*.suo
+backend-csharp/.vs/
+backend-csharp/appsettings.json
+backend-csharp/appsettings.*.json
 
 # 📦 NuGet
 *.nupkg

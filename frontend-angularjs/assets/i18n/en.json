@@ -1,0 +1,32 @@
+{
+  "button.cancel": "Cancel",
+  "button.confirm": "Confirm",
+
+  "filters.header": "Filters",
+  "filters.show": "Show filters",
+  "filters.hide": "Hide filters",
+  "filters.apply": "Apply",
+  "filters.clientMode": "Client-side mode",
+
+  "task.header": "TASK LIST",
+  "task.new": "Create new task",
+  "task.edit": "Edit task",
+  "task.nextStatus": "Move to next status",
+  "task.delete": "Delete task",
+  "task.delete.confirm": "Are you sure to delete this task?",
+
+  "task.filters.description": "Description",
+  "task.filters.status": "Status",
+  "task.filters.assignee": "Assignee",
+  "task.filters.allAssignees": "-- All --",
+
+  "task.modal.title.create": "New Task",
+  "task.modal.title.edit": "Edit Task",
+  "task.modal.field.description": "Description",
+  "task.modal.field.assignee": "Assignee",
+  "task.modal.field.status": "Status",
+  "task.modal.button.cancel": "Cancel",
+  "task.modal.button.save": "Create task",
+  "task.modal.button.update": "Save changes",
+  "task.modal.assignee.placeholder": "-- No assignee --"
+}

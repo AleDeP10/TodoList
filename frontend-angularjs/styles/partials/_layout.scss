@@ -1,0 +1,96 @@
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+}
+
+.page-container {
+  display: flex;
+  min-height: calc(100vh - 64px); // below the topbar
+  background: linear-gradient(to bottom right, #fdfcfb, #e8f3f9);
+}
+
+.switch-mode {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.main-content {
+  transition: margin-left 0.3s ease;
+  flex-grow: 1;
+  padding: 2rem;
+}
+
+/* 🗂️ Task list container */
+.task-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* 🧩 Single task */
+.task-item {
+  background: #fff;
+  border-left: 5px solid #ccc;
+  border-radius: 0.5rem;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.015);
+  }
+
+  &[data-status="todo"] {
+    border-left-color: #4dabf7;
+  }
+
+  &[data-status="in-progress"] {
+    border-left-color: #ffa94d;
+  }
+
+  &[data-status="done"] {
+    border-left-color: #51cf66;
+  }
+}
+
+/* 🏷️ Status badge */
+.task-item[data-status="todo"] {
+  background-color: #e3f2fd;
+}
+.task-item[data-status="in-progress"] {
+  background-color: #fff3cd;
+}
+.task-item[data-status="done"] {
+  background-color: #e6f4ea;
+}
+
+/* Icon buttons */
+.btn-outline-secondary,
+.btn-outline-primary,
+.btn-outline-danger {
+  background-color: #f8f9fa;
+  border-width: 1px;
+  padding: 0.4rem 0.65rem;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #e2e6ea;
+  }
+
+  & > svg,
+  & > i,
+  & > span {
+    vertical-align: middle;
+  }
+}
+
+.icon-action {
+  font-size: 1.1rem;
+  line-height: 1;
+  vertical-align: middle;
+  pointer-events: none;
+}

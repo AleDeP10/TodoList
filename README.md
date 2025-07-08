@@ -1,7 +1,7 @@
-# TodoList
+# 🧾 TodoList
 
-A full-stack task management app built with AngularJS and ASP.NET Core.  
-Implements dual-mode filtering: server-driven by default, with optional client-side control via Redux Classic.
+A full-stack task management app powered by AngularJS, Redux and ASP.NET Core.  
+**Fully containerized with HTTPS support out of the box.**
 
 ---
 
@@ -17,45 +17,87 @@ Implements dual-mode filtering: server-driven by default, with optional client-s
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠 Tech Stack
 
 | Layer        | Technology                     |
-|--------------|--------------------------------|
+|-------------|--------------------------------|
 | Frontend     | AngularJS 1.x, Bootstrap 5     |
 | State Mgmt   | Redux Classic (ng-redux)       |
 | Backend      | ASP.NET Core 8.0 (Web API)     |
 | Language     | C#                             |
-| Build Tools  | .NET CLI, npm                  |
+| Build Tools  | .NET CLI, npm, Docker          |
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Running the App (Docker-first)
+
+### 🐳 Quickstart with Docker Compose
+
+This is the preferred way to run the app locally — secure and self-contained.
+
+```bash
+docker-compose up --build
+```
+
+Then open the frontend via:
+
+📍 `http://localhost:8080/index.html`  
+📡 Backend API via HTTPS: `https://localhost:5001/api/...`
+
+> 🛡 HTTPS is enabled by default in Docker on port 5000 inside the container, mapped to 5001 on your host.  
+> The development certificate `aspnet-dev.pfx` is already bundled.
+
+---
+
+## ⚙️ Environment Ports
+
+| Component | Container Port | Host Port | Protocol |
+|-----------|----------------|-----------|----------|
+| Backend   | 5000           | 5001      | HTTPS    |
+| Frontend  | 8080           | 8081      | HTTPS    |
+
+---
+
+## 🧪 Local Dev Setup (non-Docker)
+
+If you're debugging or hate containers:
 
 ### Prerequisites
 
 - [.NET 8 SDK](https://dotnet.microsoft.com/)
 - [Node.js + npm](https://nodejs.org/)
+- PostgreSQL (or compatible)
 
-## 🧬 Database Setup
-
-Restore the demo database using:
+### Database Setup
 
 ```bash
 psql -U your_user -d todolist -f db-backup/todolist.sql
 ```
 
-### Run the backend
+### Start Backend
 
 ```bash
-cd TodoListServerC#
+cd backend-csharp
 dotnet run
 ```
 
-### Run the frontend
+By default, it listens on HTTPS port 5000 using the dev certificate.
+
+### Start Frontend
 
 ```bash
-cd TodoListSAngularJS
+cd frontend-angular
+npm install
 npm run start
 ```
 
-The project will be running on [http://127.0.0.1:8080/index.html](http://127.0.0.1:8080/index.html)
+Open: [http://127.0.0.1:8080/index.html](http://127.0.0.1:8080/index.html)
+
+---
+
+## 🧾 Notes
+
+- ✔ The ASP.NET backend auto-detects `Docker` environment for specific behavior.
+- ✔ Logging on startup will show the active HTTPS port.
+- 🔐 Don’t use the dev certificate in production.
+- 📄 See `docker-compose.yml` and `Program.cs` for full HTTPS setup.
