@@ -21,8 +21,11 @@ builder.Configuration
     .AddEnvironmentVariables();
 
 // 4. Register the PostgreSQL database context using Entity Framework Core
+var defaultConnection = builder.Configuration.GetConnectionString("DefaultConnection")
+                     ?? Environment.GetEnvironmentVariable("DefaultConnection");
+
 builder.Services.AddDbContext<TodoListContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(defaultConnection));
 
 // 5. Register core ASP.NET services
 builder.Services.AddControllers(options =>
