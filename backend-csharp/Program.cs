@@ -8,11 +8,18 @@ var builder = WebApplication.CreateBuilder(args);
 var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
 builder.WebHost.ConfigureKestrel(options =>
 {
-    options.ListenAnyIP(int.Parse(port), listen =>
+    if (!builder.Environment.IsProduction())
     {
-        // Load the development certificate for HTTPS
-        listen.UseHttps("https/aspnet-dev.pfx", "WebS3cur1ty2025!");
-    });
+        options.ListenAnyIP(int.Parse(port), listen =>
+        {
+            // Load the development certificate for HTTPS
+            listen.UseHttps("https/aspnet-dev.pfx", "WebS3cur1ty2025!");
+        });
+    }
+    else
+    {
+        options.ListenAnyIP(int.Parse(port)); // External HTTPS managed by Reverse
+    }
 });
 
 // 3. Load appsettings files and environment variables
@@ -42,13 +49,9 @@ try
 {
     var app = builder.Build();
 
-    // 6. Enable Swagger UI in Development and Docker environments
-    // NOTE: Swagger not woring on Render, trying to allowing it for everywhere for now
-    // if (app.Environment.IsDevelopment() || app.Environment.EnvironmentName == "Docker")
-    // {
+    // 6. Enable Swagger UI in every environment (no data to protect in a portfolio project)
     app.UseSwagger();
-        app.UseSwaggerUI();
-    // }
+    app.UseSwaggerUI();
 
     // 7. Configure the request handling pipeline
     app.UseRouting();
