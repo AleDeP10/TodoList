@@ -4,10 +4,11 @@ using TodoList.Models;
 // 1. Set up the application builder
 var builder = WebApplication.CreateBuilder(args);
 
-// 2. Configure Kestrel to listen on HTTPS 
+// 2. Configure Kestrel to listen on HTTPS using either default or injected PORT
+var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
 builder.WebHost.ConfigureKestrel(options =>
 {
-    options.ListenAnyIP(5000, listen =>
+    options.ListenAnyIP(int.Parse(port), listen =>
     {
         // Load the development certificate for HTTPS
         listen.UseHttps("https/aspnet-dev.pfx", "WebS3cur1ty2025!");
@@ -68,9 +69,8 @@ try
     app.MapControllers();
 
     // 12. Start the application
-    var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
     app.Logger.LogInformation($"🌐 HTTPS server listening on port {port}");
-    app.Run($"https://0.0.0.0:{port}");
+    app.Run();
 }
 catch (Exception ex)
 {
