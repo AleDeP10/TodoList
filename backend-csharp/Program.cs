@@ -42,11 +42,12 @@ try
     var app = builder.Build();
 
     // 6. Enable Swagger UI in Development and Docker environments
-    if (app.Environment.IsDevelopment() || app.Environment.EnvironmentName == "Docker")
-    {
-        app.UseSwagger();
+    // NOTE: Swagger not woring on Render, trying to allowing it for everywhere for now
+    // if (app.Environment.IsDevelopment() || app.Environment.EnvironmentName == "Docker")
+    // {
+    app.UseSwagger();
         app.UseSwaggerUI();
-    }
+    // }
 
     // 7. Configure the request handling pipeline
     app.UseRouting();
@@ -65,10 +66,11 @@ try
 
     // 11. Map controller routes (e.g., /api/tasks)
     app.MapControllers();
-    
+
     // 12. Start the application
-    app.Logger.LogInformation($"🌐 HTTPS server listening on port " + $"{(app.Environment.EnvironmentName == "Docker" ? 5001 : 5000)}");
-    app.Run();
+    var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+    app.Logger.LogInformation($"🌐 HTTPS server listening on port {port}");
+    app.Run($"https://0.0.0.0:{port}");
 }
 catch (Exception ex)
 {
