@@ -22,7 +22,11 @@ services:
       - db
 
   frontend:
-    build: ./frontend-angularjs
+    build:
+      context: ./frontend-angularjs
+      dockerfile: Dockerfile
+      args:
+        ENV: docker
     container_name: todolist-ui
     ports:
       - "8081:8080"
