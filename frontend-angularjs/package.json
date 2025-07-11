@@ -6,7 +6,7 @@
     "lib": "lib"
   },
   "scripts": {
-    "clean": "rimraf dist && mkdir dist",
+    "clean": "node -e \"try{require('rimraf')('dist',()=>{});}catch{require('fs').rmSync('dist',{recursive:true,force:true})}\" && mkdir dist",
     "build-css": "sass styles/style.scss dist/style.css",
     "copy-static": "node copy-static.js",
     "build": "npm run clean && npm run build-css && npm run copy-static",
