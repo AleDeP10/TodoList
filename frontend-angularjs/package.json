@@ -10,9 +10,7 @@
     "build-css": "sass styles/style.scss dist/style.css",
     "copy-static": "node copy-static.js",
     "build": "npm run clean && npm run build-css && npm run copy-static",
-    "start": "npm run build && http-server ./dist -p 8080",
     "serve": "npm run build && echo. && echo Server started. && echo Visit http://localhost:8080/ to explore the application && nginx -p . -c nginx.dev.conf -g \"daemon off;\""
-
   },
   "keywords": [],
   "author": "",

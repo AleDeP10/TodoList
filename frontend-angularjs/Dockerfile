@@ -29,7 +29,7 @@ FROM nginx:alpine
 COPY --from=builder /app/dist/ /usr/share/nginx/html
 
 # Inject custom NGINX config (SPA routing, port binding)
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx.docker.conf /etc/nginx/conf.d/default.conf
 
 
 # Expose internal container port served by NGINX
