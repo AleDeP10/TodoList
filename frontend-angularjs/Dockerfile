@@ -29,6 +29,7 @@ FROM nginx:alpine
 # Environment configuration (injected at build time)
 # Use ARG to select config variant, default is "docker"
 ARG ENV=docker
+ENV ENV=${ENV}
 
 # Copy compiled frontend assets
 COPY --from=builder /app/dist/ /usr/share/nginx/html
