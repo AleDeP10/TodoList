@@ -8,8 +8,6 @@ frontend-angularjs/logs/
 frontend-angularjs/temp/
 frontend-angularjs/.angular/
 frontend-angularjs/.env
-frontend-angularjs/config.json
-frontend-angularjs/config.*.json
 frontend-angularjs/package-lock.json
 
 # 🧠 Visual Studio / .NET (server)

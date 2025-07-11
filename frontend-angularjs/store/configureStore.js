@@ -1,9 +1,4 @@
-window.configureStore = function (env = 'production') {
-  const middleware = [];
-
-  if (env === 'development') {
-    middleware.push(window.reduxLogger); 
-  }
+window.configureStore = function () {
 
   const rootReducer = Redux.combineReducers({
     tasks: window.taskReducer
@@ -11,6 +6,6 @@ window.configureStore = function (env = 'production') {
 
   return Redux.createStore(
     rootReducer,
-    Redux.applyMiddleware(...middleware)
+    Redux.applyMiddleware([window.reduxLogger])
   );
 };

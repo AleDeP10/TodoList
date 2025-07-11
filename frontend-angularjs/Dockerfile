@@ -15,7 +15,7 @@ RUN npm ci --omit=dev
 COPY . .
 
 # ⬇️ Override environment config
-COPY config.docker.json ./config.json
+COPY config.json ./config.json
 
 # Run full frontend build (clean, SCSS compilation, static assets)
 RUN npm run build
@@ -25,12 +25,15 @@ RUN npm run build
 # ──────────────────────────────────────────────
 FROM nginx:alpine
 
+# Environment configuration (injected at build time)
+# Use ARG to select config variant, default is "docker"
+ARG ENV=docker
+
 # Copy compiled frontend assets
 COPY --from=builder /app/dist/ /usr/share/nginx/html
 
 # Inject custom NGINX config (SPA routing, port binding)
-COPY nginx.docker.conf /etc/nginx/conf.d/default.conf
-
+COPY nginx.${ENV}.conf /etc/nginx/conf.d/default.conf
 
 # Expose internal container port served by NGINX
 EXPOSE 8080
