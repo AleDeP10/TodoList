@@ -14,6 +14,12 @@
   "task.nextStatus": "Move to next status",
   "task.delete": "Delete task",
   "task.delete.confirm": "Are you sure to delete this task?",
+  
+  "task.toast.delete.success": "Task deleted successfully!",
+  "task.toast.delete.error": "Could not delete the task.",
+  "task.toast.update.success": "Task successfully updated.",
+  "task.toast.create.success": "Task successfully created.",
+  "task.toast.nextStatus.success": "Status updated to",
 
   "task.filters.description": "Description",
   "task.filters.status": "Status",

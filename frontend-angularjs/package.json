@@ -1,6 +1,6 @@
 {
   "name": "todolistangularjs",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "app.js",
   "directories": {
     "lib": "lib"

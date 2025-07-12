@@ -15,6 +15,12 @@
   "task.delete": "Cancella task",
   "task.delete.confirm": "Sei sicuro di voler eliminare questo task?",
 
+  "task.toast.delete.success": "Task cancellato con successo!",
+  "task.toast.delete.error": "Impossibile cancellare il task.",
+  "task.toast.update.success": "Task aggiornato con successo.",
+  "task.toast.create.success": "Task creato con successo.",
+  "task.toast.nextStatus.success": "Stato aggiornato a",
+
   "task.filters.description": "Descrizione",
   "task.filters.status": "Stato",
   "task.filters.assignee": "Assegnatario",

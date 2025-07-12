@@ -153,22 +153,22 @@ window.registerTaskController = function (app) {
         $scope.modalTask = task
           ? angular.copy(task) // ✏️ EDIT
           : { status: "TODO" }; // 🆕 CREATE
-        $scope.showTaskModal = true; 
+        $scope.showTaskModal = true;
       };
 
       $scope.clearTaskModal = function () {
         $scope.modalTask = { status: "TODO" };
         $scope.showTaskModal = false;
       };
-      
+
       $scope.openConfirmModal = function (task) {
-        $scope.modalTask = angular.copy(task)
-        $scope.showConfirmModal = true; 
+        $scope.modalTask = angular.copy(task);
+        $scope.showConfirmModal = true;
       };
 
       $scope.cancelDelete = function () {
         $scope.showConfirmModal = false;
-      }
+      };
 
       $scope.deleteTask = function () {
         TaskService.delete($scope.modalTask.id)
@@ -177,15 +177,18 @@ window.registerTaskController = function (app) {
               (t) => t.id === $scope.modalTask.id
             );
             if (i !== -1) $scope.tasks.splice(i, 1);
-            showToast("🗑 Task deleted successfully!", "success");
+            showToast(
+              "🗑 " + $scope.labels["task.toast.delete.success"],
+              "success"
+            );
           })
           .catch((err) => {
             console.error("Error deleting task:", err);
-            showToast("Could not delete the task.", "danger");
+            showToast($scope.labels["task.toast.delete.error"], "danger");
           });
-          $scope.showConfirmModal = false;
+        $scope.showConfirmModal = false;
       };
-      
+
       $scope.saveTask = function () {
         const task = angular.copy($scope.modalTask);
 
@@ -201,14 +204,14 @@ window.registerTaskController = function (app) {
               });
             }
             $scope.showTaskModal = false;
-            showToast("✅ Task successfully updated");
+            showToast("✅ " + $scope.labels["task.toast.update.success"]);
           });
         } else {
           // 🆕 CREATE
           TaskService.create(task).then((res) => {
             $scope.tasks.push(res.data);
             $scope.showTaskModal = false;
-            showToast("🆕 Task successfully created");
+            showToast("🆕 " + $scope.labels["task.toast.create.success"]);
           });
         }
       };
@@ -228,7 +231,7 @@ window.registerTaskController = function (app) {
           // ✅ Apply change directly in task list
           task.status = updatedStatus;
 
-          showToast(`📌 Status updated to ${updatedStatus}`, "info");
+          showToast(`📌 ${$scope.labels["task.toast.nextStatus.success"]} ${updatedStatus}`, "info");
         });
       };
 
