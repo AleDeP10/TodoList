@@ -12,7 +12,7 @@
   "task.new": "Crea nuovo task",
   "task.edit": "Modifica task",
   "task.nextStatus": "Passa allo stato successivo",
-  "task.delete": "Elimina task",
+  "task.delete": "Cancella task",
   "task.delete.confirm": "Sei sicuro di voler eliminare questo task?",
 
   "task.filters.description": "Descrizione",

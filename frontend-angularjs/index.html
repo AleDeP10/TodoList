@@ -226,7 +226,7 @@
                   <button
                     class="btn btn-outline-secondary"
                     ng-click="openTaskModal(task)"
-                    title="Modifica task"
+                    title="labels['task.edit']"
                   >
                     <span class="icon-action text-secondary">
                       <i class="bi bi-pencil icon-action"></i>
@@ -237,7 +237,7 @@
                     class="btn btn-outline-primary"
                     ng-click="nextStatus(task)"
                     ng-disabled="task.status === 'DONE'"
-                    title="Passa allo stato successivo"
+                    title="labels['task.nextStatus']"
                   >
                     <span class="icon-action text-primary">
                       <i class="bi bi-forward icon-action"></i>
@@ -247,7 +247,7 @@
                   <button
                     class="btn btn-outline-danger"
                     ng-click="openConfirmModal(task)"
-                    title="Cancella task"
+                    title="labels['task.delete']"
                   >
                     <span class="icon-action text-danger">
                       <i class="bi bi-trash icon-action"></i>
