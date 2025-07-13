@@ -7,7 +7,7 @@ A full-stack task management app powered by AngularJS, Redux and ASP.NET Core.
 
 ## 🌐 Live version on Render
 
-The project is live and publicly accessible via Render, with both backend and frontend hosted on separate endpoints. You can explore and test the API through the Swagger interface at `https://backend-csharp-25bo.onrender.com/swagger`, while the AngularJS frontend is available at `https://frontend-angularjs.onrender.com`.
+The project is live and publicly accessible via Render, with both backend and frontend hosted on separate endpoints. You can explore and test the API through the Swagger interface at [https://backend-csharp-25bo.onrender.com/swagger](https://backend-csharp-25bo.onrender.com/swagger), while the AngularJS frontend is available at [https://frontend-angularjs.onrender.com](https://frontend-angularjs.onrender.com).
 
 ---
 
@@ -101,7 +101,7 @@ npm install
 npm run serve
 ```
 
-Open: [http://127.0.0.1:8080/index.html](http://127.0.0.1:8080/index.html)
+Open: [http://localhost:8080/index.html](http://localhost:8080/index.html)
 
 ---
 
