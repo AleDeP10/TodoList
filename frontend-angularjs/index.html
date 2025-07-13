@@ -212,7 +212,12 @@
 
         <!-- Main content -->
         <div class="main-content flex-grow-1 p-4">
-          <ul class="task-list">
+          <div class="spinner-container" ng-show="isLoading">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+          <ul class="task-list" ng-hide="isLoading">
             <li
               class="task-item"
               ng-attr-data-status="{{ cssStatus(task) }}"

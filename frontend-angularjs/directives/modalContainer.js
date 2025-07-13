@@ -1,6 +1,4 @@
 window.registerModalContainerDirective = function (app) {
-  console.log("[modalContainer] Registrazione direttiva avviata");
-
   app.directive("modalContainer", function () {
     return {
       restrict: "E",
@@ -9,7 +7,7 @@ window.registerModalContainerDirective = function (app) {
         isVisible: "=",
         onConfirm: "&?",
         onCancel: "&?",
-        autoFocus: "@?"
+        autoFocus: "@?",
       },
       template: `
         <div class="modal-shell" ng-if="isVisible">
@@ -18,26 +16,26 @@ window.registerModalContainerDirective = function (app) {
         </div>
       `,
       link: function (scope, element) {
-        console.log("[modalContainer] Link inizializzato");
+        console.log("[modalContainer] Link initialized");
 
         try {
           const modalBody = element[0].querySelector(".modal-body");
 
           function escListener(e) {
             if (e.key === "Escape") {
-              console.log("[modalContainer] ESC premuto, chiudo modale");
+              console.log("[modalContainer] ESC pressed, closing modal");
               scope.$apply(scope.cancel);
             }
           }
 
           scope.cancel = function () {
-            console.log("[modalContainer] Cancel invocato");
+            console.log("[modalContainer] Cancel invoked");
             if (scope.onCancel) scope.onCancel();
             scope.isVisible = false;
           };
 
           scope.confirm = function () {
-            console.log("[modalContainer] Confirm invocato");
+            console.log("[modalContainer] Confirm invoked");
             if (scope.onConfirm) scope.onConfirm();
             scope.isVisible = false;
           };
@@ -48,7 +46,7 @@ window.registerModalContainerDirective = function (app) {
             if (visible) {
               if (scope.autoFocus === "true" && modalBody) {
                 setTimeout(() => {
-                  console.log("[modalContainer] Focus automatico");
+                  console.log("[modalContainer] Automatic focus");
                   modalBody.focus();
                 }, 0);
               }
@@ -58,11 +56,9 @@ window.registerModalContainerDirective = function (app) {
             }
           });
         } catch (err) {
-          console.error("[modalContainer] Errore nella link function:", err);
+          console.error("[modalContainer] Error in link function:", err);
         }
-      }
+      },
     };
   });
-
-  console.log("[modalContainer] Direttiva registrata correttamente");
 };

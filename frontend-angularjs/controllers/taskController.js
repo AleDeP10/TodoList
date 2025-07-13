@@ -2,7 +2,6 @@ window.registerTaskController = function (app) {
   app.controller(
     "TaskController",
     function ($scope, $ngRedux, TaskService, UserService, I18nService) {
-      console.log("🎯 inizio controller");
       $scope.labels = {}; // live binding
       $scope.selectedLang = "en"; // default UI
 
@@ -23,7 +22,8 @@ window.registerTaskController = function (app) {
 
       $scope.debugAppTitle = I18nService.t("appTitle");
 
-      $scope.filterMode = "api"; // default mode
+      $scope.isLoading = true; // Initially, the spinner is visible
+      $scope.filterMode = "api"; // Default mode
       $scope.filterModeToggle = false;
 
       const disconnect = $ngRedux.connect(
@@ -34,17 +34,23 @@ window.registerTaskController = function (app) {
       $scope.$on("$destroy", disconnect);
 
       // Initial load always! Needed in both cases
-      TaskService.getAll()
-        .then((response) => {
-          $scope.setTasks(response.data); // Always update Redux
+      I18nService.load().then((labels) => {
+        Object.assign($scope.labels, labels);
+        showToast("🕒 " + $scope.labels["toast.startup"], "warning");
+        TaskService.getAll()
+          .then((response) => {
+            $scope.setTasks(response.data); // Always update Redux
 
-          if ($scope.filterMode === "api") {
-            $scope.tasks = response.data; // also populate local variable
-          }
-        })
-        .catch((error) => {
-          console.error("Error retrieving tasks:", error);
-        });
+            if ($scope.filterMode === "api") {
+              $scope.tasks = response.data; // also populate local variable
+            }
+            $scope.isLoading = false; // Hide the spinner when data is loaded
+          })
+          .catch((error) => {
+            console.error("Error retrieving tasks:", error);
+            $scope.isLoading = false; // Hide the spinner even in case of an error
+          });
+      });
 
       // Function to get current tasks from Redux or API
       $scope.getVisibleTasks = () =>
@@ -231,7 +237,10 @@ window.registerTaskController = function (app) {
           // ✅ Apply change directly in task list
           task.status = updatedStatus;
 
-          showToast(`📌 ${$scope.labels["task.toast.nextStatus.success"]} ${updatedStatus}`, "info");
+          showToast(
+            `📌 ${$scope.labels["task.toast.nextStatus.success"]} ${updatedStatus}`,
+            "info"
+          );
         });
       };
 
@@ -248,7 +257,6 @@ window.registerTaskController = function (app) {
           $scope.userMap[user.id] = user.fullName;
         });
       });
-      console.log("🎯 fine controller");
 
       $scope.$watch(
         () => $scope.activeFilters.statusMap,

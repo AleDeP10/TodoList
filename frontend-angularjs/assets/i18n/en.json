@@ -1,4 +1,6 @@
 {
+ "toast.startup": "Waiting for the backend startup...",
+
   "button.cancel": "Cancel",
   "button.confirm": "Confirm",
 

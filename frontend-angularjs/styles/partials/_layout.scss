@@ -23,6 +23,20 @@
   padding: 2rem;
 }
 
+/* Spinner container */
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+/* Spinner */
+.spinner-border {
+  width: 5rem;
+  height: 5rem;
+}
+
 /* 🗂️ Task list container */
 .task-list {
   list-style: none;
