@@ -5,6 +5,12 @@ A full-stack task management app powered by AngularJS, Redux and ASP.NET Core.
 
 ---
 
+## Live version on Render
+
+The project is live and publicly accessible via Render, with both backend and frontend hosted on separate endpoints. You can explore and test the API through the Swagger interface at `https://backend-csharp-25bo.onrender.com/swagger`, while the AngularJS frontend is available at `https://frontend-angularjs.onrender.com`.
+
+---
+
 ## 🧩 Features
 
 - ✅ Create, edit, delete tasks with assigned users and status
@@ -20,20 +26,24 @@ A full-stack task management app powered by AngularJS, Redux and ASP.NET Core.
 ## 🛠 Tech Stack
 
 | Layer        | Technology                     |
-|-------------|--------------------------------|
+|--------------|--------------------------------|
 | Frontend     | AngularJS 1.x, Bootstrap 5     |
 | State Mgmt   | Redux Classic (ng-redux)       |
 | Backend      | ASP.NET Core 8.0 (Web API)     |
 | Language     | C#                             |
-| Build Tools  | .NET CLI, npm, Docker          |
+| Build Tools  | .NET CLI, npm, nginx, Docker   |
 
 ---
 
 ## 🚀 Running the App (Docker-first)
 
+### 🖥️ Visual control with Docker Desktop
+
+Docker Desktop provides a user-friendly interface to manage containers across platforms. Using the UI, you can independently activate the database instance, the C# backend, and the AngularJS frontend.
+
 ### 🐳 Quickstart with Docker Compose
 
-This is the preferred way to run the app locally — secure and self-contained.
+A secure and self-contained way to run the app locally by using the shell.
 
 ```bash
 docker-compose up --build
@@ -41,7 +51,7 @@ docker-compose up --build
 
 Then open the frontend via:
 
-📍 `http://localhost:8080/index.html`  
+📍 `http://localhost:8081/index.html`  
 📡 Backend API via HTTPS: `https://localhost:5001/api/...`
 
 > 🛡 HTTPS is enabled by default in Docker on port 5000 inside the container, mapped to 5001 on your host.  
@@ -54,7 +64,7 @@ Then open the frontend via:
 | Component | Container Port | Host Port | Protocol |
 |-----------|----------------|-----------|----------|
 | Backend   | 5000           | 5001      | HTTPS    |
-| Frontend  | 8080           | 8081      | HTTPS    |
+| Frontend  | 8080           | 8081      | HTTP     |
 
 ---
 
@@ -71,7 +81,7 @@ If you're debugging or hate containers:
 ### Database Setup
 
 ```bash
-psql -U your_user -d todolist -f db-backup/todolist.sql
+psql -U your_user -d todolist -f db-backup/init.sql
 ```
 
 ### Start Backend
@@ -88,7 +98,7 @@ By default, it listens on HTTPS port 5000 using the dev certificate.
 ```bash
 cd frontend-angular
 npm install
-npm run start
+npm run serve
 ```
 
 Open: [http://127.0.0.1:8080/index.html](http://127.0.0.1:8080/index.html)
