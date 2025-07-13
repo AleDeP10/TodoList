@@ -96,7 +96,7 @@ By default, it listens on HTTPS port 5000 using the dev certificate.
 ### Start Frontend
 
 ```bash
-cd frontend-angular
+cd frontend-angularjs
 npm install
 npm run serve
 ```
