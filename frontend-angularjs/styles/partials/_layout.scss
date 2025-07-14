@@ -29,7 +29,15 @@
   gap: 0.5rem;
 }
 
+.main-content.extended {
+  width: 100%;
+  margin-left: -280px;
+  transition: all 0.3s ease;  
+}
 .main-content {
+  width: calc(100% - 280px);
+  margin-left: 0px;
+  transition: all 0.3s ease;
   background-color: vars.$background-light;
   transition: margin-left 0.3s ease;
   flex-grow: 1;

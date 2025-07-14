@@ -15,6 +15,7 @@ The project is live and publicly accessible via Render, with both backend and fr
 
 - ✅ Create, edit, delete tasks with assigned users and status
 - 🔍 Filter tasks by description, status, and assignee
+- 🗃️Persistent language and filter visibility
 - 🔁 Dual-mode filtering:
   - **Server-side** (default): efficient for large datasets
   - **Client-side**: powered by Redux Classic for responsive UX
