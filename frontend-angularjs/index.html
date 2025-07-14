@@ -147,7 +147,11 @@
         ng-class="{ 'sidebar-open': showFilterPanel }"
       >
         <!-- Filters sidebar -->
-        <div class="filters-panel" ng-class="{ open: showFilterPanel }">
+        <div
+          class="filters-panel"
+          ng-class="{ open: showFilterPanel }"
+          ng-click="showFilterPanel ? true : toggleFilterPanel()"
+        >
           <h3>{{ labels['filters.header'] }}</h3>
 
           <label>
