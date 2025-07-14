@@ -37,6 +37,8 @@ window.registerTaskController = function (app) {
       I18nService.load().then((labels) => {
         Object.assign($scope.labels, labels);
         showToast("🕒 " + $scope.labels["toast.startup"], "warning");
+        $scope.showFilterPanel =
+          localStorage.getItem("showFilterPanel") === "true";
         TaskService.getAll()
           .then((response) => {
             $scope.setTasks(response.data); // Always update Redux
@@ -74,17 +76,6 @@ window.registerTaskController = function (app) {
       $scope.activeFilters =
         $scope.filterMode === "api" ? $scope.apiFilters : $scope.clientFilters;
 
-      // Toggle filter mode
-      $scope.toggleFilterMode = function () {
-        $scope.filterModeToggle = !$scope.filterModeToggle;
-        $scope.switchMode();
-        // Re-sync activeFilters with current mode
-        $scope.activeFilters =
-          $scope.filterMode === "api"
-            ? $scope.apiFilters
-            : $scope.clientFilters;
-      };
-
       // Show/hide filter panel
       $scope.toggleFilterPanel = function () {
         $scope.activeFilters =
@@ -93,14 +84,7 @@ window.registerTaskController = function (app) {
             : $scope.clientFilters;
 
         $scope.showFilterPanel = !$scope.showFilterPanel;
-      };
-
-      $scope.openFilterPanel = function () {
-        $scope.activeFilters =
-          $scope.filterMode === "api"
-            ? $scope.apiFilters
-            : $scope.clientFilters;
-        $scope.showFilterPanel = true;
+        localStorage.setItem("showFilterPanel", $scope.showFilterPanel);
       };
 
       $scope.applyFilters = function () {
