@@ -1,8 +1,10 @@
+@use 'variables' as vars;
+
 // --- Filters Sidebar ---
 .filters-panel {
   width: 280px;
   padding: 1.5rem;
-  background: linear-gradient(to bottom, #fff7f0, #ffe6cc); 
+  background: linear-gradient(to bottom, rgba(vars.$filter-first-color, 0.7), rgba(vars.$filter-second-color, 0.7));
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
   transform: translateX(-100%);
   transition: transform 0.3s ease;
@@ -12,41 +14,5 @@
 
 .sidebar-open .filters-panel {
   transform: translateX(0);
-}
-
-// --- Custom Toggle ---
-.form-check.form-switch {
-  .form-check-input {
-    width: 2.5rem;
-    height: 1.3rem;
-    background-color: #dee2e6;
-    border-radius: 2rem;
-    position: relative;
-    transition: background-color 0.3s;
-
-    &:checked {
-      background-color: #f59f00; 
-    }
-
-    &::before {
-      content: "";
-      position: absolute;
-      top: 0.15rem;
-      left: 0.2rem;
-      width: 1rem;
-      height: 1rem;
-      border-radius: 50%;
-      background-color: white;
-      transition: transform 0.3s ease;
-    }
-
-    &:checked::before {
-      transform: translateX(1.2rem);
-    }
-  }
-
-  .form-check-label {
-    margin-left: 0.5rem;
-    user-select: none;
-  }
+  background: linear-gradient(to bottom, vars.$filter-first-color, vars.$filter-second-color);
 }

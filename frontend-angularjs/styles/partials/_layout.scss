@@ -1,3 +1,10 @@
+@use "variables" as vars;
+
+.container {
+  background-color: vars.$background-light;
+  color: vars.$label-color;
+}
+
 .topbar {
   display: flex;
   justify-content: space-between;
@@ -5,10 +12,15 @@
   padding: 1rem 1.5rem;
 }
 
+.bg-gradient-topbar {
+  background: vars.$gradient-topbar;
+  color: white;
+}
+
 .page-container {
   display: flex;
   min-height: calc(100vh - 64px); // below the topbar
-  background: linear-gradient(to bottom right, #fdfcfb, #e8f3f9);
+  background-color: vars.$background-light;
 }
 
 .switch-mode {
@@ -18,6 +30,7 @@
 }
 
 .main-content {
+  background-color: vars.$background-light;
   transition: margin-left 0.3s ease;
   flex-grow: 1;
   padding: 2rem;
@@ -73,13 +86,13 @@
 
 /* 🏷️ Status badge */
 .task-item[data-status="todo"] {
-  background-color: #e3f2fd;
+  background-color: rgba(#4dabf7, 0.4);
 }
 .task-item[data-status="in-progress"] {
-  background-color: #fff3cd;
+  background-color: rgba(#ffa94d, 0.4);
 }
 .task-item[data-status="done"] {
-  background-color: #e6f4ea;
+  background-color: rgba(#51cf66, 0.4);
 }
 
 /* Icon buttons */

@@ -1,10 +1,10 @@
-$primary-color: #6a11cb; 
-$secondary-color: #2575fc; 
-$light-bg: #f7f9fc;
+$background-light: #F7F9FC;
+$label-color: #1C2B3A;
 
-$gradient-main: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
+$topbar-first-color: #6A11CB;
+$topbar-second-color: #2575fc;
 
-.bg-gradient-app {
-  background: $gradient-main;
-  color: white;
-}
+$filter-first-color: #FFD591;
+$filter-second-color: #FFB370;
+
+$gradient-topbar: linear-gradient(135deg, $topbar-first-color 0%, $topbar-second-color 100%);
