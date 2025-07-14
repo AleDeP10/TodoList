@@ -215,7 +215,7 @@
         </div>
 
         <!-- Main content -->
-        <div class="main-content flex-grow-1 p-4">
+        <div class="main-content flex-grow-1 p-4" ng-class="{ 'extended': !showFilterPanel }">
           <div class="spinner-container" ng-show="isLoading">
             <div class="spinner-border text-primary" role="status">
               <span class="visually-hidden">Loading...</span>
