@@ -1,13 +1,21 @@
-# General
+# 🌍 General
 **/node_modules/
+*.log
+*.tmp
+*.swp
+*.DS_Store
+*.Thumbs.db
+.vscode/
+.idea/
+.vercel
+*.pem
 
-# 🌐 AngularJS (client)
-frontend-angularjs/node_modules/
-frontend-angularjs/dist/
-frontend-angularjs/logs/
-frontend-angularjs/temp/
-frontend-angularjs/.angular/
-frontend-angularjs/.env
+# 🔒 Env & Configs
+.env*
+**/appsettings.Development.json
+**/appsettings.Production.json
+!**/appsettings.json
+!**/appsettings.Docker.json
 
 # 🧠 Visual Studio / .NET (server)
 backend-csharp/bin/
@@ -16,31 +24,43 @@ backend-csharp/out/
 backend-csharp/*.user
 backend-csharp/*.suo
 backend-csharp/.vs/
-
-# Ignore secret configs 
-**/appsettings.Development.json
-**/appsettings.Production.json
-
-# Allow base configs
-!**/appsettings.json
-!**/appsettings.Docker.json
-
-
-# 📦 NuGet
 *.nupkg
-packages/
 *.snupkg
+packages/
 
-# 🚫 Sistema / editor
-*.log
-*.DS_Store
-*.Thumbs.db
-.vscode/
-*.swp
-*.tmp
-.idea/
+# 🌐 AngularJS (legacy frontend)
+frontend-angularjs/node_modules/
+frontend-angularjs/dist/
+frontend-angularjs/logs/
+frontend-angularjs/temp/
+frontend-angularjs/.angular/
+frontend-angularjs/.env
 
-# 🔒 Backup temporanei
+# 🧪 Testing
+/coverage
+*.tsbuildinfo
+next-env.d.ts
+
+# 🚀 Next.js (current frontend: todolist-fe-nextjs)
+/todolist-fe-nextjs/.next/
+/todolist-fe-nextjs/out/
+/todolist-fe-nextjs/build/
+/todolist-fe-nextjs/.pnp
+/todolist-fe-nextjs/pnpm-debug.log*
+/todolist-fe-nextjs/yarn-debug.log*
+/todolist-fe-nextjs/yarn-error.log*
+/todolist-fe-nextjs/npm-debug.log*
+.todolist-fe-nextjs/.yarn/*
+!.todolist-fe-nextjs/.yarn/patches
+!.todolist-fe-nextjs/.yarn/plugins
+!.todolist-fe-nextjs/.yarn/releases
+!.todolist-fe-nextjs/.yarn/versions
+
+# 🧙‍♂️ Storybook
+*storybook.log
+storybook-static
+
+# 💾 Backup / Temporanei
 *~
 *.bak
 *.old
