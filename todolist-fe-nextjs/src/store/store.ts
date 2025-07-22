@@ -1,7 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
+import taskReducer from './taskSlice'; // Assicurati che il path sia corretto
 
 export const store = configureStore({
-  reducer: {}, // Aggiungi i tuoi slice qui
+  reducer: {
+    tasks: taskReducer, // qui colleghi il reducer definito
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;

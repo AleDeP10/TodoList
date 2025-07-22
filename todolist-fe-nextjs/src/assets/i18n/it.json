@@ -1,0 +1,14 @@
+{
+  "button.create": "Crea",
+  "button.edit": "Modifica",
+  "button.delete": "Cancella",
+  "button.filter": "Filtra",
+  "button.filter.remove": "Rimuovi filtri",
+  "button.cancel": "Annulla",
+  "button.confirm": "Conferma",
+
+  "menu.functionalities.tasks": "Task",
+  "menu.functionalities.users": "Utenti",
+  "menu.functionalities.onAuthor": "L'autore",
+  "menu.functionalities.portfolio": "Portfolio"
+}
