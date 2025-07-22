@@ -1,0 +1,27 @@
+{
+  // 💡 Recommended extensions for this project
+  "recommendations": [
+    "esbenp.prettier-vscode",             // ✨ Code formatter for consistent styling across files
+    "dbaeumer.vscode-eslint",             // 🧹 JavaScript/TypeScript linter with support for custom rules
+    "formulahendry.auto-close-tag",       // 🔐 Automatically closes matching HTML/XML/JSX tags
+    "formulahendry.auto-rename-tag",      // 🔁 Automatically renames paired opening/closing tags when editing
+    "bradlc.vscode-tailwindcss",          // 🌬️ IntelliSense, highlighting, and linting support for Tailwind CSS
+    "styled-components.vscode-styled-components", // 🎨 Syntax highlighting for styled-components within JS/TS
+    "jonkwheeler.styled-components-snippets",     // 📦 Snippet pack for styled-components patterns and utilities
+    "christian-kohler.path-intellisense", // 🧭 Autocompletion for file paths in import/require statements
+    "GitHub.vscode-pull-request-github",  // 🔗 Integration with GitHub pull requests, issues, and workflows
+    "eamodio.gitlens",                    // 🔍 Enhanced Git navigation, blame annotations, and commit history
+    "ms-vscode.vscode-typescript-next",   // 🧠 Latest TypeScript language features and improvements
+    "ms-azuretools.vscode-docker",        // 🐳 Support for Dockerfiles, Compose files, and container management
+    "oouo-diogo-perdigao.docthis",        // 📚 Auto-generates JSDoc-style comments for functions and classes
+    "vscode-icons-team.vscode-icons"      // 🗂️ Adds rich file and folder icons for project structures, including Node.js
+  ]
+}
+
+// 📝 VSCode Icons setup guide:
+// The extension "vscode-icons" enhances folder and file visibility by applying context-aware icons.
+// After installing the extension, go to:
+//   File → Preferences → File Icon Theme
+//   → Select "VSCode Icons" from the list
+// This activates custom icons for folders like "node_modules", "src", "public", and for file types like .js, .ts, .json, etc.
+// Especially helpful in Node.js projects, monorepos, and frontend applications

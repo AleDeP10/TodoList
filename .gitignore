@@ -5,7 +5,6 @@
 *.swp
 *.DS_Store
 *.Thumbs.db
-.vscode/
 .idea/
 .vercel
 *.pem
@@ -64,3 +63,4 @@ storybook-static
 *~
 *.bak
 *.old
+*.tmp
