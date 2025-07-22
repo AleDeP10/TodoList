@@ -1,23 +1,23 @@
 // 📦 Static file copier for build
-const fs = require("fs-extra");
+import { copy } from "fs-extra";
 
 async function main() {
   console.log("📦 Copying static files...");
 
-  await fs.copy("index.html", "dist/index.html");
-  await fs.copy("app.js", "dist/app.js");
-  await fs.copy("config.json", "dist/config.json");
+  await copy("index.html", "dist/index.html");
+  await copy("app.js", "dist/app.js");
+  await copy("config.json", "dist/config.json");
 
-  await fs.copy("lib", "dist/lib");
+  await copy("lib", "dist/lib");
 
-  await fs.copy("assets", "dist/assets");
+  await copy("assets", "dist/assets");
 
-  await fs.copy("controllers", "dist/controllers");
-  await fs.copy("directives", "dist/directives");
-  await fs.copy("filters", "dist/filters");
-  await fs.copy("services", "dist/services");
-  await fs.copy("store", "dist/store");
-  await fs.copy("utils", "dist/utils");
+  await copy("controllers", "dist/controllers");
+  await copy("directives", "dist/directives");
+  await copy("filters", "dist/filters");
+  await copy("services", "dist/services");
+  await copy("store", "dist/store");
+  await copy("utils", "dist/utils");
 
   console.log("✅ Static files copied.");
 }
