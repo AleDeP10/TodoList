@@ -1,6 +1,6 @@
 {
-  "name": "todolist-next",
-  "version": "0.1.1",
+  "name": "todolist-fe-next",
+  "version": "0.1.2",
   "private": true,
   "type": "module",
   "description": "A Next.js implementation for Todo List application",
@@ -9,7 +9,8 @@
     "nextjs",
     "tailwindcss",
     "typescript",
-    "redux-toolkit"
+    "redux-toolkit",
+    "axios"
   ],
   "scripts": {
     "dev": "next dev --port 3000",
@@ -18,7 +19,8 @@
     "lint": "next lint",
     "build-storybook": "storybook build",
     "storybook": "storybook dev -p 6006",
-    "serve-nginx": "docker run --rm -p 443:443 -v ./nginx:/etc/nginx -v ./assets/cert:/etc/nginx/certs nginx"
+    "serve-nginx": "nginx -c ./nginx/nginx.conf",
+    "stop-nginx": "nginx -s stop -c ./nginx/nginx.conf"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.2",

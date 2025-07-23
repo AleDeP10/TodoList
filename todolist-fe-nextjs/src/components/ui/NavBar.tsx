@@ -1,6 +1,9 @@
+"use client";
+
+import { ReactNode } from "react";
+import { useT } from "@/hooks/useTranslation";
 import LangSwitcher from "../LangSwitcher";
 import MenuItem from "./MenuItem";
-import { JSX, ReactNode } from "react";
 
 type MenuGroup = {
   label: string;
@@ -20,12 +23,13 @@ export default function NavBar({
   menuItems: MenuItemsMap;
   children?: ReactNode;
 }) {
+  const t = useT();
   return (
     <nav className="flex flex-col gap-4 px-6 py-4 border-b border-[var(--foreground)] bg-[var(--background)]">
       <div className="flex justify-between items-center">
         {Object.entries(menuItems).map(([section, items]) => (
           <div key={section}>
-            <h4 className="font-semibold mb-1">{section}</h4>
+            <h4 className="font-semibold mb-1">{t(`menu.section.${section.toLocaleLowerCase()}`)}</h4>
             <div className="flex gap-3">
               {items.map((item) => (
                 <MenuItem key={item.label} {...item} />

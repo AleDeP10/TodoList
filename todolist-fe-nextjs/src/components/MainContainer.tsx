@@ -28,12 +28,12 @@ export default function MainContainer() {
     ],
     About: [
       {
-        label: t("menu.functionalities.onAuthor"),
+        label: t("menu.about.onAuthor"),
         icon: MenuIcons.author,
         onClick: () => setShowAboutModal(true),
       },
       {
-        label: t("menu.functionalities.portfolio"),
+        label: t("menu.about.portfolio"),
         icon: MenuIcons.portfolio,
         href: "/portfolio",
       },

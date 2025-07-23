@@ -7,8 +7,10 @@
   "button.cancel": "Cancel",
   "button.confirm": "Confirm",
 
+  "menu.section.functionalities": "Features",
   "menu.functionalities.tasks": "Tasks",
   "menu.functionalities.users": "Users",
-  "menu.functionalities.onAuthor": "The author",
-  "menu.functionalities.portfolio": "Portfolio"
+  "menu.section.about": "About",
+  "menu.about.onAuthor": "About Me",
+  "menu.about.portfolio": "Portfolio"
 }

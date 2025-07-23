@@ -1,43 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import NavBar from "@/components/ui/NavBar";
-import { MenuIcons } from "@/lib/icons/Icons";
-import MenuItem from "@/components/ui/MenuItem";
 import MainContainer from "@/components/MainContainer";
-
-const menuItems = {
-  Functionalities: [
-    {
-      label: "Tasks",
-      icon: MenuIcons.tasks,
-      onClick: () => console.log("Tasks clicked"),
-    },
-    {
-      label: "Users",
-      icon: MenuIcons.users,
-      onClick: () => console.log("Users clicked"),
-    },
-  ],
-  About: [
-    {
-      label: "The author",
-      icon: MenuIcons.author,
-      onClick: () => console.log("About clicked"),
-    },
-    { label: "Portfolio", icon: MenuIcons.portfolio, href: "/portfolio" },
-  ],
-};
 
 export default function Home() {
   return (
     <div className="font-sans grid grid-rows-[auto_1fr_auto] items-center justify-items-center min-h-screen gap-16">
       <MainContainer>
-        {/* <NavBar menuItems={menuItems}>
-          <div className="p-6">
-            <h1 className="text-xl font-bold">Benvenuto</h1>
-          </div>
-        </NavBar> */}
+
       </MainContainer>
 
       <main className="flex flex-col gap-[32px] items-center sm:items-start px-6 sm:px-20">

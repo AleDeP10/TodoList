@@ -10,7 +10,6 @@
 *.pem
 
 # 🔒 Env & Configs
-.env*
 **/appsettings.Development.json
 **/appsettings.Production.json
 !**/appsettings.json
@@ -41,14 +40,16 @@ frontend-angularjs/.env
 next-env.d.ts
 
 # 🚀 Next.js (current frontend: todolist-fe-nextjs)
-/todolist-fe-nextjs/.next/
-/todolist-fe-nextjs/out/
-/todolist-fe-nextjs/build/
-/todolist-fe-nextjs/.pnp
-/todolist-fe-nextjs/pnpm-debug.log*
-/todolist-fe-nextjs/yarn-debug.log*
-/todolist-fe-nextjs/yarn-error.log*
-/todolist-fe-nextjs/npm-debug.log*
+todolist-fe-nextjs/.next/
+todolist-fe-nextjs/out/
+todolist-fe-nextjs/build/
+todolist-fe-nextjs/logs/
+todolist-fe-nextjs/temp/
+todolist-fe-nextjs/.pnp
+todolist-fe-nextjs/pnpm-debug.log*
+todolist-fe-nextjs/yarn-debug.log*
+todolist-fe-nextjs/yarn-error.log*
+todolist-fe-nextjs/npm-debug.log*
 .todolist-fe-nextjs/.yarn/*
 !.todolist-fe-nextjs/.yarn/patches
 !.todolist-fe-nextjs/.yarn/plugins

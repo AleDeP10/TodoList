@@ -1,6 +1,6 @@
 "use client";
 
-import { useLang } from "@/lib/i18n/LangProvider";
+import { useLang } from "@/hooks/useLang";
 import type { Lang } from "@/types/i18n";
 
 const langs: Lang[] = ["it", "en"];
