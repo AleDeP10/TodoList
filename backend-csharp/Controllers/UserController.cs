@@ -46,6 +46,12 @@ public class UserController : ControllerBase
                 t.FullName != null && EF.Functions.ILike(t.FullName, $"%{dto.FullName}%")
             );
         }
+        if (dto.IsAdmin != null)
+        {
+            query = query.Where(t =>
+                t.IsAdmin != null && t.IsAdmin.Value == dto.IsAdmin.Value
+            );
+        }
         if (dto.StateFilter is not null && dto.StateFilter.Length > 0)
         {
             query = query.Where(t =>

@@ -15,5 +15,7 @@ public partial class User
 
     public string? FullName { get; set; }
 
+    public Boolean? IsAdmin { get; set; } = false;
+
     public virtual ICollection<Task> Tasks { get; set; } = new List<Task>();
 }
