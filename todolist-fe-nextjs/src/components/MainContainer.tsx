@@ -9,7 +9,7 @@ import { useView } from "@/hooks/useView";
 import UsersView from "@/components/views/UsersView";
 
 export default function MainContainer() {
-  const [showAboutModal, setShowAboutModal] = useState(false);
+  const [showOnAuthorModal, setShowOnAuthorModal] = useState(false);
   const t = useT();
   const { view, setView } = useView();
 
@@ -30,28 +30,28 @@ export default function MainContainer() {
       {
         label: t("menu.about.onAuthor"),
         icon: MenuIcons.author,
-        onClick: () => setShowAboutModal(true),
+        onClick: () => setShowOnAuthorModal(true),
       },
       {
         label: t("menu.about.portfolio"),
         icon: MenuIcons.portfolio,
-        href: "/portfolio",
+        href: "https://AleDeP10.github.io/",
       },
     ],
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[var(--background)] text-[var(--foreground)]">
+    <div className="min-h-screen flex flex-col w-[92vw] md:w-[80vw] max-w-[1000px] mx-auto bg-[var(--bg)] text-[var(--fg)]">
       <NavBar menuItems={menuItems} />
 
-      {showAboutModal && (
+      {showOnAuthorModal && (
         <Modal
           title="About • Alessandro De Prato"
-          onClose={() => setShowAboutModal(false)}
+          onClose={() => setShowOnAuthorModal(false)}
           footerActions={[
             {
               label: t("button.cancel"),
-              onClick: () => setShowAboutModal(false),
+              onClick: () => setShowOnAuthorModal(false),
             },
           ]}
         >

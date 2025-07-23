@@ -1,0 +1,10 @@
+:root {
+  --bg: #111;
+  --fg: #ccc;
+  --navbar-start: #220000;/*1f1f1f*/
+  --navbar-end: #720000;/*333*/
+  --navbar-label: #e0de3d;
+  --menu-bg: #222;
+  --modal-top: #000;
+  --modal-body: #181818;
+}

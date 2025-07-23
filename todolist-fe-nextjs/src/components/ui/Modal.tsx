@@ -1,6 +1,5 @@
 "use client";
 
-//import { ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface ModalProps {
@@ -27,7 +26,8 @@ export default function Modal({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center px-4 py-6"
+        onClick={handleBackdropClick}
+        className="fixed inset-0 z-50 bg-black/40 backdrop-blur-md flex items-center justify-center px-4 py-6"
       >
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
@@ -37,24 +37,25 @@ export default function Modal({
           className="bg-[var(--background)] text-[var(--foreground)] rounded-lg shadow-lg w-full max-w-lg"
         >
           {/* 🔘 Header */}
-          <div className="flex justify-between items-center px-6 py-4 border-b border-[var(--foreground)]">
-            <h2 className="text-lg font-semibold">{title}</h2>
-            <div className="flex items-center gap-2">
-              <button
-                onClick={onClose}
-                className="text-sm px-2 py-1 bg-[var(--foreground)] text-[var(--background)] rounded"
-              >
-                ×
-              </button>
-            </div>
+          <div className="flex justify-between items-center px-6 py-4 border-b border-[var(--fg)]">
+            <h2 className="text-lg font-semibold w-full text-center">
+              {title}
+            </h2>
+
+            <button
+              onClick={onClose}
+              className="text-sm px-2 py-1 bg-[var(--foreground)] text-[var(--background)] rounded"
+            >
+              ×
+            </button>
           </div>
 
           {/* 📄 Content */}
           <div className="p-6">{children}</div>
 
           {/* 🧼 Footer */}
-          {footerActions?.length && (
-            <div className="flex justify-end gap-2 px-6 py-4 border-t border-[var(--foreground)]">
+          {footerActions.length > 0 && (
+            <div className="flex justify-center gap-2 px-6 py-4 border-t border-[var(--foreground)]">
               {footerActions.map(({ label, onClick }) => (
                 <button
                   key={label}

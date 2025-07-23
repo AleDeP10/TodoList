@@ -1,0 +1,11 @@
+/* custom-theme.css */
+:root {
+  --bg: #002b36;
+  --fg: #93a1a1;
+  --navbar-start: #586e75;
+  --navbar-end: #073642;
+  --navbar-label: #18b820;
+  --menu-bg: #073642;
+  --modal-top: #002b36;
+  --modal-body: #003443;
+}

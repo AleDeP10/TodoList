@@ -1,0 +1,11 @@
+/* light-theme.css */
+:root {
+  --bg: #f4f4f4;
+  --fg: #333;
+  --navbar-start: #ffffff;
+  --navbar-end: #eaeaea;
+  --navbar-label: #181088;
+  --menu-bg: #fff;
+  --modal-top: #eee;
+  --modal-body: #fff;
+}

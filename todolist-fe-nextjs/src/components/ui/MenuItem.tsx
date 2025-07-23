@@ -11,6 +11,16 @@ export default function MenuItem({
   href,
   onClick,
 }: MenuItemProps) {
+  const handleClick = (e: React.MouseEvent) => {
+    e.stopPropagation(); // avoid interferences by useOutsideClick
+
+    if (href) {
+      window.open(href, "_blank", "noopener,noreferrer");
+    } else {
+      onClick?.();
+    }
+  };
+
   const content = (
     <span className="flex items-center gap-2 hover:underline">
       {icon}
@@ -18,12 +28,8 @@ export default function MenuItem({
     </span>
   );
 
-  return href ? (
-    <a href={href} className="text-sm">
-      {content}
-    </a>
-  ) : (
-    <button onClick={onClick} className="text-sm text-left">
+  return (
+    <button onMouseDown={handleClick} className="text-sm text-left">
       {content}
     </button>
   );

@@ -1,45 +1,49 @@
 "use client";
 
-import { ReactNode } from "react";
+
+import { useState } from "react";
 import { useT } from "@/hooks/useTranslation";
-import LangSwitcher from "../LangSwitcher";
-import MenuItem from "./MenuItem";
-
-type MenuGroup = {
-  label: string;
-  icon?: React.ReactNode;
-  href?: string;
-  onClick?: () => void;
-};
-
-type MenuItemsMap = {
-  [key: string]: MenuGroup[];
-};
+import { MenuItemsMap } from "@/types/menu";
+import ThemeSwitcher from "./ThemeSwitcher";
+import LangSwitcher from "./LangSwitcher";
+import MenuGroup from "./MenuGroup";
 
 export default function NavBar({
   menuItems,
   children,
 }: {
   menuItems: MenuItemsMap;
-  children?: ReactNode;
+  children?: React.ReactNode;
 }) {
+  const [openedGroup, setOpenedGroup] = useState<string | null>(null);
   const t = useT();
+
   return (
-    <nav className="flex flex-col gap-4 px-6 py-4 border-b border-[var(--foreground)] bg-[var(--background)]">
+    <nav className="px-6 py-4 border-b text-[var(--navbar-label)] bg-gradient-to-r from-[var(--navbar-start)] to-[var(--navbar-end)]">
       <div className="flex justify-between items-center">
-        {Object.entries(menuItems).map(([section, items]) => (
-          <div key={section}>
-            <h4 className="font-semibold mb-1">{t(`menu.section.${section.toLocaleLowerCase()}`)}</h4>
-            <div className="flex gap-3">
-              {items.map((item) => (
-                <MenuItem key={item.label} {...item} />
-              ))}
-            </div>
-          </div>
-        ))}
-        <div>{children}</div>
+        {/* Menù Principale */}
+        <div className="flex items-center gap-1">
+          {Object.entries(menuItems).map(([section, items]) => (
+            <MenuGroup
+              key={section}
+              label={t(`menu.section.${section.toLowerCase()}`)}
+              items={items}
+  section={section}
+  isOpen={openedGroup === section}
+  onOpen={() => setOpenedGroup(section)}
+  onClose={() => setOpenedGroup(null)}
+/>
+
+          ))}
+        </div>
+
+        {/* Azioni */}
+        <div className="flex gap-4 items-center">
+          {children}
+          <ThemeSwitcher />
+          <LangSwitcher />
+        </div>
       </div>
-      <LangSwitcher />
     </nav>
   );
 }
