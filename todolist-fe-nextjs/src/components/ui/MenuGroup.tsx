@@ -1,62 +1,50 @@
 'use client';
 
-import { useRef, RefObject } from "react";
-import type { MenuGroup as ItemType } from "@/types/menu";
+import { useState, useRef } from "react";
 import MenuItem from "./MenuItem";
-import { useOutsideClick } from "@/hooks/useOutsideClick";
-
-type MenuGroupProps = {
-  label: string;
-  items: ItemType[];
-  section: string;
-  isOpen: boolean;
-  onOpen: (section: string) => void;
-  onClose: () => void;
-};
+import type { MenuItemData } from "@/types/menu";
 
 export default function MenuGroup({
   label,
   items,
-  section,
-  isOpen,
-  onOpen,
-  onClose,
-}: MenuGroupProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  useOutsideClick(ref as RefObject<HTMLElement>, onClose);
+}: {
+  label: string;
+  items: MenuItemData[];
+}) {
+  const [open, setOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleItemClick = (item: MenuItemData) => {
+    item.onClick?.();
+    setOpen(false); // 🔒 Chiude il menu al click
+  };
 
   return (
     <div
       className="relative"
-      ref={ref}
-      onMouseEnter={() => onOpen(section)}
-      onMouseLeave={onClose}
+      ref={containerRef}
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
     >
       <button
-        className="px-3 py-1 bg-[var(--menu-bg)] text-sm font-semibold rounded hover:brightness-110 transition"
+        className="px-3 py-2 bg-[var(--menu-bg)] text-sm font-semibold rounded hover:brightness-110"
       >
         {label}
       </button>
 
-      {/* Overlay menu container */}
-      <div className="absolute top-full left-0 w-max min-w-[140px] z-50">
-        <div
-          className={`bg-[var(--menu-bg)] rounded shadow-md overflow-hidden transition-opacity duration-150 p-2 flex flex-col gap-2 ${
-            isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-          }`}
-        >
-          {items.map((item) => (
-            <MenuItem
-              key={item.label}
-              {...item}
-              onClick={() => {
-                item.onClick?.();
-                onClose();
-              }}
-            />
-          ))}
+      {open && (
+        <div className="absolute top-full left-0 z-50 bg-[var(--menu-bg)] rounded shadow-md min-w-[140px] p-2">
+          <div className="flex flex-col gap-1">
+            {items.map((item) => (
+              <MenuItem
+                key={item.label}
+                {...item}
+                onClick={() => handleItemClick(item)}
+              />
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

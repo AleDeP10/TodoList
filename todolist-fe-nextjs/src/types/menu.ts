@@ -1,10 +1,10 @@
-export type MenuGroup = {
+export type MenuItemData = {
   label: string;
   icon?: React.ReactNode;
   href?: string;
   onClick?: () => void;
 };
 
-export type MenuItemsMap = {
-  [key: string]: MenuGroup[];
+export type MenuSections = {
+  [key: string]: MenuItemData[];
 };

@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useT } from "@/hooks/useTranslation";
 import { Icons } from "@/lib/icons/Icons";
-import Modal from "@/components/ui/Modal";
 import { getUsers } from "@/lib/api/users";
+import Modal from "@/components/ui/Modal";
 
 interface User {
   id?: number;
@@ -16,6 +17,7 @@ interface User {
 export default function UsersView() {
   const [users, setUsers] = useState<User[]>([]);
   const [showFilterModal, setShowFilterModal] = useState(false);
+  const t = useT();
 
   useEffect(() => {
     getUsers().then(setUsers).catch(console.error);
@@ -29,10 +31,11 @@ export default function UsersView() {
     <section className="p-6 space-y-6 max-w-xl mx-auto">
       <h2 className="text-xl font-semibold">Gestione Utenti</h2>
 
-      {/* 🆕 Nuovo utente + Filtri */}
+      {/* 🆕 New user + Filters */}
       <div className="flex justify-between items-center gap-4">
         <button className="bg-green-600 text-white px-4 py-2 rounded text-sm">
-          + Nuovo utente
+          {Icons.plus}
+          {t("button.create")}
         </button>
         <div className="flex gap-2">
           <button
@@ -40,37 +43,36 @@ export default function UsersView() {
             className="flex items-center gap-1 text-sm text-blue-500 hover:underline"
           >
             {Icons.filter}
-            Filtra
+            {t("button.filter")}
           </button>
           <button
             onClick={clearFilters}
             className="flex items-center gap-1 text-sm text-red-500 hover:underline"
           >
             {Icons.removeFilter}
-            Rimuovi filtri
+            {t("button.filter.remove")}
           </button>
         </div>
       </div>
 
-      {/* 🔍 Modale filtri */}
+      {/* 🔍 Filters modal */}
       {showFilterModal && (
         <Modal
           title="Filtra utenti"
           onClose={() => setShowFilterModal(false)}
           footerActions={[
-            { label: "Chiudi", onClick: () => setShowFilterModal(false) },
+            { label: t("button.cancel"), onClick: () => setShowFilterModal(false) }
           ]}
         >
           <div className="space-y-2 text-sm">
             <p>
               Qui puoi aggiungere i criteri di filtro (username, stato, ecc.)
             </p>
-            {/* In futuro: input per filtri */}
           </div>
         </Modal>
       )}
 
-      {/* 📋 Lista utenti */}
+      {/* 📋 User List */}
       <ul className="space-y-4">
         {users.map((user) => (
           <li
@@ -80,10 +82,10 @@ export default function UsersView() {
             <div className="text-sm">
               <div>
                 <strong>{user.fullName ?? user.username}</strong>{" "}
-                <span className="text-xs text-gray-500">• {user.status}</span>
+                <span className="text-xs text-gray-500"></span>
               </div>
               <div className="text-xs text-gray-600">
-                ID: {user.id} — Role: {user.isAdmin ? "Admin" : "User"}
+                Role: {user.isAdmin ? "Admin" : "User"} • {user.status}
               </div>
             </div>
 
@@ -91,11 +93,11 @@ export default function UsersView() {
             <div className="flex gap-2 mt-2 sm:mt-0">
               <button className="text-sm px-3 py-1 bg-blue-600 text-white rounded flex items-center gap-1">
                 {Icons.edit}
-                Modifica
+                {t("button.edit")}
               </button>
               <button className="text-sm px-3 py-1 bg-red-600 text-white rounded flex items-center gap-1">
                 {Icons.delete}
-                Elimina
+                {t("button.delete")}
               </button>
             </div>
           </li>
