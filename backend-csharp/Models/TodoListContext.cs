@@ -50,6 +50,7 @@ public partial class TodoListContext : DbContext
             entity.ToTable("User");
 
             entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.IsAdmin).HasColumnName("isAdmin");
             entity.Property(e => e.FullName)
                 .HasMaxLength(50)
                 .HasColumnName("fullName");
