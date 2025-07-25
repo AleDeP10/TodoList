@@ -1,13 +1,22 @@
 "use client";
 
+import { ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Button, ButtonVariant } from "./Button";
+import IconButton from "./IconButton";
+import { Icons } from "@/lib/icons/Icons";
 
 interface ModalProps {
   title: string;
-  children: React.ReactNode;
+  children: ReactNode;
   onClose: () => void;
   closeHandlers?: Record<string, () => void>;
-  footerActions?: { label: string; onClick: () => void }[];
+  footerActions?: {
+    label: string;
+    icon?: ReactNode;
+    variant?: ButtonVariant;
+    onClick: () => void;
+  }[];
 }
 
 export default function Modal({
@@ -34,20 +43,14 @@ export default function Modal({
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.9, opacity: 0 }}
           transition={{ duration: 0.2 }}
-          className="bg-[var(--background)] text-[var(--foreground)] rounded-lg shadow-lg w-full max-w-lg"
+          className="bg-[var(--modal-body)] text-[var(--fg)] rounded-lg shadow-lg w-full max-w-lg"
         >
           {/* 🔘 Header */}
           <div className="flex justify-between items-center px-6 py-4 border-b border-[var(--fg)]">
             <h2 className="text-lg font-semibold w-full text-center">
               {title}
             </h2>
-
-            <button
-              onClick={onClose}
-              className="text-sm px-2 py-1 bg-[var(--foreground)] text-[var(--background)] rounded"
-            >
-              ×
-            </button>
+            <IconButton icon={Icons.close} onClick={onClose}></IconButton>
           </div>
 
           {/* 📄 Content */}
@@ -55,15 +58,16 @@ export default function Modal({
 
           {/* 🧼 Footer */}
           {footerActions.length > 0 && (
-            <div className="flex justify-center gap-2 px-6 py-4 border-t border-[var(--foreground)]">
-              {footerActions.map(({ label, onClick }) => (
-                <button
+            <div className="flex justify-center gap-2 px-6 py-4 border-t border-[var(--fg)]">
+              {footerActions.map(({ icon, label, variant, onClick }) => (
+                <Button
                   key={label}
+                  label={label}
+                  icon={icon}
+                  size="small"
+                  variant={variant}
                   onClick={onClick}
-                  className="text-sm px-4 py-2 bg-[var(--foreground)] text-[var(--background)] rounded"
-                >
-                  {label}
-                </button>
+                />
               ))}
             </div>
           )}

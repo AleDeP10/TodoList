@@ -1,39 +1,79 @@
-import './button.css';
+import "./button.css";
+import type { ReactNode } from "react";
+
+export type ButtonVariant = "primary" | "secondary" | "danger";
 
 export interface ButtonProps {
-  /** Is this the principal call to action on the page? */
-  primary?: boolean;
-  /** What background color to use */
-  backgroundColor?: string;
-  /** How large should the button be? */
-  size?: 'small' | 'medium' | 'large';
   /** Button contents */
-  label: string;
-  /** Optional click handler */
+  label?: string;
+  /** Icon element shown before label */
+  icon?: ReactNode;
+  /** How large should the button be? */
+  size?: "small" | "medium" | "large";
+  /** Variant to define background styling */
+  variant?: ButtonVariant;
+  /** Tooltip text for icon-only buttons */
+  tooltip?: string;
+  /** Optional override background color */
+  backgroundColor?: string;
+  /** Optional override foreground color */
+  foregroundColor?: string;
+  /** Click handler */
   onClick?: () => void;
 }
 
 /** Primary UI component for user interaction */
 export const Button = ({
-  primary = false,
-  size = 'medium',
-  backgroundColor,
   label,
-  ...props
+  icon,
+  size = "medium",
+  variant = "primary",
+  tooltip,
+  backgroundColor,
+  foregroundColor,
+  onClick,
 }: ButtonProps) => {
-  const mode = primary ? 'storybook-button--primary' : 'storybook-button--secondary';
+  const variantClasses: Record<ButtonVariant, string> = {
+    primary: "bg-blue-600 text-white hover:bg-blue-700",
+    secondary: "bg-gray-300 text-gray-800 hover:bg-gray-400",
+    danger: "bg-red-600 text-white hover:bg-red-700",
+  };
+
+  const sizeClasses: Record<NonNullable<ButtonProps["size"]>, string> = {
+    small: "px-3 py-1 text-sm",
+    medium: "px-4 py-2 text-base",
+    large: "px-5 py-3 text-lg",
+  };
+
+  const baseClasses = "rounded inline-flex items-center gap-2 transition";
+
+  const customStyle = {
+    ...(backgroundColor ? { backgroundColor } : {}),
+    ...(foregroundColor ? { color: foregroundColor } : {}),
+  };
+
   return (
     <button
       type="button"
-      className={['storybook-button', `storybook-button--${size}`, mode].join(' ')}
-      {...props}
+      onClick={onClick}
+      className={[
+        "storybook-button",
+        `storybook-button--${size}`,
+        baseClasses,
+        variantClasses[variant],
+        sizeClasses[size],
+      ].join(" ")}
+      style={customStyle}
+      title={tooltip}
     >
-      {label}
-      <style jsx>{`
-        button {
-          background-color: ${backgroundColor};
-        }
-      `}</style>
+      <div
+        className={`flex justify-center items-center ${
+          icon && label ? "gap-2 " : ""
+        }w-full`}
+      >
+        {icon && <span>{icon}</span>}
+        <span className="hidden sm:inline">{label}</span>
+      </div>
     </button>
   );
 };

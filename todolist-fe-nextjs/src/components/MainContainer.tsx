@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { MenuIcons } from "@/lib/icons/Icons";
+import { Icons, MenuIcons } from "@/lib/icons/Icons";
 import NavBar from "@/components/ui/NavBar";
 import Modal from "@/components/ui/Modal";
 import { useT } from "@/hooks/useTranslation";
@@ -50,6 +50,7 @@ export default function MainContainer() {
           onClose={() => setShowOnAuthorModal(false)}
           footerActions={[
             {
+              icon: Icons.cancel,
               label: t("button.cancel"),
               onClick: () => setShowOnAuthorModal(false),
             },

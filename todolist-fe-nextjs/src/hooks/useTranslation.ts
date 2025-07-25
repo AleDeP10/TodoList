@@ -7,5 +7,7 @@ import { useLang } from '@/hooks/useLang';
  */
 export function useT() {
   const { lang } = useLang();
-  return (key: string) => t(lang, key);
+
+  return (key: string, variables?: Record<string, string | number>) =>
+    t(lang, key, variables);
 }

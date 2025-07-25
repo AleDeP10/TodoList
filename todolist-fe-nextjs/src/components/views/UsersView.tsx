@@ -1,108 +1,185 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { UserDto } from "@/types/dto/UserDto";
+import { UserFilters } from "@/types/filters/UserFilters";
 import { useT } from "@/hooks/useTranslation";
+import { useDispatch, useSelector } from "react-redux";
+import { createUser, deleteUser, getUsers, updateUser } from "@/lib/api/users";
+import {
+  setUsers,
+  setUserFilters,
+  getFilteredUsers,
+  getUserFilters,
+} from "@/store/user";
 import { Icons } from "@/lib/icons/Icons";
-import { getUsers } from "@/lib/api/users";
-import Modal from "@/components/ui/Modal";
-
-interface User {
-  id?: number;
-  username: string;
-  fullName?: string;
-  status: string;
-  isAdmin?: boolean;
-}
+import UserFilterModal from "@/components/modals/UserFilterModal";
+import UserModal from "@/components/modals/UserModal";
+import { Button } from "@/components/ui/Button";
+import UserDeleteConfirmModal from "../modals/UserDeleteConfirmModal";
 
 export default function UsersView() {
-  const [users, setUsers] = useState<User[]>([]);
-  const [showFilterModal, setShowFilterModal] = useState(false);
   const t = useT();
+  const dispatch = useDispatch();
+  const users = useSelector(getFilteredUsers);
+  const userFilters = useSelector(getUserFilters);
+  const [showFilterModal, setShowFilterModal] = useState(false);
+  const [tmpFilters, setTmpFilters] = useState<UserFilters>(userFilters);
+  const [currentUser, setCurrentUser] = useState<UserDto | undefined>(
+    undefined
+  );
+  const [userToDelete, setUserToDelete] = useState<UserDto>();
 
   useEffect(() => {
-    getUsers().then(setUsers).catch(console.error);
-  }, []);
+    getUsers()
+      .then((data) => dispatch(setUsers(data)))
+      .catch(console.error);
+  }, [dispatch]);
 
   const clearFilters = () => {
-    getUsers().then(setUsers).catch(console.error);
+    dispatch(
+      setUserFilters({
+        username: "",
+        fullName: "",
+        statusMap: { ACTIVE: true, BLOCKED: false },
+      })
+    );
   };
 
   return (
     <section className="p-6 space-y-6 max-w-xl mx-auto">
-      <h2 className="text-xl font-semibold">Gestione Utenti</h2>
-
+      <h2 className="text-xl font-semibold">{t("user.management")}</h2>
       {/* 🆕 New user + Filters */}
-      <div className="flex justify-between items-center gap-4">
-        <button className="bg-green-600 text-white px-4 py-2 rounded text-sm">
-          {Icons.plus}
-          {t("button.create")}
-        </button>
+      <div className="flex flex-wrap justify-between items-center gap-4">
+        <Button
+          variant="primary"
+          label={t("button.create")}
+          icon={Icons.plus}
+          size="small"
+          backgroundColor="#16a34a"
+          onClick={() =>
+            setCurrentUser({
+              fullName: "",
+              username: "",
+              password: "",
+              isAdmin: false,
+              status: "ACTIVE",
+            })
+          }
+        />
         <div className="flex gap-2">
-          <button
+          <Button
+            variant="primary"
+            label={t("button.filter")}
+            icon={Icons.filter}
+            size="small"
+            backgroundColor="#ffd700"
             onClick={() => setShowFilterModal(true)}
-            className="flex items-center gap-1 text-sm text-blue-500 hover:underline"
-          >
-            {Icons.filter}
-            {t("button.filter")}
-          </button>
-          <button
+          />
+          <Button
+            variant="primary"
+            label={t("button.filter.remove")}
+            icon={Icons.removeFilter}
+            size="small"
+            backgroundColor="#ffa500"
             onClick={clearFilters}
-            className="flex items-center gap-1 text-sm text-red-500 hover:underline"
-          >
-            {Icons.removeFilter}
-            {t("button.filter.remove")}
-          </button>
+          />
         </div>
       </div>
-
-      {/* 🔍 Filters modal */}
-      {showFilterModal && (
-        <Modal
-          title="Filtra utenti"
-          onClose={() => setShowFilterModal(false)}
-          footerActions={[
-            { label: t("button.cancel"), onClick: () => setShowFilterModal(false) }
-          ]}
-        >
-          <div className="space-y-2 text-sm">
-            <p>
-              Qui puoi aggiungere i criteri di filtro (username, stato, ecc.)
-            </p>
-          </div>
-        </Modal>
-      )}
-
       {/* 📋 User List */}
       <ul className="space-y-4">
         {users.map((user) => (
           <li
             key={user.id}
-            className="border p-4 rounded shadow-sm flex flex-col gap-2 sm:flex-row sm:justify-between sm:items-center"
+            className="border p-4 rounded shadow-sm flex flex-wrap items-center justify-between gap-4 sm:items-center"
           >
             <div className="text-sm">
               <div>
-                <strong>{user.fullName ?? user.username}</strong>{" "}
-                <span className="text-xs text-gray-500"></span>
+                <strong>{user.fullName ?? user.username}</strong>
               </div>
               <div className="text-xs text-gray-600">
-                Role: {user.isAdmin ? "Admin" : "User"} • {user.status}
+                {t("user.role")}:{" "}
+                {user.isAdmin ? t("user.role.admin") : t("user.role.user")} •{" "}
+                {user.status}
               </div>
             </div>
 
             {/* 🛠 Actions */}
             <div className="flex gap-2 mt-2 sm:mt-0">
-              <button className="text-sm px-3 py-1 bg-blue-600 text-white rounded flex items-center gap-1">
-                {Icons.edit}
-                {t("button.edit")}
-              </button>
-              <button className="text-sm px-3 py-1 bg-red-600 text-white rounded flex items-center gap-1">
-                {Icons.delete}
-                {t("button.delete")}
-              </button>
+              <Button
+                tooltip={t("button.edit")}
+                icon={Icons.edit}
+                size="small"
+                variant="primary"
+                onClick={() => setCurrentUser(user)}
+              />
+              <Button
+                tooltip={t("button.delete")}
+                icon={Icons.delete}
+                size="small"
+                variant="danger"
+                onClick={() => setUserToDelete(user)}
+              />
             </div>
           </li>
         ))}
       </ul>
+      {/* 🔍 Filters modal */}
+      {showFilterModal && (
+        <UserFilterModal
+          filters={tmpFilters}
+          onChange={setTmpFilters}
+          originalFilters={userFilters}
+          onClose={() => setShowFilterModal(false)}
+          onApply={() => {
+            dispatch(setUserFilters(tmpFilters));
+            setShowFilterModal(false);
+          }}
+        />
+      )}
+      {/* Create|Edit modal */}
+      {currentUser && (
+        <UserModal
+          currentUser={currentUser}
+          onClose={() => setCurrentUser(undefined)}
+          onSubmit={async (updatedUser) => {
+            try {
+              if (updatedUser.id == null) {
+                const created = await createUser(updatedUser);
+                const refreshed = await getUsers();
+                dispatch(setUsers(refreshed));
+                console.log("User created:", created);
+              } else {
+                await updateUser(updatedUser.id, updatedUser);
+                const refreshed = await getUsers();
+                dispatch(setUsers(refreshed));
+                console.log("User updated:", updatedUser);
+              }
+            } catch (err) {
+              console.error("Error while saving user:", err);
+            } finally {
+              setCurrentUser(undefined);
+            }
+          }}
+        />
+      )}
+      {/* Delete confirm modal */}
+      {userToDelete && (
+        <UserDeleteConfirmModal
+          user={userToDelete}
+          onClose={() => setUserToDelete(undefined)}
+          onConfirm={async () => {
+            try {
+              await deleteUser(userToDelete.id as number);
+              const refreshed = await getUsers();
+              dispatch(setUsers(refreshed));
+              setUserToDelete(undefined);
+            } catch (err) {
+              console.error("Error during deletion:", err);
+            }
+          }}
+        />
+      )}
     </section>
   );
 }

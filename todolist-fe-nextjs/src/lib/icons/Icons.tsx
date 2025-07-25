@@ -1,4 +1,5 @@
 import {
+  X,
   ArrowRight,
   Edit,
   Filter,
@@ -8,18 +9,21 @@ import {
   Users,
   UserCircle,
   FolderGit2,
-  XCircle,
+  XOctagon,
+  FilterX,
   CheckCircle,
   PlusCircle,
 } from "lucide-react";
 
 export const Icons = {
+  close: <X size={16} />,
   edit: <Edit size={16} />,
   delete: <Trash size={16} />,
   filter: <Filter size={16} />,
-  removeFilter: <XCircle size={16} />,
+  removeFilter: <FilterX size={16} />,
   plus: <PlusCircle size={16} />,
   arrowRight: <ArrowRight size={16} />,
+  cancel: <XOctagon size={16} />,
   confirm: <CheckCircle size={16} />,
   save: <Save size={16} />
 };

@@ -9,9 +9,16 @@ export { LangContext, LangProvider } from '@/lib/i18n/LangProvider';
 // 🌐 Translation map
 const translations: Record<Lang, TranslationMap> = { it, en };
 
-/** Basic translate function */
-export function t(lang: Lang, key: string): string {
-  return translations[lang]?.[key] ?? key;
+/** Translate function with variables interpolation */
+export function t(lang: Lang, key: string, variables?: Record<string, string | number>): string {
+  let label = translations[lang]?.[key] ?? key;
+
+  if (variables) {
+    Object.entries(variables).forEach(([varName, value]) => {
+      const regex = new RegExp(`{{\\s*${varName}\\s*}}`, 'g');
+      label = label.replace(regex, String(value));
+    });
+  }
+
+  return label;
 }
-
-
