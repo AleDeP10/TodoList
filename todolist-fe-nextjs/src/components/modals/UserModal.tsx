@@ -20,6 +20,7 @@ export default function UserEditModal({
   onSubmit,
 }: Props) {
   const [formState, setFormState] = useState<UserDto>({
+    id: currentUser?.id,
     fullName: currentUser?.fullName ?? "",
     username: currentUser?.username ?? "",
     password: currentUser?.password ?? "",
