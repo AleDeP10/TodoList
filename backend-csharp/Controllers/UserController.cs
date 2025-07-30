@@ -80,6 +80,7 @@ public class UserController : ControllerBase
         existingUser.Username = updatedUser.Username;
         existingUser.FullName = updatedUser.FullName;
         existingUser.Status = updatedUser.Status;
+        existingUser.IsAdmin = updatedUser.IsAdmin;
 
         await _context.SaveChangesAsync();
         return NoContent();
