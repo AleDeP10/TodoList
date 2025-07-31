@@ -9,6 +9,15 @@
   "button.cancel": "Cancel",
   "button.confirm": "Confirm",
 
+  "entity.User": "User",
+  "entity.Task": "Task",
+
+  "entity.fetch.error": "Error while loading {{entity}}: {{error}}",
+  "entity.save.success": "{{entity}} saved successfully",
+  "entity.save.error": "Error while saving {{entity}}: {{error}}",
+  "entity.delete.success": "{{entity}} deleted successfully",
+  "entity.delete.error": "Error while deleting {{entity}}: {{error}}",
+
   "user.management": "Users management",
   "user.username": "Username",
   "user.password": "Password",

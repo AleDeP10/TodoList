@@ -13,6 +13,7 @@ import {
   FilterX,
   CheckCircle,
   PlusCircle,
+  Loader2 
 } from "lucide-react";
 
 export const Icons = {
@@ -25,7 +26,8 @@ export const Icons = {
   arrowRight: <ArrowRight size={16} />,
   cancel: <XOctagon size={16} />,
   confirm: <CheckCircle size={16} />,
-  save: <Save size={16} />
+  save: <Save size={16} />,
+  spinner: <Loader2 className="animate-spin text-yellow-400" size={64} />
 };
 export const MenuIcons = {
   tasks: <ListChecks size={16} />,

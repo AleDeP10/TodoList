@@ -9,6 +9,15 @@
   "button.cancel": "Annulla",
   "button.confirm": "Conferma",
 
+  "entity.User": "Utente",
+  "entity.Task": "Task",
+
+  "entity.fetch.error": "Errore durante il caricamento {{entity}}: {{message}}",
+  "entity.save.success": "{{entity}} salvato con successo",
+  "entity.save.error": "Errore durante il salvataggio {{entity}}: {{message}}",
+  "entity.delete.success": "{{entity}} cancellato con successo",
+  "entity.delete.error": "Errore durante la cancellazione {{entity}}: {{message}}",
+
   "user.management": "Gestione utenti",
   "user.username": "Username",
   "user.password": "Password",

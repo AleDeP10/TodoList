@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "@/styles/globals.css";
-
-import { Providers } from "./providers"; // ✅ Client-only wrapper
+import "react-toastify/dist/ReactToastify.css";
+import { Providers } from "./providers"; 
+import { ToastContainer } from "react-toastify";
+import ToastListener from "@/lib/ToastListener";
 import { LangProvider } from "@/lib/i18n";
 import { ViewProvider } from "@/lib/view";
 
@@ -33,7 +35,11 @@ export default function RootLayout({
       >
         <Providers>
           <LangProvider>
-            <ViewProvider>{children}</ViewProvider>
+            <ViewProvider>
+              {children}
+              <ToastContainer />
+              <ToastListener />
+            </ViewProvider>
           </LangProvider>
         </Providers>
       </body>

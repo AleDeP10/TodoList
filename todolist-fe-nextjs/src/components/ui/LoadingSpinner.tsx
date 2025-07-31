@@ -1,14 +1,12 @@
-import { CircularProgress } from "@mui/material";
+import { Icons } from "@/lib/icons/Icons";
 
 const LoadingSpinner = () => {
   return (
-    <div style={{
-      minHeight: "calc(100vh - 180px)",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-    }}>
-      <CircularProgress size={48} sx={{ color: "#f5a623" }} />
+    <div
+      className="flex justify-center items-center"
+      style={{ minHeight: "calc(100vh - 180px)" }}
+    >
+      {Icons.spinner}
     </div>
   );
 };

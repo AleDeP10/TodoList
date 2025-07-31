@@ -4,10 +4,11 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useT } from "@/hooks/useTranslation";
 import {
-  useUsersWithFilters,
   useSaveUser,
   useDeleteUser,
+  useFilteredUsers,
 } from "@/hooks/useUsers";
+import { getLoading } from "@/store/ui";
 import {
   getUserFilters,
   setUserFilters,
@@ -16,6 +17,7 @@ import { UserDto } from "@/types/dto/UserDto";
 import { UserFilters } from "@/types/filters/UserFilters";
 import { Button } from "@/components/ui/Button";
 import { Icons } from "@/lib/icons/Icons";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import UserModal from "@/components/modals/UserModal";
 import UserFilterModal from "@/components/modals/UserFilterModal";
 import UserDeleteConfirmModal from "@/components/modals/UserDeleteConfirmModal";
@@ -24,10 +26,11 @@ export default function UsersView() {
   const t = useT();
   const dispatch = useDispatch();
 
-  const { data: filteredUsers = [], isLoading } = useUsersWithFilters();
+  const { data: filteredUsers = [] } = useFilteredUsers();
   const { mutate: saveUser } = useSaveUser();
   const { mutate: deleteUser } = useDeleteUser();
 
+  const isLoading = useSelector(getLoading);
   const userFilters = useSelector(getUserFilters);
   const [tmpFilters, setTmpFilters] = useState<UserFilters>(userFilters);
   const [currentUser, setCurrentUser] = useState<UserDto>();
@@ -88,9 +91,7 @@ export default function UsersView() {
 
       {/* 📋 User list */}
       {isLoading ? (
-        <div className="flex justify-center items-center h-40">
-          <div className="animate-spin h-8 w-8 border-4 border-yellow-400 rounded-full border-t-transparent" />
-        </div>
+        <LoadingSpinner></LoadingSpinner>
       ) : (
         <ul className="space-y-4">
           {filteredUsers.map((user) => (

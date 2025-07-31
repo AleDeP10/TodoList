@@ -1,20 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { UserStatus } from "@/types/Status";
-import { UserDto } from "@/types/dto/UserDto";
+import { UserFilters } from "@/types/filters/UserFilters";
 
-interface UserFilters {
-  username: string;
-  fullName: string;
-  statusMap: Record<UserStatus, boolean>;
-}
-
-interface UserState {
-  list: UserDto[];
-  filters: UserFilters;
-}
-
-const initialState: UserState = {
-  list: [],
+const initialState = {
   filters: {
     username: "",
     fullName: "",
@@ -22,21 +9,19 @@ const initialState: UserState = {
       ACTIVE: true,
       BLOCKED: false,
     },
-  },
+  } as UserFilters,
 };
 
 const userSlice = createSlice({
-  name: "users",
+  name: "user",
   initialState,
   reducers: {
-    setUsers(state, action: PayloadAction<UserDto[]>) {
-      state.list = action.payload;
-    },
     setUserFilters(state, action: PayloadAction<UserFilters>) {
       state.filters = action.payload;
     },
   },
 });
 
-export const { setUsers, setUserFilters } = userSlice.actions;
+export const { setUserFilters } = userSlice.actions;
+
 export default userSlice.reducer;

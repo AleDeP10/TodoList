@@ -1,145 +1,150 @@
-import { useState } from "react";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import type Entity from "@/types/Entity";
-/*
-export const useUsers = () =>
-  useQuery({ queryKey: ["users"], queryFn: fetchUsers });
+import { Filters } from "@/types/Filters";
+import { setLoading, showToast } from "@/store/ui/uiSlice";
+import { useT } from "./useTranslation";
 
-import { useState } from "react";
-import { toast } from "@/lib/toast";
-
-interface EntityManagerCallbacks<T> {
-  fetchAll: () => Promise<T[]>;
-  create: (item: T) => Promise<T>;
-  update: (item: T) => Promise<void>;
-  remove: (id: number) => Promise<void>;
-}
-
-export function useEntityManager<T>(
-  entityName: string,
-  callbacks: EntityManagerCallbacks<T>
+export function useFilteredEntities<T extends Entity, F extends Filters>(
+  entityQueryHook: () => { data?: T[] },
+  filters: F,
+  filterFn: (entity: T, filters: F) => boolean
 ) {
-  const [isLoading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+  const { data = [], ...queryRest } = entityQueryHook();
 
-  const getAll = async (): Promise<T[]> => {
-    try {
-      setLoading(true);
-      const data = await callbacks.fetchAll();
-      return data;
-    } catch (err: unknown) {
-      toast.error(`Error while loading ${entityName}`);
-      setError(err instanceof Error ? err.message : String(err));
-      return [];
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const save = async (item: T & { id?: number }) => {
-    try {
-      setLoading(true);
-      if (item.id != null) {
-        await callbacks.update(item);
-      } else {
-        await callbacks.create(item);
-      }
-      toast.success(`${entityName} saved successfully`);
-    } catch (err: unknown) {
-      toast.error(`Error while saving ${entityName}`);
-      setError(err instanceof Error ? err.message : String(err));
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const remove = async (id: number) => {
-    try {
-      setLoading(true);
-      await callbacks.remove(id);
-      toast.delete(`${entityName} deleted`);
-    } catch (err: unknown) {
-      toast.error(`Error while deleting ${entityName}`);
-      setError(err instanceof Error ? err.message : String(err));
-    } finally {
-      setLoading(false);
-    }
-  };
+  const filtered = data.filter((item) => filterFn(item, filters));
 
   return {
-    isLoading,
-    error,
-    getAll,
-    save,
-    remove,
+    data: filtered,
+    ...queryRest,
   };
-}*/
+}
 
 export const useEntities = <T extends Entity>(
-  entityType: string,
-  fetchCb: () => Promise<T[]>,
-  queryKey?: string[] | undefined
-) => useQuery({ queryKey: queryKey ?? [entityType], queryFn: fetchCb });
+  entityName: string,
+  fetchFn: () => Promise<T[]>,
+  queryKey?: string[]
+) => {
+  const dispatch = useDispatch();
+  const t = useT();
+
+  const query = useQuery<T[], Error, T[], string[]>({
+    queryKey: queryKey ?? [entityName],
+    queryFn: fetchFn,
+  });
+
+  useEffect(() => {
+    if (query.isFetching) {
+      dispatch(setLoading(true));
+    }
+
+    if (query.isError && query.error instanceof Error) {
+      dispatch(
+        showToast({
+          type: "error",
+          message: t("entity.fetch.error", {
+            entity: t(`entity.${entityName}`),
+            error: query.error.message
+          }),
+        })
+      );
+      console.error(`error while fetching ${entityName}`, query.error);
+    }
+
+    if (!query.isFetching) {
+      dispatch(setLoading(false));
+    }
+  }, [query.isFetching, query.isError, query.error, dispatch, t, entityName]);
+
+  return query;
+};
 
 export const useSaveEntity = <T extends Entity>(
   entityName: string,
-  createCb: (entity: T) => Promise<T>,
-  updateCb: (entity: T) => Promise<void>,
+  createFn: (entity: T) => Promise<T>,
+  updateFn: (entity: T) => Promise<void>,
   queryKey?: string[] | undefined
 ) => {
+  const dispatch = useDispatch();
   const queryClient = useQueryClient();
+  const t = useT();
 
   return useMutation<T | void, Error, { entity: T }>({
     mutationFn: async ({ entity }) => {
+      dispatch(setLoading(true)); // 🚦 Spinner ON
       if (entity.id) {
-        await updateCb(entity); // → Promise<void>
+        await updateFn(entity); // 🔄 Update
       } else {
-        return await createCb(entity); // → Promise<T>
+        return await createFn(entity); // 🆕 Create
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: queryKey ?? [entityName],
-      });
+      dispatch(setLoading(false)); // 🚦 Spinner OFF
+      queryClient.invalidateQueries({ queryKey: queryKey ?? [entityName] });
+      dispatch(
+        showToast({
+          type: "success",
+          message: t("entity.save.success", {
+            entity: t(`entity.${entityName}`),
+          }),
+        })
+      );
     },
     onError: (error) => {
-      console.error(`Error while saving ${entityName}:`, error);
+      dispatch(setLoading(false)); // 🚦 Spinner OFF
+      dispatch(
+        showToast({
+          type: "error",
+          message: t("entity.save.error", {
+            entity: t(`entity.${entityName}`),
+            error: error.message
+          }),
+        })
+      );
+      console.error(`error while saving ${entityName}`, error);
     },
   });
 };
 
 export const useDeleteEntity = (
   entityName: string,
-  deleteCb: (id: number) => Promise<void>,
+  deleteFn: (id: number) => Promise<void>,
   queryKey?: string[]
 ) => {
+  const dispatch = useDispatch();
   const queryClient = useQueryClient();
-  const [isLoading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+  const t = useT();
 
-  const mutation = useMutation<void, Error, number>({
+  return useMutation<void, Error, number>({
     mutationFn: async (id: number) => {
-      try {
-        setLoading(true);
-        await deleteCb(id);
-        //toast.delete(`${entityName} eliminato`);
-      } catch (err: unknown) {
-        const msg = err instanceof Error ? err.message : String(err);
-        setError(msg);
-        //toast.error(`Errore nella cancellazione di ${entityName}`);
-        throw err; // Per propagare l'errore a React Query
-      } finally {
-        setLoading(false);
-      }
+      dispatch(setLoading(true)); // 🚦 Spinner ON
+      await deleteFn(id); // Execute deletion
     },
     onSuccess: () => {
+      dispatch(setLoading(false)); // 🚦 Spinner OFF
       queryClient.invalidateQueries({ queryKey: queryKey ?? [entityName] });
+      dispatch(
+        showToast({
+          type: "delete",
+          message: t("entity.delete.success", {
+            entity: t(`entity.${entityName}`),
+          }),
+        })
+      );
+    },
+    onError: (error) => {
+      dispatch(setLoading(false)); // 🚦 Spinner OFF
+      dispatch(
+        showToast({
+          type: "error",
+          message: t("entity.delete.error", {
+            entity: t(`entity.${entityName}`),
+            error: error.message
+          }),
+        })
+      );
+      console.error(`error while deleting ${entityName}`, error);
     },
   });
-
-  return {
-    ...mutation,
-    isLoading,
-    error,
-  };
 };
