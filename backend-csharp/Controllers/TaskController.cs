@@ -53,6 +53,7 @@ public class TaskController : ControllerBase
                 t.AssigneeId == dto.AssigneeId
             );
         }
+        query.OrderBy(t => t.Id);
         var filteredTasks = await query.ToListAsync();
         return Ok(filteredTasks);
     }

@@ -36,28 +36,29 @@ public class UserController : ControllerBase
         IQueryable<User> query = _context.Users;
         if (!string.IsNullOrWhiteSpace(dto.Username))
         {
-            query = query.Where(t =>
-                t.Username != null && EF.Functions.ILike(t.Username, $"%{dto.Username}%")
+            query = query.Where(u =>
+                u.Username != null && EF.Functions.ILike(u.Username, $"%{dto.Username}%")
             );
         }
         if (!string.IsNullOrWhiteSpace(dto.FullName))
         {
-            query = query.Where(t =>
-                t.FullName != null && EF.Functions.ILike(t.FullName, $"%{dto.FullName}%")
+            query = query.Where(u =>
+                u.FullName != null && EF.Functions.ILike(u.FullName, $"%{dto.FullName}%")
             );
         }
         if (dto.IsAdmin != null)
         {
-            query = query.Where(t =>
-                t.IsAdmin != null && t.IsAdmin.Value == dto.IsAdmin.Value
+            query = query.Where(u =>
+                u.IsAdmin != null && u.IsAdmin.Value == dto.IsAdmin.Value
             );
         }
         if (dto.StateFilter is not null && dto.StateFilter.Length > 0)
         {
-            query = query.Where(t =>
-                dto.StateFilter.Contains(t.Status)
+            query = query.Where(u =>
+                dto.StateFilter.Contains(u.Status)
             );
         }
+        query.OrderBy(u => u.Id);
         var filteredUsers = await query.ToListAsync();
         return Ok(filteredUsers);
     }
