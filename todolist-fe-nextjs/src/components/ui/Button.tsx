@@ -12,6 +12,8 @@ export interface ButtonProps {
   size?: "small" | "medium" | "large";
   /** Variant to define background styling */
   variant?: ButtonVariant;
+  /** Disable the button on condition */
+  disabled?: boolean;
   /** Tooltip text for icon-only buttons */
   tooltip?: string;
   /** Optional override background color */
@@ -28,6 +30,7 @@ export const Button = ({
   icon,
   size = "medium",
   variant = "primary",
+  disabled = false,
   tooltip,
   backgroundColor,
   foregroundColor,
@@ -47,6 +50,10 @@ export const Button = ({
 
   const baseClasses = "rounded inline-flex items-center gap-2 transition";
 
+  const disabledClasses = disabled
+    ? "opacity-50 grayscale-70 cursor-not-allowed"
+    : "";
+
   const customStyle = {
     ...(backgroundColor ? { backgroundColor } : {}),
     ...(foregroundColor ? { color: foregroundColor } : {}),
@@ -62,9 +69,11 @@ export const Button = ({
         baseClasses,
         variantClasses[variant],
         sizeClasses[size],
+        disabledClasses,
       ].join(" ")}
       style={customStyle}
       title={tooltip}
+      disabled={disabled}
     >
       <div
         className={`flex justify-center items-center ${

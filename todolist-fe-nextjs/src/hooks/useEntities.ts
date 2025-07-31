@@ -15,8 +15,16 @@ export function useFilteredEntities<T extends Entity, F extends Filters>(
 
   const filtered = data.filter((item) => filterFn(item, filters));
 
+  const sorted = filtered.sort((e1: Entity, e2: Entity) => {
+    if (!e1.id) return -1;
+    if (!e2.id) return 1;
+    if (e1.id < e2.id) return -1;
+    if (e1.id > e2.id) return 1;
+    return 0;
+  })
+
   return {
-    data: filtered,
+    data: sorted,
     ...queryRest,
   };
 }
@@ -98,7 +106,7 @@ export const useSaveEntity = <T extends Entity>(
           type: "error",
           message: t("entity.save.error", {
             entity: t(`entity.${entityName}`),
-            error: error.message
+            message: error.message
           }),
         })
       );
@@ -140,7 +148,7 @@ export const useDeleteEntity = (
           type: "error",
           message: t("entity.delete.error", {
             entity: t(`entity.${entityName}`),
-            error: error.message
+            message: error.message
           }),
         })
       );

@@ -3,53 +3,51 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useT } from "@/hooks/useTranslation";
-import {
-  useSaveUser,
-  useDeleteUser,
-  useFilteredUsers,
-} from "@/hooks/useUsers";
+import { useSaveTask, useDeleteTask, useFilteredTasks, useNextStatus } from "@/hooks/useTasks";
 import { getLoading } from "@/store/ui";
-import {
-  getUserFilters,
-  setUserFilters,
-} from "@/store/user";
+import { getTaskFilters, setTaskFilters } from "@/store/task";
+import { TaskDto } from "@/types/dto/TaskDto";
 import { UserDto } from "@/types/dto/UserDto";
-import { UserFilters } from "@/types/filters/UserFilters";
-import { Button } from "@/components/ui/Button";
+import { TaskFilters } from "@/types/filters/TaskFilters";
 import { Icons } from "@/lib/icons/Icons";
+import { Button } from "@/components/ui/Button";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
-import UserModal from "@/components/modals/UserModal";
-import UserFilterModal from "@/components/modals/UserFilterModal";
-import UserDeleteConfirmModal from "@/components/modals/UserDeleteConfirmModal";
+import TaskModal from "@/components/modals/TaskModal";
+import TaskFilterModal from "../modals/TaskFilterModal";
+import TaskDeleteConfirmModal from "@/components/modals/TaskDeleteConfirmModal";
+import { useUserList } from "@/hooks/useUsers";
 
-export default function UsersView() {
+export default function TasksView() {
   const t = useT();
   const dispatch = useDispatch();
 
-  const { data: filteredUsers = [] } = useFilteredUsers();
-  const { mutate: saveUser } = useSaveUser();
-  const { mutate: deleteUser } = useDeleteUser();
+  const { data: filteredTasks = [] } = useFilteredTasks();
+  const { mutate: saveTask } = useSaveTask();
+  const { mutate: deleteTask } = useDeleteTask();
+  const { mutate: nextStatus } = useNextStatus();
 
   const isLoading = useSelector(getLoading);
-  const userFilters = useSelector(getUserFilters);
-  const [tmpFilters, setTmpFilters] = useState<UserFilters>(userFilters);
-  const [currentUser, setCurrentUser] = useState<UserDto>();
-  const [userToDelete, setUserToDelete] = useState<UserDto>();
+  const taskFilters = useSelector(getTaskFilters);
+  const [tmpFilters, setTmpFilters] = useState<TaskFilters>(taskFilters);
+  const [currentTask, setCurrentTask] = useState<TaskDto>();
+  const [taskToDelete, setTaskToDelete] = useState<TaskDto>();
   const [showFilterModal, setShowFilterModal] = useState(false);
+
+  const users = useUserList().users;
 
   const clearFilters = () => {
     dispatch(
-      setUserFilters({
-        username: "",
-        fullName: "",
-        statusMap: { ACTIVE: true, BLOCKED: false },
+      setTaskFilters({
+        description: "",
+        assigneeId: -1,
+        statusMap: { TODO: true, "IN PROGRESS": true, DONE: false },
       })
     );
   };
 
   return (
     <section className="p-6 space-y-6 mx-auto">
-      <h2 className="text-xl font-semibold text-center">{t("user.management")}</h2>
+      <h2 className="text-xl font-semibold text-center">{t("task.management")}</h2>
 
       {/* 👤 Create & Filter buttons */}
       <div className="flex flex-wrap justify-between items-center gap-4">
@@ -60,12 +58,10 @@ export default function UsersView() {
           size="small"
           backgroundColor="#16a34a"
           onClick={() =>
-            setCurrentUser({
-              fullName: "",
-              username: "",
-              password: "",
-              isAdmin: false,
-              status: "ACTIVE",
+            setCurrentTask({
+              description: "",
+              assigneeId: undefined,
+              status: "DONE",
             })
           }
         />
@@ -89,22 +85,24 @@ export default function UsersView() {
         </div>
       </div>
 
-      {/* 📋 User list */}
+      {/* 📋 Task list */}
       {isLoading ? (
         <LoadingSpinner></LoadingSpinner>
       ) : (
         <ul className="space-y-4">
-          {filteredUsers.map((user) => (
+          {filteredTasks.map((task) => (
             <li
-              key={user.id}
+              key={task.id}
               className="border p-4 rounded shadow-sm flex flex-wrap items-center justify-between gap-4 sm:items-center"
             >
               <div className="text-sm">
-                <strong>{user.fullName ?? user.username}</strong>
+                <strong>{task.description}</strong>
                 <div className="text-xs text-gray-600">
-                  {t("user.role")}:{" "}
-                  {user.isAdmin ? t("user.role.admin") : t("user.role.user")} •{" "}
-                  {user.status}
+                  {!task.assigneeId
+                    ? t("task.noAssignee")
+                    : users.find((user: UserDto) => user.id === task.assigneeId)
+                        ?.fullName}{" "}
+                  • {task.status}
                 </div>
               </div>
               <div className="flex gap-2 mt-2 sm:mt-0 ml-auto">
@@ -113,14 +111,22 @@ export default function UsersView() {
                   icon={Icons.edit}
                   size="small"
                   variant="primary"
-                  onClick={() => setCurrentUser(user)}
+                  onClick={() => setCurrentTask(task)}
+                />
+                <Button
+                  tooltip={t("button.nextStatus")}
+                  icon={Icons.arrowRight}
+                  size="small"
+                  variant="primary"
+                  disabled={task.status === "DONE"}
+                  onClick={() => nextStatus(task)}
                 />
                 <Button
                   tooltip={t("button.delete")}
                   icon={Icons.delete}
                   size="small"
                   variant="danger"
-                  onClick={() => setUserToDelete(user)}
+                  onClick={() => setTaskToDelete(task)}
                 />
               </div>
             </li>
@@ -130,38 +136,38 @@ export default function UsersView() {
 
       {/* 🔍 Filter modal */}
       {showFilterModal && (
-        <UserFilterModal
+        <TaskFilterModal
           filters={tmpFilters}
           onChange={setTmpFilters}
-          originalFilters={userFilters}
+          originalFilters={taskFilters}
           onClose={() => setShowFilterModal(false)}
           onApply={() => {
-            dispatch(setUserFilters(tmpFilters));
+            dispatch(setTaskFilters(tmpFilters));
             setShowFilterModal(false);
           }}
         />
       )}
 
       {/* ✏️ Create/Edit modal */}
-      {currentUser && (
-        <UserModal
-          currentUser={currentUser}
-          onClose={() => setCurrentUser(undefined)}
-          onSubmit={(user) => {
-            saveUser({ entity: user });
-            setCurrentUser(undefined);
+      {currentTask && (
+        <TaskModal
+          currentTask={currentTask}
+          onClose={() => setCurrentTask(undefined)}
+          onSubmit={(task) => {
+            saveTask({ entity: task });
+            setCurrentTask(undefined);
           }}
         />
       )}
 
       {/* ❌ Delete modal */}
-      {userToDelete && (
-        <UserDeleteConfirmModal
-          user={userToDelete}
-          onClose={() => setUserToDelete(undefined)}
+      {taskToDelete && (
+        <TaskDeleteConfirmModal
+          task={taskToDelete}
+          onClose={() => setTaskToDelete(undefined)}
           onConfirm={() => {
-            deleteUser(userToDelete.id as number);
-            setUserToDelete(undefined);
+            deleteTask(taskToDelete.id as number);
+            setTaskToDelete(undefined);
           }}
         />
       )}

@@ -41,3 +41,14 @@ export const useSaveUser = () =>
   useSaveEntity<UserDto>("User", createUser, updateUser);
 
 export const useDeleteUser = () => useDeleteEntity("User", deleteUser);
+
+export const useUserList = () => {
+  const { data: users = [], isFetching, isError, error } = useUsers();
+
+  return {
+    users,
+    isFetching,
+    isError,
+    error,
+  };
+};

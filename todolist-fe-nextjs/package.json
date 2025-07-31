@@ -1,9 +1,9 @@
 {
   "name": "todolist-fe-next",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "private": true,
   "type": "module",
-  "description": "A Next.js implementation for Todo List application",
+  "description": "A Next.js implementation for ToDo List application",
   "keywords": [
     "todo-list",
     "nextjs",

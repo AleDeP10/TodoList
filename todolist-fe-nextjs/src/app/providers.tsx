@@ -1,9 +1,11 @@
 "use client";
 
-import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-import { Provider } from "react-redux";
-import { store } from "@/store/store";
 import { ReactNode, useState } from "react";
+import { Provider } from "react-redux";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { store } from "@/store/store";
+import { LangProvider } from "@/lib/i18n";
+import { ViewProvider } from "@/lib/view";
 
 interface Props {
   children: ReactNode;
@@ -15,7 +17,9 @@ export function Providers({ children }: Props) {
   return (
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
-        {children}
+        <LangProvider>
+          <ViewProvider>{children}</ViewProvider>
+        </LangProvider>
       </QueryClientProvider>
     </Provider>
   );

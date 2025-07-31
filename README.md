@@ -1,4 +1,4 @@
-# 🧾 TodoList
+# 🧾 ToDoList
 
 A full-stack task management app powered by AngularJS, Redux and ASP.NET Core.  
 **Fully containerized with HTTPS support out of the box.**

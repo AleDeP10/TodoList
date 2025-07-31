@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useT } from "@/hooks/useTranslation";
-import Modal from "@/components/ui/Modal";
 import { Icons } from "@/lib/icons/Icons";
-import { ButtonVariant } from "@/components/ui/Button";
-import TextField from "../ui/TextField";
-import Switch from "../ui/Switch";
 import { UserDto } from "@/types/dto/UserDto";
-import Dropdown from "../ui/Dropdown";
+import { UserStatus } from "@/types/Status";
+import Modal from "@/components/ui/Modal";
+import { ButtonVariant } from "@/components/ui/Button";
+import TextField from "@/components/ui/TextField";
+import Dropdown from "@/components/ui/Dropdown";
+import Switch from "@/components/ui/Switch";
 
 interface Props {
   currentUser?: UserDto;
@@ -127,11 +128,11 @@ export default function UserEditModal({
             {t("user.status")}
           </label>
           <div className="col-span-9">
-            <Dropdown
+            <Dropdown<UserStatus>
               onChange={(selectedValue) =>
-                setFormState((u: UserDto) => ({
+                setFormState((u) => ({
                   ...u,
-                  status: selectedValue,
+                  status: selectedValue!,
                 }))
               }
               value={formState.status}

@@ -7,6 +7,7 @@ import Modal from "@/components/ui/Modal";
 import { useT } from "@/hooks/useTranslation";
 import { useView } from "@/hooks/useView";
 import UsersView from "@/components/views/UsersView";
+import TasksView from "./views/TasksView";
 
 export default function MainContainer() {
   const [showOnAuthorModal, setShowOnAuthorModal] = useState(false);
@@ -68,7 +69,7 @@ export default function MainContainer() {
 
       <main className="flex-1 p-6">
         {view === "users" && <UsersView />}
-        {view === "tasks" && <p>Task view placeholder</p>}
+        {view === "tasks" && <TasksView />}
       </main>
     </div>
   );

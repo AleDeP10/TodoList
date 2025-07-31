@@ -1,23 +1,28 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TaskDto } from '@/types/dto/TaskDto';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { TaskFilters } from "@/types/filters/TaskFilters";
 
-interface TaskState {
-  list: TaskDto[];
-}
-
-const initialState: TaskState = {
-  list: [],
+const initialState = {
+  filters: {
+    description: "",
+    assigneeId: -1,
+    statusMap: {
+      TODO: true,
+      "IN PROGRESS": true,
+      DONE: false,
+    },
+  } as TaskFilters,
 };
 
 const taskSlice = createSlice({
-  name: 'tasks',
+  name: "task",
   initialState,
   reducers: {
-    setTasks(state, action: PayloadAction<TaskDto[]>) {
-      state.list = action.payload;
+    setTaskFilters(state, action: PayloadAction<TaskFilters>) {
+      state.filters = action.payload;
     },
   },
 });
 
-export const { setTasks } = taskSlice.actions;
+export const { setTaskFilters } = taskSlice.actions;
+
 export default taskSlice.reducer;

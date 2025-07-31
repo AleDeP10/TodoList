@@ -1,24 +1,27 @@
 "use client";
 
+import { useEffect, useMemo, useState } from "react";
 import { useT } from "@/hooks/useTranslation";
-
-import { UserStatus } from "@/types/Status";
-import { UserFilters } from "@/types/filters/UserFilters";
+import { useUserList } from "@/hooks/useUsers";
+import { TaskStatus } from "@/types/Status";
+import { TaskFilters } from "@/types/filters/TaskFilters";
+import { UserDto } from "@/types/dto/UserDto";
 import { Icons } from "@/lib/icons/Icons";
 import type { ButtonVariant } from "@/components/ui/Button";
+import Dropdown from "@/components/ui/Dropdown";
 import Modal from "@/components/ui/Modal";
 import Switch from "@/components/ui/Switch";
 import TextField from "@/components/ui/TextField";
 
 interface Props {
-  filters: UserFilters;
-  onChange: (filters: UserFilters) => void;
-  originalFilters: UserFilters;
+  filters: TaskFilters;
+  onChange: (filters: TaskFilters) => void;
+  originalFilters: TaskFilters;
   onClose: () => void;
   onApply: () => void;
 }
 
-export default function UserFilterModal({
+export default function TaskFilterModal({
   filters,
   onChange,
   originalFilters,
@@ -26,11 +29,48 @@ export default function UserFilterModal({
   onApply,
 }: Props) {
   const t = useT();
-  const statusOptions: UserStatus[] = ["ACTIVE", "BLOCKED"];
+  const statusOptions: TaskStatus[] = ["TODO", "IN PROGRESS", "DONE"];
+
+  const allAssigneesLabel = t("task.allAssignees");
+  const noAssigneeLabel = t("task.noAssignee");
+
+  const allAssignees = useMemo<UserDto>(
+    () => ({
+      id: -1,
+      fullName: allAssigneesLabel,
+      username: "",
+      password: "",
+      isAdmin: false,
+      status: "ACTIVE",
+    }),
+    [allAssigneesLabel]
+  );
+
+  const noAssignee = useMemo<UserDto>(
+    () => ({
+      id: undefined,
+      fullName: noAssigneeLabel,
+      username: "",
+      password: "",
+      isAdmin: false,
+      status: "ACTIVE",
+    }),
+    [noAssigneeLabel]
+  );
+
+  const fetchedUsers = useUserList().users;
+  const [users, setUsers] = useState<UserDto[]>([]);
+
+  useEffect(() => {
+    setUsers([allAssignees, noAssignee, ...fetchedUsers]);
+  }, [allAssignees, noAssignee, fetchedUsers]);
+
+  const selectedUser =
+    users.find((u) => u.id === filters.assigneeId) ?? noAssignee;
 
   return (
     <Modal
-      title={t("user.filter.title")}
+      title={t("task.filter.title")}
       onClose={onClose}
       footerActions={[
         {
@@ -51,31 +91,37 @@ export default function UserFilterModal({
       ]}
     >
       <div className="space-y-4">
-        {/* Full name */}
+        {/* Description */}
         <div className="grid grid-cols-12 gap-4 items-center">
           <label className="col-span-3 text-sm font-medium">
-            {t("user.fullName")}
+            {t("task.description")}
           </label>
           <div className="col-span-9">
             <TextField
-              value={filters.fullName}
+              value={filters.description}
               onChange={(e) =>
-                onChange({ ...filters, fullName: e.target.value })
+                onChange({ ...filters, description: e.target.value })
               }
             />
           </div>
         </div>
 
-        {/* Username */}
+        {/* Assignee */}
         <div className="grid grid-cols-12 gap-4 items-center">
           <label className="col-span-3 text-sm font-medium">
-            {t("user.username")}
+            {t("task.assignee")}
           </label>
           <div className="col-span-9">
-            <TextField
-              value={filters.username}
-              onChange={(e) =>
-                onChange({ ...filters, username: e.target.value })
+            <Dropdown
+              value={selectedUser}
+              options={users}
+              getOptionValue={(user) => String(user.id)}
+              getOptionLabel={(user) => user.fullName}
+              onChange={(user) =>
+                onChange({
+                  ...filters,
+                  assigneeId: user.id, // può essere undefined
+                })
               }
             />
           </div>
@@ -84,7 +130,7 @@ export default function UserFilterModal({
         {/* Status switches */}
         <div className="grid grid-cols-12 gap-4 items-center">
           <label className="col-span-3 text-sm font-medium">
-            {t("user.status")}
+            {t("task.status")}
           </label>
           <div className="col-span-9 flex flex-col gap-2">
             {statusOptions.map((status) => (
