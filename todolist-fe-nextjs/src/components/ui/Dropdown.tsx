@@ -11,8 +11,8 @@ export default function Dropdown<T>({
   value,
   options,
   onChange,
-  getOptionValue = (option) => String(option),
-  getOptionLabel = (option) => String(option),
+  getOptionValue = (option: T) => String(option),
+  getOptionLabel = (option: T) => String(option),
 }: DropdownProps<T>) {
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = e.target.value;
@@ -28,10 +28,16 @@ export default function Dropdown<T>({
     <select
       value={getOptionValue(value)}
       onChange={handleChange}
-      className="text-sm p-1 rounded border border-gray-300"
+      className="text-sm p-2 rounded border border-gray-300
+                 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-[var(--fg)]
+                 bg-[var(--bg)] text-[var(--fg)]"
     >
       {options.map((opt, index) => (
-        <option key={index} value={getOptionValue(opt)}>
+        <option
+          key={index}
+          value={getOptionValue(opt)}
+          className="bg-[var(--bg)] text-[var(--fg)]"
+        >
           {getOptionLabel(opt)}
         </option>
       ))}

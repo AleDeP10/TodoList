@@ -1,11 +1,13 @@
-/* light-theme.css */
 :root {
-  --bg: #f4f4f4;
-  --fg: #333;
-  --navbar-start: #ffffff;
-  --navbar-end: #eaeaea;
-  --navbar-label: #181088;
-  --menu-bg: #fff;
-  --modal-top: #eee;
-  --modal-body: #fff;
+  --bg: #f8f9f3;
+  --fg: #252525;
+
+  --navbar-start: #cddaa3;
+  --navbar-end: #8fa352;
+  --navbar-fg: #1f1f1f;
+
+  --menu-bg: #e5ebce;
+  --menu-hover-bg: #b2c66e;
+
+  --modal-bg: #ffffff;
 }

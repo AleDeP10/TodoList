@@ -1,26 +1,20 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-
   --font-sans: "Geist Sans", Arial, sans-serif;
   --font-mono: "Geist Mono", monospace;
-}
 
-.dark {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-}
+  --hover-darken: brightness(90%);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --warning-bg: #ff8800;
+  --success-bg: #16a34a;
+  --error-bg: #e74c3c;
+  --delete-bg: var(--warning-bg);
+  --create-bg: var(--success-bg);
+  --filter-bg: #ffbb00;
+  --remove-filter-bg: var(--warning-bg);
 }
 
 body {
-  @apply bg-[var(--background)] text-[var(--foreground)];
   font-family: var(--font-sans);
 }

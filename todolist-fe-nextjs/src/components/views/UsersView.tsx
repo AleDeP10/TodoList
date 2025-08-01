@@ -15,8 +15,9 @@ import {
 } from "@/store/user";
 import { UserDto } from "@/types/dto/UserDto";
 import { UserFilters } from "@/types/filters/UserFilters";
-import { Button } from "@/components/ui/Button";
+import { getCSSVariable } from "@/lib/getCSSVariable";
 import { Icons } from "@/lib/icons/Icons";
+import { Button } from "@/components/ui/Button";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import UserModal from "@/components/modals/UserModal";
 import UserFilterModal from "@/components/modals/UserFilterModal";
@@ -58,7 +59,7 @@ export default function UsersView() {
           label={t("button.create")}
           icon={Icons.plus}
           size="small"
-          backgroundColor="#16a34a"
+          backgroundColor={getCSSVariable("--create-bg")}
           onClick={() =>
             setCurrentUser({
               fullName: "",
@@ -75,7 +76,7 @@ export default function UsersView() {
             label={t("button.filter")}
             icon={Icons.filter}
             size="small"
-            backgroundColor="#ffd700"
+            backgroundColor={getCSSVariable("--filter-bg")}
             onClick={() => setShowFilterModal(true)}
           />
           <Button
@@ -83,7 +84,7 @@ export default function UsersView() {
             label={t("button.filter.remove")}
             icon={Icons.removeFilter}
             size="small"
-            backgroundColor="#ffa500"
+            backgroundColor={getCSSVariable("--remove-filter-bg")}
             onClick={clearFilters}
           />
         </div>

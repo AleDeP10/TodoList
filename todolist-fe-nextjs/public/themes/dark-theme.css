@@ -1,10 +1,13 @@
 :root {
-  --bg: #111;
-  --fg: #ccc;
-  --navbar-start: #220000;/*1f1f1f*/
-  --navbar-end: #720000;/*333*/
-  --navbar-label: #e0de3d;
-  --menu-bg: #222;
-  --modal-top: #000;
-  --modal-body: #181818;
+  --bg: #0b0b11;
+  --fg: #d0d0e0;
+
+  --navbar-start: #1a1a2b;
+  --navbar-end: #2e0077;
+  --navbar-fg: #b8f8ff;
+
+  --menu-bg: #1d1d26;
+  --menu-hover-bg: #047878;
+
+  --modal-bg: #3e3e4a;
 }

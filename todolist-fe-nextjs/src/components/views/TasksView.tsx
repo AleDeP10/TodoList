@@ -9,6 +9,7 @@ import { getTaskFilters, setTaskFilters } from "@/store/task";
 import { TaskDto } from "@/types/dto/TaskDto";
 import { UserDto } from "@/types/dto/UserDto";
 import { TaskFilters } from "@/types/filters/TaskFilters";
+import { getCSSVariable } from "@/lib/getCSSVariable";
 import { Icons } from "@/lib/icons/Icons";
 import { Button } from "@/components/ui/Button";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
@@ -56,7 +57,7 @@ export default function TasksView() {
           label={t("button.create")}
           icon={Icons.plus}
           size="small"
-          backgroundColor="#16a34a"
+          backgroundColor={getCSSVariable("--create-bg")}
           onClick={() =>
             setCurrentTask({
               description: "",
@@ -71,7 +72,7 @@ export default function TasksView() {
             label={t("button.filter")}
             icon={Icons.filter}
             size="small"
-            backgroundColor="#ffd700"
+            backgroundColor={getCSSVariable("--filter-bg")}
             onClick={() => setShowFilterModal(true)}
           />
           <Button
@@ -79,7 +80,7 @@ export default function TasksView() {
             label={t("button.filter.remove")}
             icon={Icons.removeFilter}
             size="small"
-            backgroundColor="#ffa500"
+            backgroundColor={getCSSVariable("--remove-filter-bg")}
             onClick={clearFilters}
           />
         </div>

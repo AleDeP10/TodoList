@@ -1,4 +1,4 @@
-import { useTheme } from "@/hooks/useTheme";
+import { ThemeName, useTheme } from "@/hooks/useTheme";
 import Dropdown from "./Dropdown";
 
 export default function ThemeSwitcher() {
@@ -8,7 +8,7 @@ export default function ThemeSwitcher() {
     <Dropdown
       value={theme}
       options={["dark", "light", "custom"]}
-      onChange={(newTheme) => setTheme(newTheme)}
+      onChange={(newTheme) => setTheme(newTheme as ThemeName)}
     />
   );
 }

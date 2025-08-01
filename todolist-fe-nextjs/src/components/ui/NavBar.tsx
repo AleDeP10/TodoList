@@ -16,7 +16,7 @@ export default function NavBar({
   const t = useT();
 
   return (
-    <nav className="flex flex-wrap-reverse justify-between items-center px-6 py-4 gap-2 border-b text-[var(--navbar-label)] bg-gradient-to-r from-[var(--navbar-start)] to-[var(--navbar-end)]">
+    <nav className="flex flex-wrap-reverse justify-between items-center px-6 py-4 gap-2 border-b text-[var(--navbar-fg)] bg-gradient-to-r from-[var(--navbar-start)] to-[var(--navbar-end)]">
       <div className="flex items-center gap-3">
         {Object.entries(menuItems).map(([section, items]) => (
           <MenuGroup

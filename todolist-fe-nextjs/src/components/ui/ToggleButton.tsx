@@ -26,7 +26,7 @@ export default function ToggleButton({
   return (
     <button
       onClick={handleToggle}
-      className="px-3 py-1 rounded text-[var(--background)] bg-[var(--foreground)] text-sm"
+      className="px-3 py-1 rounded text-[var(--bg)] bg-[var(--fg)] text-sm"
     >
       {label(value)}
     </button>

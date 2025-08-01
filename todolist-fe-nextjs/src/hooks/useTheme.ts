@@ -7,9 +7,16 @@ export type ThemeName = "dark" | "light" | "custom";
 export function useTheme(): [ThemeName, (t: ThemeName) => void] {
   const [theme, setThemeRaw] = useState<ThemeName>(() => {
     if (typeof window !== "undefined") {
-      return (localStorage.getItem("theme") as ThemeName) ?? "dark";
+      const stored = localStorage.getItem("theme") as ThemeName | null;
+      if (stored) return stored;
+
+      const prefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      ).matches;
+      return prefersDark ? "dark" : "light";
     }
-    return "dark"; // default server-side
+
+    return "dark"; // fallback server-side
   });
 
   const setTheme = (newTheme: ThemeName) => {

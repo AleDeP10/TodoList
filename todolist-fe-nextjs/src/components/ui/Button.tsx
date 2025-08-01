@@ -48,15 +48,21 @@ export const Button = ({
     large: "px-5 py-3 text-lg",
   };
 
-  const baseClasses = "rounded inline-flex items-center gap-2 transition";
+  const baseClasses =
+    "rounded inline-flex items-center gap-2 transition";
 
   const disabledClasses = disabled
-    ? "opacity-50 grayscale-70 cursor-not-allowed"
+    ? "opacity-50 grayscale-[70%] cursor-not-allowed"
+    : "";
+
+  const customHoverClass = backgroundColor
+    ? "hover:[filter:var(--hover-darken)]"
     : "";
 
   const customStyle = {
     ...(backgroundColor ? { backgroundColor } : {}),
     ...(foregroundColor ? { color: foregroundColor } : {}),
+    ...(backgroundColor ? { transition: "filter 0.2s ease" } : {}),
   };
 
   return (
@@ -70,6 +76,7 @@ export const Button = ({
         variantClasses[variant],
         sizeClasses[size],
         disabledClasses,
+        customHoverClass,
       ].join(" ")}
       style={customStyle}
       title={tooltip}
@@ -77,8 +84,8 @@ export const Button = ({
     >
       <div
         className={`flex justify-center items-center ${
-          icon && label ? "gap-2 " : ""
-        }w-full`}
+          icon && label ? "gap-2" : ""
+        } w-full`}
       >
         {icon && <span>{icon}</span>}
         <span className="hidden sm:inline">{label}</span>

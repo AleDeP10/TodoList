@@ -16,7 +16,7 @@ export default function IconButton({
   return (
     <button
       onClick={onClick}
-      className="rounded-full p-1 hover:bg-[var(--hover)] transition"
+      className="rounded-full p-1 hover:[filter:brightness(90%)] transition"
       style={{ color }}
     >
       <span style={{ fontSize: size }}>{icon}</span>

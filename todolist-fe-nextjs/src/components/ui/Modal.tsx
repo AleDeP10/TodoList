@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button, ButtonVariant } from "./Button";
 import IconButton from "./IconButton";
@@ -29,6 +29,12 @@ export default function Modal({
     if (e.target === e.currentTarget) onClose();
   };
 
+  useEffect(() => {
+    const escHandler = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    document.addEventListener("keydown", escHandler);
+    return () => document.removeEventListener("keydown", escHandler);
+  }, [onClose]);
+
   return (
     <AnimatePresence>
       <motion.div
@@ -43,7 +49,7 @@ export default function Modal({
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.9, opacity: 0 }}
           transition={{ duration: 0.2 }}
-          className="bg-[var(--modal-body)] text-[var(--fg)] rounded-lg shadow-lg w-full max-w-lg"
+          className="bg-[var(--modal-bg)] text-[var(--fg)] rounded-lg shadow-lg w-full max-w-lg"
         >
           {/* 🔘 Header */}
           <div className="flex justify-between items-center px-6 py-4 border-b border-[var(--fg)]">
