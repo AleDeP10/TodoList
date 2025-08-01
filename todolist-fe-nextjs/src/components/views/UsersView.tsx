@@ -3,16 +3,9 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useT } from "@/hooks/useTranslation";
-import {
-  useSaveUser,
-  useDeleteUser,
-  useFilteredUsers,
-} from "@/hooks/useUsers";
+import { useSaveUser, useDeleteUser, useFilteredUsers } from "@/hooks/useUsers";
 import { getLoading } from "@/store/ui";
-import {
-  getUserFilters,
-  setUserFilters,
-} from "@/store/user";
+import { getUserFilters, setUserFilters } from "@/store/user";
 import { UserDto } from "@/types/dto/UserDto";
 import { UserFilters } from "@/types/filters/UserFilters";
 import { getCSSVariable } from "@/lib/getCSSVariable";
@@ -48,9 +41,16 @@ export default function UsersView() {
     );
   };
 
+  const statusClass = {
+    ACTIVE: "user--active",
+    BLOCKED: "user--blocked",
+  };
+
   return (
     <section className="p-6 space-y-6 mx-auto">
-      <h2 className="text-xl font-semibold text-center">{t("user.management")}</h2>
+      <h2 className="text-xl font-semibold text-center">
+        {t("user.management")}
+      </h2>
 
       {/* 👤 Create & Filter buttons */}
       <div className="flex flex-wrap justify-between items-center gap-4">
@@ -98,11 +98,13 @@ export default function UsersView() {
           {filteredUsers.map((user) => (
             <li
               key={user.id}
-              className="border p-4 rounded shadow-sm flex flex-wrap items-center justify-between gap-4 sm:items-center"
+              className={`border ${
+                statusClass[user.status]
+              } p-4 rounded shadow-sm flex flex-wrap items-center justify-between gap-4 sm:items-center`}
             >
               <div className="text-sm">
                 <strong>{user.fullName ?? user.username}</strong>
-                <div className="text-xs text-gray-600">
+                <div className="text-xs text-[var(--text-secondary)]">
                   {t("user.role")}:{" "}
                   {user.isAdmin ? t("user.role.admin") : t("user.role.user")} •{" "}
                   {user.status}

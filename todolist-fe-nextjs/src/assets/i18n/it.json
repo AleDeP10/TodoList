@@ -54,5 +54,10 @@
   "menu.functionalities.users": "Utenti",
   "menu.section.about": "Informazioni",
   "menu.about.onAuthor": "Chi sono",
-  "menu.about.portfolio": "Portfolio"
+  "menu.about.portfolio": "Portfolio",
+
+  "author.title": "Alessandro De Prato",
+  "author.line1": "Sono uno sviluppatore fullstack curioso e versatile, costantemente alla ricerca di tecnologie innovative. Amo imparare in autonomia, sperimentando nuove soluzioni attraverso l’implementazione di progetti completi e curati, dove ogni dettaglio conta.",
+  "author.line2": "Mi piace costruire interfacce pensate per l’utente, con un’architettura solida e un design che non lascia nulla al caso. Dietro ogni feature c’è la volontà di coniugare performance, pulizia del codice e modularità. Credo nel refactoring continuo e nella scalabilità come motore dell’innovazione: non si tratta solo di “far funzionare”, ma di farlo bene, oggi e domani.",
+  "author.line3": "Con questo progetto ho voluto dimostrare che anche una ToDo app può avere anima: precisione nei dettagli, scelte consapevoli, e un pizzico di carattere."
 }

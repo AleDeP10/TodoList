@@ -3,7 +3,12 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useT } from "@/hooks/useTranslation";
-import { useSaveTask, useDeleteTask, useFilteredTasks, useNextStatus } from "@/hooks/useTasks";
+import {
+  useSaveTask,
+  useDeleteTask,
+  useFilteredTasks,
+  useNextStatus,
+} from "@/hooks/useTasks";
 import { getLoading } from "@/store/ui";
 import { getTaskFilters, setTaskFilters } from "@/store/task";
 import { TaskDto } from "@/types/dto/TaskDto";
@@ -46,9 +51,17 @@ export default function TasksView() {
     );
   };
 
+  const statusClass = {
+    TODO: "task--todo",
+    "IN PROGRESS": "task--in-progress ",
+    DONE: "task--done",
+  };
+
   return (
     <section className="p-6 space-y-6 mx-auto">
-      <h2 className="text-xl font-semibold text-center">{t("task.management")}</h2>
+      <h2 className="text-xl font-semibold text-center">
+        {t("task.management")}
+      </h2>
 
       {/* 👤 Create & Filter buttons */}
       <div className="flex flex-wrap justify-between items-center gap-4">
@@ -94,11 +107,13 @@ export default function TasksView() {
           {filteredTasks.map((task) => (
             <li
               key={task.id}
-              className="border p-4 rounded shadow-sm flex flex-wrap items-center justify-between gap-4 sm:items-center"
+              className={`border ${
+                statusClass[task.status]
+              } p-4 rounded shadow-sm flex flex-wrap items-center justify-between gap-4 sm:items-center`}
             >
               <div className="text-sm">
                 <strong>{task.description}</strong>
-                <div className="text-xs text-gray-600">
+                <div className="text-xs text-[var(--text-secondary)]">
                   {!task.assigneeId
                     ? t("task.noAssignee")
                     : users.find((user: UserDto) => user.id === task.assigneeId)

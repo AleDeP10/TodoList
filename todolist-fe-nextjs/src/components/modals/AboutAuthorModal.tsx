@@ -14,7 +14,7 @@ export default function AboutAuthorModal({ onClose }: AboutAuthorModalProps) {
 
   return (
     <Modal
-      title="About • Alessandro De Prato"
+      title={t("author.title")}
       onClose={onClose}
       footerActions={[
         {
@@ -26,11 +26,9 @@ export default function AboutAuthorModal({ onClose }: AboutAuthorModalProps) {
       ]}
     >
       <div className="space-y-4 text-sm">
-        <h3 className="font-semibold text-base">Profile</h3>
-        <p>
-          Sviluppatore full-stack con attenzione alla UI moderna, architetture
-          modulari e TypeScript evoluto.
-        </p>
+        <p>{t("author.line1")}</p>
+        <p>{t("author.line2")}</p>
+        <p>{t("author.line3")}</p>
       </div>
     </Modal>
   );

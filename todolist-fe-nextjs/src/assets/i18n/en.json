@@ -52,6 +52,11 @@
   "menu.functionalities.tasks": "Tasks",
   "menu.functionalities.users": "Users",
   "menu.section.about": "About",
-  "menu.about.onAuthor": "About Me",
-  "menu.about.portfolio": "Portfolio"
+  "menu.about.onAuthor": "About me",
+  "menu.about.portfolio": "Portfolio",
+
+  "author.title": "Alessandro De Prato",
+  "author.line1": "I'm a curious and versatile fullstack developer, constantly exploring innovative technologies. I love to learn independently, experimenting with new solutions by building complete and polished projects where every detail matters.",
+  "author.line2": "I enjoy crafting interfaces that are user-centered, supported by solid architecture and thoughtful design. Behind every feature lies a drive to combine performance, clean code, and modularity. I believe in continuous refactoring and scalability as engines of innovation — it’s not just about making things work, but about making them work well, today and tomorrow.",
+  "author.line3": "With this project, I wanted to prove that even a ToDo app can have soul: precision in every detail, thoughtful choices, and a touch of character."
 }

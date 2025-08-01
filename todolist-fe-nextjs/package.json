@@ -1,6 +1,6 @@
 {
   "name": "todolist-fe-next",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "private": true,
   "type": "module",
   "description": "A Next.js implementation for ToDo List application",
@@ -10,6 +10,7 @@
     "tailwindcss",
     "typescript",
     "redux-toolkit",
+    "tanstack",
     "axios"
   ],
   "scripts": {
