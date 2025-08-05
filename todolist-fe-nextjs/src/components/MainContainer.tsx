@@ -45,15 +45,15 @@ export default function MainContainer() {
     <div className="min-h-screen flex flex-col w-[92vw] md:w-[80vw] max-w-[1000px] mx-auto bg-[var(--bg)] text-[var(--fg)]">
       <NavBar menuItems={menuItems} />
 
-      {/* About author modal */}
-      {showOnAuthorModal && (
-        <AboutAuthorModal onClose={() => setShowOnAuthorModal(false)} />
-      )}
-
       <main className="flex-1 p-6">
         {view === "users" && <UsersView />}
         {view === "tasks" && <TasksView />}
       </main>
+      
+      {/* About author modal */}
+      {showOnAuthorModal && (
+        <AboutAuthorModal onClose={() => setShowOnAuthorModal(false)} />
+      )}
     </div>
   );
 }

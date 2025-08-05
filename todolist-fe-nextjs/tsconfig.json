@@ -1,16 +1,16 @@
 {
   "compilerOptions": {
-    "target": "ES2017",
+    "module": "ESNext", // "module": "esnext",
+    "target": "ESNext", // "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
+    "esModuleInterop": true, // ok
+    "moduleResolution": "Node", // "moduleResolution": "bundler",
+    "resolveJsonModule": true, // ok
+    "isolatedModules": true, // ok
     "jsx": "preserve",
     "incremental": true,
     "plugins": [
@@ -22,6 +22,15 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "ts-node": {
+    "esm": true
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "scripts/scanUseClient.js"
+  ],
   "exclude": ["node_modules"]
 }
