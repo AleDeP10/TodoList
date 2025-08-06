@@ -1,18 +1,20 @@
 {
   "compilerOptions": {
-    "module": "ESNext", // "module": "esnext",
-    "target": "ESNext", // "target": "ES2017",
+    "module": "ESNext",
+    "target": "ES2020",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
-    "esModuleInterop": true, // ok
-    "moduleResolution": "Node", // "moduleResolution": "bundler",
-    "resolveJsonModule": true, // ok
-    "isolatedModules": true, // ok
-    "jsx": "preserve",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
     "incremental": true,
+    "types": ["node", "react"],
     "plugins": [
       {
         "name": "next"
@@ -23,7 +25,10 @@
     }
   },
   "ts-node": {
-    "esm": true
+    "esm": true,
+    "compilerOptions": {
+      "module": "commonjs"
+    }
   },
   "include": [
     "next-env.d.ts",

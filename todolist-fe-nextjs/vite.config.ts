@@ -1,37 +1,36 @@
 import { defineConfig } from "vitest/config";
 import svgr from "vite-plugin-svgr";
 
-const isStorybook = process.env.STORYBOOK === "true";
-
-// Plugin per rimuovere "use client"
-const stripUseClient = {
-  name: "strip-use-client-directive",
-  transform(code: string) {
-    return code.replace(/["']use client["'];?/g, "");
-  },
-};
-
 export default defineConfig({
   logLevel: "info",
+
+  optimizeDeps: {
+    exclude: ["next/image"],
+  },
+
+  resolve: {
+    alias: [
+      {
+        find: "next/image",
+        replacement: "./.storybook/mock/image.tsx",
+      },
+    ],
+  },
+
   plugins: [
     svgr(),
-    ...(isStorybook ? [stripUseClient] : []),
     {
-      name: "ignore-font-assets",
-      load(id) {
-        if (id.includes("nunito-sans") && id.endsWith(".woff2")) {
-          console.log("⛔ Ignoro asset font:", id);
-          return "export default undefined;";
-        }
+      name: "strip-use-client-directive",
+      transform(code) {
+        return code.replace(/["']use client["'];?/g, "");
       },
     },
   ],
+
   build: {
     sourcemap: false,
-    rollupOptions: {
-      external: ["framer-motion"],
-    },
   },
+
   test: {
     projects: [
       {
@@ -49,4 +48,5 @@ export default defineConfig({
       },
     ],
   },
+
 });

@@ -1,6 +1,7 @@
 {
   "name": "todolist-fe-next",
-  "version": "0.1.7",
+  "version": "0.1.8",
+  "type": "module",
   "private": true,
   "description": "A Next.js implementation for ToDo List application",
   "keywords": [
@@ -18,7 +19,9 @@
     "start": "next start",
     "lint": "next lint",
     "storybook": "SET NODE_OPTIONS=--loader ts-node/esm && storybook dev -p 6006",
-    "build-storybook": "SET NODE_OPTIONS=--loader ts-node/esm && storybook build",
+    "build-storybook": "npm run build-storybook-logged",
+    "build-storybook-logged": "SET STORYBOOK=true && SET DEBUG=vite:* && SET NODE_OPTIONS=--loader ts-node/esm && storybook build > logs/storybook-build.log 2>&1",
+    "build-storybook-raw": "SET NODE_OPTIONS=--loader ts-node/esm && storybook build",
     "serve-nginx": "nginx -c ./nginx/nginx.conf",
     "stop-nginx": "nginx -s stop -c ./nginx/nginx.conf",
     "scan-client": "ts-node --loader ts-node/esm scripts/scanUseClient.ts"
@@ -51,7 +54,7 @@
     "@storybook/nextjs-vite": "^9.2.0-alpha.1",
     "@tailwindcss/postcss": "^4.1.11",
     "@types/express": "^5.0.3",
-    "@types/node": "^20",
+    "@types/node": "^20.19.9",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@vitest/browser": "^3.2.4",

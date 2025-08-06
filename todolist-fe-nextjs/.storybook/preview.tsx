@@ -1,7 +1,7 @@
 import { JSX } from "react";
 import type { Preview } from "@storybook/react";
 import { Providers } from "../src/app/providers";
-import "../src/app/globals.css";
+import "../src/styles/globals.css";
 
 const withProviders = (Story: () => JSX.Element) => (
   <Providers>
