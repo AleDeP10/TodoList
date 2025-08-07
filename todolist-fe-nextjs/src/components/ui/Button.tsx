@@ -81,6 +81,7 @@ export const Button = ({
       style={customStyle}
       title={tooltip}
       disabled={disabled}
+      aria-label={label ?? tooltip ?? 'Button'}
     >
       <div
         className={`flex justify-center items-center ${
@@ -88,7 +89,7 @@ export const Button = ({
         } w-full`}
       >
         {icon && <span>{icon}</span>}
-        <span className="hidden sm:inline">{label}</span>
+        <span className="sr-only sm:not-sr-only">{label}</span>
       </div>
     </button>
   );

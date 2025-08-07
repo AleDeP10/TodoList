@@ -1,27 +1,19 @@
-import { useTheme } from "@/hooks/useTheme";
+import { Meta, StoryObj } from "@storybook/nextjs-vite";
+import ThemeSwitcher from "@/components/ui/ThemeSwitcher";
 
-export default {
-  title: "UI/ThemeSwitcher",
+const meta: Meta<typeof ThemeSwitcher> = {
+  title: 'Example/ThemeSwitcher',
+  component: ThemeSwitcher,
+  parameters: {
+    layout: 'centered',
+  },
+  tags: ['autodocs'],
 };
 
-export const Default = () => {
-  const [theme, setTheme] = useTheme();
-  const options = ["dark", "light", "custom"] as const;
+export default meta;
 
-  return (
-    <div className="space-y-4">
-      <label className="block font-medium text-sm">Select Theme</label>
-      <select
-        value={theme}
-        onChange={(e) => setTheme(e.target.value as typeof theme)}
-        className="border px-2 py-1 rounded"
-      >
-        {options.map((opt) => (
-          <option key={opt} value={opt}>
-            {opt.toUpperCase()}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
+type Story = StoryObj<typeof ThemeSwitcher>;
+
+export const Example: Story = {
+  args: {},
 };

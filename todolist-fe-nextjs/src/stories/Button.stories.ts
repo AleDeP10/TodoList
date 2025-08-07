@@ -4,6 +4,8 @@ import { fn } from 'storybook/test';
 
 import { Button } from '../components/ui/Button';
 
+import { Icons } from '@/lib/icons/Icons';
+
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
   title: 'Example/Button',
@@ -35,6 +37,29 @@ export const Primary: Story = {
 
 export const Secondary: Story = {
   args: {
+    variant: "secondary",
+    label: 'Button',
+  },
+};
+
+export const Danger: Story = {
+  args: {
+    variant: "danger",
+    label: 'Button',
+  },
+};
+
+export const WithIcon: Story = {
+  args: {
+    icon: Icons.arrowRight,
+    label: 'Button',
+  },
+};
+
+export const Customized: Story = {
+  args: {
+    backgroundColor: "#16a34a",
+    foregroundColor: "#0b0b11",
     label: 'Button',
   },
 };

@@ -5,7 +5,7 @@ export default {
   component: ToggleButton,
 };
 
-export const ExampleToggle = () => (
+export const Example = () => (
   <ToggleButton
     initialValue="on"
     toggleTo="off"
