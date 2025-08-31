@@ -1,0 +1,38 @@
+{
+  "name": "todolist",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "todolist-ui-kit",
+    "todolist-storybook",
+    "todolist-fe-nextjs"
+  ],
+  "scripts": {
+    "clean-install": "node dist/scripts/cleanInstall.js",
+    "build-scripts": "tsc -p tsconfig.scripts.json",
+    "build-shims": "node dist/scripts/generateShims.js",
+    "check-versions": "node dist/scripts/checkVersions.js",
+    "copy-ui-kit": "node dist/scripts/copyUiKit.js",
+    "enforce-yarn-shim": "node dist/scripts/enforceYarnShim.js",
+    "build-storybook": "yarn build-storybook",
+    "validate-storybook": "node dist/scripts/validateStorybook.js"
+  },
+  "repository": "https://github.com/AleDeP10/TodoList.git",
+  "author": "AleDeP10 <alessandro.deprato@outlook.com>",
+  "license": "MIT",
+  "compilerOptions": {
+    "module": "ESNext",
+    "target": "ES2020",
+    "moduleResolution": "Bundler",
+    "esModuleInterop": true,
+    "resolveJsonModule": true
+  },
+  "resolutions": {
+    "@types/react": "18.2.0",
+    "@types/react-dom": "18.2.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "tailwindcss": "^4.1.12"
+  }
+}

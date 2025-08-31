@@ -9,6 +9,10 @@
 .vercel
 *.pem
 
+# 📦 Output e log della root
+/dist/
+/logs/
+
 # 🔒 Env & Configs
 **/appsettings.Development.json
 **/appsettings.Production.json
@@ -25,12 +29,12 @@ backend-csharp/.vs/
 *.nupkg
 *.snupkg
 packages/
+temp/
 
 # 🌐 AngularJS (legacy frontend)
 frontend-angularjs/node_modules/
 frontend-angularjs/dist/
 frontend-angularjs/logs/
-frontend-angularjs/temp/
 frontend-angularjs/.angular/
 frontend-angularjs/.env
 
@@ -45,16 +49,6 @@ todolist-fe-nextjs/out/
 todolist-fe-nextjs/build/
 todolist-fe-nextjs/logs/
 todolist-fe-nextjs/temp/
-todolist-fe-nextjs/.pnp
-todolist-fe-nextjs/pnpm-debug.log*
-todolist-fe-nextjs/yarn-debug.log*
-todolist-fe-nextjs/yarn-error.log*
-todolist-fe-nextjs/npm-debug.log*
-.todolist-fe-nextjs/.yarn/*
-!.todolist-fe-nextjs/.yarn/patches
-!.todolist-fe-nextjs/.yarn/plugins
-!.todolist-fe-nextjs/.yarn/releases
-!.todolist-fe-nextjs/.yarn/versions
 
 # 🧙‍♂️ Storybook
 *storybook.log
