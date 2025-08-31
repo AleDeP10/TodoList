@@ -1,14 +1,16 @@
+"use client"
+
 import { useEffect, useMemo, useState } from "react";
-import { useT } from "@/hooks/useTranslation";
+import { TaskStatus } from "@/lib/types/Status";
+import { TaskDto } from "@/lib/types/dto/TaskDto";
+import { UserDto } from "@/lib/types/dto/UserDto";
+import { useT } from "@/lib/hooks/useTranslation";
+import { Icons } from "@/lib/components/Icons";
+import Modal from "@/lib/components/ui/Modal";
+import { ButtonVariant } from "@/lib/components/ui/Button";
+import TextField from "@/lib/components/ui/TextField";
+import Dropdown from "@/lib/components/ui/Dropdown";
 import { useUserList } from "@/hooks/useUsers";
-import { Icons } from "@/lib/icons/Icons";
-import { TaskStatus } from "@/types/Status";
-import { TaskDto } from "@/types/dto/TaskDto";
-import { UserDto } from "@/types/dto/UserDto";
-import Modal from "@/components/ui/Modal";
-import { ButtonVariant } from "@/components/ui/Button";
-import TextField from "@/components/ui/TextField";
-import Dropdown from "@/components/ui/Dropdown";
 
 interface Props {
   currentTask?: TaskDto;

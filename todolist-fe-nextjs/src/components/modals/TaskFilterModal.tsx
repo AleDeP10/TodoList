@@ -1,17 +1,17 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { useT } from "@/hooks/useTranslation";
+import { TaskStatus } from "@/lib/types/Status";
+import { TaskFilters } from "@/lib/types/filters/TaskFilters";
+import { UserDto } from "@/lib/types/dto/UserDto";
+import { useT } from "@/lib/hooks/useTranslation";
 import { useUserList } from "@/hooks/useUsers";
-import { TaskStatus } from "@/types/Status";
-import { TaskFilters } from "@/types/filters/TaskFilters";
-import { UserDto } from "@/types/dto/UserDto";
-import { Icons } from "@/lib/icons/Icons";
-import type { ButtonVariant } from "@/components/ui/Button";
-import Dropdown from "@/components/ui/Dropdown";
-import Modal from "@/components/ui/Modal";
-import Switch from "@/components/ui/Switch";
-import TextField from "@/components/ui/TextField";
+import { Icons } from "@/lib/components/Icons";
+import type { ButtonVariant } from "@/lib/components/ui/Button";
+import Dropdown from "@/lib/components/ui/Dropdown";
+import Modal from "@/lib/components/ui/Modal";
+import Switch from "@/lib/components/ui/Switch";
+import TextField from "@/lib/components/ui/TextField";
 
 interface Props {
   filters: TaskFilters;

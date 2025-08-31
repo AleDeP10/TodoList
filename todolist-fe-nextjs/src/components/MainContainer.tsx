@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { MenuIcons } from "@/lib/icons/Icons";
-import NavBar from "@/components/ui/NavBar";
-import { useT } from "@/hooks/useTranslation";
-import { useView } from "@/hooks/useView";
+import { useT } from "@/lib/hooks/useTranslation";
+import { useView } from "@/lib/hooks/useView";
+import { MenuIcons } from "@/lib/components/Icons";
+import NavBar from "@/lib/components/ui/NavBar";
 import UsersView from "@/components/views/UsersView";
 import TasksView from "./views/TasksView";
 import AboutAuthorModal from "./modals/AboutAuthorModal";

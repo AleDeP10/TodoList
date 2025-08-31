@@ -1,34 +1,44 @@
 services:
 
-  - type: pserv
-    name: todolist-db
-    env: docker
-    repo: https://github.com/AleDeP10/TodoList
-    branch: main
-    dockerfilePath: db-backup/Dockerfile
-    autoDeploy: true
-    ports:
-      - port: 5432
+- type: pserv
+  name: todolist-db
+  env: docker
+  repo: https://github.com/AleDeP10/TodoList
+  branch: main
+  dockerfilePath: db-backup/Dockerfile
+  autoDeploy: true
+  ports:
+    - port: 5432
 
-  - type: web
-    name: todolist-api
-    env: docker
-    repo: https://github.com/AleDeP10/TodoList
-    branch: main
-    dockerfilePath: backend-csharp/Dockerfile
-    autoDeploy: true
-    envVars:
-      - key: ASPNETCORE_ENVIRONMENT
-        value: Docker
-    ports:
-      - port: 5000
+- type: web
+  name: todolist-api
+  env: docker
+  repo: https://github.com/AleDeP10/TodoList
+  branch: main
+  dockerfilePath: backend-csharp/Dockerfile
+  autoDeploy: true
+  envVars:
+    - key: ASPNETCORE_ENVIRONMENT
+      value: Docker
+  ports:
+    - port: 5000
 
-  - type: web
-    name: todolist-ui
-    env: docker
-    repo: https://github.com/AleDeP10/TodoList
-    branch: main
-    dockerfilePath: frontend-angularjs/Dockerfile
-    autoDeploy: true
-    ports:
-      - port: 8080
+- type: web
+  name: todolist-ui-angularjs
+  env: docker
+  repo: https://github.com/AleDeP10/TodoList
+  branch: main
+  dockerfilePath: frontend-angularjs/Dockerfile
+  autoDeploy: true
+  ports:
+    - port: 8080
+
+- type: web
+  name: todolist-ui-nextjs
+  env: docker
+  repo: https://github.com/AleDeP10/TodoList
+  branch: main
+  dockerfilePath: todolist-fe-nextjs/Dockerfile
+  autoDeploy: true
+  ports:
+    - port: 3000

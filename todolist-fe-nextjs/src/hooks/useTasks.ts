@@ -1,22 +1,22 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { TaskDto } from "@/types/dto/TaskDto";
-import { TaskFilters } from "@/types/filters/TaskFilters";
-import { getTaskFilters } from "@/store/task";
-import { setLoading, showToast } from "@/store/ui";
+import type { TaskDto } from "@/lib/types/dto/TaskDto";
+import { TaskFilters } from "@/lib/types/filters/TaskFilters";
+import { useT } from "@/lib/hooks/useTranslation";
+import { getTaskFilters } from "@/store/task/getTaskFilters";
+import { setLoading, showToast } from "@/store/ui/uiSlice";
 import {
   fetchTasks,
   createTask,
   updateTask,
   deleteTask,
-} from "@/lib/api/tasks";
+} from "@/api/tasks";
 import {
   useEntities,
   useSaveEntity,
   useDeleteEntity,
   useFilteredEntities,
 } from "@/hooks/useEntities";
-import { useT } from "@/hooks/useTranslation";
 
 const evalFilter = (task: TaskDto, filters: TaskFilters) => {
   const descriptionMatch = task.description

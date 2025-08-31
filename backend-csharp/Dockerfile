@@ -10,7 +10,7 @@ RUN dotnet restore
 
 # 📦 Copy all source files and publish the app
 COPY . ./
-RUN dotnet publish TodoList.csproj -c Release -o out
+RUN dotnet publish TodoList.csproj -c Release -o /app/publish
 
 # ──────────────────────────────────────────────
 # 🚀 Stage 2: Runtime image
@@ -19,7 +19,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 
 # 📥 Copy the published output from the build stage
-COPY --from=build /app/out .
+COPY --from=build /app/publish .
 
 # 🔐 Copy the HTTPS dev certificate into the container
 COPY https/aspnet-dev.pfx /app/https/aspnet-dev.pfx

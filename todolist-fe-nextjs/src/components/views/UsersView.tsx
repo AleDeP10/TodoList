@@ -2,16 +2,17 @@
 
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useT } from "@/hooks/useTranslation";
+import { UserDto } from "@/lib/types/dto/UserDto";
+import { UserFilters } from "@/lib/types/filters/UserFilters";
+import { useT } from "@/lib/hooks/useTranslation";
+import { Icons } from "@/lib/components/Icons";
+import { Button } from "@/lib/components/ui/Button";
+import LoadingSpinner from "@/lib/components/ui/LoadingSpinner";
 import { useSaveUser, useDeleteUser, useFilteredUsers } from "@/hooks/useUsers";
-import { getLoading } from "@/store/ui";
-import { getUserFilters, setUserFilters } from "@/store/user";
-import { UserDto } from "@/types/dto/UserDto";
-import { UserFilters } from "@/types/filters/UserFilters";
-import { getCSSVariable } from "@/lib/getCSSVariable";
-import { Icons } from "@/lib/icons/Icons";
-import { Button } from "@/components/ui/Button";
-import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import { getLoading } from "@/store/ui/getLoading";
+import { setUserFilters } from "@/store/user/userSlice";
+import { getUserFilters } from "@/store/user/getUserFilters";
+import { getCSSVariable } from "@/utils/getCSSVariable";
 import UserModal from "@/components/modals/UserModal";
 import UserFilterModal from "@/components/modals/UserFilterModal";
 import UserDeleteConfirmModal from "@/components/modals/UserDeleteConfirmModal";

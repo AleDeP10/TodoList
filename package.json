@@ -9,12 +9,13 @@
     "todolist-fe-nextjs"
   ],
   "scripts": {
-    "clean-install": "node dist/scripts/cleanInstall.js",
-    "build-scripts": "tsc -p tsconfig.scripts.json",
+    "setup": "yarn run build-scripts && yarn run build-shims && yarn run enforce-yarn-shim && yarn run check-versions && yarn run copy-ui-kit",  
+    "build-scripts": "tsc -p tsconfig.scripts.json",    
     "build-shims": "node dist/scripts/generateShims.js",
+    "enforce-yarn-shim": "node dist/scripts/enforceYarnShim.js",
     "check-versions": "node dist/scripts/checkVersions.js",
     "copy-ui-kit": "node dist/scripts/copyUiKit.js",
-    "enforce-yarn-shim": "node dist/scripts/enforceYarnShim.js",
+    "clean-install": "node dist/scripts/cleanInstall.js",  
     "build-storybook": "yarn build-storybook",
     "validate-storybook": "node dist/scripts/validateStorybook.js"
   },

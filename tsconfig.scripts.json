@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "noEmitOnError": true,
+    "jsx": "react",
+    "types": ["node", "react"]
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "**/*.test.ts"]
+}

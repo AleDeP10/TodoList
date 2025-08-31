@@ -1,10 +1,10 @@
 'use client';
 
-import Modal from "@/components/ui/Modal";
-import { Icons } from "@/lib/icons/Icons";
-import { UserDto } from "@/types/dto/UserDto";
-import { ButtonVariant } from "@/components/ui/Button";
-import { useT } from "@/hooks/useTranslation";
+import Modal from "@/lib/components/ui/Modal";
+import { Icons } from "@/lib/components/Icons";
+import { UserDto } from "@/lib/types/dto/UserDto";
+import { useT } from "@/lib/hooks/useTranslation";
+import { ButtonVariant } from "@/lib/components/ui/Button";
 
 interface Props {
   user: UserDto;

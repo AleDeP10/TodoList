@@ -1,4 +1,5 @@
-import { JSX } from "react";
+import type { ReactElement } from "react";
+
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
@@ -6,7 +7,7 @@ type ToastPayload = {
   type: "success" | "error" | "startup" | "delete";
   message: string;
   color?: string;
-  icon?: JSX.Element;
+  icon?: ReactElement;
 };
 
 type UIState = {

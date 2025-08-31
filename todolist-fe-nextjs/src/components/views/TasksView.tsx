@@ -2,26 +2,27 @@
 
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useT } from "@/hooks/useTranslation";
+import { TaskDto } from "@/lib/types/dto/TaskDto";
+import { UserDto } from "@/lib/types/dto/UserDto";
+import { TaskFilters } from "@/lib/types/filters/TaskFilters";
+import { useT } from "@/lib/hooks/useTranslation";
+import { Icons } from "@/lib/components/Icons";
+import { Button } from "@/lib/components/ui/Button";
+import LoadingSpinner from "@/lib/components/ui/LoadingSpinner";
 import {
   useSaveTask,
   useDeleteTask,
   useFilteredTasks,
   useNextStatus,
 } from "@/hooks/useTasks";
-import { getLoading } from "@/store/ui";
-import { getTaskFilters, setTaskFilters } from "@/store/task";
-import { TaskDto } from "@/types/dto/TaskDto";
-import { UserDto } from "@/types/dto/UserDto";
-import { TaskFilters } from "@/types/filters/TaskFilters";
-import { getCSSVariable } from "@/lib/getCSSVariable";
-import { Icons } from "@/lib/icons/Icons";
-import { Button } from "@/components/ui/Button";
-import LoadingSpinner from "@/components/ui/LoadingSpinner";
-import TaskModal from "@/components/modals/TaskModal";
-import TaskFilterModal from "../modals/TaskFilterModal";
-import TaskDeleteConfirmModal from "@/components/modals/TaskDeleteConfirmModal";
 import { useUserList } from "@/hooks/useUsers";
+import { getLoading } from "@/store/ui/getLoading";
+import { setTaskFilters } from "@/store/task/taskSlice";
+import { getTaskFilters } from "@/store/task/getTaskFilters";
+import { getCSSVariable } from "@/utils/getCSSVariable";
+import TaskModal from "@/components/modals/TaskModal";
+import TaskFilterModal from "@/components/modals/TaskFilterModal";
+import TaskDeleteConfirmModal from "@/components/modals/TaskDeleteConfirmModal";
 
 export default function TasksView() {
   const t = useT();

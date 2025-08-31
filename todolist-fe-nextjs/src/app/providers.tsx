@@ -4,8 +4,8 @@ import { ReactNode, useState } from "react";
 import { Provider } from "react-redux";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { store } from "@/store/store";
-import { LangProvider } from "@/lib/i18n";
-import { ViewProvider } from "@/lib/view";
+import { LangProvider } from "@/lib/providers";
+import { ViewProvider } from "@/lib/providers";
 
 interface Props {
   children: ReactNode;

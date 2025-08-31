@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TaskFilters } from "@/types/filters/TaskFilters";
+import { TaskFilters } from "@/lib/types/filters/TaskFilters";
 
 const initialState = {
   filters: {

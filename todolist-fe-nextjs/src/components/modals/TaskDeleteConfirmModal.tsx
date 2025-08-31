@@ -1,10 +1,10 @@
 'use client';
 
-import Modal from "@/components/ui/Modal";
-import { Icons } from "@/lib/icons/Icons";
-import { TaskDto } from "@/types/dto/TaskDto";
-import { ButtonVariant } from "@/components/ui/Button";
-import { useT } from "@/hooks/useTranslation";
+import Modal from "@/lib/components/ui/Modal";
+import { Icons } from "@/lib/components/Icons";
+import { TaskDto } from "@/lib/types/dto/TaskDto";
+import { ButtonVariant } from "@/lib/components/ui/Button";
+import { useT } from "@/lib/hooks/useTranslation";
 
 interface Props {
   task: TaskDto;
@@ -37,11 +37,8 @@ export default function TaskDeleteConfirmModal({ task, onClose, onConfirm }: Pro
       <div className="space-y-3 text-sm">
         <p>
           {t("task.delete.confirmBody", {
-            name: task.description,
+            description: task.description,
           })}
-        </p>
-        <p className="text-xs text-gray-600">
-          {t("task.delete.noteSetNull")}
         </p>
       </div>
     </Modal>

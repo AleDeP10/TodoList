@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
+import { TaskFilters } from '@/lib/types/filters/TaskFilters';
 import { RootState } from '@/store/store';
-import { TaskFilters } from '@/types/filters/TaskFilters';
 
 export const getTaskFilters = createSelector(
   [(state: RootState) => state.tasks.filters],

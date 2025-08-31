@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import type Entity from "@/types/Entity";
-import { Filters } from "@/types/Filters";
+import type Entity from "@/lib/types/Entity";
+import { Filters } from "@/lib/types/Filters";
+import { useT } from "@/lib/hooks/useTranslation";
 import { setLoading, showToast } from "@/store/ui/uiSlice";
-import { useT } from "./useTranslation";
 
 export function useFilteredEntities<T extends Entity, F extends Filters>(
   entityQueryHook: () => { data?: T[] },

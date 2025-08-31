@@ -1,9 +1,10 @@
 services:
   db:
-    build: ./db-backup
+    build:
+      context: ./db-backup
     container_name: todolist-db
     ports:
-      - "5433:5432"
+      - 5433:5432
     volumes:
       - dbdata:/var/lib/postgresql/data
     healthcheck:
@@ -11,27 +12,47 @@ services:
       interval: 5s
       retries: 5
 
-  backend:
-    build: ./backend-csharp
-    container_name: todolist-api
+  backend-csharp:
+    build:
+      context: ./backend-csharp
+    container_name: todolist-api-csharp
     ports:
-      - "5001:5000"
+      - 5001:5000
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
     depends_on:
       - db
 
-  frontend:
+  frontend-angularjs:
     build:
       context: ./frontend-angularjs
       dockerfile: Dockerfile
-      args:
-        ENV: docker
-    container_name: todolist-ui
+    container_name: todolist-ui-angular
     ports:
-      - "8081:8080"
+      - 8081:8080
     depends_on:
-      - backend
+      - backend-csharp
+
+  frontend-nextjs:
+    build:
+      context: ./todolist-fe-nextjs
+      dockerfile: Dockerfile
+    container_name: todolist-ui-next
+    ports:
+      - 3001:3000
+    depends_on:
+      - backend-csharp
+
+  storybook:
+    build:
+      context: ./todolist-fe-nextjs
+      dockerfile: Dockerfile
+      target: storybook
+    container_name: todolist-storybook
+    ports:
+      - 6007:6006
+    environment:
+      - NODE_ENV=development
 
 volumes:
   dbdata:

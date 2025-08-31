@@ -1,7 +1,8 @@
+"useClient"
 import { useSelector } from "react-redux";
-import type { UserDto } from "@/types/dto/UserDto";
-import { UserFilters } from "@/types/filters/UserFilters";
-import { getUserFilters } from "@/store/user";
+import type { UserDto } from "@/lib/types/dto/UserDto";
+import { UserFilters } from "@/lib/types/filters/UserFilters";
+import { getUserFilters } from "@/store/user/getUserFilters";
 import {
   useEntities,
   useSaveEntity,
@@ -13,7 +14,7 @@ import {
   createUser,
   updateUser,
   deleteUser,
-} from "@/lib/api/users";
+} from "@/api/users";
 
 const evalFilter = (user: UserDto, filters: UserFilters) => {
   const usernameMatch = user.username

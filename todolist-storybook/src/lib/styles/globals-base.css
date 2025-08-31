@@ -1,0 +1,55 @@
+:root {
+  --font-sans: "Geist Sans", Arial, sans-serif;
+  --font-mono: "Geist Mono", monospace;
+
+  --hover-darken: brightness(90%);
+
+  --warning-bg: #ff8800;
+  --success-bg: #16a34a;
+  --error-bg: #e74c3c;
+  --delete-bg: var(--warning-bg);
+  --create-bg: var(--success-bg);
+  --filter-bg: #ffbb00;
+  --remove-filter-bg: var(--warning-bg);
+
+  --task-todo-bg-rgba: rgba(247, 185, 85, 0.3);
+  --task-in-progress-bg-rgba: rgba(63, 146, 201, 0.3);
+  --task-done-bg-rgba: rgba(39, 183, 44, 0.3);
+  --user-active-rgba: rgba(118, 181, 234, 0.3);
+  --user-blocked-rgba: rgba(217, 118, 118, 0.3);
+
+  --task-todo-border: #f7b955;
+  --task-in-progress-border: #3f92c9;
+  --task-done-border: #27b72c;
+  --user-active: #76b5ea;
+  --user-blocked: #d97676;
+}
+
+.task--todo {
+  background-color: var(--task-todo-bg-rgba);
+  border-left: 4px solid var(--task-todo-border);
+}
+
+.task--in-progress {
+  background-color: var(--task-in-progress-bg-rgba);
+  border-left: 4px solid var(--task-in-progress-border);
+}
+
+.task--done {
+  background-color: var(--task-done-bg-rgba);
+  border-left: 4px solid var(--task-done-border);
+}
+
+.user--active {
+  background-color: var(--user-active-rgba);
+  border-left: 4px solid var(--user-active);
+}
+
+.user--blocked {
+  background-color: var(--user-blocked-rgba);
+  border-left: 4px solid var(--user-blocked);
+}
+
+body {
+  font-family: var(--font-sans);
+}

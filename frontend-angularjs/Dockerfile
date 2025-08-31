@@ -27,7 +27,7 @@ RUN npm run build
 FROM nginx:alpine
 
 # Environment configuration (injected at build time)
-# Use ARG to select config variant, default is "docker"
+# Use ARG to select config variant, default is "prod"
 ARG ENV
 ENV ENV=prod
 

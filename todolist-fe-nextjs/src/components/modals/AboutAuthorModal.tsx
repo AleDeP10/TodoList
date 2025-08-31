@@ -1,9 +1,9 @@
 "use client";
 
-import { useT } from "@/hooks/useTranslation";
-import { Icons } from "@/lib/icons/Icons";
-import Modal from "@/components/ui/Modal";
-import { ButtonVariant } from "@/components/ui/Button";
+import { useT } from "@/lib/hooks/useTranslation";
+import { Icons } from "@/lib/components/Icons";
+import Modal from "@/lib/components/ui/Modal";
+import { ButtonVariant } from "@/lib/components/ui/Button";
 
 interface AboutAuthorModalProps {
   onClose: () => void;
