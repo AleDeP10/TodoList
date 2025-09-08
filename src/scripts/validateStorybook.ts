@@ -11,7 +11,7 @@
  * - Verifies that the `storybook-static` folder exists (output of `build-storybook`)
  * - Ensures that `.storybook/main.ts` is present (required for Storybook config)
  * - Warns if `.storybook/preview.tsx` is missing (used for global decorators and theming)
- * - Verifies that `public/globals.css` has been generated (required for global styles)
+ * - Verifies that `public/styles/globals.css` has been generated (required for global styles)
  *
  * If any required file is missing, the script exits with a non-zero error code.
  * This prevents incomplete or misconfigured Storybook builds from being published.
@@ -54,7 +54,7 @@ const previewPath = path.resolve(
 // Define the path to the global stylesheet used by Storybook
 const globalsPath = path.resolve(
   __dirname,
-  "../../todolist-storybook/public/globals.css"
+  "../../todolist-storybook/public/styles/globals.css"
 );
 
 // Check if the storybook-static folder exists
@@ -80,7 +80,7 @@ if (!existsSync(previewPath)) {
 
 // Check if globals.css exists
 if (!existsSync(globalsPath)) {
-  console.error("❌ Missing public/globals.css. Required for global styles.");
+  console.error("❌ Missing public/styles/globals.css. Required for global styles.");
   process.exit(1);
 }
 

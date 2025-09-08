@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import IconButton from "../lib/components/ui/IconButton";
 import { Icons } from "../lib/components/Icons";
-import { TestWrapper } from "./TestWrapper";
+import { TestWrapper } from "./InteractionSandbox";
 
 const meta: Meta<typeof IconButton> = {
   title: "Controls/IconButton",
@@ -21,8 +21,9 @@ export const Example: Story = {
       {(appendText) => (
         <IconButton
           icon={Icons.close}
+          ariaLabel="Close"
           color="#047878"
-          onClick={() => appendText("You pressed the IconButton!")}
+          onClick={() => appendText("Close button clicked")}
         />
       )}
     </TestWrapper>

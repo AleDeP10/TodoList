@@ -28,8 +28,6 @@ export const Icons = {
   cancel: <XOctagon size={16} />,
   confirm: <CheckCircle size={16} />,
   save: <Save size={16} />,
-
-  // Parameteric spinner
   spinner: ({
     size = 64,
     color = "text-yellow-400",

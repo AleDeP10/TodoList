@@ -7,6 +7,9 @@ export interface DropdownProps<T> {
   getOptionValue?: (option: T) => string;
   getOptionLabel?: (option: T) => string;
   placeholder?: string;
+  error?: boolean;
+  helperText?: string;
+  onBlur?: (e: React.FocusEvent<HTMLSelectElement>) => void;
 }
 
 export default function Dropdown<T>({
@@ -15,6 +18,9 @@ export default function Dropdown<T>({
   onChange,
   getOptionValue = (option: T) => String(option),
   getOptionLabel = (option: T) => String(option),
+  error = false,
+  helperText,
+  onBlur,
 }: DropdownProps<T>) {
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = e.target.value;
@@ -27,22 +33,27 @@ export default function Dropdown<T>({
   };
 
   return (
-    <select
-      value={getOptionValue(value)}
-      onChange={handleChange}
-      className="text-sm p-2 rounded border border-gray-300
-                 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-[var(--fg)]
-                 bg-[var(--bg)] text-[var(--fg)]"
-    >
-      {options.map((opt, index) => (
-        <option
-          key={index}
-          value={getOptionValue(opt)}
-          className="bg-[var(--bg)] text-[var(--fg)]"
-        >
-          {getOptionLabel(opt)}
-        </option>
-      ))}
-    </select>
+    <div className="w-full">
+      <select
+        value={getOptionValue(value)}
+        onChange={handleChange}
+        onBlur={onBlur}
+        className={`text-sm p-2 rounded w-full !bg-white !text-black ${
+          error ? "border-red-500" : "border-gray-300"
+        } border focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-black`}
+      >
+        {options.map((opt, index) => (
+          <option
+            key={index}
+            value={getOptionValue(opt)}
+            className="!bg-white !text-black"
+          >
+            {getOptionLabel(opt)}
+          </option>
+        ))}
+      </select>
+      {helperText && <p className="text-xs text-red-500 mt-1">{helperText}</p>}
+    </div>
   );
 }
+

@@ -49,10 +49,13 @@ todolist-fe-nextjs/out/
 todolist-fe-nextjs/build/
 todolist-fe-nextjs/logs/
 todolist-fe-nextjs/temp/
+todolist-fe-nextjs/src/lib/
 
 # 🧙‍♂️ Storybook
 *storybook.log
 storybook-static
+todolist-storybook/src/lib/
+todolist-storybook/public/styles/
 
 # 💾 Backup / Temporanei
 *~

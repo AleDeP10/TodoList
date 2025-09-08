@@ -15,6 +15,7 @@ export interface ModalProps {
     label: string;
     icon?: ReactNode;
     variant?: ButtonVariant;
+    disabled?: boolean;
     onClick: () => void;
   }[];
 }
@@ -65,16 +66,29 @@ export default function Modal({
           {/* 🧼 Footer */}
           {footerActions.length > 0 && (
             <div className="flex justify-center gap-2 px-6 py-4 border-t border-[var(--fg)]">
-              {footerActions.map(({ icon, label, variant, onClick }) => (
-                <Button
-                  key={label}
-                  label={label}
-                  icon={icon}
-                  size="small"
-                  variant={variant}
-                  onClick={onClick}
-                />
-              ))}
+              {footerActions.map(
+                ({ icon, label, variant, disabled, onClick }) => {
+                  if (process.env.NODE_ENV !== "production") {
+                    console.log("Modal footerActions", {
+                      label,
+                      variant,
+                      disabled: footerActions.find((a) => a.label === label)
+                        ?.disabled,
+                    });
+                  }
+                  return (
+                    <Button
+                      key={label}
+                      label={label}
+                      icon={icon}
+                      size="small"
+                      variant={variant}
+                      disabled={disabled}
+                      onClick={onClick}
+                    />
+                  );
+                }
+              )}
             </div>
           )}
         </motion.div>

@@ -1,7 +1,8 @@
 import type { Meta, StoryFn } from "@storybook/react";
+import { getCSSVariable } from "../lib/utils/getCSSVariable";
 import { Icons } from "../lib/components/Icons";
 import { Button, ButtonProps } from "../lib/components/ui/Button";
-import { TestWrapper } from "./TestWrapper";
+import { TestWrapper } from "./InteractionSandbox";
 
 const meta: Meta<ButtonProps> = {
   title: "Controls/Button",
@@ -15,6 +16,26 @@ const meta: Meta<ButtonProps> = {
     },
     viewport: {
       defaultViewport: "responsive",
+    },
+    layout: "centered",
+    docs: {
+      description: {
+        component: `
+⚠️ Known issue: The 'IconOnlyMobile' story renders correctly in the frontend and in the Storybook 'Example' view, but does not behave as expected in the Docs preview.
+
+Symptoms:
+- The responsive hook \`useResponsiveVisibility()\` detects a desktop viewport in Docs, even when the preview is resized
+- As a result, the button displays both icon and label, instead of icon-only
+- This breaks the intended mobile-only behavior
+
+Cause:
+- The Docs renderer uses a fixed iframe resolution that does not match the Storybook viewport settings
+- Responsive hooks relying on \`window.innerWidth\` or media queries may return inconsistent values
+
+✅ Behavior is correct in 'Example' and in the live application.
+✅ The story is valid and does not require changes.
+`,
+      },
     },
   },
   argTypes: {
@@ -77,18 +98,33 @@ export const Disabled: StoryFn<ButtonProps> = () => (
   </TestWrapper>
 );
 
-export const IconOnlyMobile: StoryFn<ButtonProps> = () => (
+export const IconOnly: StoryFn<ButtonProps> = () => (
   <TestWrapper>
     {(appendText) => (
       <Button
-        label="Add"
-        variant="primary"
         icon={Icons.plus}
+        tooltip="Add"
+        variant="primary"
         onClick={() => appendText("Add button clicked")}
       />
     )}
   </TestWrapper>
 );
+
+export const IconOnlyMobile: StoryFn = () => {
+  return (
+    <TestWrapper>
+      {(appendText) => (
+        <Button
+          label="Add"
+          variant="primary"
+          icon={Icons.plus}
+          onClick={() => appendText("Add button clicked")}
+        />
+      )}
+    </TestWrapper>
+  );
+};
 
 IconOnlyMobile.parameters = {
   viewport: {
@@ -100,12 +136,12 @@ export const CustomColors: StoryFn<ButtonProps> = () => (
   <TestWrapper>
     {(appendText) => (
       <Button
-        label="Custom"
+        label="Create"
         variant="primary"
         icon={Icons.plus}
-        backgroundColor="#222"
-        foregroundColor="#0f0"
-        onClick={() => appendText("Custom button clicked")}
+        backgroundColor={getCSSVariable("--create-bg")}
+        foregroundColor="white"
+        onClick={() => appendText("Create button clicked")}
       />
     )}
   </TestWrapper>

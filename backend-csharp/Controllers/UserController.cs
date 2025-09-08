@@ -78,8 +78,9 @@ public class UserController : ControllerBase
         if (existingUser == null)
             return NotFound();
 
+        existingUser.FullName = updatedUser.FullName; 
         existingUser.Username = updatedUser.Username;
-        existingUser.FullName = updatedUser.FullName;
+        existingUser.Password = updatedUser.Password;
         existingUser.Status = updatedUser.Status;
         existingUser.IsAdmin = updatedUser.IsAdmin;
 

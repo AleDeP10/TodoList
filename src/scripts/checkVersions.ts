@@ -69,6 +69,10 @@ const storybookVersion = getVersion("@storybook/react");
 const typesReactVersion = getVersion("@types/react");
 const typesReactDomVersion = getVersion("@types/react-dom");
 
+// Get root-level versions of Tailwind packages
+const tailwindVersion = getVersion("tailwindcss");
+const tailwindPostcssVersion = getVersion("@tailwindcss/postcss");
+
 // Log detected versions
 console.log("🔍 Detected root versions:");
 console.log("React:", reactVersion);
@@ -76,45 +80,82 @@ console.log("ReactDOM:", reactDomVersion);
 console.log("Storybook:", storybookVersion);
 console.log("@types/react:", typesReactVersion);
 console.log("@types/react-dom:", typesReactDomVersion);
+console.log("TailwindCSS:", tailwindVersion);
+console.log("@tailwindcss/postcss:", tailwindPostcssVersion);
 
 // Warn if any version is missing
 if (!reactVersion) console.warn("⚠️ React version not found");
 if (!reactDomVersion) console.warn("⚠️ ReactDOM version not found");
 if (!storybookVersion) console.warn("⚠️ Storybook version not found");
 if (!typesReactVersion) console.warn("⚠️ @types/react version not found");
-if (!typesReactDomVersion) console.warn("⚠️ @types/react-dom version not found");
+if (!typesReactDomVersion)
+  console.warn("⚠️ @types/react-dom version not found");
+if (!tailwindVersion) console.warn("⚠️ TailwindCSS version not found");
+if (!tailwindPostcssVersion)
+  console.warn("⚠️ @tailwindcss/postcss version not found");
 
 // Define expected versions
 const expectedReactVersion = "18.2.0";
 const expectedStorybookVersion = "7.6.0";
 const expectedTypesReactVersion = "18.2.0";
 const expectedTypesReactDomVersion = "18.2.0";
+const expectedTailwindVersion = "4.1.12";
+const expectedTailwindPostcssVersion = "4.1.12";
 
 // Compare actual versions to expected and warn if mismatched
 if (reactVersion && reactVersion !== expectedReactVersion) {
-  console.warn(`⚠️ React version is ${reactVersion}, expected ${expectedReactVersion}`);
+  console.warn(
+    `⚠️ React version is ${reactVersion}, expected ${expectedReactVersion}`
+  );
 }
 if (reactDomVersion && reactDomVersion !== expectedReactVersion) {
-  console.warn(`⚠️ ReactDOM version is ${reactDomVersion}, expected ${expectedReactVersion}`);
+  console.warn(
+    `⚠️ ReactDOM version is ${reactDomVersion}, expected ${expectedReactVersion}`
+  );
 }
 if (typesReactVersion && typesReactVersion !== expectedTypesReactVersion) {
-  console.warn(`⚠️ @types/react version is ${typesReactVersion}, expected ${expectedTypesReactVersion}`);
+  console.warn(
+    `⚠️ @types/react version is ${typesReactVersion}, expected ${expectedTypesReactVersion}`
+  );
 }
-if (typesReactDomVersion && typesReactDomVersion !== expectedTypesReactDomVersion) {
-  console.warn(`⚠️ @types/react-dom version is ${typesReactDomVersion}, expected ${expectedTypesReactDomVersion}`);
+if (
+  typesReactDomVersion &&
+  typesReactDomVersion !== expectedTypesReactDomVersion
+) {
+  console.warn(
+    `⚠️ @types/react-dom version is ${typesReactDomVersion}, expected ${expectedTypesReactDomVersion}`
+  );
+}
+if (tailwindVersion && tailwindVersion !== expectedTailwindVersion) {
+  console.warn(
+    `⚠️ TailwindCSS version is ${tailwindVersion}, expected ${expectedTailwindVersion}`
+  );
+}
+if (
+  tailwindPostcssVersion &&
+  tailwindPostcssVersion !== expectedTailwindPostcssVersion
+) {
+  console.warn(
+    `⚠️ @tailwindcss/postcss version is ${tailwindPostcssVersion}, expected ${expectedTailwindPostcssVersion}`
+  );
 }
 
 // Check if @types/react references scheduler/tracing
 try {
   // Resolve path to index.d.ts
-  const reactTypesPath = path.resolve(__dirname, "../../node_modules/@types/react/index.d.ts");
+  const reactTypesPath = path.resolve(
+    __dirname,
+    "../../node_modules/@types/react/index.d.ts"
+  );
 
   // Read file content
   const content = fs.readFileSync(reactTypesPath, "utf-8");
 
   // Warn if scheduler/tracing is referenced
   if (content.includes("scheduler/tracing")) {
-    console.warn("⚠️ @types/react includes reference to 'scheduler/tracing'. Ensure @types/scheduler is installed.");
+    console.warn(
+      "⚠️ @types/react includes reference to 'scheduler/tracing'. Ensure @types/scheduler is installed."
+    );
   }
 } catch (err) {
   // Log error if file read fails
@@ -153,46 +194,80 @@ for (const workspace of workspaces) {
 
   // Compare versions and log errors if mismatched
   if (react && react !== expectedReactVersion) {
-    console.error(`❌ ${workspace}: react is ${react}, expected ${expectedReactVersion}`);
+    console.error(
+      `❌ ${workspace}: react is ${react}, expected ${expectedReactVersion}`
+    );
     hasMismatch = true;
   }
   if (reactDom && reactDom !== expectedReactVersion) {
-    console.error(`❌ ${workspace}: react-dom is ${reactDom}, expected ${expectedReactVersion}`);
+    console.error(
+      `❌ ${workspace}: react-dom is ${reactDom}, expected ${expectedReactVersion}`
+    );
     hasMismatch = true;
   }
   if (typesReact && typesReact !== expectedTypesReactVersion) {
-    console.error(`❌ ${workspace}: @types/react is ${typesReact}, expected ${expectedTypesReactVersion}`);
+    console.error(
+      `❌ ${workspace}: @types/react is ${typesReact}, expected ${expectedTypesReactVersion}`
+    );
     hasMismatch = true;
   }
   if (typesReactDom && typesReactDom !== expectedTypesReactDomVersion) {
-    console.error(`❌ ${workspace}: @types/react-dom is ${typesReactDom}, expected ${expectedTypesReactDomVersion}`);
+    console.error(
+      `❌ ${workspace}: @types/react-dom is ${typesReactDom}, expected ${expectedTypesReactDomVersion}`
+    );
     hasMismatch = true;
   }
 
-  // Resolve path to workspace's package.json
+  // Read workspace package.json
   const pkgPath = path.resolve(__dirname, `../${workspace}/package.json`);
   if (!fs.existsSync(pkgPath)) continue;
 
-  // Read and parse package.json
   const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf-8"));
-
-  // Merge dependencies and devDependencies
   const allDeps = { ...pkg.dependencies, ...pkg.devDependencies };
 
   // Check Storybook package versions
   for (const name of storybookPackages) {
     const version = allDeps[name];
     if (version && version !== expectedStorybookVersion) {
-      console.error(`❌ ${workspace}: ${name} is ${version}, expected ${expectedStorybookVersion}`);
+      console.error(
+        `❌ ${workspace}: ${name} is ${version}, expected ${expectedStorybookVersion}`
+      );
       hasMismatch = true;
     }
   }
+
+  // NEW: Check Tailwind and @tailwindcss/postcss versions
+  const tailwind = allDeps["tailwindcss"];
+  const tailwindPostcss = allDeps["@tailwindcss/postcss"];
+
+  // Compare Tailwind version in workspace with expected version
+  if (tailwind && tailwind !== expectedTailwindVersion) {
+    console.error(
+      `❌ ${workspace}: tailwindcss is ${tailwind}, expected ${expectedTailwindVersion}`
+    );
+    hasMismatch = true;
+  }
+
+  // Compare @tailwindcss/postcss version in workspace with expected version
+  if (tailwindPostcss && tailwindPostcss !== expectedTailwindPostcssVersion) {
+    console.error(
+      `❌ ${workspace}: @tailwindcss/postcss is ${tailwindPostcss}, expected ${expectedTailwindPostcssVersion}`
+    );
+    hasMismatch = true;
+  }
 }
 
-// Exit with error code if mismatches were found
+// Final summary of version mismatches
 if (hasMismatch) {
-  process.exit(1);
+  console.error(
+    "\n❌ Version mismatches detected across workspaces. Please review the errors above."
+  );
+  console.error(
+    "Ensure all dependencies are aligned with expected versions to avoid runtime issues."
+  );
+  process.exit(1); // Exit with error code to indicate failure
 } else {
-  // Otherwise confirm success
-  console.log("✅ All packages are correctly pinned.");
+  console.log("\n✅ All versions are consistent across workspaces.");
+  console.log("You are good to go!");
+  process.exit(0); // Exit with success code
 }

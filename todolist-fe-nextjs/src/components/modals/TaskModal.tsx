@@ -1,10 +1,11 @@
-"use client"
+"use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { TaskStatus } from "@/lib/types/Status";
 import { TaskDto } from "@/lib/types/dto/TaskDto";
 import { UserDto } from "@/lib/types/dto/UserDto";
 import { useT } from "@/lib/hooks/useTranslation";
+import { useFieldValidation } from "@/lib/hooks/useFieldValidation";
 import { Icons } from "@/lib/components/Icons";
 import Modal from "@/lib/components/ui/Modal";
 import { ButtonVariant } from "@/lib/components/ui/Button";
@@ -18,11 +19,7 @@ interface Props {
   onSubmit: (task: TaskDto) => void;
 }
 
-export default function TaskEditModal({
-  currentTask,
-  onClose,
-  onSubmit,
-}: Props) {
+export default function TaskModal({ currentTask, onClose, onSubmit }: Props) {
   const t = useT();
 
   const [formState, setFormState] = useState<TaskDto>({
@@ -47,14 +44,41 @@ export default function TaskEditModal({
   );
 
   const fetchedUsers = useUserList().users;
-  const [users, setUsers] = useState<UserDto[]>([]);
-
-  useEffect(() => {
-    setUsers([dummyUser, ...fetchedUsers]);
-  }, [dummyUser, fetchedUsers]);
+  const users = useMemo(
+    () => [dummyUser, ...fetchedUsers],
+    [dummyUser, fetchedUsers]
+  );
 
   const selectedUser =
     users.find((u) => u.id === formState.assigneeId) ?? dummyUser;
+
+  const { isFormValid, markTouched, hasError, getHelperText } =
+    useFieldValidation(
+      {
+        description: formState.description,
+        assigneeId: String(formState.assigneeId ?? ""),
+        status: formState.status,
+      },
+      ["description"],
+      {
+        status: {
+          validate: (status) => {
+            const normalized = status.trim().toUpperCase();
+            if (normalized === "TODO") return true;
+            return !!formState.assigneeId;
+          },
+          helperText: t("task.status.requiresAssignee"),
+        },
+      }
+    );
+
+  if (process.env.NODE_ENV !== "production") {
+    console.log("TaskModal footerActions", {
+      isFormValid,
+      disabled: !isFormValid,
+      formState,
+    });
+  }
 
   return (
     <Modal
@@ -71,7 +95,13 @@ export default function TaskEditModal({
           label: t("button.save"),
           icon: Icons.save,
           variant: "primary" as ButtonVariant,
-          onClick: () => onSubmit(formState),
+          onClick: () => {
+            ["description", "status"].forEach(markTouched);
+            if (isFormValid) {
+              onSubmit(formState);
+            }
+          },
+          disabled: !isFormValid,
         },
       ]}
     >
@@ -90,6 +120,10 @@ export default function TaskEditModal({
                   description: e.target.value,
                 }))
               }
+              onBlur={() => markTouched("description")}
+              error={hasError("description")}
+              helperText={getHelperText("description")}
+              placeholder={t("task.description.placeholder")}
             />
           </div>
         </div>
@@ -100,17 +134,20 @@ export default function TaskEditModal({
             {t("task.assignee")}
           </label>
           <div className="col-span-9">
-            <Dropdown
+            <Dropdown<UserDto>
               value={selectedUser}
               options={users}
               getOptionValue={(user) => String(user.id)}
               getOptionLabel={(user) => user.fullName}
-              onChange={(user) =>
+              onChange={(user) => {
                 setFormState((prev) => ({
                   ...prev,
                   assigneeId: user.id,
-                }))
-              }
+                }));
+                markTouched("status");
+              }}
+              onBlur={() => markTouched("status")}
+              error={hasError("status")}
               placeholder={t("task.assignee")}
             />
           </div>
@@ -125,12 +162,16 @@ export default function TaskEditModal({
             <Dropdown<TaskStatus>
               value={formState.status}
               options={["TODO", "IN PROGRESS", "DONE"]}
-              onChange={(status) =>
+              onChange={(status) => {
                 setFormState((prev) => ({
                   ...prev,
                   status: status!,
-                }))
-              }
+                }));
+                markTouched("status");
+              }}
+              onBlur={() => markTouched("status")}
+              error={hasError("status")}
+              helperText={getHelperText("status")}
               placeholder={t("task.status")}
             />
           </div>

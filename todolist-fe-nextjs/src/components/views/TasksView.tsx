@@ -19,7 +19,7 @@ import { useUserList } from "@/hooks/useUsers";
 import { getLoading } from "@/store/ui/getLoading";
 import { setTaskFilters } from "@/store/task/taskSlice";
 import { getTaskFilters } from "@/store/task/getTaskFilters";
-import { getCSSVariable } from "@/utils/getCSSVariable";
+import { getCSSVariable } from "@/lib/utils/getCSSVariable";
 import TaskModal from "@/components/modals/TaskModal";
 import TaskFilterModal from "@/components/modals/TaskFilterModal";
 import TaskDeleteConfirmModal from "@/components/modals/TaskDeleteConfirmModal";
@@ -57,6 +57,16 @@ export default function TasksView() {
     "IN PROGRESS": "task--in-progress ",
     DONE: "task--done",
   };
+
+  if (process.env.NODE_ENV !== "production") {
+    filteredTasks.map((task) => {
+      console.log("TasksView", {
+        status: task.status,
+        assigneeId: task.assigneeId,
+        disabled: task.status === "DONE" || !task.assigneeId,
+      });
+    });
+  }
 
   return (
     <section className="p-6 space-y-6 mx-auto">
@@ -131,11 +141,15 @@ export default function TasksView() {
                   onClick={() => setCurrentTask(task)}
                 />
                 <Button
-                  tooltip={t("button.nextStatus")}
+                  tooltip={
+                    task.status === "DONE" || !task.assigneeId
+                      ? t("task.nextStatus.disabled")
+                      : t("task.nextStatus")
+                  }
                   icon={Icons.arrowRight}
                   size="small"
                   variant="primary"
-                  disabled={task.status === "DONE"}
+                  disabled={task.status === "DONE" || !task.assigneeId}
                   onClick={() => nextStatus(task)}
                 />
                 <Button

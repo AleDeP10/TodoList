@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Meta } from "@storybook/react";
 import { Icons } from "../lib/components/Icons";
-import { ButtonVariant } from "../lib/components/ui/Button";
+import { Button, ButtonVariant } from "../lib/components/ui/Button";
 import Modal, { ModalProps } from "../lib/components/ui/Modal";
 
 const meta: Meta<ModalProps> = {
@@ -9,6 +9,23 @@ const meta: Meta<ModalProps> = {
   component: Modal,
   parameters: {
     layout: "centered",
+    docs: {
+      description: {
+        component: `
+⚠️ Known issue: The Modal component renders correctly in the frontend and in the Storybook 'Example' view, but appears visually broken in the Docs preview.
+
+Symptoms:
+- Header is cropped or pushed outside the viewport
+- Content is horizontally compressed and may require scrolling
+- The defined max-width (e.g. 'max-w-lg') is ignored
+- CSS variables like '--modal-bg' and '--fg' are present but not resolved
+
+This is a limitation of the Docs renderer and does not affect production usage.
+
+✅ Layout and behavior are correct in 'Example' and in the live application.
+`,
+      },
+    },
   },
   tags: ["autodocs"],
 };
@@ -38,11 +55,10 @@ export const Example = () => {
       </p>
     </Modal>
   ) : (
-    <button
-      className="mt-4 px-4 py-2 bg-blue-600 text-white rounded"
+    <Button
+      variant="primary"
       onClick={() => setOpen(true)}
-    >
-      Open modal
-    </button>
+      label="Open modal"
+    />
   );
 };

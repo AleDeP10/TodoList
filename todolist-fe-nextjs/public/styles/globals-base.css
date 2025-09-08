@@ -4,9 +4,10 @@
 
   --hover-darken: brightness(90%);
 
-  --warning-bg: #ff8800;
   --success-bg: #16a34a;
+  --warning-bg: #ff8800;
   --error-bg: #e74c3c;
+
   --delete-bg: var(--warning-bg);
   --create-bg: var(--success-bg);
   --filter-bg: #ffbb00;

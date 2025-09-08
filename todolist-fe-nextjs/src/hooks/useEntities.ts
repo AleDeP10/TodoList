@@ -6,6 +6,9 @@ import { Filters } from "@/lib/types/Filters";
 import { useT } from "@/lib/hooks/useTranslation";
 import { setLoading, showToast } from "@/store/ui/uiSlice";
 
+/**
+ * Hook to retrieve and filter entities with automatic sorting.
+ */
 export function useFilteredEntities<T extends Entity, F extends Filters>(
   entityQueryHook: () => { data?: T[] },
   filters: F,
@@ -13,15 +16,11 @@ export function useFilteredEntities<T extends Entity, F extends Filters>(
 ) {
   const { data = [], ...queryRest } = entityQueryHook();
 
-  const filtered = data.filter((item) => filterFn(item, filters));
+  const filtered = filters
+    ? data.filter((item) => filterFn(item, filters))
+    : data;
 
-  const sorted = filtered.sort((e1: Entity, e2: Entity) => {
-    if (!e1.id) return -1;
-    if (!e2.id) return 1;
-    if (e1.id < e2.id) return -1;
-    if (e1.id > e2.id) return 1;
-    return 0;
-  })
+  const sorted = filtered.sort((e1, e2) => (e1.id ?? 0) - (e2.id ?? 0));
 
   return {
     data: sorted,
@@ -29,6 +28,9 @@ export function useFilteredEntities<T extends Entity, F extends Filters>(
   };
 }
 
+/**
+ * Hook to fetch entities from a remote query with loading and error handling.
+ */
 export const useEntities = <T extends Entity>(
   entityName: string,
   fetchFn: () => Promise<T[]>,
@@ -43,9 +45,7 @@ export const useEntities = <T extends Entity>(
   });
 
   useEffect(() => {
-    if (query.isFetching) {
-      dispatch(setLoading(true));
-    }
+    dispatch(setLoading(query.isFetching));
 
     if (query.isError && query.error instanceof Error) {
       dispatch(
@@ -53,26 +53,25 @@ export const useEntities = <T extends Entity>(
           type: "error",
           message: t("entity.fetch.error", {
             entity: t(`entity.${entityName}`),
-            error: query.error.message
+            error: query.error.message,
           }),
         })
       );
       console.error(`error while fetching ${entityName}`, query.error);
-    }
-
-    if (!query.isFetching) {
-      dispatch(setLoading(false));
     }
   }, [query.isFetching, query.isError, query.error, dispatch, t, entityName]);
 
   return query;
 };
 
+/**
+ * Hook to save an entity (create or update) with feedback and cache invalidation.
+ */
 export const useSaveEntity = <T extends Entity>(
   entityName: string,
   createFn: (entity: T) => Promise<T>,
   updateFn: (entity: T) => Promise<void>,
-  queryKey?: string[] | undefined
+  queryKey?: string[]
 ) => {
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
@@ -80,6 +79,9 @@ export const useSaveEntity = <T extends Entity>(
 
   return useMutation<T | void, Error, { entity: T }>({
     mutationFn: async ({ entity }) => {
+      if (process.env.NODE_ENV !== "production") {
+        console.log(`useSaveEntities[${entityName}]`, { entity });
+      }
       dispatch(setLoading(true)); // 🚦 Spinner ON
       if (entity.id) {
         await updateFn(entity); // 🔄 Update
@@ -106,7 +108,7 @@ export const useSaveEntity = <T extends Entity>(
           type: "error",
           message: t("entity.save.error", {
             entity: t(`entity.${entityName}`),
-            message: error.message
+            message: error.message,
           }),
         })
       );
@@ -115,6 +117,9 @@ export const useSaveEntity = <T extends Entity>(
   });
 };
 
+/**
+ * Hook to delete an entity with feedback and cache invalidation.
+ */
 export const useDeleteEntity = (
   entityName: string,
   deleteFn: (id: number) => Promise<void>,
@@ -148,7 +153,7 @@ export const useDeleteEntity = (
           type: "error",
           message: t("entity.delete.error", {
             entity: t(`entity.${entityName}`),
-            message: error.message
+            message: error.message,
           }),
         })
       );

@@ -8,11 +8,11 @@ import { useT } from "@/lib/hooks/useTranslation";
 import { Icons } from "@/lib/components/Icons";
 import { Button } from "@/lib/components/ui/Button";
 import LoadingSpinner from "@/lib/components/ui/LoadingSpinner";
-import { useSaveUser, useDeleteUser, useFilteredUsers } from "@/hooks/useUsers";
+import { useFilteredUsers, useSaveUser, useDeleteUser } from "@/hooks/useUsers";
 import { getLoading } from "@/store/ui/getLoading";
 import { setUserFilters } from "@/store/user/userSlice";
 import { getUserFilters } from "@/store/user/getUserFilters";
-import { getCSSVariable } from "@/utils/getCSSVariable";
+import { getCSSVariable } from "@/lib/utils/getCSSVariable";
 import UserModal from "@/components/modals/UserModal";
 import UserFilterModal from "@/components/modals/UserFilterModal";
 import UserDeleteConfirmModal from "@/components/modals/UserDeleteConfirmModal";
@@ -21,7 +21,6 @@ export default function UsersView() {
   const t = useT();
   const dispatch = useDispatch();
 
-  const { data: filteredUsers = [] } = useFilteredUsers();
   const { mutate: saveUser } = useSaveUser();
   const { mutate: deleteUser } = useDeleteUser();
 
@@ -46,6 +45,12 @@ export default function UsersView() {
     ACTIVE: "user--active",
     BLOCKED: "user--blocked",
   };
+
+  const { data: filteredUsers = [] } = useFilteredUsers();
+    
+  if (process.env.NODE_ENV !== "production") {
+    console.log(`UsersView`, { filteredUsers });
+  }
 
   return (
     <section className="p-6 space-y-6 mx-auto">
@@ -93,7 +98,7 @@ export default function UsersView() {
 
       {/* 📋 User list */}
       {isLoading ? (
-        <LoadingSpinner></LoadingSpinner>
+        <LoadingSpinner />
       ) : (
         <ul className="space-y-4">
           {filteredUsers.map((user) => (
@@ -104,7 +109,9 @@ export default function UsersView() {
               } p-4 rounded shadow-sm flex flex-wrap items-center justify-between gap-4 sm:items-center`}
             >
               <div className="text-sm">
-                <strong>{user.fullName ?? user.username}</strong>
+                <strong>
+                  {user.fullName} ({user.username})
+                </strong>
                 <div className="text-xs text-[var(--text-secondary)]">
                   {t("user.role")}:{" "}
                   {user.isAdmin ? t("user.role.admin") : t("user.role.user")} •{" "}

@@ -5,8 +5,7 @@ import { ThemeName } from "../../types/ThemeName";
 import { useTheme } from "../../hooks/useTheme";
 import Dropdown from "./Dropdown";
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface ThemeSwitcherProps {}
+export type ThemeSwitcherProps = Record<string, never>;
 
 export default function ThemeSwitcher({}: ThemeSwitcherProps) {
   const [theme, setTheme] = useTheme();

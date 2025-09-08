@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toast as baseToast, ToastContainer } from "react-toastify";
 import { selectToast, clearToast } from "@/store/ui/uiSlice";
-import { getCSSVariable } from "@/utils/getCSSVariable";
+import { getCSSVariable } from "@/lib/utils/getCSSVariable";
 import "react-toastify/dist/ReactToastify.css";
 
 const icons = {

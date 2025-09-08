@@ -3,9 +3,9 @@ import { UserStatus } from "../Status";
 
 export interface UserDto extends Entity {
   id?: number;
+  fullName: string;
   username: string;
   password: string;
   isAdmin: boolean;
-  fullName: string;
   status: UserStatus;
 }

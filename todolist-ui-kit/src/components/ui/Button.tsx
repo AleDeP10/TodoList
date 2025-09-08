@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import type { ReactNode } from "react";
+import { useResponsiveVisibility } from "../../hooks/useResponsiveVisibility";
 import "./button.css";
 
 export type ButtonVariant = "primary" | "secondary" | "danger";
@@ -25,7 +26,12 @@ export interface ButtonProps {
   onClick?: () => void;
 }
 
-/** Primary UI component for user interaction */
+function getCSSVariable(name: string): string {
+  if (typeof window === "undefined") return "";
+  const root = window.getComputedStyle(document.documentElement);
+  return root.getPropertyValue(name).trim();
+}
+
 export const Button = ({
   label,
   icon,
@@ -37,11 +43,46 @@ export const Button = ({
   foregroundColor,
   onClick,
 }: ButtonProps) => {
-  const variantClasses: Record<ButtonVariant, string> = {
-    primary: "bg-blue-600 text-white hover:bg-blue-700",
-    secondary: "bg-gray-300 text-gray-800 hover:bg-gray-400",
-    danger: "bg-red-600 text-white hover:bg-red-700",
-  };
+  const isMobile = useResponsiveVisibility();
+  const [isHovered, setIsHovered] = useState(false);
+
+  // 🔧 Background color logic
+  let bgColor: string = "";
+  if (backgroundColor) {
+    bgColor = backgroundColor;
+  } else if (variant) {
+    switch (variant) {
+      case "primary":
+        bgColor = getCSSVariable("--color-blue-600");
+        break;
+      case "secondary":
+        bgColor = getCSSVariable("--color-gray-300");
+        break;
+      case "danger":
+        bgColor = getCSSVariable("--color-red-600");
+        break;
+      default:
+        bgColor = getCSSVariable("--color-gray-400");
+    }
+  }
+
+  // 🎨 Foreground color logic
+  let fgColor: string = "";
+  if (foregroundColor) {
+    fgColor = foregroundColor;
+  } else if (variant) {
+    switch (variant) {
+      case "primary":
+      case "danger":
+        fgColor = "#ffffff";
+        break;
+      case "secondary":
+        fgColor = getCSSVariable("--color-gray-800");
+        break;
+      default:
+        fgColor = "#000000";
+    }
+  }
 
   const sizeClasses: Record<NonNullable<ButtonProps["size"]>, string> = {
     small: "px-3 py-1 text-sm",
@@ -49,43 +90,53 @@ export const Button = ({
     large: "px-5 py-3 text-lg",
   };
 
-  const baseClasses = "rounded inline-flex items-center gap-2 transition";
-
+  const baseClasses = "rounded inline-flex items-center transition";
   const disabledClasses = disabled
     ? "opacity-50 grayscale-[70%] cursor-not-allowed"
     : "";
 
-  const customHoverClass = backgroundColor
-    ? "hover:[filter:var(--hover-darken)]"
-    : "";
+  const hasIcon = !!icon;
+  const hasLabel = !!label;
 
   const customStyle = {
-    ...(backgroundColor ? { backgroundColor } : {}),
-    ...(foregroundColor ? { color: foregroundColor } : {}),
-    ...(backgroundColor ? { transition: "filter 0.2s ease" } : {}),
+    backgroundColor: bgColor,
+    color: fgColor,
+    transition: "background-color 0.2s ease",
+    filter: !disabled && isHovered ? "brightness(90%)" : undefined,
+    cursor: disabled ? "default" : "pointer",
   };
 
   return (
     <button
       type="button"
       onClick={onClick}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       className={[
         "storybook-button",
         `storybook-button--${size}`,
         baseClasses,
         sizeClasses[size],
-        variantClasses[variant],
         disabledClasses,
-        customHoverClass,
       ].join(" ")}
       style={customStyle}
       title={tooltip}
       disabled={disabled}
       aria-label={label ?? tooltip ?? "Button"}
     >
-      <div className="flex items-center gap-2 w-full">
-        <span className="inline-flex items-center justify-center">{icon}</span>
-        <span className="sr-only sm:not-sr-only leading-none align-middle">{label}</span>
+      <div className="flex items-center gap-x-2">
+        {hasIcon && (
+          <span className="inline-flex items-center justify-center">
+            {icon}
+          </span>
+        )}
+        {hasLabel && (
+          <span
+            className={`${isMobile ? "sr-only" : ""} leading-none align-middle`}
+          >
+            {label}
+          </span>
+        )}
       </div>
     </button>
   );

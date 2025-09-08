@@ -1,9 +1,11 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import { UserDto } from "@/lib/types/dto/UserDto";
 import { UserStatus } from "@/lib/types/Status";
 import { useT } from "@/lib/hooks/useTranslation";
+import { useIsUsernameUnique } from "@/hooks/useUsers";
+import { useFieldValidation } from "@/lib/hooks/useFieldValidation";
 import { Icons } from "@/lib/components/Icons";
 import Modal from "@/lib/components/ui/Modal";
 import { ButtonVariant } from "@/lib/components/ui/Button";
@@ -17,11 +19,9 @@ interface Props {
   onSubmit: (user: UserDto) => void;
 }
 
-export default function UserEditModal({
-  currentUser,
-  onClose,
-  onSubmit,
-}: Props) {
+export default function UserModal({ currentUser, onClose, onSubmit }: Props) {
+  const t = useT();
+
   const [formState, setFormState] = useState<UserDto>({
     id: currentUser?.id,
     fullName: currentUser?.fullName ?? "",
@@ -30,7 +30,33 @@ export default function UserEditModal({
     isAdmin: currentUser?.isAdmin ?? false,
     status: currentUser?.status ?? "ACTIVE",
   });
-  const t = useT();
+
+  const checkUsernameUnique = useIsUsernameUnique();
+
+  const { isFormValid, markTouched, hasError, getHelperText } =
+    useFieldValidation(
+      {
+        fullName: formState.fullName,
+        username: formState.username,
+        password: formState.password,
+      },
+      ["fullName", "username", "password"],
+      {
+        username: {
+          validate: (val) =>
+            val.trim() !== "" && checkUsernameUnique(val, formState.id),
+          helperText: t("user.username.duplicate"),
+        },
+      }
+    );
+
+  if (process.env.NODE_ENV !== "production") {
+    console.log("UserModal footerActions", {
+      isFormValid,
+      disabled: !isFormValid,
+      formState,
+    });
+  }
 
   return (
     <Modal
@@ -47,7 +73,13 @@ export default function UserEditModal({
           label: t("button.save"),
           icon: Icons.save,
           variant: "primary" as ButtonVariant,
-          onClick: () => onSubmit(formState),
+          onClick: () => {
+            ["fullName", "username", "password"].forEach(markTouched);
+            if (isFormValid) {
+              onSubmit(formState);
+            }
+          },
+          disabled: !isFormValid,
         },
       ]}
     >
@@ -61,11 +93,15 @@ export default function UserEditModal({
             <TextField
               value={formState.fullName}
               onChange={(e) =>
-                setFormState((u: UserDto) => ({
+                setFormState((u) => ({
                   ...u,
                   fullName: e.target.value,
                 }))
               }
+              onBlur={() => markTouched("fullName")}
+              error={hasError("fullName")}
+              helperText={getHelperText("fullName")}
+              placeholder={t("user.fullName.placeholder")}
             />
           </div>
         </div>
@@ -79,11 +115,15 @@ export default function UserEditModal({
             <TextField
               value={formState.username}
               onChange={(e) =>
-                setFormState((u: UserDto) => ({
+                setFormState((u) => ({
                   ...u,
                   username: e.target.value,
                 }))
               }
+              onBlur={() => markTouched("username")}
+              error={hasError("username")}
+              helperText={getHelperText("username")}
+              placeholder={t("user.username.placeholder")}
             />
           </div>
         </div>
@@ -96,12 +136,22 @@ export default function UserEditModal({
           <div className="col-span-9">
             <TextField
               value={formState.password}
-              onChange={(e) =>
-                setFormState((u: UserDto) => ({
+              onChange={(e) => {
+                if (process.env.NODE_ENV !== "production") {
+                  console.log("UserModal", {
+                    formState,
+                    password: e.target.value,
+                  });
+                }
+                setFormState((u) => ({
                   ...u,
                   password: e.target.value,
-                }))
-              }
+                }));
+              }}
+              onBlur={() => markTouched("password")}
+              error={hasError("password")}
+              helperText={getHelperText("password")}
+              placeholder={t("user.password.placeholder")}
             />
           </div>
         </div>
@@ -132,7 +182,7 @@ export default function UserEditModal({
           <div className="col-span-9">
             <Dropdown<UserStatus>
               onChange={(selectedValue) =>
-                setFormState((u) => ({
+                setFormState((u: UserDto) => ({
                   ...u,
                   status: selectedValue!,
                 }))

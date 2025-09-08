@@ -43,3 +43,34 @@ const ExampleComponent = () => {
 export const Example: Story = {
   render: () => <ExampleComponent />,
 };
+
+const MandatoryFieldExample = () => {
+  const [value, setValue] = useState("John Doe");
+
+  return (
+    <>
+      <div className="inputRow">
+        <label className="inputLabel">Full name (required)</label>
+        <div className="inputField">
+          <TextField
+            value={value}
+            onChange={(event) => {
+              setValue(event.target.value);
+              console.log(`TextField updated to: ${event.target.value}`);
+            }}
+            error={value.trim() === ""}
+            helperText={value.trim() === "" ? "This field is required" : ""}
+          />
+        </div>
+      </div>
+      <div className="inputRow">
+        <label className="inputLabel">Current value</label>
+        <div className="outputField">{value}</div>
+      </div>
+    </>
+  );
+};
+
+export const MandatoryField: Story = {
+  render: () => <MandatoryFieldExample />,
+};

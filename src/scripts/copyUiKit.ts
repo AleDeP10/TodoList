@@ -33,7 +33,7 @@ const sourceBase = resolve("./todolist-ui-kit/src");
 // === COPY TO todolist-storybook ===
 try {
   const libDestination = resolve("./todolist-storybook/src/lib");
-  const publicDestination = resolve("./todolist-storybook/public/styles");
+  const publicDestination = resolve("./todolist-storybook/public");
 
   // Copy lib folders
   for (const item of toLib) {
@@ -47,15 +47,11 @@ try {
     resolve(sourceBase, "styles/globals-base.css"),
     resolve(libDestination, "styles/globals-base.css")
   );
-  await cp(
-    resolve(sourceBase, "styles/globals.css"),
-    resolve(publicDestination, "globals.css")
-  );
 
   // Copy themes
   await cp(
     resolve(sourceBase, "styles/themes"),
-    resolve(publicDestination, "themes"),
+    resolve(publicDestination, "styles/themes"),
     { recursive: true }
   );
 
@@ -68,6 +64,7 @@ try {
 // === COPY TO todolist-fe-nextjs ===
 try {
   const libDestination = resolve("./todolist-fe-nextjs/src/lib");
+  const stylesLib = resolve(libDestination, "styles");
   const publicDestination = resolve("./todolist-fe-nextjs/public/styles");
 
   // Copy lib folders
@@ -77,14 +74,24 @@ try {
     });
   }
 
-  // Copy global styles
+  // Ensure styles folder exists
   await cp(
     resolve(sourceBase, "styles/globals-base.css"),
-    resolve(publicDestination, "globals-base.css")
+    resolve(stylesLib, "globals-base.css")
   );
   await cp(
     resolve(sourceBase, "styles/globals.css"),
+    resolve(stylesLib, "globals.css")
+  );
+
+  // Optional: also copy to public if needed for CDN or legacy
+  await cp(
+    resolve(sourceBase, "styles/globals.css"),
     resolve(publicDestination, "globals.css")
+  );
+  await cp(
+    resolve(sourceBase, "styles/globals-base.css"),
+    resolve(publicDestination, "globals-base.css")
   );
 
   // Copy themes

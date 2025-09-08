@@ -9,8 +9,10 @@
   "button.cancel": "Cancel",
   "button.confirm": "Confirm",
 
-  "entity.User": "User",
-  "entity.Task": "Task",
+  "mandatory.field": "This field is required",
+
+  "entity.user": "User",
+  "entity.task": "Task",
 
   "entity.fetch.error": "Error while loading {{entity}}: {{error}}",
   "entity.save.success": "{{entity}} saved successfully",
@@ -33,6 +35,10 @@
   "user.delete.confirmTitle": "Confirm deletion",
   "user.delete.confirmBody": "Are you sure you want to delete {{name}}? This action cannot be undone.",
   "user.delete.noteSetNull": "Assigned tasks will be automatically unlinked.",
+  "user.username.duplicate": "Username already exists in the system",
+  "user.fullName.placeholder": "Enter full name",
+  "user.username.placeholder": "Choose a username",
+  "user.password.placeholder": "Set a password",
 
   "task.management": "Tasks management",
   "task.description": "Description",
@@ -41,12 +47,15 @@
   "task.noAssignee": "-- Unassigned --",
   "task.allAssignees": "-- All --",
   "task.nextStatus": "Move to next status",
+  "task.nextStatus.disabled": "Assign someone to move to the next status",
   "task.nextStatus.success": "Task moved to {{status}} status",
   "task.filter.title": "Filter tasks",
   "task.create.title": "Create task",
   "task.edit.title": "Edit task",
   "task.delete.confirmTitle": "Confirm deletion",
   "task.delete.confirmBody": "Are you sure you want to delete \"{{description}}\"? This action cannot be undone.",
+  "task.status.requiresAssignee": "To change status, the task must be assigned",
+  "task.description.placeholder": "Describe the task",
 
   "menu.section.functionalities": "Features",
   "menu.functionalities.tasks": "Tasks",

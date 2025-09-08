@@ -9,8 +9,10 @@
   "button.cancel": "Annulla",
   "button.confirm": "Conferma",
 
-  "entity.User": "Utente",
-  "entity.Task": "Task",
+  "mandatory.field": "Questo campo è obbligatorio",
+
+  "entity.user": "Utente",
+  "entity.task": "Task",
 
   "entity.fetch.error": "Errore durante il caricamento {{entity}}: {{error}}",
   "entity.save.success": "{{entity}} salvato con successo",
@@ -34,6 +36,10 @@
   "user.delete.confirmTitle": "Conferma eliminazione",
   "user.delete.confirmBody": "Sei sicuro di voler eliminare {{name}}? Questa operazione è irreversibile.",
   "user.delete.noteSetNull": "I task assegnati saranno disassociati automaticamente.",
+  "user.username.duplicate": "Username già presente nel sistema",
+  "user.fullName.placeholder": "Inserisci il nome completo",
+  "user.username.placeholder": "Scegli uno username",
+  "user.password.placeholder": "Imposta una password",
 
   "task.management": "Gestione task",
   "task.description": "Descrizione",
@@ -42,12 +48,15 @@
   "task.noAssignee": "-- Non assegnato --",
   "task.allAssignees": "-- Tutti --",
   "task.nextStatus": "Passa allo stato successivo",
+  "task.nextStatus.disabled": "Assegna per passare allo stato successivo",
   "task.nextStatus.success": "Task passato allo stato {{status}}",
   "task.filter.title": "Filtra task",
   "task.create.title": "Crea task",
   "task.edit.title": "Modifica task",
   "task.delete.confirmTitle": "Conferma eliminazione",
   "task.delete.confirmBody": "Sei sicuro di voler eliminare {{description}}? Questa operazione è irreversibile.",
+  "task.status.requiresAssignee": "Per avanzare lo stato, il task deve essere assegnato",
+  "task.description.placeholder": "Descrivi il task",
 
   "menu.section.functionalities": "Funzionalità",
   "menu.functionalities.tasks": "Task",

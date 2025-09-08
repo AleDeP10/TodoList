@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useState, useRef } from "react";
 import MenuItem from "./MenuItem";
@@ -26,9 +26,7 @@ export default function MenuGroup({
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
-      <button
-        className="px-3 py-2 bg-[var(--menu-bg)] text-sm font-semibold rounded hover:brightness-110"
-      >
+      <button className="px-3 py-2 bg-[var(--menu-bg)] text-[var(--menu-fg)] text-sm font-semibold rounded hover:brightness-110">
         {label}
       </button>
 
