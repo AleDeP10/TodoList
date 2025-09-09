@@ -30,6 +30,12 @@ module.exports = {
     "py-2",
     "py-4",
     "py-6",
+    "mt-4",
+    "mt-6",
+    "my-2",
+    "space-y-3",
+    "space-y-4",
+    "space-y-6",
 
     // Typography
     "text-sm",

@@ -51,34 +51,18 @@ export default function UserFilterModal({
     >
       <div className="space-y-4">
         {/* Full name */}
-        <div className="grid grid-cols-12 gap-4 items-center">
-          <label className="col-span-3 text-sm font-medium">
-            {t("user.fullName")}
-          </label>
-          <div className="col-span-9">
-            <TextField
-              value={filters.fullName}
-              onChange={(e) =>
-                onChange({ ...filters, fullName: e.target.value })
-              }
-            />
-          </div>
-        </div>
+        <TextField
+          label={t("user.fullName")}
+          value={filters.fullName}
+          onChange={(e) => onChange({ ...filters, fullName: e.target.value })}
+        />
 
         {/* Username */}
-        <div className="grid grid-cols-12 gap-4 items-center">
-          <label className="col-span-3 text-sm font-medium">
-            {t("user.username")}
-          </label>
-          <div className="col-span-9">
-            <TextField
-              value={filters.username}
-              onChange={(e) =>
-                onChange({ ...filters, username: e.target.value })
-              }
-            />
-          </div>
-        </div>
+        <TextField
+          label={t("user.username")}
+          value={filters.username}
+          onChange={(e) => onChange({ ...filters, username: e.target.value })}
+        />
 
         {/* Status switches */}
         <div className="grid grid-cols-12 gap-4 items-center">
@@ -88,6 +72,7 @@ export default function UserFilterModal({
           <div className="col-span-9 flex flex-col gap-2">
             {statusOptions.map((status) => (
               <Switch
+                variant="compact"
                 key={status}
                 checked={filters.statusMap[status]}
                 onChange={(value) =>

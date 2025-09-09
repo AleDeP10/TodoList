@@ -92,40 +92,28 @@ export default function TaskFilterModal({
     >
       <div className="space-y-4">
         {/* Description */}
-        <div className="grid grid-cols-12 gap-4 items-center">
-          <label className="col-span-3 text-sm font-medium">
-            {t("task.description")}
-          </label>
-          <div className="col-span-9">
-            <TextField
-              value={filters.description}
-              onChange={(e) =>
-                onChange({ ...filters, description: e.target.value })
-              }
-            />
-          </div>
-        </div>
+        <TextField
+          label={t("task.description")}
+          value={filters.description}
+          onChange={(e) =>
+            onChange({ ...filters, description: e.target.value })
+          }
+        />
 
         {/* Assignee */}
-        <div className="grid grid-cols-12 gap-4 items-center">
-          <label className="col-span-3 text-sm font-medium">
-            {t("task.assignee")}
-          </label>
-          <div className="col-span-9">
-            <Dropdown
-              value={selectedUser}
-              options={users}
-              getOptionValue={(user) => String(user.id)}
-              getOptionLabel={(user) => user.fullName}
-              onChange={(user) =>
-                onChange({
-                  ...filters,
-                  assigneeId: user.id, // può essere undefined
-                })
-              }
-            />
-          </div>
-        </div>
+        <Dropdown
+          label={t("task.assignee")}
+          value={selectedUser}
+          options={users}
+          getOptionValue={(user) => String(user.id)}
+          getOptionLabel={(user) => user.fullName}
+          onChange={(user) =>
+            onChange({
+              ...filters,
+              assigneeId: user.id, 
+            })
+          }
+        />
 
         {/* Status switches */}
         <div className="grid grid-cols-12 gap-4 items-center">

@@ -34,6 +34,12 @@ module.exports = {
     "py-2",
     "py-4",
     "py-6",
+    "mt-4",
+    "mt-6",
+    "my-2",
+    "space-y-3",
+    "space-y-4",
+    "space-y-6",
 
     // Typography
     "text-sm",
@@ -71,7 +77,7 @@ module.exports = {
     "bg-gradient-to-r",
     "from-[var(--navbar-start)]",
     "to-[var(--navbar-end)]",
-    "!bg-white", 
+    "!bg-white",
     "text-[var(--fg)]",
     "text-[var(--menu-fg)]",
     "text-[var(--navbar-fg)]",

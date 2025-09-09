@@ -14,7 +14,7 @@ const meta: Meta<NavBarProps> = {
 
 export default meta;
 
-export const InMainLayoutInteractive = () => {
+export const Example = () => {
   const t = useT();
 
   return (

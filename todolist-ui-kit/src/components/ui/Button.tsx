@@ -84,16 +84,13 @@ export const Button = ({
     }
   }
 
+  const baseClasses = "rounded inline-flex items-center transition";
+
   const sizeClasses: Record<NonNullable<ButtonProps["size"]>, string> = {
     small: "px-3 py-1 text-sm",
     medium: "px-4 py-2 text-base",
     large: "px-5 py-3 text-lg",
   };
-
-  const baseClasses = "rounded inline-flex items-center transition";
-  const disabledClasses = disabled
-    ? "opacity-50 grayscale-[70%] cursor-not-allowed"
-    : "";
 
   const hasIcon = !!icon;
   const hasLabel = !!label;
@@ -117,7 +114,6 @@ export const Button = ({
         `storybook-button--${size}`,
         baseClasses,
         sizeClasses[size],
-        disabledClasses,
       ].join(" ")}
       style={customStyle}
       title={tooltip}

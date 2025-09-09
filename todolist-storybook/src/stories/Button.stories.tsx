@@ -2,7 +2,7 @@ import type { Meta, StoryFn } from "@storybook/react";
 import { getCSSVariable } from "../lib/utils/getCSSVariable";
 import { Icons } from "../lib/components/Icons";
 import { Button, ButtonProps } from "../lib/components/ui/Button";
-import { TestWrapper } from "./InteractionSandbox";
+import { InteractionSandbox } from "./InteractionSandbox";
 
 const meta: Meta<ButtonProps> = {
   title: "Controls/Button",
@@ -47,7 +47,7 @@ Cause:
 export default meta;
 
 export const Confirm: StoryFn<ButtonProps> = () => (
-  <TestWrapper>
+  <InteractionSandbox>
     {(appendText) => (
       <Button
         label="Confirm"
@@ -56,11 +56,11 @@ export const Confirm: StoryFn<ButtonProps> = () => (
         onClick={() => appendText("Confirm button clicked")}
       />
     )}
-  </TestWrapper>
+  </InteractionSandbox>
 );
 
 export const Cancel: StoryFn<ButtonProps> = () => (
-  <TestWrapper>
+  <InteractionSandbox>
     {(appendText) => (
       <Button
         label="Cancel"
@@ -69,11 +69,11 @@ export const Cancel: StoryFn<ButtonProps> = () => (
         onClick={() => appendText("Cancel button clicked")}
       />
     )}
-  </TestWrapper>
+  </InteractionSandbox>
 );
 
 export const Delete: StoryFn<ButtonProps> = () => (
-  <TestWrapper>
+  <InteractionSandbox>
     {(appendText) => (
       <Button
         label="Delete"
@@ -82,11 +82,11 @@ export const Delete: StoryFn<ButtonProps> = () => (
         onClick={() => appendText("Delete button clicked")}
       />
     )}
-  </TestWrapper>
+  </InteractionSandbox>
 );
 
 export const Disabled: StoryFn<ButtonProps> = () => (
-  <TestWrapper>
+  <InteractionSandbox>
     {(appendText) => (
       <Button
         label="Disabled"
@@ -95,11 +95,11 @@ export const Disabled: StoryFn<ButtonProps> = () => (
         onClick={() => appendText("You will never see this!")}
       />
     )}
-  </TestWrapper>
+  </InteractionSandbox>
 );
 
 export const IconOnly: StoryFn<ButtonProps> = () => (
-  <TestWrapper>
+  <InteractionSandbox>
     {(appendText) => (
       <Button
         icon={Icons.plus}
@@ -108,12 +108,12 @@ export const IconOnly: StoryFn<ButtonProps> = () => (
         onClick={() => appendText("Add button clicked")}
       />
     )}
-  </TestWrapper>
+  </InteractionSandbox>
 );
 
 export const IconOnlyMobile: StoryFn = () => {
   return (
-    <TestWrapper>
+    <InteractionSandbox>
       {(appendText) => (
         <Button
           label="Add"
@@ -122,7 +122,7 @@ export const IconOnlyMobile: StoryFn = () => {
           onClick={() => appendText("Add button clicked")}
         />
       )}
-    </TestWrapper>
+    </InteractionSandbox>
   );
 };
 
@@ -133,7 +133,7 @@ IconOnlyMobile.parameters = {
 };
 
 export const CustomColors: StoryFn<ButtonProps> = () => (
-  <TestWrapper>
+  <InteractionSandbox>
     {(appendText) => (
       <Button
         label="Create"
@@ -144,5 +144,5 @@ export const CustomColors: StoryFn<ButtonProps> = () => (
         onClick={() => appendText("Create button clicked")}
       />
     )}
-  </TestWrapper>
+  </InteractionSandbox>
 );

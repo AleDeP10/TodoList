@@ -107,75 +107,55 @@ export default function TaskModal({ currentTask, onClose, onSubmit }: Props) {
     >
       <div className="flex flex-col gap-2">
         {/* Description */}
-        <div className="grid grid-cols-12 gap-4 items-center">
-          <label className="col-span-3 text-sm font-medium">
-            {t("task.description")}
-          </label>
-          <div className="col-span-9">
-            <TextField
-              value={formState.description}
-              onChange={(e) =>
-                setFormState((prev) => ({
-                  ...prev,
-                  description: e.target.value,
-                }))
-              }
-              onBlur={() => markTouched("description")}
-              error={hasError("description")}
-              helperText={getHelperText("description")}
-              placeholder={t("task.description.placeholder")}
-            />
-          </div>
-        </div>
+        <TextField
+          label={t("task.description")}
+          value={formState.description}
+          onChange={(e) =>
+            setFormState((prev) => ({
+              ...prev,
+              description: e.target.value,
+            }))
+          }
+          onBlur={() => markTouched("description")}
+          error={hasError("description")}
+          helperText={getHelperText("description")}
+          placeholder={t("task.description.placeholder")}
+        />
 
         {/* Assignee */}
-        <div className="grid grid-cols-12 gap-4 items-center">
-          <label className="col-span-3 text-sm font-medium">
-            {t("task.assignee")}
-          </label>
-          <div className="col-span-9">
-            <Dropdown<UserDto>
-              value={selectedUser}
-              options={users}
-              getOptionValue={(user) => String(user.id)}
-              getOptionLabel={(user) => user.fullName}
-              onChange={(user) => {
-                setFormState((prev) => ({
-                  ...prev,
-                  assigneeId: user.id,
-                }));
-                markTouched("status");
-              }}
-              onBlur={() => markTouched("status")}
-              error={hasError("status")}
-              placeholder={t("task.assignee")}
-            />
-          </div>
-        </div>
+        <Dropdown<UserDto>
+          value={selectedUser}
+          options={users}
+          getOptionValue={(user) => String(user.id)}
+          getOptionLabel={(user) => user.fullName}
+          label={t("task.assignee")}
+          onChange={(user) => {
+            setFormState((prev) => ({
+              ...prev,
+              assigneeId: user.id,
+            }));
+            markTouched("status");
+          }}
+          onBlur={() => markTouched("status")}
+          error={hasError("status")}
+        />
 
         {/* Status */}
-        <div className="grid grid-cols-12 gap-4 items-center">
-          <label className="col-span-3 text-sm font-medium">
-            {t("task.status")}
-          </label>
-          <div className="col-span-9">
-            <Dropdown<TaskStatus>
-              value={formState.status}
-              options={["TODO", "IN PROGRESS", "DONE"]}
-              onChange={(status) => {
-                setFormState((prev) => ({
-                  ...prev,
-                  status: status!,
-                }));
-                markTouched("status");
-              }}
-              onBlur={() => markTouched("status")}
-              error={hasError("status")}
-              helperText={getHelperText("status")}
-              placeholder={t("task.status")}
-            />
-          </div>
-        </div>
+        <Dropdown<TaskStatus>
+          value={formState.status}
+          options={["TODO", "IN PROGRESS", "DONE"]}
+          label={t("task.status")}
+          onChange={(status) => {
+            setFormState((prev) => ({
+              ...prev,
+              status: status!,
+            }));
+            markTouched("status");
+          }}
+          onBlur={() => markTouched("status")}
+          error={hasError("status")}
+          helperText={getHelperText("status")}
+        />
       </div>
     </Modal>
   );

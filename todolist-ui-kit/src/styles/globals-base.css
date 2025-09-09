@@ -1,6 +1,5 @@
 :root {
-  --font-sans: "Geist Sans", Arial, sans-serif;
-  --font-mono: "Geist Mono", monospace;
+  --font-sans: var(--font-inter, "Inter"), Arial, sans-serif;
 
   --hover-darken: brightness(90%);
 

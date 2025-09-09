@@ -1,10 +1,10 @@
 import { useState } from "react";
 
-type TestWrapperProps = {
+type InteractionSandboxProps = {
   children: (appendText: (msg: string) => void) => React.ReactNode;
 };
 
-export const TestWrapper = ({ children }: TestWrapperProps) => {
+export const InteractionSandbox = ({ children }: InteractionSandboxProps) => {
   const [text, setText] = useState("");
 
   const appendText = (msg: string) => {
@@ -14,7 +14,9 @@ export const TestWrapper = ({ children }: TestWrapperProps) => {
   return (
     <div style={{ textAlign: "center" }}>
       {children(appendText)}
-      <p style={{ color: "#047878", whiteSpace: "pre-line" }}>{text}</p>
+      <p className="mt-6" style={{ color: "#047878", whiteSpace: "pre-line" }}>
+        {text}
+      </p>
     </div>
   );
 };

@@ -28,7 +28,13 @@ const evalFilter = (task: TaskDto, filters: TaskFilters) => {
       ? !task.assigneeId
       : task.assigneeId === filters.assigneeId;
 
-  const statusMatch = filters.statusMap[task.status];
+  let statusMatch = true;
+  if (
+    !Object.values(filters.statusMap).every((v) => v === false) &&
+    !Object.values(filters.statusMap).every((v) => v === true)
+  ) {
+    statusMatch = filters.statusMap[task.status];
+  }
 
   return descriptionMatch && assigneeIdMatch && statusMatch;
 };

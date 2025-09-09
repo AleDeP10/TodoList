@@ -1,7 +1,9 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import Dropdown from "../lib/components/ui/Dropdown";
 import { useState } from "react";
-import "./sharedInputStyles.css";
+import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import { UserStatus } from "@/lib/types/Status";
+import Dropdown from "../lib/components/ui/Dropdown";
+import { InteractionSandbox } from "./InteractionSandbox";
+import "./sharedOutputStyles.css";
 
 const meta: Meta<typeof Dropdown> = {
   title: "Controls/Dropdown",
@@ -15,9 +17,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-const stringOptions = ["Option 1", "Option 2", "Option 3"];
-
-type User = { username: string, fullName: string }
+type User = { username: string; fullName: string };
 
 const users: User[] = [
   { username: "admin", fullName: "Administrator" },
@@ -25,68 +25,72 @@ const users: User[] = [
   { username: "gabri", fullName: "Gabriela Belmani" },
 ];
 
-// 🔹 Story 1: Dropdown con stringhe
-const StringDropdownComponent = () => {
-  const [selectedValue, setSelectedValue] = useState("Option 1");
-
-  return (
-    <>
-      <div className="inputRow">
-        <label className="inputLabel">Choose an option</label>
-        <div className="inputField">
-          <Dropdown
-            value={selectedValue}
-            options={stringOptions}
-            onChange={(newValue) => {
-              setSelectedValue(newValue);
-              console.log(`Dropdown updated to: ${newValue}`);
-            }}
-            getOptionValue={(option) => option}
-            getOptionLabel={(option) => option}
-          />
-        </div>
-      </div>
-      <div className="inputRow">
-        <label className="inputLabel">Selected value</label>
-        <div className="outputField">{selectedValue}</div>
-      </div>
-    </>
-  );
-};
-
-// 🔹 Story 2: Dropdown con oggetti utenti
-const UserDropdownComponent = () => {
-  const [selectedUser, setSelectedUser] = useState(users[0]);
-
-  return (
-    <>
-      <div className="inputRow">
-        <label className="inputLabel">Assign to</label>
-        <div className="inputField">
-          <Dropdown
-            value={selectedUser}
-            options={users}
-            onChange={(newUser : User) => {
-              setSelectedUser(newUser);
-              console.log(`Assigned to: ${newUser.username}`);
-            }}
-            getOptionValue={(user: User) => user.username}
-            getOptionLabel={(user: User) => user.fullName}
-          />
-        </div>
-      </div>
-      <div className="inputRow">
-        <label className="inputLabel">Assignee code</label>
-        <div className="outputField">{selectedUser.username}</div>
-      </div>
-    </>
-  );
-};
+const stringOptions: UserStatus[] = ["ACTIVE", "BLOCKED"];
 
 export const WithStrings: Story = {
-  render: () => <StringDropdownComponent />,
+  render: () => (
+    <InteractionSandbox>
+      {(appendText) => {
+        const [selectedValue, setSelectedValue] = useState("ACTIVE");
+
+        return (
+          <>
+            <Dropdown
+              name="dropdown-status"
+              label="Change status"
+              value={selectedValue}
+              options={stringOptions}
+              onChange={(newValue) => {
+                setSelectedValue(newValue);
+                appendText(`Dropdown updated to: ${newValue}`);
+              }}
+              getOptionValue={(option) => option}
+              getOptionLabel={(option) => option}
+            />
+            <div className="grid grid-cols-12 gap-4 items-center mt-4">
+              <label className="col-span-3 text-sm font-medium text-left">
+                User status
+              </label>
+              <div className="col-span-9 outputField">{selectedValue}</div>
+            </div>
+          </>
+        );
+      }}
+    </InteractionSandbox>
+  ),
 };
 
 export const WithUsers: Story = {
-  render: () => <UserDropdownComponent />,
+  render: () => (
+    <InteractionSandbox>
+      {(appendText) => {
+        const [selectedUser, setSelectedUser] = useState(users[0]);
+
+        return (
+          <>
+            <Dropdown
+              name="dropdown-users"
+              label="Assign to"
+              value={selectedUser}
+              options={users}
+              onChange={(newUser: User) => {
+                setSelectedUser(newUser);
+                appendText(`Assigned to: ${newUser.username}`);
+              }}
+              getOptionValue={(user: User) => user.username}
+              getOptionLabel={(user: User) => user.fullName}
+            />
+            <div className="grid grid-cols-12 gap-4 items-center mt-4">
+              <label className="col-span-3 text-sm font-medium text-left">
+                Assignee code
+              </label>
+              <div className="col-span-9 outputField">
+                {selectedUser.username}
+              </div>
+            </div>
+          </>
+        );
+      }}
+    </InteractionSandbox>
+  ),
 };

@@ -85,113 +85,84 @@ export default function UserModal({ currentUser, onClose, onSubmit }: Props) {
     >
       <div className="flex flex-col gap-2">
         {/* Full name */}
-        <div className="grid grid-cols-12 gap-4 items-center">
-          <label className="col-span-3 text-sm font-medium">
-            {t("user.fullName")}
-          </label>
-          <div className="col-span-9">
-            <TextField
-              value={formState.fullName}
-              onChange={(e) =>
-                setFormState((u) => ({
-                  ...u,
-                  fullName: e.target.value,
-                }))
-              }
-              onBlur={() => markTouched("fullName")}
-              error={hasError("fullName")}
-              helperText={getHelperText("fullName")}
-              placeholder={t("user.fullName.placeholder")}
-            />
-          </div>
-        </div>
+        <TextField
+          label={t("user.fullName")}
+          value={formState.fullName}
+          onChange={(e) =>
+            setFormState((u) => ({
+              ...u,
+              fullName: e.target.value,
+            }))
+          }
+          onBlur={() => markTouched("fullName")}
+          error={hasError("fullName")}
+          helperText={getHelperText("fullName")}
+          placeholder={t("user.fullName.placeholder")}
+        />
 
         {/* Username */}
-        <div className="grid grid-cols-12 gap-4 items-center">
-          <label className="col-span-3 text-sm font-medium">
-            {t("user.username")}
-          </label>
-          <div className="col-span-9">
-            <TextField
-              value={formState.username}
-              onChange={(e) =>
-                setFormState((u) => ({
-                  ...u,
-                  username: e.target.value,
-                }))
-              }
-              onBlur={() => markTouched("username")}
-              error={hasError("username")}
-              helperText={getHelperText("username")}
-              placeholder={t("user.username.placeholder")}
-            />
-          </div>
-        </div>
+        <TextField
+          label={t("user.username")}
+          value={formState.username}
+          onChange={(e) =>
+            setFormState((u) => ({
+              ...u,
+              username: e.target.value,
+            }))
+          }
+          onBlur={() => markTouched("username")}
+          error={hasError("username")}
+          helperText={getHelperText("username")}
+          placeholder={t("user.username.placeholder")}
+        />
 
         {/* Password */}
-        <div className="grid grid-cols-12 gap-4 items-center">
-          <label className="col-span-3 text-sm font-medium">
-            {t("user.password")}
-          </label>
-          <div className="col-span-9">
-            <TextField
-              value={formState.password}
-              onChange={(e) => {
-                if (process.env.NODE_ENV !== "production") {
-                  console.log("UserModal", {
-                    formState,
-                    password: e.target.value,
-                  });
-                }
-                setFormState((u) => ({
-                  ...u,
-                  password: e.target.value,
-                }));
-              }}
-              onBlur={() => markTouched("password")}
-              error={hasError("password")}
-              helperText={getHelperText("password")}
-              placeholder={t("user.password.placeholder")}
-            />
-          </div>
-        </div>
+        <TextField
+          label={t("user.password")}
+          value={formState.password}
+          onChange={(e) => {
+            if (process.env.NODE_ENV !== "production") {
+              console.log("UserModal", {
+                formState,
+                password: e.target.value,
+              });
+            }
+            setFormState((u) => ({
+              ...u,
+              password: e.target.value,
+            }));
+          }}
+          onBlur={() => markTouched("password")}
+          error={hasError("password")}
+          helperText={getHelperText("password")}
+          placeholder={t("user.password.placeholder")}
+        />
 
         {/* IsAdmin */}
-        <div className="grid grid-cols-12 gap-4 items-center">
-          <label className="col-span-3 text-sm font-medium">
-            {t("user.isAdmin")}
-          </label>
-          <div className="col-span-9">
-            <Switch
-              checked={formState.isAdmin}
-              onChange={(checked) =>
-                setFormState((u: UserDto) => ({
-                  ...u,
-                  isAdmin: checked,
-                }))
-              }
-            />
-          </div>
-        </div>
+        <Switch
+          variant="grid"
+          label={t("user.isAdmin")}
+          checked={formState.isAdmin}
+          onChange={(checked) =>
+            setFormState((u: UserDto) => ({
+              ...u,
+              isAdmin: checked,
+            }))
+          }
+        />
 
         {/* Status */}
-        <div className="grid grid-cols-12 gap-4 items-center">
-          <label className="col-span-3 text-sm font-medium">
-            {t("user.status")}
-          </label>
-          <div className="col-span-9">
-            <Dropdown<UserStatus>
-              onChange={(selectedValue) =>
-                setFormState((u: UserDto) => ({
-                  ...u,
-                  status: selectedValue!,
-                }))
-              }
-              value={formState.status}
-              options={["ACTIVE", "BLOCKED"]}
-            />
-          </div>
-        </div>
+        <Dropdown<UserStatus>
+          label={t("user.status")}
+          onChange={(selectedValue) =>
+            setFormState((u: UserDto) => ({
+              ...u,
+              status: selectedValue!,
+            }))
+          }
+          value={formState.status}
+          options={["ACTIVE", "BLOCKED"]}
+        />
       </div>
     </Modal>
   );

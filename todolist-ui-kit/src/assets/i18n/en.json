@@ -9,6 +9,8 @@
   "button.cancel": "Cancel",
   "button.confirm": "Confirm",
 
+  "dropdown.label": "Select an option",
+
   "mandatory.field": "This field is required",
 
   "entity.user": "User",

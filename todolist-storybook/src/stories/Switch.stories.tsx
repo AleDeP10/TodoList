@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import Switch from "../lib/components/ui/Switch";
 import { useState } from "react";
-import "./sharedInputStyles.css";
+import { InteractionSandbox } from "./InteractionSandbox";
+import "./sharedOutputStyles.css";
 
 const meta: Meta<typeof Switch> = {
   title: "Controls/Switch",
@@ -15,29 +16,68 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-const ExampleSwitchComponent = () => {
-  const [checked, setChecked] = useState(false);
+export const Grid: Story = {
+  name: "Grid Variant",
+  render: () => (
+    <InteractionSandbox>
+      {(appendText) => {
+        const [checked, setChecked] = useState(false);
 
-  return (
-    <>
-      <div className="inputRow">
-        <label className="inputLabel">Enable feature</label>
-        <div className="inputField">
-          <Switch
-            checked={checked}
-            onChange={setChecked}
-            label={checked ? "Enabled" : "Disabled"}
-          />
-        </div>
-      </div>
-      <div className="inputRow">
-        <label className="inputLabel">Status</label>
-        <div className="outputField">{checked ? "Active" : "Inactive"}</div>
-      </div>
-    </>
-  );
+        return (
+          <>
+            <Switch
+              variant="grid"
+              checked={checked}
+              onChange={(value) => {
+                setChecked(value);
+                appendText(`Switch toggled to: ${value ? "Admin" : "User"}`);
+              }}
+              label="Administrator"
+            />
+            <div className="grid grid-cols-12 gap-4 items-center mt-4">
+              <label className="col-span-3 text-sm font-medium text-left">
+                Role
+              </label>
+              <div className="col-span-9 outputField">
+                {checked ? "Admin" : "User"}
+              </div>
+            </div>
+          </>
+        );
+      }}
+    </InteractionSandbox>
+  ),
 };
 
-export const Example: Story = {
-  render: () => <ExampleSwitchComponent />,
+export const Compact: Story = {
+  name: "Compact Variant",
+  render: () => (
+    <InteractionSandbox>
+      {(appendText) => {
+        const [checked, setChecked] = useState(false);
+
+        return (
+          <>
+            <Switch
+              variant="compact"
+              checked={checked}
+              onChange={(value) => {
+                setChecked(value);
+                appendText(`Switch toggled to: ${value ? "Admin" : "User"}`);
+              }}
+              label="Administrator"
+            />
+            <div className="grid grid-cols-12 gap-4 items-center mt-4">
+              <label className="col-span-3 text-sm font-medium text-left">
+                Role
+              </label>
+              <div className="col-span-9 outputField">
+                {checked ? "Admin" : "User"}
+              </div>
+            </div>
+          </>
+        );
+      }}
+    </InteractionSandbox>
+  ),
 };

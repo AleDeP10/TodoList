@@ -9,6 +9,8 @@
   "button.cancel": "Annulla",
   "button.confirm": "Conferma",
 
+  "dropdown.label": "Scegli un'opzione",
+
   "mandatory.field": "Questo campo è obbligatorio",
 
   "entity.user": "Utente",

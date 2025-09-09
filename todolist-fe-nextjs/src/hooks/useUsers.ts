@@ -1,6 +1,11 @@
 import { useCallback } from "react";
 import { useSelector } from "react-redux";
-import { useDeleteEntity, useEntities, useFilteredEntities, useSaveEntity } from "./useEntities";
+import {
+  useDeleteEntity,
+  useEntities,
+  useFilteredEntities,
+  useSaveEntity,
+} from "./useEntities";
 import type { UserDto } from "@/lib/types/dto/UserDto";
 import { fetchUsers, createUser, updateUser, deleteUser } from "@/api/users";
 import { getUserFilters } from "@/store/user/getUserFilters";
@@ -14,11 +19,17 @@ const evalFilter = (task: UserDto, filters: UserFilters) => {
     .toLowerCase()
     .includes(filters.fullName.toLowerCase());
 
-    const usernameMatch = task.username
+  const usernameMatch = task.username
     .toLowerCase()
     .includes(filters.username.toLowerCase());
 
-  const statusMatch = filters.statusMap[task.status];
+  let statusMatch = true;
+  if (
+    !Object.values(filters.statusMap).every((v) => v === false) &&
+    !Object.values(filters.statusMap).every((v) => v === true)
+  ) {
+    statusMatch = filters.statusMap[task.status];
+  }
 
   return fullNameMatch && usernameMatch && statusMatch;
 };
@@ -28,7 +39,6 @@ const evalFilter = (task: UserDto, filters: UserFilters) => {
  */
 export const useUsers = () =>
   useEntities<UserDto>("user", fetchUsers, ["users"]);
-
 
 /**
  * Hook to fetch and filter users based on current Redux filters.
