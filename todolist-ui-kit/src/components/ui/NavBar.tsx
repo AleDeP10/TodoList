@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useT } from "../../hooks/useTranslation";
+import { useTranslation } from "../../hooks/useTranslation";
 import { MenuSections } from "../../types/menu";
 import ThemeSwitcher from "./ThemeSwitcher";
 import LangSwitcher from "./LangSwitcher";
@@ -13,7 +13,7 @@ export interface NavBarProps {
 }
 
 export default function NavBar({ menuItems, children }: NavBarProps) {
-  const t = useT();
+  const t = useTranslation();
 
   return (
     <nav className="flex flex-wrap-reverse justify-between items-center px-6 py-4 gap-2 border-b text-[var(--navbar-fg)] bg-gradient-to-r from-[var(--navbar-start)] to-[var(--navbar-end)]">

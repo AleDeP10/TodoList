@@ -4,7 +4,7 @@ import Modal from "@/lib/components/ui/Modal";
 import { Icons } from "@/lib/components/Icons";
 import { TaskDto } from "@/lib/types/dto/TaskDto";
 import { ButtonVariant } from "@/lib/components/ui/Button";
-import { useT } from "@/lib/hooks/useTranslation";
+import { useTranslation } from "@/lib/hooks/useTranslation";
 
 interface Props {
   task: TaskDto;
@@ -13,7 +13,7 @@ interface Props {
 }
 
 export default function TaskDeleteConfirmModal({ task, onClose, onConfirm }: Props) {
-  const t = useT();
+  const t = useTranslation();
 
   return (
     <Modal

@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { TaskStatus } from "@/lib/types/Status";
 import { TaskDto } from "@/lib/types/dto/TaskDto";
 import { UserDto } from "@/lib/types/dto/UserDto";
-import { useT } from "@/lib/hooks/useTranslation";
+import { useTranslation } from "@/lib/hooks/useTranslation";
 import { useFieldValidation } from "@/lib/hooks/useFieldValidation";
 import { Icons } from "@/lib/components/Icons";
 import Modal from "@/lib/components/ui/Modal";
@@ -20,7 +20,7 @@ interface Props {
 }
 
 export default function TaskModal({ currentTask, onClose, onSubmit }: Props) {
-  const t = useT();
+  const t = useTranslation();
 
   const [formState, setFormState] = useState<TaskDto>({
     id: currentTask?.id,
@@ -71,14 +71,6 @@ export default function TaskModal({ currentTask, onClose, onSubmit }: Props) {
         },
       }
     );
-
-  if (process.env.NODE_ENV !== "production") {
-    console.log("TaskModal footerActions", {
-      isFormValid,
-      disabled: !isFormValid,
-      formState,
-    });
-  }
 
   return (
     <Modal

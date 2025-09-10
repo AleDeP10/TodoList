@@ -1,5 +1,5 @@
 import type { Meta } from "@storybook/react";
-import { useT } from "../lib/hooks/useTranslation";
+import { useTranslation } from "../lib/hooks/useTranslation";
 import NavBar, { NavBarProps } from "../lib/components/ui/NavBar";
 import { MenuTestWrapper } from "./MenuTestWrapper";
 
@@ -15,7 +15,7 @@ const meta: Meta<NavBarProps> = {
 export default meta;
 
 export const Example = () => {
-  const t = useT();
+  const t = useTranslation();
 
   return (
     <div className="min-h-screen flex flex-col w-[92vw] md:w-[80vw] max-w-[1000px] mx-auto bg-[var(--bg)] text-[var(--fg)]">

@@ -3,7 +3,7 @@
 import Modal from "@/lib/components/ui/Modal";
 import { Icons } from "@/lib/components/Icons";
 import { UserDto } from "@/lib/types/dto/UserDto";
-import { useT } from "@/lib/hooks/useTranslation";
+import { useTranslation } from "@/lib/hooks/useTranslation";
 import { ButtonVariant } from "@/lib/components/ui/Button";
 
 interface Props {
@@ -13,7 +13,7 @@ interface Props {
 }
 
 export default function UserDeleteConfirmModal({ user, onClose, onConfirm }: Props) {
-  const t = useT();
+  const t = useTranslation();
 
   return (
     <Modal

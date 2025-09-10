@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { TaskDto } from "@/lib/types/dto/TaskDto";
 import { UserDto } from "@/lib/types/dto/UserDto";
 import { TaskFilters } from "@/lib/types/filters/TaskFilters";
-import { useT } from "@/lib/hooks/useTranslation";
+import { useTranslation } from "@/lib/hooks/useTranslation";
 import { Icons } from "@/lib/components/Icons";
 import { Button } from "@/lib/components/ui/Button";
 import LoadingSpinner from "@/lib/components/ui/LoadingSpinner";
@@ -25,7 +25,7 @@ import TaskFilterModal from "@/components/modals/TaskFilterModal";
 import TaskDeleteConfirmModal from "@/components/modals/TaskDeleteConfirmModal";
 
 export default function TasksView() {
-  const t = useT();
+  const t = useTranslation();
   const dispatch = useDispatch();
 
   const { data: filteredTasks = [] } = useFilteredTasks();
@@ -57,16 +57,6 @@ export default function TasksView() {
     "IN PROGRESS": "task--in-progress ",
     DONE: "task--done",
   };
-
-  if (process.env.NODE_ENV !== "production") {
-    filteredTasks.map((task) => {
-      console.log("TasksView", {
-        status: task.status,
-        assigneeId: task.assigneeId,
-        disabled: task.status === "DONE" || !task.assigneeId,
-      });
-    });
-  }
 
   return (
     <section className="p-6 space-y-6 mx-auto">

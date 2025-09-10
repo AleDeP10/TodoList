@@ -1,7 +1,7 @@
 import { FC } from "react";
 import LangSwitcher from "../lib/components/ui/LangSwitcher";
 import { LangProvider } from "../lib/providers/i18n";
-import { useT } from "../lib/hooks/useTranslation";
+import { useTranslation } from "../lib/hooks/useTranslation";
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 
 const meta: Meta<typeof LangSwitcher> = {
@@ -25,7 +25,7 @@ const meta: Meta<typeof LangSwitcher> = {
 export default meta;
 
 const LangSwitcherExample = () => {
-  const t = useT();
+  const t = useTranslation();
   return (
     <div className="space-y-4">
       <LangSwitcher />

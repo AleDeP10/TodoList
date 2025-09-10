@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { TaskStatus } from "@/lib/types/Status";
 import { TaskFilters } from "@/lib/types/filters/TaskFilters";
 import { UserDto } from "@/lib/types/dto/UserDto";
-import { useT } from "@/lib/hooks/useTranslation";
+import { useTranslation } from "@/lib/hooks/useTranslation";
 import { useUserList } from "@/hooks/useUsers";
 import { Icons } from "@/lib/components/Icons";
 import type { ButtonVariant } from "@/lib/components/ui/Button";
@@ -28,7 +28,7 @@ export default function TaskFilterModal({
   onClose,
   onApply,
 }: Props) {
-  const t = useT();
+  const t = useTranslation();
   const statusOptions: TaskStatus[] = ["TODO", "IN PROGRESS", "DONE"];
 
   const allAssigneesLabel = t("task.allAssignees");

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { UserDto } from "@/lib/types/dto/UserDto";
 import { UserStatus } from "@/lib/types/Status";
-import { useT } from "@/lib/hooks/useTranslation";
+import { useTranslation } from "@/lib/hooks/useTranslation";
 import { useIsUsernameUnique } from "@/hooks/useUsers";
 import { useFieldValidation } from "@/lib/hooks/useFieldValidation";
 import { Icons } from "@/lib/components/Icons";
@@ -20,7 +20,7 @@ interface Props {
 }
 
 export default function UserModal({ currentUser, onClose, onSubmit }: Props) {
-  const t = useT();
+  const t = useTranslation();
 
   const [formState, setFormState] = useState<UserDto>({
     id: currentUser?.id,
@@ -49,14 +49,6 @@ export default function UserModal({ currentUser, onClose, onSubmit }: Props) {
         },
       }
     );
-
-  if (process.env.NODE_ENV !== "production") {
-    console.log("UserModal footerActions", {
-      isFormValid,
-      disabled: !isFormValid,
-      formState,
-    });
-  }
 
   return (
     <Modal
@@ -120,18 +112,12 @@ export default function UserModal({ currentUser, onClose, onSubmit }: Props) {
         <TextField
           label={t("user.password")}
           value={formState.password}
-          onChange={(e) => {
-            if (process.env.NODE_ENV !== "production") {
-              console.log("UserModal", {
-                formState,
-                password: e.target.value,
-              });
-            }
+          onChange={(e) =>
             setFormState((u) => ({
               ...u,
               password: e.target.value,
-            }));
-          }}
+            }))
+          }
           onBlur={() => markTouched("password")}
           error={hasError("password")}
           helperText={getHelperText("password")}

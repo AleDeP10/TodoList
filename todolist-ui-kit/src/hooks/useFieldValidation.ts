@@ -49,7 +49,7 @@
  */
 
 import { useState, useMemo } from "react";
-import { useT } from "./useTranslation";
+import { useTranslation } from "./useTranslation";
 
 type CustomValidationRule = {
   validate: (value: string) => boolean;
@@ -63,7 +63,7 @@ export function useFieldValidation(
   mandatory: string[] = [],
   customRules?: ValidationConfig
 ) {
-  const t = useT();
+  const t = useTranslation();
 
   // Track which fields have been interacted with
   const [touched, setTouched] = useState<Record<string, boolean>>({});
@@ -101,14 +101,6 @@ export function useFieldValidation(
       return t("mandatory.field");
     }
 
-    if (process.env.NODE_ENV !== "production") {
-      console.log("useFieldValidation.getHelperText", {
-        value,
-        rule: customRules?.[fieldName],
-        isValid: customRules?.[fieldName]?.validate(value),
-      });
-    }
-
     const rule = customRules?.[fieldName];
     if (rule && !rule.validate(value)) {
       return rule.helperText;
@@ -128,19 +120,6 @@ export function useFieldValidation(
       return rule ? rule.validate(trimmed) : true;
     });
   }, [fields, mandatory, customRules]);
-
-  if (process.env.NODE_ENV !== "production") {
-    console.log("useFieldValidation", {
-      fields,
-      mandatory,
-      touched,
-      isFormValid,
-      hasErrorMap: Object.keys(fields).reduce((acc, key) => {
-        acc[key] = hasError(key);
-        return acc;
-      }, {} as Record<string, boolean>),
-    });
-  }
 
   return {
     isFormValid,

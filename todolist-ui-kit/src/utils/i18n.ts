@@ -4,8 +4,6 @@ import type { Lang, TranslationMap } from '../types/i18n';
 import it from '../assets/i18n/it.json';
 import en from '../assets/i18n/en.json';
 
-export { LangContext, LangProvider} from '../providers/i18n'
-
 // 🌐 Translation map
 const translations: Record<Lang, TranslationMap> = { it, en };
 

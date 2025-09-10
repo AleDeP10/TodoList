@@ -3,17 +3,14 @@
  *
  * 📦 Storybook Bundle Analyzer
  *
- * This utility scans the contents of the `storybook-static` directory and reports
- * the largest assets generated during the Storybook build. It helps identify
- * oversized JavaScript bundles that may impact performance or cause build warnings.
+ * Scans the `storybook-static` directory and reports oversized JS assets.
+ * Intended for manual diagnostics in stable environments.
  *
  * 🛠 Usage:
- * ```bash
- * node dist/scripts/analyzeStorybookBundle.js
- * ```
+ *   node dist/scripts/analyzeStorybookBundle.js
  *
- * ✅ Designed to run after `build-storybook`, typically as part of `postbuild`
- * ❌ Does not fail the build, but prints warnings for assets exceeding thresholds
+ * ✅ Can be included in postbuild (non-blocking)
+ * ⚠️ Skipped in automated pipelines to reduce log noise
  */
 
 import fs from "fs";

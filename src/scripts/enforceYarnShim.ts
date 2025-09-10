@@ -9,7 +9,6 @@
  * - Executes a test command (`yarn --version`) through the shim
  * - Verifies that the command was logged correctly
  * - Appends a timestamp to the log for traceability
- * - Includes bonus hardening: explicit logging of the test command inside the shim
  *
  * This helps enforce consistent usage of the local Yarn setup and prevents accidental fallback to global Yarn.
  */

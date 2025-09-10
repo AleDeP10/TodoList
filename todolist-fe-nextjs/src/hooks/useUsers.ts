@@ -1,3 +1,38 @@
+/**
+ * userHooks.ts
+ *
+ * 👥 Context:
+ * This module provides a set of hooks for managing user entities,
+ * including fetching, filtering, saving, deleting, and validating uniqueness.
+ * It builds on the generic entity hooks and integrates Redux and React Query.
+ *
+ * ✅ Solves:
+ * - Centralized user lifecycle management
+ * - Consistent loading and error feedback via Redux
+ * - Automatic cache invalidation and localized messaging
+ * - Dynamic filtering based on full name, username, and status
+ * - Validation of username uniqueness for form-level checks
+ *
+ * ⚙️ Hooks included:
+ * - `useUsers`: fetches all users with loading/error handling
+ * - `useFilteredUsers`: filters users based on Redux-driven criteria
+ * - `useSaveUser`: handles user creation and update
+ * - `useDeleteUser`: handles user deletion
+ * - `useIsUsernameUnique`: checks if a username is already taken
+ * - `useUserList`: retrieves full user list for dropdowns or lookups
+ *
+ * 🧠 Notes:
+ * - `evalFilter`: applies compound logic for filtering users by name, username, and status map
+ * - `useIsUsernameUnique`: used to enforce uniqueness constraints in forms, excluding current user if needed
+ *
+ * 📦 Usage:
+ * ```tsx
+ * const users = useFilteredUsers();
+ * const saveUser = useSaveUser();
+ * const isUnique = useIsUsernameUnique();
+ * ```
+ */
+
 import { useCallback } from "react";
 import { useSelector } from "react-redux";
 import {

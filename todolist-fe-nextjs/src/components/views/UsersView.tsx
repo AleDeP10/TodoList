@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { UserDto } from "@/lib/types/dto/UserDto";
 import { UserFilters } from "@/lib/types/filters/UserFilters";
-import { useT } from "@/lib/hooks/useTranslation";
+import { useTranslation } from "@/lib/hooks/useTranslation";
 import { Icons } from "@/lib/components/Icons";
 import { Button } from "@/lib/components/ui/Button";
 import LoadingSpinner from "@/lib/components/ui/LoadingSpinner";
@@ -18,7 +18,7 @@ import UserFilterModal from "@/components/modals/UserFilterModal";
 import UserDeleteConfirmModal from "@/components/modals/UserDeleteConfirmModal";
 
 export default function UsersView() {
-  const t = useT();
+  const t = useTranslation();
   const dispatch = useDispatch();
 
   const { mutate: saveUser } = useSaveUser();
@@ -47,10 +47,6 @@ export default function UsersView() {
   };
 
   const { data: filteredUsers = [] } = useFilteredUsers();
-    
-  if (process.env.NODE_ENV !== "production") {
-    console.log(`UsersView`, { filteredUsers });
-  }
 
   return (
     <section className="p-6 space-y-6 mx-auto">

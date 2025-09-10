@@ -1,9 +1,38 @@
+/**
+ * useEntities.ts
+ *
+ * 🧩 Context:
+ * This module provides a set of reusable hooks for managing entities in the frontend,
+ * including fetching, filtering, saving, and deleting operations.
+ * It integrates with React Query, Redux, and the localization system.
+ *
+ * ✅ Solves:
+ * - Standardized entity lifecycle management across views
+ * - Centralized loading and error feedback via Redux
+ * - Automatic cache invalidation and sorting
+ * - Localized toast messages for user feedback
+ *
+ * ⚙️ Hooks included:
+ * - `useEntities`: fetches entities with loading and error handling
+ * - `useFilteredEntities`: filters and sorts entities based on custom logic
+ * - `useSaveEntity`: handles create/update operations with feedback
+ * - `useDeleteEntity`: handles deletion with feedback and cache refresh
+ *
+ * 📦 Usage:
+ * ```tsx
+ * const users = useEntities("user", fetchUsers);
+ * const filtered = useFilteredEntities(users, filters, filterFn);
+ * const saveUser = useSaveEntity("user", createUser, updateUser);
+ * const deleteUser = useDeleteEntity("user", deleteUserFn);
+ * ```
+ */
+
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import type Entity from "@/lib/types/Entity";
 import { Filters } from "@/lib/types/Filters";
-import { useT } from "@/lib/hooks/useTranslation";
+import { useTranslation } from "@/lib/hooks/useTranslation";
 import { setLoading, showToast } from "@/store/ui/uiSlice";
 
 /**
@@ -37,7 +66,7 @@ export const useEntities = <T extends Entity>(
   queryKey?: string[]
 ) => {
   const dispatch = useDispatch();
-  const t = useT();
+  const t = useTranslation();
 
   const query = useQuery<T[], Error, T[], string[]>({
     queryKey: queryKey ?? [entityName],
@@ -75,13 +104,10 @@ export const useSaveEntity = <T extends Entity>(
 ) => {
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
-  const t = useT();
+  const t = useTranslation();
 
   return useMutation<T | void, Error, { entity: T }>({
     mutationFn: async ({ entity }) => {
-      if (process.env.NODE_ENV !== "production") {
-        console.log(`useSaveEntities[${entityName}]`, { entity });
-      }
       dispatch(setLoading(true)); // 🚦 Spinner ON
       if (entity.id) {
         await updateFn(entity); // 🔄 Update
@@ -127,7 +153,7 @@ export const useDeleteEntity = (
 ) => {
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
-  const t = useT();
+  const t = useTranslation();
 
   return useMutation<void, Error, number>({
     mutationFn: async (id: number) => {

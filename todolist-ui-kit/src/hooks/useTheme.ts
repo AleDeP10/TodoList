@@ -1,3 +1,34 @@
+/**
+ * useTheme.ts
+ *
+ * 🎨 Context:
+ * This hook manages the active theme and dynamically injects the corresponding CSS file.
+ * It supports persistence via localStorage and adapts to system preferences on first load.
+ *
+ * ✅ Solves:
+ * - Centralized theme management across the app
+ * - Dynamic stylesheet injection without relying on Tailwind-only theming
+ * - Persistence of user preference across sessions
+ *
+ * ⚙️ Behavior:
+ * - Initializes theme from localStorage or system dark mode preference
+ * - Injects `/styles/themes/{theme}-theme.css` into the document head
+ * - Persists theme changes to localStorage
+ * - Ensures theme is applied before first paint using `useLayoutEffect`
+ *
+ * - Returns:
+ *   - `theme`: current theme name
+ *   - `setTheme(theme)`: function to update theme
+ *
+ * 📦 Usage:
+ * ```tsx
+ * const [theme, setTheme] = useTheme();
+ *
+ * // Example: switch to dark theme
+ * setTheme("dark");
+ * ```
+ */
+
 import { useLayoutEffect, useState, useCallback } from "react";
 import { ThemeName } from "../types/ThemeName";
 
@@ -27,10 +58,6 @@ export function useTheme(): [ThemeName, (t: ThemeName) => void] {
     link.href = `/styles/themes/${newTheme}-theme.css`;
     link.setAttribute("data-theme", "true");
     document.head.appendChild(link);
-
-    if (process.env.NODE_ENV !== "production") {
-      console.debug(`[useTheme] theme applied: ${newTheme}`);
-    }
   }, []);
 
   // Update theme state and persist to localStorage
@@ -47,9 +74,6 @@ export function useTheme(): [ThemeName, (t: ThemeName) => void] {
   // Ensure theme CSS is applied before first paint
   useLayoutEffect(() => {
     applyThemeCss(theme);
-    if (process.env.NODE_ENV !== "production") {
-      console.debug(`[useTheme] initialized with theme: ${theme}`);
-    }
   }, [theme, applyThemeCss]);
 
   return [theme, setTheme];

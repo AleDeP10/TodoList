@@ -1,8 +1,44 @@
+/**
+ * taskHooks.ts
+ *
+ * 📌 Context:
+ * This module provides a set of hooks for managing task entities,
+ * including fetching, filtering, saving, deleting, and advancing status.
+ * It builds on the generic entity hooks and integrates Redux and React Query.
+ *
+ * ✅ Solves:
+ * - Centralized task lifecycle management
+ * - Consistent loading and error feedback via Redux
+ * - Automatic cache invalidation and localized messaging
+ * - Dynamic filtering based on Redux-driven criteria
+ *
+ * ⚙️ Hooks included:
+ * - `useTasks`: fetches all tasks with loading/error handling
+ * - `useFilteredTasks`: filters tasks by description, assignee, and status
+ * - `useSaveTask`: handles task creation and update
+ * - `useDeleteTask`: handles task deletion
+ * - `useNextStatus`: advances a task to its next logical status with feedback
+
+ * 🧠 Notes:
+ * - `evalFilter`: applies compound logic for filtering tasks based on multiple fields,
+ *   including fuzzy match on description, assignation and conditional status mapping
+ * - `useNextStatus`: encapsulates status progression logic (`TODO → IN PROGRESS → DONE`)
+ *   and provides user feedback via toast notifications
+ *
+ * 📦 Usage:
+ * ```tsx
+ * const tasks = useFilteredTasks();
+ * const saveTask = useSaveTask();
+ * const deleteTask = useDeleteTask();
+ * const nextStatus = useNextStatus();
+ * ```
+ */
+
 import { useDispatch, useSelector } from "react-redux";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { TaskDto } from "@/lib/types/dto/TaskDto";
 import { TaskFilters } from "@/lib/types/filters/TaskFilters";
-import { useT } from "@/lib/hooks/useTranslation";
+import { useTranslation } from "@/lib/hooks/useTranslation";
 import { getTaskFilters } from "@/store/task/getTaskFilters";
 import { setLoading, showToast } from "@/store/ui/uiSlice";
 import { fetchTasks, createTask, updateTask, deleteTask } from "@/api/tasks";
@@ -75,7 +111,7 @@ export const useDeleteTask = () =>
 export const useNextStatus = () => {
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
-  const t = useT();
+  const t = useTranslation();
 
   const nextStatus = (task: TaskDto) => {
     return task.status === "TODO"

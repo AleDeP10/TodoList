@@ -1,10 +1,18 @@
 /**
  * checkVersions.ts
  *
- * This script validates the presence and compatibility of key dependencies including Storybook, React, ReactDOM, and their type definitions.
- * It ensures that peer dependencies are respected and warns if mismatches are detected.
- * It also checks for known issues such as missing `scheduler/tracing` in @types/react.
- * It is designed to work with Yarn v1 and local shims.
+ * 📦 Dependency Version Validator
+ *
+ * Validates the presence and compatibility of key dependencies across all workspaces.
+ * Ensures React, Storybook, Tailwind, and their type definitions match expected versions.
+ * Also checks for known issues such as missing `scheduler/tracing` in @types/react.
+ *
+ * 🛠 Usage:
+ *   node dist/scripts/checkVersions.js
+ *
+ * ✅ Automatically invoked during `yarn run setup`
+ * 🔒 Requires Yarn v1 and local shim (enforced unless in production)
+ * ❌ Fails the process if mismatches are detected
  */
 
 // Import shim verification only during development

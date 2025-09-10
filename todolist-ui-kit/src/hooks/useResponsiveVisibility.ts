@@ -1,20 +1,23 @@
 /**
  * useResponsiveVisibility.ts
  *
- * 📌 Context:
- * This hook is designed to manage conditional visibility of UI elements
- * based on the current viewport width. It is especially useful for
- * components like buttons or labels that should be hidden on mobile
- * and shown on larger screens.
+ * 📱 Context:
+ * This hook determines whether the current viewport width is below a specified breakpoint,
+ * enabling conditional rendering of UI elements based on screen size.
  *
  * ✅ Solves:
- * - Responsive rendering logic without relying on Tailwind-only class toggling
- * - Centralized control of visibility behavior across components
+ * - Centralizes responsive logic across components
+ * - Avoids reliance on Tailwind-only visibility classes
+ * - Enables dynamic behavior on resize events
  *
  * ⚙️ Behavior:
- * - Returns a boolean `isMobile` indicating if the viewport is below the defined breakpoint
- * - Default breakpoint is 768px (Tailwind's `md`)
- * - Automatically updates on window resize
+ * - Accepts:
+ *   - `breakpoint`: optional pixel value (default: 768)
+ * - Returns:
+ *   - `isMobile`: boolean indicating if viewport is smaller than the breakpoint
+ * - Internally:
+ *   - Checks `window.innerWidth` on mount and on resize
+ *   - Updates state accordingly
  *
  * 📦 Usage:
  * ```tsx
@@ -25,11 +28,6 @@
 
 import { useEffect, useState } from "react";
 
-/**
- * Hook to detect if the current viewport is below a given breakpoint
- * @param breakpoint - pixel value to compare against (default: 768)
- * @returns boolean indicating if the viewport is considered mobile
- */
 export function useResponsiveVisibility(breakpoint: number = 768): boolean {
   const [isMobile, setIsMobile] = useState(false);
 

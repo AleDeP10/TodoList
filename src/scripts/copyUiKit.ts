@@ -1,16 +1,24 @@
 /**
- * copyUiKit.ts — Sync selected folders and styles
- * from `todolist-ui-kit/src` into:
- *   - `todolist-storybook`
- *   - `todolist-fe-nextjs`
+ * copyUiKit.ts
  *
- * This script performs two separate copy operations:
- * one for Storybook, one for the frontend.
- * It copies top-level folders into `src/lib/`
- * and styles into `public/styles/`.
+ * 🔄 UI Kit Synchronization Script
+ *
+ * Copies shared components, hooks, styles, and utilities from `todolist-ui-kit/src`
+ * into the `todolist-storybook` and `todolist-fe-nextjs` workspaces.
+ *
+ * ✅ Ensures visual and functional consistency across frontend and Storybook
+ * ✅ Automatically invoked during `yarn run setup`
+ * ❌ Does not verify shim or dependencies — assumes setup has already run
+ *
+ * Operations:
+ * - Copies folders: assets, components, hooks, providers, types, utils, index.ts → `src/lib/`
+ * - Copies styles: globals-base.css, globals.css → `src/lib/styles/` and `public/styles/`
+ * - Copies themes: `styles/themes/` → `public/styles/themes/`
  *
  * Usage:
  *   yarn run copy-ui-kit
+ *
+ * Note: it is mandatory to run this script after every update affecting todolist-ui-kit
  */
 
 import { cp } from "fs/promises";

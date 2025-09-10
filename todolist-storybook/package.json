@@ -8,7 +8,7 @@
     "lint": "eslint . --ext .ts,.tsx,.js,.cjs --ignore-pattern storybook-static/",
     "prebuild": "../node_modules/.bin/postcss ./src/styles/tailwind.input.css -o public/styles/globals.css",
     "build-storybook": "yarn run prebuild && npx storybook@7.6.0 build && yarn run postbuild",
-    "postbuild": "yarn run validate-storybook && node ../dist/scripts/analyzeStorybookBundle.js",
+    "postbuild": "yarn run validate-storybook",
     "storybook-dev": "cross-env NODE_ENV=development npx storybook@7.6.0 dev --port 6006",
     "storybook": "npx serve storybook-static -l 6006",
     "validate-storybook": "node ../dist/scripts/validateStorybook.js"

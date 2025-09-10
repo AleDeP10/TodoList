@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useT } from "@/lib/hooks/useTranslation";
+import { useTranslation } from "@/lib/hooks/useTranslation";
 import { useView } from "@/lib/hooks/useView";
 import { MenuIcons } from "@/lib/components/Icons";
 import NavBar from "@/lib/components/ui/NavBar";
@@ -11,7 +11,7 @@ import AboutAuthorModal from "./modals/AboutAuthorModal";
 
 export default function MainContainer() {
   const [showOnAuthorModal, setShowOnAuthorModal] = useState(false);
-  const t = useT();
+  const t = useTranslation();
   const { view, setView } = useView();
 
   const menuItems = {

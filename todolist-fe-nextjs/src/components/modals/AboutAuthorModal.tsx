@@ -1,6 +1,6 @@
 "use client";
 
-import { useT } from "@/lib/hooks/useTranslation";
+import { useTranslation } from "@/lib/hooks/useTranslation";
 import { Icons } from "@/lib/components/Icons";
 import Modal from "@/lib/components/ui/Modal";
 import { ButtonVariant } from "@/lib/components/ui/Button";
@@ -10,7 +10,7 @@ interface AboutAuthorModalProps {
 }
 
 export default function AboutAuthorModal({ onClose }: AboutAuthorModalProps) {
-  const t = useT();
+  const t = useTranslation();
 
   return (
     <Modal

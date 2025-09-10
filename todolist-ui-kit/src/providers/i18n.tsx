@@ -41,10 +41,6 @@ export const LangWrapper = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     setLang(lang); // trigger side effects if needed
-
-    if (process.env.NODE_ENV !== "production") {
-      console.debug(`[LangWrapper] active language: ${lang}`);
-    }
   }, [lang, setLang]);
 
   return <>{children}</>;

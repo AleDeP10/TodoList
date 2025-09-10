@@ -2,19 +2,22 @@
   // 💡 Recommended extensions for this project
   "recommendations": [
     "esbenp.prettier-vscode",             // ✨ Code formatter for consistent styling across files
-    "dbaeumer.vscode-eslint",             // 🧹 JavaScript/TypeScript linter with support for custom rules
+    "dbaeumer.vscode-eslint",             // 🧹 JavaScript/TypeScript linter with support for FlatConfig and custom rules
     "formulahendry.auto-close-tag",       // 🔐 Automatically closes matching HTML/XML/JSX tags
     "formulahendry.auto-rename-tag",      // 🔁 Automatically renames paired opening/closing tags when editing
     "bradlc.vscode-tailwindcss",          // 🌬️ IntelliSense, highlighting, and linting support for Tailwind CSS
     "styled-components.vscode-styled-components", // 🎨 Syntax highlighting for styled-components within JS/TS
     "jonkwheeler.styled-components-snippets",     // 📦 Snippet pack for styled-components patterns and utilities
-    "christian-kohler.path-intellisense", // 🧭 Autocompletion for file paths in import/require statements
+    "christian-kohler.path-intellisense", // 🧭 Autocompletion for file paths and alias imports
     "GitHub.vscode-pull-request-github",  // 🔗 Integration with GitHub pull requests, issues, and workflows
     "eamodio.gitlens",                    // 🔍 Enhanced Git navigation, blame annotations, and commit history
     "ms-vscode.vscode-typescript-next",   // 🧠 Latest TypeScript language features and improvements
     "ms-azuretools.vscode-docker",        // 🐳 Support for Dockerfiles, Compose files, and container management
     "oouo-diogo-perdigao.docthis",        // 📚 Auto-generates JSDoc-style comments for functions and classes
-    "vscode-icons-team.vscode-icons"      // 🗂️ Adds rich file and folder icons for project structures, including Node.js
+    "vscode-icons-team.vscode-icons",     // 🗂️ Adds rich file and folder icons for project structures
+    "yoavbls.pretty-ts-errors",           // 🚨 Improves readability of TypeScript error messages
+    "orta.vscode-jest",                   // ✅ Optional: Jest test runner integration (if added later)
+    "aaron-bond.better-comments"          // 💬 Highlights TODO, FIXME, and other comment tags for better visibility
   ]
 }
 

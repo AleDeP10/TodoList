@@ -2,7 +2,7 @@
 
 import { UserStatus } from "@/lib/types/Status";
 import { UserFilters } from "@/lib/types/filters/UserFilters";
-import { useT } from "@/lib/hooks/useTranslation";
+import { useTranslation } from "@/lib/hooks/useTranslation";
 import { Icons } from "@/lib/components/Icons";
 import type { ButtonVariant } from "@/lib/components/ui/Button";
 import Modal from "@/lib/components/ui/Modal";
@@ -24,7 +24,7 @@ export default function UserFilterModal({
   onClose,
   onApply,
 }: Props) {
-  const t = useT();
+  const t = useTranslation();
   const statusOptions: UserStatus[] = ["ACTIVE", "BLOCKED"];
 
   return (

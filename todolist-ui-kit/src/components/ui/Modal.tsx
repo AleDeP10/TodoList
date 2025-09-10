@@ -68,14 +68,6 @@ export default function Modal({
             <div className="flex justify-center gap-2 px-6 py-4 border-t border-[var(--fg)]">
               {footerActions.map(
                 ({ icon, label, variant, disabled, onClick }) => {
-                  if (process.env.NODE_ENV !== "production") {
-                    console.log("Modal footerActions", {
-                      label,
-                      variant,
-                      disabled: footerActions.find((a) => a.label === label)
-                        ?.disabled,
-                    });
-                  }
                   return (
                     <Button
                       key={label}
