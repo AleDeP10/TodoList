@@ -22,7 +22,7 @@
  */
 
 import { useContext } from "react";
-import { ViewContext } from "../../../todolist-ui-kit/src/providers/view";
+import { ViewContext } from "../providers/view";
 
 export function useView() {
   const ctx = useContext(ViewContext);
