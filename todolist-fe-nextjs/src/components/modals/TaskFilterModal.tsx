@@ -116,7 +116,7 @@ export default function TaskFilterModal({
         />
 
         {/* Status switches */}
-        <div className="grid grid-cols-12 gap-4 items-center">
+        <div className="grid grid-cols-12 gap-4 items-start">
           <label className="col-span-3 text-sm font-medium">
             {t("task.status")}
           </label>

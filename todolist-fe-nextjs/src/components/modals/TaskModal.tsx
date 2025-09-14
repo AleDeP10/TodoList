@@ -74,7 +74,7 @@ export default function TaskModal({ currentTask, onClose, onSubmit }: Props) {
 
   return (
     <Modal
-      title={currentTask ? t("task.edit.title") : t("task.create.title")}
+      title={currentTask?.id ? t("task.edit.title") : t("task.create.title")}
       onClose={onClose}
       footerActions={[
         {
@@ -117,7 +117,7 @@ export default function TaskModal({ currentTask, onClose, onSubmit }: Props) {
         {/* Assignee */}
         <Dropdown<UserDto>
           value={selectedUser}
-          options={users}
+          options={users.filter((user: UserDto) => user.status==="ACTIVE")}
           getOptionValue={(user) => String(user.id)}
           getOptionLabel={(user) => user.fullName}
           label={t("task.assignee")}

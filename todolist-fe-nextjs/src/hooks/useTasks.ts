@@ -154,7 +154,7 @@ export const useNextStatus = () => {
           }),
         })
       );
-      console.error("Error while moving the task to the next status", error);
+      console.error({ err: error, stack: error.stack }, "error while moving the task to the next status");
     },
   });
 };

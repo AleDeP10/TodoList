@@ -1,7 +1,7 @@
-import { defineConfig } from "vitest/config";
-import svgr from "vite-plugin-svgr";
+const svgr = require("vite-plugin-svgr");
 
-export default defineConfig({
+/** @type {import('vite').UserConfig} */
+module.exports = {
   logLevel: "info",
 
   optimizeDeps: {
@@ -48,5 +48,4 @@ export default defineConfig({
       },
     ],
   },
-
-});
+};

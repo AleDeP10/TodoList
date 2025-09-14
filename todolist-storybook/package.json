@@ -2,8 +2,20 @@
   "name": "todolist-storybook",
   "version": "1.0.0",
   "private": true,
-  "license": "MIT",
   "type": "module",
+  "description": "Storybook workspace for documenting and testing UI components of the ToDoList ecosystem",
+  "author": "AleDeP10 <alessandro.deprato@outlook.com>",
+  "license": "MIT",
+  "keywords": [
+    "todo-list",
+    "storybook",
+    "tailwindcss",
+    "ui-validation",
+    "theming",
+    "localization",
+    "design-system",
+    "component-library"
+  ],
   "scripts": {
     "lint": "eslint . --ext .ts,.tsx,.js,.cjs --ignore-pattern storybook-static/",
     "prebuild": "../node_modules/.bin/postcss ./src/styles/tailwind.input.css -o public/styles/globals.css",

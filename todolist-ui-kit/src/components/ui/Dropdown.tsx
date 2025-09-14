@@ -1,66 +1,131 @@
 import React, { useId } from "react";
 
+export type DropdownVariant = "expanded" | "compact";
+
 export interface DropdownProps<T> {
+  variant?: DropdownVariant;
   value: T;
   options: T[];
   onChange: (newValue: T) => void;
   getOptionValue?: (option: T) => string;
   getOptionLabel?: (option: T) => string;
   label: string;
-  name?: string;
+  error?: boolean;
+  onBlur?: (e: React.FocusEvent<HTMLSelectElement>) => void;
+  helperText?: string;
+}
+
+interface SelectComponentProps<T> {
+  selectId: string;
+  value: T;
+  options: T[];
+  onChange: (newValue: T) => void;
+  getOptionValue?: (option: T) => string;
+  getOptionLabel?: (option: T) => string;
+  label: string;
   error?: boolean;
   helperText?: string;
   onBlur?: (e: React.FocusEvent<HTMLSelectElement>) => void;
 }
 
-export default function Dropdown<T>({
+function SelectComponent<T>({
+  selectId,
   value,
   options,
   onChange,
+  onBlur,
   getOptionValue = (option: T) => String(option),
   getOptionLabel = (option: T) => String(option),
   label,
-  name,
+  error = false,
+}: SelectComponentProps<T>) {
+  return (
+    <select
+      id={selectId}
+      value={getOptionValue(value)}
+      onChange={(e) => {
+        const selected = options.find(
+          (opt) => getOptionValue(opt) === e.target.value
+        );
+        if (selected) onChange(selected);
+      }}
+      onBlur={onBlur}
+      aria-label={label}
+      className={` w-full p-2 text-sm rounded !bg-white !text-black ${
+        error ? "border-red-500" : "border-gray-300"
+      } border focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-black`}
+    >
+      {options.map((opt, index) => (
+        <option
+          key={index}
+          value={getOptionValue(opt)}
+          className="!bg-white !text-black"
+        >
+          {getOptionLabel(opt)}
+        </option>
+      ))}
+    </select>
+  );
+}
+
+export default function Dropdown<T>({
+  variant,
+  value,
+  options,
+  onChange,
+  onBlur,
+  getOptionValue = (option: T) => String(option),
+  getOptionLabel = (option: T) => String(option),
+  label,
   error = false,
   helperText,
-  onBlur,
 }: DropdownProps<T>) {
   const generatedId = useId();
-  const selectId = `${name ?? "dropdown"}-${generatedId}`;
+  const selectId = `dropdown-${generatedId}`;
 
-  return (
+  return variant === "compact" ? (
+    <div className="w-fit">
+        <SelectComponent
+          selectId={selectId}
+          value={value}
+          options={options}
+          onChange={onChange}
+          onBlur={onBlur}
+          label={label}
+          getOptionValue={getOptionValue}
+          getOptionLabel={getOptionLabel}
+          error={error}
+          helperText={helperText}
+        />
+
+        {helperText && (
+          <p className="text-xs text-red-500 mt-1" role="alert">
+            {helperText}
+          </p>
+        )}
+      </div>
+  ) : (
     <div className="grid grid-cols-12 gap-4 items-center my-2 w-full">
-      <label htmlFor={selectId} className="col-span-3 text-left text-sm font-medium">
+      <label
+        htmlFor={selectId}
+        className="col-span-3 text-left text-sm font-medium"
+      >
         {label}
       </label>
 
       <div className="col-span-9 w-full">
-        <select
-          id={selectId}
-          name={name}
-          value={getOptionValue(value)}
-          onChange={(e) => {
-            const selected = options.find(
-              (opt) => getOptionValue(opt) === e.target.value
-            );
-            if (selected) onChange(selected);
-          }}
+        <SelectComponent
+          selectId={selectId}
+          value={value}
+          options={options}
+          onChange={onChange}
           onBlur={onBlur}
-          aria-label={label}
-          className={` w-full p-2 text-sm rounded !bg-white !text-black ${
-            error ? "border-red-500" : "border-gray-300"
-          } border focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-black`}
-        >
-          {options.map((opt, index) => (
-            <option
-              key={index}
-              value={getOptionValue(opt)}
-              className="!bg-white !text-black"
-            >
-              {getOptionLabel(opt)}
-            </option>
-          ))}
-        </select>
+          label={label}
+          getOptionValue={getOptionValue}
+          getOptionLabel={getOptionLabel}
+          error={error}
+          helperText={helperText}
+        />
 
         {helperText && (
           <p className="text-xs text-red-500 mt-1" role="alert">

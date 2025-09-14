@@ -1,25 +1,29 @@
 {
   "name": "todolist-fe-next",
   "version": "1.0.0",
-  "type": "module",
   "private": true,
-  "description": "A Next.js implementation for ToDo List application",
+  "type": "module",
+  "description": "Next.js implementation of the ToDoList frontend with full user management and secure proxy integration",
+  "author": "AleDeP10 <alessandro.deprato@outlook.com>",
+  "license": "MIT",
   "keywords": [
     "todo-list",
     "nextjs",
+    "react",
     "tailwindcss",
     "typescript",
     "redux-toolkit",
-    "tanstack",
-    "axios"
+    "tanstack-query",
+    "axios",
+    "vite",
+    "frontend"
   ],
   "scripts": {
-    "dev": "next dev --port 3000",
-    "build": "next build",
+    "dev": "cross-env NODE_ENV=development next dev --port 3000",
+    "build": "cross-env NODE_ENV=production next build",
     "start": "next start",
     "lint": "eslint . --ext .ts,.tsx,.js,.cjs",
-    "serve-nginx": "nginx -c ./nginx/nginx.conf",
-    "stop-nginx": "nginx -s stop -c ./nginx/nginx.conf"
+    "serve-nginx": "nginx -c ./nginx/nginx.conf"
   },
   "dependencies": {
     "@mui/material": "^7.2.0",
@@ -30,7 +34,6 @@
     "framer-motion": "^12.23.6",
     "lucide-react": "^0.525.0",
     "next": "14.2.31",
-    "pino": "^9.7.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-redux": "^9.2.0",

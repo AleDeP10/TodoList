@@ -52,7 +52,7 @@ export default function UserModal({ currentUser, onClose, onSubmit }: Props) {
 
   return (
     <Modal
-      title={currentUser ? t("user.edit.title") : t("user.create.title")}
+      title={currentUser?.id ? t("user.edit.title") : t("user.create.title")}
       onClose={onClose}
       footerActions={[
         {

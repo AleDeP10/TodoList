@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
+  "author": "AleDeP10 <alessandro.deprato@outlook.com>",
+  "license": "MIT",
+  "repository": "https://github.com/AleDeP10/TodoList.git",
   "workspaces": [
     "todolist-ui-kit",
     "todolist-storybook",
@@ -15,13 +18,20 @@
     "enforce-yarn-shim": "node dist/scripts/enforceYarnShim.js",
     "check-versions": "node dist/scripts/checkVersions.js",
     "copy-ui-kit": "node dist/scripts/copyUiKit.js",
-    "clean-install": "node dist/scripts/cleanInstall.js",
-    "build-storybook": "yarn build-storybook",
-    "validate-storybook": "node dist/scripts/validateStorybook.js"
+    "clean-install": "node dist/scripts/cleanInstall.js"
   },
-  "repository": "https://github.com/AleDeP10/TodoList.git",
-  "author": "AleDeP10 <alessandro.deprato@outlook.com>",
-  "license": "MIT",
+  "keywords": [
+    "todo-list",
+    "task-management",
+    "nextjs",
+    "angularjs",
+    "redux",
+    "storybook",
+    "tailwindcss",
+    "aspnet-core",
+    "monorepo",
+    "typescript"
+  ],
   "compilerOptions": {
     "module": "ESNext",
     "target": "ES2020",

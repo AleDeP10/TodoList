@@ -1,114 +1,142 @@
-# 🧾 ToDoList
+# 🧾 ToDoList — Fullstack Project Overview
 
-A full-stack task management app powered by AngularJS, Redux and ASP.NET Core.  
-**Fully containerized with HTTPS support out of the box.**
+A modular task management system built with a C# backend and two distinct frontend implementations: AngularJS and Next.js. The project also includes a dedicated Storybook workspace for UI documentation and testing.
 
----
+## 🌐 Live Deployments
 
-## 🌐 Live version on Render
+| Module             | Live URL                                                  |
+|--------------------|-----------------------------------------------------------|
+| 🧠 Backend (C#)    | https://todolist-be-csharp.onrender.com                   |
+| 📘 AngularJS FE    | https://todolist-fe-angularjs.onrender.com                |
+| ⚛️ Next.js FE      | https://todolist-fe-nextjs.onrender.com                   |
+| 📚 Storybook       | https://todolist-storybook.onrender.com                   |
 
-The project is live and publicly accessible via Render, with both backend and frontend hosted on separate endpoints. You can explore and test the API through the Swagger interface at [https://backend-csharp-25bo.onrender.com/swagger](https://backend-csharp-25bo.onrender.com/swagger), while the AngularJS frontend is available at [https://frontend-angularjs.onrender.com](https://frontend-angularjs.onrender.com).
+## 🧩 Common Features
 
----
+  - ✅ Task CRUD: create, edit, delete, and view tasks  
+  - 👥 User assignment: link tasks to users  
+  - 🔄 Status management: TODO, IN PROGRESS, DONE  
+  - 🧪 Validation and confirmation modals  
+  - 🧾 Toast notifications and loading spinners
+  - 🌐 Localization: dynamic switch between English and Italian  
 
-## 🧩 Features
+## 🧬 Specific Features
 
-- ✅ Create, edit, delete tasks with assigned users and status
-- 🔍 Filter tasks by description, status, and assignee
-- 🗃️Persistent language and filter visibility
-- 🔁 Dual-mode filtering:
-  - **Server-side** (default): efficient for large datasets
-  - **Client-side**: powered by Redux Classic for responsive UX
-- 🎨 Clean, responsive UI with gradient theming and status-aware styling
-- 🧠 Modular architecture for easy extension and maintenance
+### 📘 AngularJS Frontend
+  - ⚡ Dual-mode filtering:
+    - Server-side: efficient for large datasets
+    - Client-side: reactive via Redux Classic
+  - 🎨 Bootstrap-based UI with SCSS theming
 
----
+### ⚛️ Next.js Frontend
+  - 👥 Full user management:
+    - Create, edit, delete users
+    - Role and status handling
+  - 🧠 Advanced filtering and validation
+  - 🎨 Theming: light, dark, and custom variants  
+  - 🧩 UI Kit with reusable components, hooks, and providers
 
-## 🛠 Tech Stack
 
-| Layer        | Technology                     |
-|--------------|--------------------------------|
-| Frontend     | AngularJS 1.x, Bootstrap 5     |
-| State Mgmt   | Redux Classic (ng-redux)       |
-| Backend      | ASP.NET Core 8.0 (Web API)     |
-| Language     | C#                             |
-| Build Tools  | .NET CLI, npm, nginx, Docker   |
+## 🛠 Tech Stack Summary
 
----
+| Layer        | Technology                              |
+|--------------|-----------------------------------------|
+| Backend      | ASP.NET Core, Entity Framework          |
+| AngularJS FE | AngularJS 1.x, Redux Classic, Bootstrap |
+| Next.js FE   | Next.js 14, TailwindCSS, Redux Toolkit  |
+| UI Testing   | Storybook 7                             |
+| Styling      | SCSS (AngularJS), TailwindCSS (Next.js) |
+| Container    | Docker, NGINX                           |
 
-## 🚀 Running the App (Docker-first)
+## 🐳 Docker Execution
 
-### 🖥️ Visual control with Docker Desktop
+All modules support Docker-based execution:
 
-Docker Desktop provides a user-friendly interface to manage containers across platforms. Using the UI, you can independently activate the database instance, the C# backend, and the AngularJS frontend.
+  - 🖥️ **Docker Desktop**: build and run each project individually  
+  - 🧩 **Docker Compose**: orchestrate frontend and backend together (optional)  
+  - 🔐 **HTTPS Setup**: NGINX proxy with local certificates for secure API routing
 
-### 🐳 Quickstart with Docker Compose
+## 📊 Port Mapping
 
-A secure and self-contained way to run the app locally by using the shell.
+| Module            | Port (Local) | Port (Docker) |
+|-------------------|--------------|----------------|
+| Backend (C#)      | 5000         | 5001           |
+| AngularJS FE      | 8080         | 8081           |
+| Next.js FE        | 3000         | 3001           |
+| Storybook         | 6006         | 6007           |
+| NGINX Proxy       | 443 (HTTPS)  | 443            |
 
-```bash
-docker-compose up --build
-```
+## 🧪 Developer Installation
 
-Then open the frontend via:
+Each module includes its own README with setup instructions:
 
-📍 `http://localhost:8081/index.html`  
-📡 Backend API via HTTPS: `https://localhost:5001/api/...`
+  - 🧠 [Database](./db-backup/README.md#restore-instructions)
+  - 🧠 [Backend C#](./backend-csharp/README.md#installation-and-launch)
+  - 📘 [AngularJS Frontend](./frontend-angularjs/README.md#installation-and-launch)  
+  - ⚛️ [Next.js Frontend](./todolist-fe-nextjs/README.md#installation-and-launch)  
+  - 📚 [Storybook Workspace](./todolist-storybook/README.md#installation-and-launch)
 
-> 🛡 HTTPS is enabled by default in Docker on port 5000 inside the container, mapped to 5001 on your host.  
-> The development certificate `aspnet-dev.pfx` is already bundled.
+## 🧵 NPM vs Yarn — Compatibility Notes
 
----
+<!-- actual anchor -->
+<a name="npm-vs-yarn"></a>
 
-## ⚙️ Environment Ports
+During development of the Next.js frontend and Storybook workspace, several inconsistencies emerged when using npm as the package manager:
 
-| Component | Container Port | Host Port | Protocol |
-|-----------|----------------|-----------|----------|
-| Backend   | 5000           | 5001      | HTTPS    |
-| Frontend  | 8080           | 8081      | HTTP     |
+  - ❌ npm failed to resolve peer dependencies correctly across workspaces
+  - ❌ npm introduced lockfile conflicts when switching between modules
+  - ❌ npm did not support the required Storybook plugins without patching
 
----
+To resolve these issues, the project adopted yarn with a custom shim (yarn-1.22.19.cjs) to ensure consistent behavior across all environments.
 
-## 🧪 Local Dev Setup (non-Docker)
+The implementation process also considered Yarn Berry (v2+), but encountered critical incompatibilities with Storybook 7 — including broken plugin resolution, workspace linking failures, and missing support for legacy configuration formats. These issues made Berry unsuitable for the current monorepo setup.
 
-If you're debugging or hate containers:
+As a result, Yarn was explicitly locked to version 1.22.19 to guarantee full compatibility across all modules and avoid regressions in the build and development workflows.
 
-### Prerequisites
+## ⚙️ Scripts
 
-- [.NET 8 SDK](https://dotnet.microsoft.com/)
-- [Node.js + npm](https://nodejs.org/)
-- PostgreSQL (or compatible)
+| Script               | Description                                                                                          |
+|----------------------|------------------------------------------------------------------------------------------------------|
+| `setup`              | Runs all setup steps: build scripts, generate shims, enforce Yarn, check versions, and copy UI kit   |
+| `build-scripts`      | Compiles TypeScript scripts using `tsconfig.scripts.json`                                            |
+| `build-shims`        | Generates local Yarn 1.x shim files                                                                  |
+| `enforce-yarn-shim`  | Verifies that the Yarn shim is correctly resolved before execution                                   |
+| `check-versions`     | Validates React, Storybook, TailwindCSS versions across all workspaces and fails if finds mismatches |
+| `copy-ui-kit`        | Copies the UI kit into dependent workspaces                                                          |
+| `clean-install`      | Performs a clean install by removing `node_modules` and rebuilding reinstalling modules              |
 
-### Database Setup
+## 🧪 Cross-Platform Scripts
 
-```bash
-psql -U your_user -d todolist -f db-backup/init.sql
-```
+All Yarn scripts rely on invoking TypeScript modules located in src/scripts, ensuring consistent execution across Windows, macOS, and Linux.
 
-### Start Backend
+Beyond core implementations, the folder includes utilities for workspace consistency, debugging, and diagnostics:
 
-```bash
-cd backend-csharp
-dotnet run
-```
+🧭 printTree.ts: explores and visualizes folder structures for documentation and analysis
 
-By default, it listens on HTTPS port 5000 using the dev certificate.
+🛡️ verifyShimActive.ts: automatically called to check that the local Yarn shim is active and correctly resolved
 
-### Start Frontend
+These tools are integrated into the setup flow and help maintain a stable, reproducible environment.
 
-```bash
-cd frontend-angularjs
-npm install
-npm run serve
-```
+Each script in src/scripts is documented inline with usage notes and expected behavior, as well as custom hooks.
 
-Open: [http://localhost:8080/index.html](http://localhost:8080/index.html)
+## 🧾 General Notes
 
----
+  - ✔ Local certificates are stored in `nginx/certs` and used for secure proxying  
+  - ✔ Yarn 1.22.19 shim is enforced for compatibility across frontend projects  
+  - ✔ Logging is handled via Pino (Next.js) and console middleware (AngularJS)  
+  - ✔ Custom React hooks are used wherever reusability and separation of concerns are beneficial
+  - ✔ All modules tested on Windows 10 with Node.js ≥ 20.x, shim yarn.sh also available  
 
-## 🧾 Notes
+## 🔗 Related Documentation
 
-- ✔ The ASP.NET backend auto-detects `Docker` environment for specific behavior.
-- ✔ Logging on startup will show the active HTTPS port.
-- 🔐 Don’t use the dev certificate in production.
-- 📄 See `docker-compose.yml` and `Program.cs` for full HTTPS setup.
+📖 See [Database README](./db-backup/README.md) for schema overview, local restore instructions, and Docker initialization.
+
+📖 See [Backend C# README](./backend-csharp/README.md) for API setup, HTTPS configuration, and shared development scripts.  
+
+📖 See [AngularJS Frontend README](./frontend-angularjs/README.md) for SCSS theming, dual-mode filtering, and local installation steps.  
+
+📖 See [UI Kit README](./todolist-ui-kit/README.md) for reusable components, hooks, providers, motion utilities, and integration notes.  
+
+📖 See [Storybook README](./todolist-storybook/README.md) to explore component validation, theming previews, and accessibility testing.  
+
+📖 See [Next.js Frontend README](./todolist-fe-nextjs/README.md) for task and user management, API integration, and advanced UI composition.

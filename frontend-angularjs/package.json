@@ -1,7 +1,20 @@
 {
   "name": "todolistangularjs",
   "version": "1.0.11",
+  "private": true,
   "main": "app.js",
+  "description": "AngularJS implementation of the ToDoList frontend with dual-mode filtering and SCSS theming",
+  "author": "AleDeP10 <alessandro.deprato@outlook.com>",
+  "license": "MIT",
+  "keywords": [
+    "todo-list",
+    "angularjs",
+    "redux-classic",
+    "bootstrap",
+    "scss",
+    "task-management",
+    "frontend"
+  ],
   "directories": {
     "lib": "lib"
   },
@@ -12,10 +25,6 @@
     "build": "npm run clean && npm run build-css && npm run copy-static",
     "serve": "npm run build && echo. && echo Server started. && echo Visit http://localhost:8080/ to explore the application && nginx -p . -c nginx.dev.conf -g \"daemon off;\""
   },
-  "keywords": ["todo-list", "angular-js", "redux-classic", "bootstrap", "scss"],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "devDependencies": {
     "fs-extra": "^11.3.0",
     "http-server": "^14.1.1",

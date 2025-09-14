@@ -2,9 +2,20 @@
   "name": "todolist-ui-kit",
   "version": "1.0.0",
   "private": true,
-  "license": "MIT",
   "type": "module",
   "main": "./src/index.ts",
+  "description": "Reusable UI components and motion utilities for the ToDoList frontend ecosystem",
+  "author": "AleDeP10 <alessandro.deprato@outlook.com>",
+  "license": "MIT",
+  "keywords": [
+    "todo-list",
+    "ui-kit",
+    "react",
+    "tailwindcss",
+    "framer-motion",
+    "typescript",
+    "design-system"
+  ],
   "scripts": {
     "lint": "eslint . --ext .ts,.tsx"
   },

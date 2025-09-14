@@ -29,11 +29,8 @@ export const ThemePreview = () => {
 
   return (
     <div className="theme-preview">
-      <div className="theme-control">
-        <label className="theme-label">Pick a theme</label>
-        <div className="theme-switcher">
-          <ThemeSwitcher />
-        </div>
+      <div className="flex justify-end">
+        <ThemeSwitcher />
       </div>
       <div className="theme-section background">
         <h2>Background</h2>

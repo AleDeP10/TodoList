@@ -12,9 +12,10 @@ export default function ThemeSwitcher({}: ThemeSwitcherProps) {
 
   return (
     <Dropdown
+      variant="compact"
+      label={"theme"}
       value={theme}
-      options={["dark", "light", "custom"]}
-      onChange={(newTheme) => setTheme(newTheme as ThemeName)}
-    />
+      options={["dark", "custom", "light"]}
+      onChange={(newTheme) => setTheme(newTheme as ThemeName)} />
   );
 }

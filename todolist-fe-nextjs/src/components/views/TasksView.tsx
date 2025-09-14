@@ -76,7 +76,7 @@ export default function TasksView() {
             setCurrentTask({
               description: "",
               assigneeId: undefined,
-              status: "DONE",
+              status: "TODO",
             })
           }
         />

@@ -86,7 +86,8 @@ export const useEntities = <T extends Entity>(
           }),
         })
       );
-      console.error(`error while fetching ${entityName}`, query.error);
+
+      console.error({ err: query.error, stack: query.error.stack }, `error while fetching ${entityName}`);
     }
   }, [query.isFetching, query.isError, query.error, dispatch, t, entityName]);
 
@@ -138,7 +139,7 @@ export const useSaveEntity = <T extends Entity>(
           }),
         })
       );
-      console.error(`error while saving ${entityName}`, error);
+      console.error({ err: error, stack: error.stack }, `error while saving ${entityName}`);
     },
   });
 };
@@ -183,7 +184,7 @@ export const useDeleteEntity = (
           }),
         })
       );
-      console.error(`error while deleting ${entityName}`, error);
+      console.error({ err: error, stack: error.stack }, `error while deleting ${entityName}`);
     },
   });
 };

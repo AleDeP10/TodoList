@@ -65,7 +65,7 @@ export default function UserFilterModal({
         />
 
         {/* Status switches */}
-        <div className="grid grid-cols-12 gap-4 items-center">
+        <div className="grid grid-cols-12 gap-4 items-start">
           <label className="col-span-3 text-sm font-medium">
             {t("user.status")}
           </label>
