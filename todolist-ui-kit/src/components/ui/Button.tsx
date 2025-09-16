@@ -43,7 +43,7 @@ export const Button = ({
   foregroundColor,
   onClick,
 }: ButtonProps) => {
-  const isMobile = useResponsiveVisibility();
+  const { sm } = useResponsiveVisibility();
   const [isHovered, setIsHovered] = useState(false);
 
   // 🔧 Background color logic
@@ -128,7 +128,7 @@ export const Button = ({
         )}
         {hasLabel && (
           <span
-            className={`${isMobile ? "sr-only" : ""} leading-none align-middle`}
+            className={`${sm ? "sr-only" : ""} leading-none align-middle`}
           >
             {label}
           </span>

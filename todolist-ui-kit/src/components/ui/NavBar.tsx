@@ -14,9 +14,9 @@ export interface NavBarProps {
 
 export default function NavBar({ menuItems }: NavBarProps) {
   const t = useTranslation();
-  const isMobile = useResponsiveVisibility();
+  const { sm} = useResponsiveVisibility();
 
-  return isMobile ? (
+  return sm ? (
     <nav className="grid gap-6 px-4 py-4 border-b text-[var(--navbar-fg)] bg-gradient-to-r from-[var(--navbar-start)] to-[var(--navbar-end)]">
       <div className="w-full flex justify-end mb-2">
         <div className="flex gap-2 items-center w-fit">

@@ -110,6 +110,7 @@ export default function UserModal({ currentUser, onClose, onSubmit }: Props) {
 
         {/* Password */}
         <TextField
+          variant="password"
           label={t("user.password")}
           value={formState.password}
           onChange={(e) =>

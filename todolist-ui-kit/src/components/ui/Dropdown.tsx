@@ -128,7 +128,7 @@ export default function Dropdown<T>({
         />
 
         {helperText && (
-          <p className="text-xs text-red-500 mt-1" role="alert">
+          <p className="flex justify-start text-xs text-red-500 mt-1" role="alert">
             {helperText}
           </p>
         )}

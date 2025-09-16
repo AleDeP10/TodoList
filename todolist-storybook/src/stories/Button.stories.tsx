@@ -21,7 +21,7 @@ const meta: Meta<ButtonProps> = {
     docs: {
       description: {
         component: `
-⚠️ Known issue: The 'IconOnlyMobile' story renders correctly in the frontend and in the Storybook 'Example' view, but does not behave as expected in the Docs preview.
+⚠️ Known issue: The 'MobileView' story renders correctly in the frontend and in the Storybook 'Example' view, but does not behave as expected in the Docs preview.
 
 Symptoms:
 - The responsive hook \`useResponsiveVisibility()\` detects a desktop viewport in Docs, even when the preview is resized
@@ -111,7 +111,7 @@ export const IconOnly: StoryFn<ButtonProps> = () => (
   </InteractionSandbox>
 );
 
-export const IconOnlyMobile: StoryFn = () => {
+export const MobileView: StoryFn = () => {
   return (
     <InteractionSandbox>
       {(appendText) => (
@@ -126,9 +126,30 @@ export const IconOnlyMobile: StoryFn = () => {
   );
 };
 
-IconOnlyMobile.parameters = {
+MobileView.parameters = {
   viewport: {
     defaultViewport: "mobile1",
+  },
+};
+
+export const TabletView: StoryFn = () => {
+  return (
+    <InteractionSandbox>
+      {(appendText) => (
+        <Button
+          label="Add"
+          variant="primary"
+          icon={Icons.plus}
+          onClick={() => appendText("Add button clicked")}
+        />
+      )}
+    </InteractionSandbox>
+  );
+};
+
+TabletView.parameters = {
+  viewport: {
+    defaultViewport: "tablet",
   },
 };
 

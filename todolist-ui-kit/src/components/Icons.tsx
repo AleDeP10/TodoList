@@ -15,6 +15,8 @@ import {
   CheckCircle,
   PlusCircle,
   Loader2,
+  Eye,
+  EyeOff,
 } from "lucide-react";
 
 export const Icons = {
@@ -28,6 +30,8 @@ export const Icons = {
   cancel: <XOctagon size={16} />,
   confirm: <CheckCircle size={16} />,
   save: <Save size={16} />,
+  showPassword: <Eye size={16} />,
+  hidePassword: <EyeOff size={16} />,
   spinner: ({
     size = 64,
     color = "text-yellow-400",
@@ -36,7 +40,9 @@ export const Icons = {
     size?: number;
     color?: string;
     className?: string;
-  } = {}) => <Loader2 className={`animate-spin ${color} ${className}`} size={size} />,
+  } = {}) => (
+    <Loader2 className={`animate-spin ${color} ${className}`} size={size} />
+  ),
 };
 
 export const MenuIcons = {

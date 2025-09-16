@@ -77,3 +77,37 @@ export const MandatoryField: Story = {
     </InteractionSandbox>
   ),
 };
+
+export const Password: Story = {
+  render: () => (
+    <InteractionSandbox>
+      {(appendText) => {
+        const [value, setValue] = useState("");
+
+        const isEmpty = value.trim() === "";
+
+        return (
+          <>
+            <TextField
+              variant="password"
+              label="Password"
+              value={value}
+              onChange={(event) => {
+                setValue(event.target.value);
+                appendText(`TextField updated to: ${event.target.value}`);
+              }}
+              error={isEmpty}
+              helperText={isEmpty ? "This field is required" : ""}
+            />
+            <div className="grid grid-cols-12 gap-4 items-center mt-4">
+              <label className="col-span-3 text-sm font-medium text-left">
+                Current value
+              </label>
+              <div className="col-span-9 outputField">{value}</div>
+            </div>
+          </>
+        );
+      }}
+    </InteractionSandbox>
+  ),
+};
