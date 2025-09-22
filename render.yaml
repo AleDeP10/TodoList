@@ -14,8 +14,6 @@ services:
         value: Docker
       - key: DATABASE_URL
         value: Host=aws-0-eu-central-1.pooler.supabase.com;Port=5432;Database=postgres;Username=postgres.icujcofrqlyjpsouesai;Password=Al3DeP_Rocks!;SSL Mode=Require;Trust Server Certificate=true
-    ports:
-      - port: 5000
 
   - type: web
     name: todolist-fe-angularjs
@@ -24,8 +22,6 @@ services:
     branch: main
     dockerfilePath: frontend-angularjs/Dockerfile
     autoDeploy: true
-    ports:
-      - port: 8080
 
   - type: web
     name: todolist-fe-nextjs
@@ -34,8 +30,6 @@ services:
     branch: main
     dockerfilePath: todolist-fe-nextjs/Dockerfile.Production
     autoDeploy: true
-    ports:
-      - port: 3000
 
   - type: web
     name: todolist-storybook
@@ -45,5 +39,3 @@ services:
     dockerfilePath: todolist-storybook/Dockerfile
     autoDeploy: true
     buildCommand: docker build --target storybook -t todolist-storybook .
-    ports:
-      - port: 6006
