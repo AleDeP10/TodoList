@@ -33,6 +33,7 @@ Cause:
 - Responsive hooks relying on \`window.innerWidth\` or media queries may return inconsistent values
 
 ✅ Behavior is correct in 'Example' and in the live application.
+
 ✅ The story is valid and does not require changes.
 `,
       },

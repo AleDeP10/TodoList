@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import MenuItem from "./MenuItem";
-import type { MenuItemData } from "@/types/menu";
+import type { MenuItemData } from "../../types/menu";
 
 export default function MenuGroup({
   label,

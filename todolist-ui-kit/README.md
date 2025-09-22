@@ -2,6 +2,7 @@
 
 A shared component and style library used by both todolist-fe-nextjs and todolist-storybook. It provides reusable React components, hooks, providers, styles, and TypeScript types for consistent UI and behavior across projects.
 
+⚠️ To avoid broken styles, add all Tailwind classes used in your components to the `safelist` array inside `tailwind.config.cjs` of consumer projects.
 ⚠️ After any change to this library, you must run the copy-ui-kit script to sync updates with the consuming frontends. This ensures that both Next.js and Storybook projects reflect the latest UI definitions.
 
 ## 📦 Features

@@ -27,8 +27,8 @@ SET default_table_access_method = heap;
 CREATE TABLE public."Task" (
     id integer NOT NULL,
     description character varying(150) NOT NULL,
-    status character varying(12) DEFAULT 'TODO'::character varying,
-    "assigneeId" integer
+    "assigneeId" integer,
+    status character varying(12) DEFAULT 'TODO'::character varying
 );
 
 ALTER TABLE public."Task" OWNER TO admin;
@@ -59,11 +59,11 @@ ALTER SEQUENCE public."Task_id_seq" OWNED BY public."Task".id;
 
 CREATE TABLE public."User" (
     id integer NOT NULL,
+    "fullName" character varying(50),
     username character varying(10) NOT NULL,
     password character varying(10) NOT NULL,
-    status character varying(20) NOT NULL,
-    "fullName" character varying(50),
-    "isAdmin" boolean DEFAULT false
+    "isAdmin" boolean DEFAULT false,
+    status character varying(20) NOT NULL
 );
 
 ALTER TABLE public."User" OWNER TO admin;
@@ -106,24 +106,28 @@ ALTER TABLE ONLY public."User"
 -- Data for Name: Task; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-COPY public."Task" (id, description, status, "assigneeId") FROM stdin;
-1   Refactor authentication logic for clarity and reuse TODO    1
-2   Write unit tests for API endpoints  IN PROGRESS 1
-64  Migrate hardcoded properties to config file TODO    1
-69  Implement loading spinner for async operations  IN PROGRESS 3
-117 Prepare the app for multilingual support    DONE    3
-121 Deploy the Dockerized application to Render IN PROGRESS 2
+COPY public."Task" (id, description, "assigneeId", status) FROM stdin;
+1	Refactor authentication logic for clarity and reuse	1	TODO
+2	Write unit tests for API endpoints	1	IN PROGRESS
+64	Migrate hardcoded properties to config file	1	TODO
+69	Implement loading spinner for async operations	3	IN PROGRESS
+117	Prepare the app for multilingual support	3	DONE
+121	Deploy the Dockerized application to Render	2	IN PROGRESS
 \.
+
+    
 
 --
 -- Data for Name: User; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-COPY public."User" (id, username, password, status, "fullName", "isAdmin") FROM stdin;
-1   admin   qcchb1001   ACTIVE  Amministratore  true
-2   aledep  aledep  ACTIVE  Alessandro De Prato false
-3   gabri   gabri   ACTIVE  Gabriela Belmani    false
+COPY public."User" (id, "fullName", username, password, "isAdmin", status) FROM stdin;
+1	Amministratore	admin	qcchb1001	true	ACTIVE
+2	Alessandro De Prato	aldep	aldep	false	ACTIVE
+3	Gabriela Belmani	gabri	gabri	false	ACTIVE
+4	Martina Damiani	marty	marty	false	BLOCKED
 \.
+
 
 --
 -- Name: Task_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin

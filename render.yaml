@@ -1,44 +1,49 @@
 services:
+  # 🗄️ Supabase-hosted DB → no longer deployed via Render
+  # Local DB service removed from Render config
 
-- type: pserv
-  name: todolist-db
-  env: docker
-  repo: https://github.com/AleDeP10/TodoList
-  branch: main
-  dockerfilePath: db-backup/Dockerfile
-  autoDeploy: true
-  ports:
-    - port: 5432
+  - type: web
+    name: todolist-be-csharp
+    env: docker
+    repo: https://github.com/AleDeP10/TodoList
+    branch: main
+    dockerfilePath: backend-csharp/Dockerfile
+    autoDeploy: true
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Docker
+      - key: DATABASE_URL
+        value: Host=aws-0-eu-central-1.pooler.supabase.com;Port=5432;Database=postgres;Username=postgres.icujcofrqlyjpsouesai;Password=Al3DeP_Rocks!;SSL Mode=Require;Trust Server Certificate=true
+    ports:
+      - port: 5000
 
-- type: web
-  name: todolist-api
-  env: docker
-  repo: https://github.com/AleDeP10/TodoList
-  branch: main
-  dockerfilePath: backend-csharp/Dockerfile
-  autoDeploy: true
-  envVars:
-    - key: ASPNETCORE_ENVIRONMENT
-      value: Docker
-  ports:
-    - port: 5000
+  - type: web
+    name: todolist-fe-angularjs
+    env: docker
+    repo: https://github.com/AleDeP10/TodoList
+    branch: main
+    dockerfilePath: frontend-angularjs/Dockerfile
+    autoDeploy: true
+    ports:
+      - port: 8080
 
-- type: web
-  name: todolist-ui-angularjs
-  env: docker
-  repo: https://github.com/AleDeP10/TodoList
-  branch: main
-  dockerfilePath: frontend-angularjs/Dockerfile
-  autoDeploy: true
-  ports:
-    - port: 8080
+  - type: web
+    name: todolist-fe-nextjs
+    env: docker
+    repo: https://github.com/AleDeP10/TodoList
+    branch: main
+    dockerfilePath: todolist-fe-nextjs/Dockerfile.Production
+    autoDeploy: true
+    ports:
+      - port: 3000
 
-- type: web
-  name: todolist-ui-nextjs
-  env: docker
-  repo: https://github.com/AleDeP10/TodoList
-  branch: main
-  dockerfilePath: todolist-fe-nextjs/Dockerfile
-  autoDeploy: true
-  ports:
-    - port: 3000
+  - type: web
+    name: todolist-storybook
+    env: docker
+    repo: https://github.com/AleDeP10/TodoList
+    branch: main
+    dockerfilePath: todolist-storybook/Dockerfile
+    autoDeploy: true
+    buildCommand: docker build --target storybook -t todolist-storybook .
+    ports:
+      - port: 6006

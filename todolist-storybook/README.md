@@ -58,15 +58,14 @@ If the shim is not detected, add <root>/dist/scripts/shims at the top to your sy
 
 ## ⚙️ Scripts
 
-| Script              | Description                                                  |
-|---------------------|--------------------------------------------------------------|
-| `lint`              | Runs ESLint on `.ts`, `.tsx`, `.js`, `.cjs` files            |
-| `prebuild`          | Compiles Tailwind input CSS to global styles                 |
-| `build-storybook`   | Builds Storybook static site with pre/post hooks             |
-| `postbuild`         | Validates Storybook output                                   |
-| `storybook-dev`     | Starts Storybook in development mode on port `6006`          |
-| `storybook`         | Serves the static Storybook build on port `6006`             |
-| `validate-storybook`| Runs validation script on built Storybook                    |
+| Script                | Description                                                                 |
+|-----------------------|-----------------------------------------------------------------------------|
+| `lint`                | Runs ESLint on `.ts`, `.tsx`, `.js`, `.cjs` files                           |
+| `prebuild`            | Compiles Tailwind input CSS to global styles                                |
+| `build-storybook`     | Builds Storybook static site after invoking prebuild                        |
+| `storybook-dev`       | Starts Storybook in development mode on port `6006`                         |
+| `storybook`           | Serves the static Storybook build on port `6006`                            |
+| `validate-storybook`  | Manually run validation script on built Storybook (used only in development)|
 
 ## 🚀 Installation & Launch
 

@@ -4,21 +4,22 @@ using TodoList.Models;
 // 1. Set up the application builder
 var builder = WebApplication.CreateBuilder(args);
 
-// 2. Configure Kestrel to listen on HTTPS using either default or injected PORT
+// 2. Configure Kestrel to listen on HTTP in Docker and HTTPS locally
 var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
 builder.WebHost.ConfigureKestrel(options =>
 {
-    if (!builder.Environment.IsProduction())
+    if (builder.Environment.IsDevelopment())
     {
+        // Local development: enable HTTPS using dev certificate
         options.ListenAnyIP(int.Parse(port), listen =>
         {
-            // Load the development certificate for HTTPS
             listen.UseHttps("https/aspnet-dev.pfx", "WebS3cur1ty2025!");
         });
     }
     else
     {
-        options.ListenAnyIP(int.Parse(port)); // External HTTPS managed by Reverse
+        // Docker or production: use plain HTTP, SSL handled by reverse proxy (e.g. NGINX)
+        options.ListenAnyIP(int.Parse(port));
     }
 });
 
@@ -70,6 +71,24 @@ try
 
     // 11. Map controller routes (e.g., /api/tasks)
     app.MapControllers();
+
+    var envVars = Environment.GetEnvironmentVariables()
+        .Cast<System.Collections.DictionaryEntry>()
+        .Select(entry => $"{entry.Key} = {entry.Value}")
+        .ToList();
+
+    app.Logger.LogInformation($@"
+🔍 Startup Diagnostics
+──────────────────────────────────────────────
+isProduction       = {builder.Environment.IsProduction()}
+environmentName    = {builder.Environment.EnvironmentName}
+connectionString   = {defaultConnection}
+──────────────────────────────────────────────
+Environment Variables:
+{string.Join("\n", envVars)}
+──────────────────────────────────────────────
+");
+
 
     // 12. Start the application
     app.Logger.LogInformation($"🌐 HTTPS server listening on port {port}");

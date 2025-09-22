@@ -14,11 +14,12 @@
   "scripts": {
     "setup": "yarn run build-scripts && yarn run build-shims && yarn run enforce-yarn-shim && yarn run check-versions && yarn run copy-ui-kit",
     "build-scripts": "tsc -p tsconfig.scripts.json",
-    "build-shims": "node dist/scripts/generateShims.js",
+    "build-shims": "node dist/scripts/generateShims.js && node dist/scripts/copySharedResources.js",
     "enforce-yarn-shim": "node dist/scripts/enforceYarnShim.js",
     "check-versions": "node dist/scripts/checkVersions.js",
     "copy-ui-kit": "node dist/scripts/copyUiKit.js",
-    "clean-install": "node dist/scripts/cleanInstall.js"
+    "clean-install": "node dist/scripts/cleanInstall.js",
+    "copy-shared-resources": "node dist/scripts/copySharedResources.js"
   },
   "keywords": [
     "todo-list",
@@ -38,6 +39,10 @@
     "moduleResolution": "Bundler",
     "esModuleInterop": true,
     "resolveJsonModule": true
+  },
+  "devDependencies": {
+    "postcss-cli": "11.0.1",
+    "serve": "^14.2.0"
   },
   "resolutions": {
     "@types/react": "18.2.0",

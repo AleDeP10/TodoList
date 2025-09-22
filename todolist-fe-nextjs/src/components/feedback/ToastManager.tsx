@@ -14,7 +14,7 @@ const icons = {
   delete: <span style={{ fontSize: "1.2rem" }}>🗑️</span>,
 };
 
-const ToastListener = () => {
+const ToastManager = () => {
   const dispatch = useDispatch();
   const toastPayload = useSelector(selectToast);
 
@@ -48,4 +48,4 @@ const ToastListener = () => {
   return <ToastContainer />;
 };
 
-export default ToastListener;
+export default ToastManager;

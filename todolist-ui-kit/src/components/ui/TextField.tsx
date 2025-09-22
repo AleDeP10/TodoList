@@ -42,7 +42,7 @@ export default function TextField({
 
       <div className="col-span-9 w-full flex items-center gap-2">
         <div className="w-full">
-          <div className="w-full">
+          <div className="flex w-full">
             <input
               type={inputType}
               id={inputId}

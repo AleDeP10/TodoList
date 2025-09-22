@@ -1,0 +1,54 @@
+# ────────────────────────────────────────────────
+# 🛠 Stage 1 — Build Next.js app
+# ────────────────────────────────────────────────
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+# Copy workspace-specific package.json and lockfile
+COPY ./package.json ./package.json
+COPY shared-resources/yarn.lock ./yarn.lock
+
+# Install dependencies
+RUN yarn install --frozen-lockfile
+
+# Copy source files and shared resources
+COPY . .
+COPY shared-resources ./shared-resources
+
+# Replace next.config.cjs with next.config.Docker.cjs
+COPY ./next.config.Docker.cjs ./next.config.cjs
+
+# Copy production environment config
+COPY .env.docker .env.local
+
+# Build the Next.js app
+RUN yarn build
+
+# ────────────────────────────────────────────────
+# 🚀 Stage 2 — Run Next.js app + NGINX
+# ────────────────────────────────────────────────
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Install envsubst and nginx
+RUN apk update && apk add nginx gettext
+
+# Copy built app and node_modules
+COPY --from=builder /app ./
+
+# Copy nginx template and entrypoint
+COPY nginx/templates/nginx.conf.template /etc/nginx/templates/nginx.conf.template
+COPY nginx/mime.types /etc/nginx/mime.types
+COPY nginx/certs /etc/nginx/certs
+COPY custom-entrypoint.sh /usr/local/bin/custom-entrypoint.sh
+RUN chmod +x /usr/local/bin/custom-entrypoint.sh
+
+# Expose frontend port and HTTPS
+EXPOSE 3000
+EXPOSE 443
+
+# Start NGINX with dynamic config
+ENTRYPOINT ["/usr/local/bin/custom-entrypoint.sh"]
+CMD ["nginx"]

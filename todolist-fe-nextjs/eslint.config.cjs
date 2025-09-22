@@ -18,7 +18,7 @@ module.exports = [
     },
   },
   {
-    ignores: ["**/.next/**", "**/out/**"],
+    ignores: ["**/.next/**", "**/out/**", "**/node_modules/**", "shared-resources/**"],
   },
   {
     files: ["**/*.cjs"],

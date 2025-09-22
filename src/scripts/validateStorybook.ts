@@ -3,18 +3,29 @@
  *
  * ✅ Storybook Build Validation Script
  *
- * This script is designed to run during the postbuild phase of the project.
- * Its purpose is to ensure that Storybook has been correctly built and configured
- * before proceeding with deployment or Docker packaging.
+ * This script is designed to be run manually by developers during the development phase.
+ * It helps verify that Storybook has been correctly built and configured before Docker packaging.
  *
- * It performs the following checks:
+ * ⚠️ Note:
+ * - This script is **not** invoked automatically during build or postbuild.
+ * - It is intended for **local troubleshooting and verification only**.
+ * - It assumes that shared resources (e.g. shims, postcss) have already been copied after `build-shims`.
+ *
+ * 🔍 What it checks:
  * - Verifies that the `storybook-static` folder exists (output of `build-storybook`)
  * - Ensures that `.storybook/main.ts` is present (required for Storybook config)
  * - Warns if `.storybook/preview.tsx` is missing (used for global decorators and theming)
  * - Verifies that `public/styles/globals.css` has been generated (required for global styles)
  *
- * If any required file is missing, the script exits with a non-zero error code.
- * This prevents incomplete or misconfigured Storybook builds from being published.
+ * 🛑 Behavior:
+ * - If any required file is missing, the script exits with a non-zero error code.
+ * - This prevents incomplete or misconfigured Storybook builds from being published.
+ *
+ * 🧪 Recommended usage:
+ * ```bash
+ * node scripts/validateStorybook.js
+ * ```
+ * Run this after `build-storybook` and before Docker packaging if needed.
  */
 
 // Import shim verification only during development

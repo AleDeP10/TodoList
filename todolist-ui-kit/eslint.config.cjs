@@ -5,41 +5,34 @@ const compat = new FlatCompat({
 });
 
 module.exports = [
-  {
-    ignores: [
-      "README.md",
-      "**/*.cjs",
-      "**/*.stories.{ts,tsx,js}",
-      "**/*.stories.mdx",
-      "**/node_modules/**",
-      "shared-resources/**"
-    ],
-  },
-
   ...compat.extends(
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/eslint-recommended"
   ),
-
   {
-    files: ["**/*.{ts,tsx,js}"],
+    files: ["**/*.{ts,tsx,js,cjs}", "**/*.json"],
+    ignores: ["README.md", "package.json"],
     rules: {
       "@typescript-eslint/no-require-imports": "error",
       "@typescript-eslint/no-var-requires": "error",
       "@typescript-eslint/no-empty-interface": "warn",
       "@typescript-eslint/no-unused-vars": [
         "error",
-        { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }
-      ]
-    }
+        { argsIgnorePattern: "^_" },
+      ],
+    },
   },
-
   {
-    files: ["**/*.stories.{ts,tsx,js}"],
+    files: ["eslint.config.js", "eslint.config.cjs"],
     rules: {
-      "import/no-extraneous-dependencies": "off",
-      "@typescript-eslint/no-unused-vars": "off",
-      "@typescript-eslint/explicit-module-boundary-types": "off"
-    }
-  }
+      "@typescript-eslint/no-require-imports": "off",
+      "@typescript-eslint/no-var-requires": "off",
+    },
+  },
+  {
+    files: ["frontend-angularjs/**/*.{ts,js}"],
+    rules: {
+      "no-console": "warn",
+    },
+  },
 ];

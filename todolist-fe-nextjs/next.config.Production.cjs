@@ -1,6 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // ──────────────────────────────────────────────────────────────
+  // ✅ Static export mode for Render deployment
+  // This configuration enables full static export of the Next.js app.
+  // It disables server-side features like rewrites and API routing,
+  // making the app suitable for hosting on platforms like Render Static Sites.
+  // All dynamic data must be fetched via client-side calls using NEXT_PUBLIC_API_URL.
+  output: "export",
+
+  // ──────────────────────────────────────────────────────────────
   // ✅ App Router activation
   // Ensures Next.js uses the `src/app/` directory instead of legacy `pages/`
   experimental: {
@@ -25,23 +33,6 @@ const nextConfig = {
   // Prevents linting issues from blocking the production build
   eslint: {
     ignoreDuringBuilds: true,
-  },
-
-  // ──────────────────────────────────────────────────────────────
-  // 🔁 API proxy rewrites
-  // Redirects all `/api/*` requests to the backend running on HTTPS todolist-be-csharp:5000
-  // Helps avoid CORS issues and centralizes routing logic
-  async rewrites() {
-    return [
-      {
-        // Match any request starting with /api/
-        source: "/api/:path*",
-
-        // Redirect it to the backend running on HTTPS localhost port 5000
-        // This avoids CORS issues and lets Next.js handle the proxy server-side
-        destination: "https://localhost:5000/api/:path*",
-      },
-    ];
   },
 };
 

@@ -1,5 +1,5 @@
 import { Filters } from '../Filters';
-import type { UserStatus } from '@/types/Status';
+import type { UserStatus } from '../../types/Status';
 
 export interface UserFilters extends Filters {
   username: string;

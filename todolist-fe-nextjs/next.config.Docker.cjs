@@ -34,12 +34,8 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        // Match any request starting with /api/
         source: "/api/:path*",
-
-        // Redirect it to the backend running on HTTPS localhost port 5000
-        // This avoids CORS issues and lets Next.js handle the proxy server-side
-        destination: "https://localhost:5000/api/:path*",
+        destination: "http://todolist-be-csharp:5000/api/:path*",
       },
     ];
   },
