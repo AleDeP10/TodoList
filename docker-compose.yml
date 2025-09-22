@@ -1,51 +1,72 @@
 services:
-  db:
+# ──────────────────────────────────────────────
+# 🗄️ PostgreSQL Database Service
+# ──────────────────────────────────────────────
+  todolist-db:
+    # Automatically restart unless manually stopped
+    restart: unless-stopped
+    # Build from local db-backup folder
     build:
       context: ./db-backup
+    # Name of the container
     container_name: todolist-db
+    # Map host port 5433 to container port 5432
     ports:
       - 5433:5432
+    # Persist database data across restarts
     volumes:
-      - dbdata:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U admin -d todolist"]
-      interval: 5s
-      retries: 5
+      - dbdata:/var/lib/postgresql/data     
 
-  backend-csharp:
+# ──────────────────────────────────────────────
+# 🧠 Backend API (ASP.NET Core)
+# ──────────────────────────────────────────────
+  todolist-be-csharp:
+    restart: unless-stopped
     build:
       context: ./backend-csharp
-    container_name: todolist-api-csharp
+    container_name: todolist-be-csharp
     ports:
       - 5001:5000
     environment:
-      - ASPNETCORE_ENVIRONMENT=Docker
-    depends_on:
-      - db
+      - ASPNETCORE_ENVIRONMENT=Docker     
 
-  frontend-angularjs:
+# ──────────────────────────────────────────────
+# 🖥️ Legacy Frontend (AngularJS)
+# ──────────────────────────────────────────────
+  todolist-fe-angularjs:
+    restart: unless-stopped
     build:
       context: ./frontend-angularjs
       dockerfile: Dockerfile
-    container_name: todolist-ui-angular
+    container_name: todolist-fe-angularjs
     ports:
       - 8081:8080
     depends_on:
-      - backend-csharp
+      - todolist-be-csharp
+    environment:
+      - NGINX_ENV=docker
 
-  frontend-nextjs:
+# ──────────────────────────────────────────────
+# ⚛️ Modern Frontend (Next.js)
+# ──────────────────────────────────────────────
+  todolist-fe-nextjs:
+    restart: unless-stopped
     build:
       context: ./todolist-fe-nextjs
-      dockerfile: Dockerfile
-    container_name: todolist-ui-next
+      dockerfile: Dockerfile.Docker
+    container_name: todolist-fe-nextjs
     ports:
-      - 3001:3000
+      - 444:443
     depends_on:
-      - backend-csharp
+      - todolist-be-csharp
 
-  storybook:
+# ──────────────────────────────────────────────
+# 📘 Storybook Visual Testing
+# ──────────────────────────────────────────────
+  todolist-storybook:
+    restart: unless-stopped
     build:
-      context: ./todolist-fe-nextjs
+      context: ./todolist-storybook
       dockerfile: Dockerfile
       target: storybook
     container_name: todolist-storybook
@@ -54,5 +75,8 @@ services:
     environment:
       - NODE_ENV=development
 
+# ──────────────────────────────────────────────
+# 📦 Persistent Volume for PostgreSQL
+# ──────────────────────────────────────────────
 volumes:
   dbdata:
