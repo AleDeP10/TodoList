@@ -39,8 +39,7 @@ A shared component and style library used by both todolist-fe-nextjs and todolis
 ## 📁 Project Structure
 
 ```
-└── .gitignore
-└── eslint.config.js
+└── eslint.config.cjs
 └── package.json
 └── README.md
 ├── src
@@ -120,7 +119,7 @@ A shared component and style library used by both todolist-fe-nextjs and todolis
 
 📊 Tree Summary
 📁 Folders: 13
-📄 Files: 65
+📄 Files: 64
 ```
 
 ## 🔗 Related Documentation

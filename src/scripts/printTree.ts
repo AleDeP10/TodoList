@@ -52,6 +52,7 @@ const ignore = [
   "bin",
   ".vs",
   "temp",
+  "shared-resources",
 ];
 
 // List of file extensions to ignore (typically build artifacts or logs)

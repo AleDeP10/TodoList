@@ -103,29 +103,122 @@ Access the app at: 📍 http://localhost:3000
 ## 📁 Project Structure
 
 ```
+└── .dockerignore
+└── .env.docker
+└── .env.local
+└── .env.production
+├── .vscode
+│   └── extensions.json
+└── .yarnrc
 ├── assets
-│   └── images
+│   ├── images
+│   │   └── accessibility.png
+│   │   └── accessibility.svg
+│   │   └── addon-library.png
+│   │   └── assets.png
+│   │   └── avif-test-image.avif
+│   │   └── context.png
+│   │   └── discord.svg
+│   │   └── docs.png
+│   │   └── figma-plugin.png
+│   │   └── github.svg
+│   │   └── share.png
+│   │   └── styling.png
+│   │   └── testing.png
+│   │   └── theming.png
+│   │   └── tutorials.svg
+│   │   └── youtube.svg
+└── custom-entrypoint.sh
+└── Dockerfile.Docker
+└── Dockerfile.Production
+└── eslint.config.cjs
+└── next-env.d.ts
+└── next.config.cjs
+└── next.config.Docker.cjs
+└── next.config.Production.cjs
 ├── nginx
-│   └── certs
+│   ├── certs
+│   │   └── aspnet-dev.crt
+│   │   └── aspnet-dev.key
+│   │   └── aspnet-dev.pem
+│   │   └── aspnet-dev.pfx
+│   │   └── dev.crt
+│   │   └── dev.key
 │   └── mime.types
 │   └── nginx.conf
+│   ├── templates
+│   │   └── nginx.conf.template
+└── package.json
+└── postcss.config.cjs
 ├── public
-│   └── styles
-│   └── themes
+│   └── file.svg
+│   └── globe.svg
+│   └── next.svg
+│   ├── styles
+│   │   └── globals-base.css
+│   │   └── globals.css
+│   │   ├── themes
+│   │   │   └── custom-theme.css
+│   │   │   └── dark-theme.css
+│   │   │   └── light-theme.css
+│   └── vercel.svg
+│   └── window.svg
+└── README.md
 ├── src
 │   ├── api
+│   │   └── axiosClient.ts
+│   │   └── tasks.ts
+│   │   └── users.ts
 │   ├── app
+│   │   └── 404.tsx
+│   │   └── 500.tsx
+│   │   └── error.tsx
+│   │   └── favicon.ico
+│   │   └── layout.tsx
+│   │   └── not-found.tsx
+│   │   └── page.tsx
+│   │   └── providers.tsx
 │   ├── components
+│   │   ├── feedback
+│   │   │   └── ToastManager.tsx
+│   │   └── MainContainer.tsx
+│   │   ├── modals
+│   │   │   └── AboutAuthorModal.tsx
+│   │   │   └── TaskDeleteConfirmModal.tsx
+│   │   │   └── TaskFilterModal.tsx
+│   │   │   └── TaskModal.tsx
+│   │   │   └── UserDeleteConfirmModal.tsx
+│   │   │   └── UserFilterModal.tsx
+│   │   │   └── UserModal.tsx
+│   │   ├── views
+│   │   │   └── TasksView.tsx
+│   │   │   └── UsersView.tsx
 │   ├── hooks
+│   │   └── useEntities.ts
+│   │   └── useTasks.ts
+│   │   └── useUsers.ts
 │   ├── store
+│   │   └── store.ts
+│   │   ├── task
+│   │   │   └── getTaskFilters.ts
+│   │   │   └── taskSlice.ts
+│   │   ├── ui
+│   │   │   └── getLoading.ts
+│   │   │   └── uiSlice.ts
+│   │   ├── user
+│   │   │   └── getUserFilters.ts
+│   │   │   └── userSlice.ts
 │   ├── utils
-├── .env.local
-├── Dockerfile
-├── package.json
-├── postcss.config.cjs
-├── tailwind.config.cjs
-├── tsconfig.json
-├── vite.config.cjs
+│   │   └── animationVariants.ts
+└── tailwind.config.cjs
+└── tsconfig.json
+└── vite.config.cjs
+└── vitest.shims.d.ts
+
+📊 Tree Summary
+📁 Folders: 22
+📄 Files: 89
+
 ```
 
 ## 🔗 Related Documentation

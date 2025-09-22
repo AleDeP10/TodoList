@@ -100,52 +100,57 @@ Open Storybook at: 📍 http://localhost:6006
 ## 📁 Project Structure
 
 ```
-├── .gitignore
 ├── .storybook
-│   ├── main.ts
-│   ├── preview-head.html
+│   └── main.ts
+│   └── preview-head.html
 │   └── preview.tsx
 ├── .vscode
 │   └── settings.json
-├── eslint.config.cjs
-├── package.json
-├── postcss.config.cjs
+└── .yarnrc
+├── build
+└── Dockerfile
+└── eslint.config.cjs
+└── package.json
+└── postcss.config.cjs
 ├── public
-│   └── styles
-│       ├── globals.css
-│       └── themes
-│           ├── custom-theme.css
-│           ├── dark-theme.css
-│           └── light-theme.css
-├── README.md
+│   ├── styles
+│   │   └── globals.css
+│   │   ├── themes
+│   │   │   └── custom-theme.css
+│   │   │   └── dark-theme.css
+│   │   │   └── light-theme.css
+└── README.md
+└── server.js
 ├── src
 │   ├── providers
 │   │   └── UIKitProvider.tsx
 │   ├── stories
-│   │   ├── Button.stories.tsx
-│   │   ├── Dropdown.stories.tsx
-│   │   ├── FormValidation.stories.tsx
-│   │   ├── IconButton.stories.tsx
-│   │   ├── InteractionSandbox.tsx
-│   │   ├── LangSwitcher.stories.tsx
-│   │   ├── LoadingSpinner.stories.tsx
-│   │   ├── MenuGroup.stories.tsx
-│   │   ├── MenuTestWrapper.tsx
-│   │   ├── Modal.stories.tsx
-│   │   ├── NavBar.stories.tsx
-│   │   ├── sharedOutputStyles.css
-│   │   ├── Switch.stories.tsx
-│   │   ├── TextField.stories.tsx
-│   │   ├── ThemeSwitcher.stories.css
+│   │   └── Button.stories.tsx
+│   │   └── Dropdown.stories.tsx
+│   │   └── FormValidation.stories.tsx
+│   │   └── IconButton.stories.tsx
+│   │   └── InteractionSandbox.tsx
+│   │   └── LangSwitcher.stories.tsx
+│   │   └── LoadingSpinner.stories.tsx
+│   │   └── MenuGroup.stories.tsx
+│   │   └── MenuTestWrapper.tsx
+│   │   └── Modal.stories.tsx
+│   │   └── NavBar.stories.tsx
+│   │   └── sharedOutputStyles.css
+│   │   └── Switch.stories.tsx
+│   │   └── TextField.stories.tsx
+│   │   └── ThemeSwitcher.stories.css
 │   │   └── ThemeSwitcher.stories.tsx
-│   └── styles
-│       └── tailwind.input.css
-├── tailwind.config.cjs
+│   ├── styles
+│   │   └── tailwind.input.css
+└── tailwind.config.cjs
 └── tsconfig.json
 
 📊 Tree Summary
-📁 Folders: 9
-📄 Files: 33
+📁 Folders: 10
+📄 Files: 35
+
+
 ```
 
 ## 🔗 Related Documentation
