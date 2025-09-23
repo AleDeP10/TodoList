@@ -40,6 +40,8 @@ public class TaskController : ControllerBase
     [HttpPost("filter")]
     public async Task<IActionResult> FilterTasksAsync([FromBody] TaskFilterDto dto)
     {
+        _logger.LogInformation("FilterTasksAsync invoked with DTO: {@Dto}", dto);
+
         try
         {
             if (dto == null)

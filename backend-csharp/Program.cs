@@ -72,7 +72,7 @@ try
     // 10. Enable authorization middleware (keep even without Identity/Auth)
     app.UseAuthorization();
 
-    // 11. Map controller routes (e.g., /api/tasks)
+    // 11. Map controller routes (e.g., /api/Task)
     app.MapControllers();
 
     // 12. Serve static homepage with link to Swagger

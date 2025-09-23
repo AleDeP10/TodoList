@@ -39,6 +39,8 @@ public class UserController : ControllerBase
     [HttpPost("filter")]
     public async Task<IActionResult> FilterUsersAsync([FromBody] UserFilterDto dto)
     {
+        _logger.LogInformation("FilterUsersAsync invoked with DTO: {@Dto}", dto);
+
         try
         {
             if (dto == null)
