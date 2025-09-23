@@ -75,8 +75,9 @@ try
     // 11. Map controller routes (e.g., /api/tasks)
     app.MapControllers();
 
-    // 12. Map root endpoint for health/status checks
-    app.MapGet("/", () => Results.Redirect("/health/db"));
+    // 12. Serve static homepage with link to Swagger
+    app.UseDefaultFiles(); // Enables default file mapping (e.g., index.html)
+    app.UseStaticFiles();  // Serves files from wwwroot 
 
     // 13. Start the application
     app.Logger.LogInformation($"🌐 HTTPS server listening on port {port}");
