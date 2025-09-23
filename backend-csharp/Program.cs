@@ -58,7 +58,10 @@ try
     app.UseRouting();
 
     // 8. Redirect HTTP requests to HTTPS (optional but encouraged)
-    app.UseHttpsRedirection();
+    if (!app.Environment.IsProduction())
+    {
+        app.UseHttpsRedirection();
+    }
 
     // 9. Enable Cross-Origin Resource Sharing to allow frontend access
     app.UseCors(policy =>
