@@ -76,7 +76,7 @@ try
     app.MapControllers();
 
     // 12. Map root endpoint for health/status checks
-    app.MapGet("/", () => Results.Ok("✅ TodoList backend is running."));
+    app.MapGet("/", () => Results.Redirect("/health/db"));
 
     // 13. Start the application
     app.Logger.LogInformation($"🌐 HTTPS server listening on port {port}");
