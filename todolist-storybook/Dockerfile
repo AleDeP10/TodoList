@@ -33,7 +33,9 @@ WORKDIR /app
 COPY --from=builder /app/storybook-static ./storybook-static
 
 # Copy package manifest and lockfile for runtime dependencies
-COPY package*.json ./shared-resources/yarn.lock ./
+COPY package.json ./package.json
+COPY ./shared-resources/yarn.lock ./yarn.lock
+# COPY .yarnrc ./.yarnrc
 RUN yarn install --frozen-lockfile
 
 # Copy custom server script
