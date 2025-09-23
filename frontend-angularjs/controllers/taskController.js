@@ -78,27 +78,14 @@ window.registerTaskController = function (app) {
 
       // Show/hide the filter panel
       $scope.toggleFilterPanel = function () {
-        // Update active filters based on the current mode
         $scope.activeFilters =
           $scope.filterMode === "api"
             ? $scope.apiFilters
             : $scope.clientFilters;
 
-        // Toggle the panel state
         $scope.showFilterPanel = !$scope.showFilterPanel;
-
-        // Save the panel state to localStorage
         localStorage.setItem("showFilterPanel", $scope.showFilterPanel);
-
-        // Dynamically adjust the main-content width
-        const mainContent = document.querySelector(".main-content");
-        if ($scope.showFilterPanel) {
-          mainContent.classList.remove("extended");
-        } else {
-          mainContent.classList.add("extended");
-        }
       };
-
       // Initialize the panel state on page load
       $scope.showFilterPanel =
         localStorage.getItem("showFilterPanel") === "true";

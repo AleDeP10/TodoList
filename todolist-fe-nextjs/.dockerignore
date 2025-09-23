@@ -17,7 +17,3 @@ coverage
 .vscode
 .idea
 
-# Docker
-Dockerfile
-docker-compose.yml
-render.yaml

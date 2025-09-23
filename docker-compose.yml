@@ -15,7 +15,10 @@ services:
       - 5433:5432
     # Persist database data across restarts
     volumes:
-      - dbdata:/var/lib/postgresql/data     
+      - dbdata:/var/lib/postgresql/data
+    # Connect to shared internal network
+    networks:
+      - todolist-net
 
 # ──────────────────────────────────────────────
 # 🧠 Backend API (ASP.NET Core)
@@ -28,7 +31,9 @@ services:
     ports:
       - 5001:5000
     environment:
-      - ASPNETCORE_ENVIRONMENT=Docker     
+      - ASPNETCORE_ENVIRONMENT=Docker
+    networks:
+      - todolist-net
 
 # ──────────────────────────────────────────────
 # 🖥️ Legacy Frontend (AngularJS)
@@ -37,7 +42,9 @@ services:
     restart: unless-stopped
     build:
       context: ./frontend-angularjs
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.Docker
+      args:
+        ENV: docker
     container_name: todolist-fe-angularjs
     ports:
       - 8081:8080
@@ -45,6 +52,8 @@ services:
       - todolist-be-csharp
     environment:
       - NGINX_ENV=docker
+    networks:
+      - todolist-net
 
 # ──────────────────────────────────────────────
 # ⚛️ Modern Frontend (Next.js)
@@ -59,6 +68,8 @@ services:
       - 444:443
     depends_on:
       - todolist-be-csharp
+    networks:
+      - todolist-net
 
 # ──────────────────────────────────────────────
 # 📘 Storybook Visual Testing
@@ -74,9 +85,17 @@ services:
       - 6007:6006
     environment:
       - NODE_ENV=development
+    networks:
+      - todolist-net
 
 # ──────────────────────────────────────────────
 # 📦 Persistent Volume for PostgreSQL
 # ──────────────────────────────────────────────
 volumes:
   dbdata:
+
+# ──────────────────────────────────────────────
+# 🌐 Shared Internal Network for Service Discovery
+# ──────────────────────────────────────────────
+networks:
+  todolist-net:
