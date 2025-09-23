@@ -65,7 +65,7 @@ All modules support Docker-based execution:
 | AngularJS FE | 8080         | 8081          |
 | Next.js FE   | 3000         | 3001          |
 | Storybook    | 6006         | 6007          |
-| NGINX Proxy  | 443 (HTTPS)  | 444           |
+| NGINX Proxy  | 443          | 444           |
 
 **Note:** Frontend access (both AngularJS and Next.js) is routed through the NGINX proxy, which listens on port 444 of the host machine. This ensures HTTPS termination and unified routing across modules.
 

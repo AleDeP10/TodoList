@@ -58,7 +58,7 @@ try
     app.UseRouting();
 
     // 8. Redirect HTTP requests to HTTPS (optional but encouraged)
-    if (!app.Environment.IsProduction())
+    if (app.Environment.IsDevelopment())
     {
         app.UseHttpsRedirection();
     }
@@ -75,25 +75,10 @@ try
     // 11. Map controller routes (e.g., /api/tasks)
     app.MapControllers();
 
-    var envVars = Environment.GetEnvironmentVariables()
-        .Cast<System.Collections.DictionaryEntry>()
-        .Select(entry => $"{entry.Key} = {entry.Value}")
-        .ToList();
+    // 12. Map root endpoint for health/status checks
+    app.MapGet("/", () => Results.Ok("✅ TodoList backend is running."));
 
-    app.Logger.LogInformation($@"
-🔍 Startup Diagnostics
-──────────────────────────────────────────────
-isProduction       = {builder.Environment.IsProduction()}
-environmentName    = {builder.Environment.EnvironmentName}
-connectionString   = {defaultConnection}
-──────────────────────────────────────────────
-Environment Variables:
-{string.Join("\n", envVars)}
-──────────────────────────────────────────────
-");
-
-
-    // 12. Start the application
+    // 13. Start the application
     app.Logger.LogInformation($"🌐 HTTPS server listening on port {port}");
     app.Run();
 }
