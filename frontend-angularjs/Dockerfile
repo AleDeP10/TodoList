@@ -8,17 +8,17 @@ WORKDIR /app
 # Copy dependency definitions
 COPY package*.json ./
 
-# Install dependencies 
+# Install dependencies (isolated build environment)
 ENV NODE_ENV=development
 RUN npm ci
 
 # Copy application source files
 COPY . .
 
-# ⬇️ Override environment config
+# Inject environment config (used during build)
 COPY config.json ./config.json
 
-# Run full frontend build (clean, SCSS compilation, static assets)
+# Build static assets (clean, SCSS compilation, bundling)
 RUN npm run build
 
 # ──────────────────────────────────────────────
@@ -31,10 +31,13 @@ FROM nginx:alpine
 ARG ENV
 ENV ENV=prod
 
-# Copy compiled frontend assets
+# Copy compiled frontend assets to NGINX public directory
 COPY --from=builder /app/dist/ /usr/share/nginx/html
 
-# Inject custom NGINX config (SPA routing, port binding)
+# Ensure config.json is served correctly
+COPY config.json /usr/share/nginx/html/config.json
+
+# Inject custom NGINX config (SPA routing, API proxy)
 COPY nginx.${ENV}.conf /etc/nginx/conf.d/default.conf
 
 # Expose internal container port served by NGINX
