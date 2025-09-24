@@ -42,7 +42,7 @@ export default function MainContainer() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col w-[92vw] md:w-[80vw] max-w-[1000px] mx-auto bg-[var(--bg)] text-[var(--fg)] overflow-visible">
+    <div className="relative min-h-screen flex flex-col w-[92vw] md:w-[80vw] max-w-[1000px] mx-auto bg-[var(--bg)] text-[var(--fg)] overflow-visible">
       <NavBar menuItems={menuItems} />
 
       <main className="flex-1 p-6">

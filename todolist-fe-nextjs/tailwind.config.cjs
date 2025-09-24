@@ -75,7 +75,7 @@ module.exports = {
     "bg-gradient-to-r",
     "from-[var(--navbar-start)]",
     "to-[var(--navbar-end)]",
-    "!bg-white", 
+    "!bg-white",
     "text-[var(--fg)]",
     "text-[var(--menu-fg)]",
     "text-[var(--navbar-fg)]",
@@ -83,7 +83,7 @@ module.exports = {
     "text-red-500",
     "text-yellow-400",
     "!text-black",
-    
+
     // Effects & Transitions
     "transition",
     "transition-colors",
@@ -106,6 +106,11 @@ module.exports = {
     "left-0",
     "inset-0",
     "z-50",
+
+    // Overflow & Scroll
+    "overflow-visible",
+    "overflow-x-visible",
+    "overflow-y-visible",
 
     // Sizing
     "w-full",

@@ -111,6 +111,11 @@ module.exports = {
     "inset-0",
     "z-50",
 
+    // Overflow & Scroll
+    "overflow-visible",
+    "overflow-x-visible",
+    "overflow-y-visible",
+
     // Sizing
     "w-full",
     "w-10",
