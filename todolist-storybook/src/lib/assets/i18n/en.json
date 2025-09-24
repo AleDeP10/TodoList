@@ -38,6 +38,7 @@
   "user.delete.confirmBody": "Are you sure you want to delete {{name}}? This action cannot be undone.",
   "user.delete.noteSetNull": "Assigned tasks will be automatically unlinked.",
   "user.username.duplicate": "Username already exists in the system",
+  "user.username.websiteFormat": "Must be a valid URL starting with http:// or https://",
   "user.fullName.placeholder": "Enter full name",
   "user.username.placeholder": "Choose a username",
   "user.password.placeholder": "Set a password",

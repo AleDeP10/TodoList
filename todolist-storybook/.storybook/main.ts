@@ -1,5 +1,6 @@
 import path from "path";
 import type { StorybookConfig } from "@storybook/react-webpack5";
+import type { TransformOptions } from "@babel/core";
 
 const storybookConf: StorybookConfig = {
   stories: ["../src/**/*.stories.@(js|jsx|ts|tsx)"],
@@ -10,12 +11,15 @@ const storybookConf: StorybookConfig = {
     "@storybook/addon-actions",
     "@storybook/addon-essentials",
   ],
-  babel: async (options) => {
-    if (options && Array.isArray(options.presets)) {
-      options.presets.push(require.resolve("@babel/preset-typescript"));
-    }
-    return options;
-  },
+
+  babel: async (config: TransformOptions) => ({
+    ...config,
+    presets: [
+      ...(config.presets ?? []),
+      require.resolve("@babel/preset-typescript"),
+    ],
+  }),
+
   framework: "@storybook/react-webpack5",
   core: {
     builder: "@storybook/builder-webpack5",

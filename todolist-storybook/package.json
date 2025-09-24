@@ -21,11 +21,11 @@
     "prebuild": "node shared-resources/postcss-cli/index.js ./src/styles/tailwind.input.css -o public/styles/globals.css",
     "build-storybook": "node shared-resources/@storybook/cli/bin/index.js build",
     "storybook": "node shared-resources/serve/build/main.js storybook-static -l 6006",
-    "storybook-dev": "cross-env NODE_ENV=development npx storybook@7.6.0 dev --port 6006",
     "validate-storybook": "node ../dist/scripts/validateStorybook.js"
   },
   "dependencies": {
     "@storybook/nextjs-vite": "^9.0.0",
+    "@storybook/react-webpack5": "7.6.0",
     "framer-motion": "12.23.6",
     "lucide-react": "^0.544.0",
     "react": "18.2.0",
@@ -47,7 +47,6 @@
     "@storybook/cli": "7.6.0",
     "@storybook/nextjs": "7.6.0",
     "@storybook/react": "7.6.0",
-    "@storybook/react-webpack5": "7.6.0",
     "@storybook/test": "7.6.0",
     "@storybook/testing-library": "0.2.0",
     "@tailwindcss/postcss": "4.1.12",

@@ -17,6 +17,7 @@ import {
   Loader2,
   Eye,
   EyeOff,
+  SquareArrowOutUpRight,
 } from "lucide-react";
 
 export const Icons = {
@@ -30,6 +31,7 @@ export const Icons = {
   cancel: <XOctagon size={16} />,
   confirm: <CheckCircle size={16} />,
   save: <Save size={16} />,
+  open: <SquareArrowOutUpRight size={16} />,
   showPassword: <Eye size={16} />,
   hidePassword: <EyeOff size={16} />,
   spinner: ({

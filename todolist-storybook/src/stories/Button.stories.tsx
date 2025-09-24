@@ -35,6 +35,21 @@ Cause:
 ✅ Behavior is correct in 'Example' and in the live application.
 
 ✅ The story is valid and does not require changes.
+
+⚠️ Additional mobile issue: Buttons without an icon may appear visually empty on mobile devices.
+
+Symptoms:
+- When rendered on small screens, buttons that lack an icon may collapse to zero width or height
+- This results in invisible or non-interactive buttons, especially when label visibility is suppressed by responsive rules
+
+Example:
+- The 'Disabled' story intentionally omits the icon to showcase this issue
+
+Cause:
+- The frontend applies mobile-specific styles that hide the label and rely on the icon for visual presence
+- Without an icon, the button has no visible content and may be skipped by layout engines or accessibility tools
+
+✅ Frontend convention: All buttons must include an icon to ensure consistent rendering across viewports.
 `,
       },
     },

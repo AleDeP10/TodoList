@@ -67,6 +67,7 @@ export const Example = () => {
       variant="primary"
       onClick={() => setOpen(true)}
       label="Open modal"
+      icon={Icons.open}
     />
   );
 };

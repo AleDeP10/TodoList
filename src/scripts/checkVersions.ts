@@ -185,6 +185,7 @@ const storybookPackages = [
   "@storybook/react",
   "@storybook/testing-library",
   "@storybook/react-vite",
+  "@storybook/react-webpack5",
 ];
 
 // Track if any mismatches are found

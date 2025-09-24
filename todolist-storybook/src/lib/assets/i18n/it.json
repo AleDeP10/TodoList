@@ -39,6 +39,7 @@
   "user.delete.confirmBody": "Sei sicuro di voler eliminare {{name}}? Questa operazione è irreversibile.",
   "user.delete.noteSetNull": "I task assegnati saranno disassociati automaticamente.",
   "user.username.duplicate": "Username già presente nel sistema",
+  "user.username.websiteFormat": "Atteso un URL valido che inizi con http:// o https://",
   "user.fullName.placeholder": "Inserisci il nome completo",
   "user.username.placeholder": "Scegli uno username",
   "user.password.placeholder": "Imposta una password",
