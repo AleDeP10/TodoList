@@ -100,22 +100,24 @@ Open: 📍 http://localhost:8080/index.html
 │   │   └── favicon-32x32.png
 │   │   └── favicon.ico
 │   │   └── site.webmanifest
+└── config.Docker.json
 └── config.json
+└── config.Production.json
 ├── controllers
 │   └── taskController.js
 └── copy-static.js
 ├── directives
 │   └── modalContainer.js
-└── Dockerfile
+└── Dockerfile.local
+└── Dockerfile.render
 ├── filters
 │   └── i18nFilter.js
 └── index.html
 ├── lib
 │   └── ng-redux.min.js
 └── mime.types
+└── nginx.conf
 └── nginx.dev.conf
-└── nginx.docker.conf
-└── nginx.prod.conf
 └── package-lock.json
 └── package.json
 └── README.md
@@ -144,7 +146,7 @@ Open: 📍 http://localhost:8080/index.html
 
 📊 Tree Summary
 📁 Folders: 15
-📄 Files: 41
+📄 Files: 43
 ```
 
 ## 🔗 Related Documentation
