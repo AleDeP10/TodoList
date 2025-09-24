@@ -12,7 +12,6 @@ export default function MenuItem({
   onClick,
 }: MenuItemProps) {
   const handleInteraction = () => {
-    console.log("MenuItem.handleInteraction");
     if (href) {
       window.open(href, "_blank", "noopener,noreferrer");
     } else {
