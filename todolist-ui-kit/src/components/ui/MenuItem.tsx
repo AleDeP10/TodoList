@@ -11,7 +11,7 @@ export default function MenuItem({
   href,
   onClick,
 }: MenuItemProps) {
-  const handleMouseDown = () => {
+  const handleInteraction = () => {
     if (href) {
       window.open(href, "_blank", "noopener,noreferrer");
     } else {
@@ -21,7 +21,8 @@ export default function MenuItem({
 
   return (
     <button
-      onMouseDown={handleMouseDown}
+      onMouseDown={handleInteraction}
+      onClick={handleInteraction}
       className="text-sm text-left px-2 py-1 rounded hover:bg-[var(--menu-hover-bg)] text-[var(--menu-fg)]"
     >
       <span className="flex items-center gap-2">

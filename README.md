@@ -110,6 +110,11 @@ As a result, Yarn was explicitly locked to version 1.22.19 to guarantee full com
 | `clean-install`         | Performs a clean install by removing `node_modules` and rebuilding reinstalling modules              |
 | `copy-shared-resources` | Copies shared resources (shims, binaries, yarn.lock) into each project for Docker compatibility      |
 
+> ⚠️ Note on workspace dependencies
+
+The `yarn.lock` file is automatically regenerated whenever dependencies are added, removed, or updated within any workspace. This may cause misalignment between shared resources and the Storybook environment.  
+To ensure consistency, always run `yarn run copy-shared-resources` after modifying dependencies. This step syncs the lockfile and ensures Docker builds and local scripts remain stable.
+
 ## 🧪 Cross-Platform Scripts
 
 All Yarn scripts rely on invoking TypeScript modules located in src/scripts, ensuring consistent execution across Windows, macOS, and Linux.

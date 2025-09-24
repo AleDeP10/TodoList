@@ -26,7 +26,15 @@ export default function MenuGroup({
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
-      <button className="px-3 py-2 bg-[var(--menu-bg)] text-[var(--menu-fg)] text-sm font-semibold rounded hover:brightness-110">
+      <button
+        className="px-3 py-2 bg-[var(--menu-bg)] text-[var(--menu-fg)] text-sm font-semibold rounded hover:brightness-110"
+        onTouchStart={() => setOpen((prev) => !prev)} 
+        onPointerDown={(e) => {
+          if (e.pointerType === "touch") {
+            setOpen((prev) => !prev);
+          }
+        }}
+      >
         {label}
       </button>
 
