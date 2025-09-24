@@ -42,7 +42,7 @@ services:
     restart: unless-stopped
     build:
       context: ./frontend-angularjs
-      dockerfile: Dockerfile.Docker
+      dockerfile: Dockerfile.local
       args:
         ENV: docker
     container_name: todolist-fe-angularjs
@@ -62,7 +62,7 @@ services:
     restart: unless-stopped
     build:
       context: ./todolist-fe-nextjs
-      dockerfile: Dockerfile.Docker
+      dockerfile: Dockerfile.local
     container_name: todolist-fe-nextjs
     ports:
       - 444:443
