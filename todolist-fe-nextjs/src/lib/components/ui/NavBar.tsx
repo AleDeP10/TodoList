@@ -24,7 +24,7 @@ export default function NavBar({ menuItems }: NavBarProps) {
           <LangSwitcher />
         </div>
       </div>
-      <div className="flex flex-wrap gap-4 justify-start w-full overflow-x-auto">
+      <div className="flex flex-wrap gap-4 justify-start w-full overflow-x-auto overflow-visible">
         {Object.entries(menuItems).map(([section, items]) => (
           <MenuGroup
             key={section}

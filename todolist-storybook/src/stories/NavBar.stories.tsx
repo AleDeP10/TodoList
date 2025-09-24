@@ -48,7 +48,7 @@ export default meta;
 const Layout = () => {
   const t = useTranslation();
   return (
-    <div className="min-h-screen flex flex-col w-[92vw] md:w-[80vw] max-w-[1000px] mx-auto bg-[var(--bg)] text-[var(--fg)]">
+    <div className="min-h-screen flex flex-col w-[92vw] md:w-[80vw] max-w-[1000px] mx-auto bg-[var(--bg)] text-[var(--fg)] overflow-visible">
       <MenuTestWrapper>
         {(setContent) => (
           <>
