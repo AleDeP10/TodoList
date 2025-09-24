@@ -39,7 +39,6 @@ export const Example: Story = {
               label: "Portfolio",
               icon: MenuIcons.portfolio,
               href: "https://aledep10.github.io",
-              target: "_blank",
             },
           ]}
         />

@@ -24,7 +24,7 @@ export default function MenuItem({
       onMouseDown={handleInteraction}
       onClick={handleInteraction}
       className="text-sm text-left px-2 py-1 rounded hover:bg-[var(--menu-hover-bg)] text-[var(--menu-fg)]"
-    >
+    > 
       <span className="flex items-center gap-2">
         {icon}
         {label}

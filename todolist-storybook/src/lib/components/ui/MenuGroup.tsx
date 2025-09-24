@@ -16,7 +16,7 @@ export default function MenuGroup({
 
   const handleItemClick = (item: MenuItemData) => {
     item.onClick?.();
-    setOpen(false); // 🔒 Hides the menu on click
+    setOpen(false);
   };
 
   return (
