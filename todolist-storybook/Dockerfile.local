@@ -1,0 +1,58 @@
+# ──────────────────────────────────────────────────────────────
+# Dockerfile.local — Build and Serve Storybook Locally (Multi-stage)
+# ──────────────────────────────────────────────────────────────
+
+# Stage 1 — Build Storybook static assets
+FROM node:20-alpine AS builder
+
+# Set working directory
+WORKDIR /app
+
+# Copy Yarn shim and write .yarnrc to enforce Yarn v1.22.19
+COPY shared-resources/scripts/shims/yarn-1.22.19.cjs ./yarn.cjs
+RUN echo 'yarn-path "./yarn.cjs"' > .yarnrc
+
+# Copy workspace-specific package manifest and lockfile
+COPY package.json ./package.json
+COPY shared-resources/yarn.lock ./yarn.lock
+
+# Install dependencies using the shimmed Yarn
+RUN yarn install --frozen-lockfile
+
+# Copy source files and shared resources
+COPY . .
+COPY shared-resources ./shared-resources
+
+# Build Storybook static output
+RUN yarn run build-storybook
+
+# ──────────────────────────────────────────────────────────────
+# Stage 2 — Serve Storybook with custom server
+# ──────────────────────────────────────────────────────────────
+FROM node:20-alpine AS storybook
+
+# Set working directory
+WORKDIR /app
+
+# Copy built static files from builder stage
+COPY --from=builder /app/storybook-static ./storybook-static
+
+# Copy Yarn shim and write .yarnrc again to enforce Yarn v1.22.19
+COPY shared-resources/scripts/shims/yarn-1.22.19.cjs ./yarn.cjs
+RUN echo 'yarn-path "./yarn.cjs"' > .yarnrc
+
+# Copy package manifest and lockfile for runtime dependencies
+COPY package.json ./package.json
+COPY shared-resources/yarn.lock ./yarn.lock
+
+# Install runtime dependencies using the shimmed Yarn
+RUN yarn install --frozen-lockfile
+
+# Copy custom server script
+COPY server.js ./
+
+# Expose Storybook port
+EXPOSE 6006
+
+# Start Storybook using custom Node server
+CMD ["node", "server.js"]

@@ -78,7 +78,7 @@ services:
     restart: unless-stopped
     build:
       context: ./todolist-storybook
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.local
       target: storybook
     container_name: todolist-storybook
     ports:

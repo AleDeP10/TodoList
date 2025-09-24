@@ -309,7 +309,6 @@ export const FullFormValidation: Story = {
             />
 
             <Dropdown
-              name="dropdown-status"
               label="Status"
               value={status}
               options={stringOptions}
