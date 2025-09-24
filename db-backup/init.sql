@@ -123,7 +123,7 @@ COPY public."Task" (id, description, "assigneeId", status) FROM stdin;
 
 COPY public."User" (id, "fullName", username, password, "isAdmin", status) FROM stdin;
 1	Amministratore	admin	qcchb1001	true	ACTIVE
-2	Alessandro De Prato	aldep	aldep	false	ACTIVE
+2	Alessandro De Prato	aledep	aledep	false	ACTIVE
 3	Gabriela Belmani	gabri	gabri	false	ACTIVE
 4	Martina Damiani	marty	marty	false	BLOCKED
 \.
