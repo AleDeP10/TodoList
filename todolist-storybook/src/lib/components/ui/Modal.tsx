@@ -43,19 +43,21 @@ export default function Modal({
       onClick={handleBackdropClick}
       className="fixed inset-0 z-50 bg-black/40 backdrop-blur-md flex justify-center items-center px-4 py-6 overflow-y-auto scroll-py-6"
     >
-      <div className="bg-[var(--modal-bg)] text-[var(--fg)] rounded-lg shadow-lg w-full max-w-lg">
+      <div className="bg-[var(--modal-bg)] text-[var(--fg)] rounded-lg shadow-lg w-full max-w-lg max-h-[90vh] flex flex-col">
         {/* 🔘 Header */}
-        <div className="flex justify-between items-center px-6 py-4 border-b border-[var(--fg)]">
+        <div className="flex justify-between items-center px-6 py-4 border-b border-[var(--fg)] shrink-0">
           <h2 className="text-lg font-semibold w-full text-center whitespace-normal">{title}</h2>
           <IconButton icon={Icons.close} onClick={onClose} />
         </div>
 
         {/* 📄 Content */}
-        <div className="p-6 whitespace-normal">{children}</div>
+        <div className="p-6 whitespace-normal overflow-y-auto">
+          {children}
+        </div>
 
         {/* 🧼 Footer */}
         {footerActions.length > 0 && (
-          <div className="flex justify-center gap-2 px-6 py-4 border-t border-[var(--fg)]">
+          <div className="flex justify-center gap-2 px-6 py-4 border-t border-[var(--fg)] shrink-0">
             {footerActions.map(
               ({ icon, label, variant, disabled, onClick }) => (
                 <Button
