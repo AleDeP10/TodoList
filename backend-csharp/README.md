@@ -8,34 +8,35 @@ The project is available on Render at: 👉 https://todolist-be-csharp.onrender.
 
 ## 🧩 Features
 
-   - ✅ Create, update, delete tasks and users
-   - 🔍 Filter tasks and users by multiple criteria
-   - 👥 Assign tasks to users
-   - 🧠 Entity Framework with PostgreSQL
-   - 🔐 HTTPS support with dev certificate
-   - 🧪 Tested on .NET 8.0
+- ✅ Create, update, delete tasks and users
+- 🔍 Filter tasks and users by multiple criteria
+- 👥 Assign tasks to users
+- 🧠 Entity Framework with PostgreSQL
+- 🔐 HTTPS support with dev certificate
+- 🧪 Tested on .NET 8.0
 
 ## Tech Stack
 
-| Layer      | Technology               |
-|------------|--------------------------|
-| Backend    | ASP.NET Core (.NET 8.0)  |
-| ORM        | Entity Framework Core    |
-| Database   | PostgreSQL               |
-| Container  | Docker                   |
+| Layer     | Technology              |
+| --------- | ----------------------- |
+| Backend   | ASP.NET Core (.NET 8.0) |
+| ORM       | Entity Framework Core   |
+| Database  | PostgreSQL              |
+| Container | Docker                  |
+
+<a name="installation-and-launch"></a>
 
 ## 🚀 Installation & Launch
-
-<!-- actual anchor -->
-<a name="installation-and-launch"></a>
 
 ### 🐳 Using Docker
 
 Use Docker Desktop or run the API locally with:
+
 ```
 docker build -t todolist-be-csharp .
 docker run -p 5001:5000 todolist-be-csharp
 ```
+
 Then access the API at: 📍 https://localhost:5001
 
 Built-in client at: 📍 https://localhost:5001/swagger
@@ -53,7 +54,9 @@ The API will start and be accessible at: 📍 https://localhost:5000
 Swagger UI will be available at: 📍 https://localhost:5000/swagger
 
 ### ⚙️ Configuration
+
 The API uses the following environment configuration:
+
 ```
 {
   "ConnectionStrings": {
@@ -61,44 +64,52 @@ The API uses the following environment configuration:
   }
 }
 ```
+
 HTTPS certificate: https/aspnet-dev.pfx
 
-
 ## 📌 General Notes
-   - ✔ Compatible with .NET 8.0
-   - ✔ Uses HTTPS with local certificate or HTTP under proxy
-   - ✔ Dockerfile includes build and runtime stages
-   - ✔ PostgreSQL connection via environment config
 
+- ✔ Compatible with .NET 8.0
+- ✔ Uses HTTPS with local certificate or HTTP under proxy
+- ✔ Dockerfile includes build and runtime stages
+- ✔ PostgreSQL connection via environment config
 
 ## 📁 Project Structure
+
 ```
-├── appsettings.Development.json
-├── appsettings.Docker.json
-├── appsettings.json
+└── appsettings.Development.json
+└── appsettings.Docker.json
+└── appsettings.json
 ├── Controllers
-│   ├── TaskController.cs
+│   └── HealthController.cs
+│   └── TaskController.cs
 │   └── UserController.cs
-├── Dockerfile
+└── Dockerfile
 ├── DTOs
-│   ├── TaskFilterDto.cs
+│   └── TaskFilterDto.cs
 │   └── UserFilterDto.cs
 ├── https
 │   └── aspnet-dev.pfx
 ├── Models
-│   ├── Task.cs
-│   ├── TodoListContext.cs
+│   └── Task.cs
+│   └── TodoListContext.cs
 │   └── User.cs
-├── Program.cs
+└── Program.cs
 ├── Properties
 │   └── launchSettings.json
-├── README.md
-├── TodoList.csproj
-├── TodoList.csproj.user
-├── TodoList.http
-├── TodoList.sln
+└── README.md
+└── TodoList.csproj
+└── TodoList.csproj.user
+└── TodoList.http
+└── TodoList.sln
 ├── Utils
-│   └── RoutePrefixConvention.cs
+│   └── RoutePrefixConvention .cs
+├── wwwroot
+│   └── index.html
+
+📊 Tree Summary
+📁 Folders: 7
+📄 Files: 22
 ```
 
 ## 🔗 Related Documentation

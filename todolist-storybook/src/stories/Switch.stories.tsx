@@ -81,3 +81,42 @@ export const Compact: Story = {
     </InteractionSandbox>
   ),
 };
+
+export const MobileView: Story = {
+  name: "Grid Variant on Mobile",
+  render: () => (
+    <InteractionSandbox>
+      {(appendText) => {
+        const [checked, setChecked] = useState(false);
+
+        return (
+          <>
+            <Switch
+              variant="grid"
+              checked={checked}
+              onChange={(value) => {
+                setChecked(value);
+                appendText(`Switch toggled to: ${value ? "Admin" : "User"}`);
+              }}
+              label="Administrator"
+            />
+            <div className="grid grid-cols-12 gap-4 items-center mt-4">
+              <label className="col-span-3 text-sm font-medium text-left">
+                Role
+              </label>
+              <div className="col-span-9 outputField">
+                {checked ? "Admin" : "User"}
+              </div>
+            </div>
+          </>
+        );
+      }}
+    </InteractionSandbox>
+  ),
+};
+
+MobileView.parameters = {
+  viewport: {
+    defaultViewport: "mobile1",
+  },
+};

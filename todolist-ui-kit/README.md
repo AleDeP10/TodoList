@@ -3,38 +3,39 @@
 A shared component and style library used by both todolist-fe-nextjs and todolist-storybook. It provides reusable React components, hooks, providers, styles, and TypeScript types for consistent UI and behavior across projects.
 
 ⚠️ To avoid broken styles, add all Tailwind classes used in your components to the `safelist` array inside `tailwind.config.cjs` of consumer projects.
+
 ⚠️ After any change to this library, you must run the copy-ui-kit script to sync updates with the consuming frontends. This ensures that both Next.js and Storybook projects reflect the latest UI definitions.
 
 ## 📦 Features
 
-   - 🧱 UI Components: buttons, modals, navbars, toggles, dropdowns, spinners, etc.
-   - 🧠 Hooks: language switching, theme control, responsive visibility, field validation
-   - 🧬 Providers: i18n, theme, view context
-   - 🎨 Styles: global CSS and theme variants (light, dark, custom)
-   - 🧾 Types: DTOs, filters, enums, shared interfaces
-   - 🛠 Utilities: i18n helpers, CSS variable access
+- 🧱 UI Components: buttons, modals, navbars, toggles, dropdowns, spinners, etc.
+- 🧠 Hooks: language switching, theme control, responsive visibility, field validation
+- 🧬 Providers: i18n, theme, view context
+- 🎨 Styles: global CSS and theme variants (light, dark, custom)
+- 🧾 Types: DTOs, filters, enums, shared interfaces
+- 🛠 Utilities: i18n helpers, CSS variable access
 
 ## 🛠 Tech Stack
 
-| Layer         | Technology               |
-|---------------|--------------------------|
-| Framework     | React 18                 |
-| Styling       | Tailwind CSS 4           |
-| Animation     | Framer Motion            |
-| Language      | TypeScript 5.5           |
-| Tooling       | ESLint 9, TSConfig       |
+| Layer     | Technology         |
+| --------- | ------------------ |
+| Framework | React 18           |
+| Styling   | Tailwind CSS 4     |
+| Animation | Framer Motion      |
+| Language  | TypeScript 5.5     |
+| Tooling   | ESLint 9, TSConfig |
 
 ## 🧪 Compatibility
 
-   - Node.js ≥ 20.x
-   - React 18.2.0
-   - Tailwind CSS 4.1.12
+- Node.js ≥ 20.x
+- React 18.2.0
+- Tailwind CSS 4.1.12
 
 ## ⚙️ Scripts
 
-| Script   | Description                                |
-|----------|--------------------------------------------|
-| `lint`   | Runs ESLint on `.ts` and `.tsx` files      |
+| Script | Description                           |
+| ------ | ------------------------------------- |
+| `lint` | Runs ESLint on `.ts` and `.tsx` files |
 
 ## 📁 Project Structure
 

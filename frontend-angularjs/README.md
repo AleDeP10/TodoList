@@ -8,79 +8,82 @@ The project is available on Render at: 👉 https://todolist-fe-angularjs.onrend
 
 ## 🧩 Features
 
-   - ✅ Create, edit, and delete tasks
-   - 👥 User assignment and status management
-   - 🌐 Dynamic localization (EN / IT)
-   - 🔍 Persistent filter panel
-   - ⚡ Dual-mode filtering:
-     - Server-side: default, efficient on large datasets
-     - Client-side: reactive, based on Redux Classic
-   - 🎨 Responsive UI with gradient theming and state-based styling
-   - 🧠 Modular architecture with Redux store and dedicated services
+- ✅ Create, edit, and delete tasks
+- 👥 User assignment and status management
+- 🌐 Dynamic localization (EN / IT)
+- 🔍 Persistent filter panel
+- ⚡ Dual-mode filtering:
+  - Server-side: default, efficient on large datasets
+  - Client-side: reactive, based on Redux Classic
+- 🎨 Responsive UI with gradient theming and state-based styling
+- 🧠 Modular architecture with Redux store and dedicated services
 
 ## 🛠 Tech Stack
 
-| Layer       | Technology                 |
-|-------------|----------------------------|
-| Frontend    | AngularJS 1.x, Bootstrap 5 |
-| Styling     | SCSS                       |
-| State       | Redux Classic (ng-redux)   |
-| Icons       | bootstrap-icons            |
-| Build Tool  | npm                        |
-| Proxy       | nginx                      |
-| Container   | Docker                     |
+| Layer      | Technology                 |
+| ---------- | -------------------------- |
+| Frontend   | AngularJS 1.x, Bootstrap 5 |
+| Styling    | SCSS                       |
+| State      | Redux Classic (ng-redux)   |
+| Icons      | bootstrap-icons            |
+| Build Tool | npm                        |
+| Proxy      | nginx                      |
+| Container  | Docker                     |
 
 ## 🧪 Compatibility
 
-   - Node.js ≥ 20.x  
-   - npm ≥ 10.x  
-   - TypeScript 5.5  
-   - AngularJS 1.8.3  
+- Node.js ≥ 20.x
+- npm ≥ 10.x
+- TypeScript 5.5
+- AngularJS 1.8.3
 
 ## ⚙️ Scripts
 
-| Script         | Description                                      |
-|----------------|--------------------------------------------------|
-| `clean`        | Removes the `dist` folder and recreates it       |
-| `build-css`    | Compiles SCSS to CSS                             |
-| `copy-static`  | Copies static assets to `dist`                   |
-| `build`        | Runs `clean`, `build-css`, and `copy-static`     |
-| `serve`        | Launches the app with NGINX and shows local link |
+| Script        | Description                                      |
+| ------------- | ------------------------------------------------ |
+| `clean`       | Removes the `dist` folder and recreates it       |
+| `build-css`   | Compiles SCSS to CSS                             |
+| `copy-static` | Copies static assets to `dist`                   |
+| `build`       | Runs `clean`, `build-css`, and `copy-static`     |
+| `serve`       | Launches the app with NGINX and shows local link |
+
+<a name="installation-and-launch"></a>
 
 ## 🚀 Installation & Launch
-
-<!-- actual anchor -->
-<a name="installation-and-launch"></a>
 
 ### 🐳 Using Docker
 
 Use Docker Desktop or run the app locally with:
+
 ```
 docker build -t todolist-fe-angularjs .
 docker run -p 8081:8080 todolist-fe-angularjs
 ```
+
 Open the frontend at: 📍 http://localhost:8081/index.html
 
 ### 🧪 Local Setup (without Docker)
 
 #### Prerequisites
 
-   - Node.js ≥ 20.x
-   - npm ≥ 10.x
+- Node.js ≥ 20.x
+- npm ≥ 10.x
 
 #### Launch
+
 ```
 npm install
 npm run serve
 ```
+
 Open: 📍 http://localhost:8080/index.html
 
 ## 🧾 General Notes
 
-   - The config.json file manages environment configuration (API_BASE_URL)
-   - The nginx.dev.conf file is used for local routing
-   - The Dockerfile includes SCSS build and NGINX setup
-   - Structure tested on Windows 10 with Node.js ≥ 20.x
+- The config.json file manages environment configuration (API_BASE_URL)
+- The nginx.dev.conf file is used for local routing
+- The Dockerfile includes SCSS build and NGINX setup
+- Structure tested on Windows 10 with Node.js ≥ 20.x
 
 ## 📁 Project Structure
 
@@ -108,8 +111,8 @@ Open: 📍 http://localhost:8080/index.html
 └── copy-static.js
 ├── directives
 │   └── modalContainer.js
+└── Dockerfile
 └── Dockerfile.local
-└── Dockerfile.render
 ├── filters
 │   └── i18nFilter.js
 └── index.html

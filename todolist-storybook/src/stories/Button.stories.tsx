@@ -127,6 +127,22 @@ export const IconOnly: StoryFn<ButtonProps> = () => (
   </InteractionSandbox>
 );
 
+export const CustomColors: StoryFn<ButtonProps> = () => (
+  <InteractionSandbox>
+    {(appendText) => (
+      <Button
+        label="Create"
+        variant="primary"
+        icon={Icons.plus}
+        backgroundColor={getCSSVariable("--create-bg")}
+        foregroundColor="white"
+        onClick={() => appendText("Create button clicked")}
+      />
+    )}
+  </InteractionSandbox>
+);
+
+
 export const MobileView: StoryFn = () => {
   return (
     <InteractionSandbox>
@@ -168,18 +184,3 @@ TabletView.parameters = {
     defaultViewport: "tablet",
   },
 };
-
-export const CustomColors: StoryFn<ButtonProps> = () => (
-  <InteractionSandbox>
-    {(appendText) => (
-      <Button
-        label="Create"
-        variant="primary"
-        icon={Icons.plus}
-        backgroundColor={getCSSVariable("--create-bg")}
-        foregroundColor="white"
-        onClick={() => appendText("Create button clicked")}
-      />
-    )}
-  </InteractionSandbox>
-);

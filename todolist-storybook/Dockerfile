@@ -1,5 +1,5 @@
 # ─────────────────────────────────────────────────────────────────────────────
-# Dockerfile.render — Single-stage for Render deployment
+# Dockerfile — Single-stage for Render deployment
 # ─────────────────────────────────────────────────────────────────────────────
 
 FROM node:20-alpine

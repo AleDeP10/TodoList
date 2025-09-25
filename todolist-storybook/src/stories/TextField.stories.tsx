@@ -111,3 +111,38 @@ export const Password: Story = {
     </InteractionSandbox>
   ),
 };
+
+export const MobileView: Story = {
+  render: () => (
+    <InteractionSandbox>
+      {(appendText) => {
+        const [value, setValue] = useState("");
+
+        return (
+          <>
+            <TextField
+              label="Write something"
+              value={value}
+              onChange={(event) => {
+                setValue(event.target.value);
+                appendText(`TextField updated to: ${event.target.value}`);
+              }}
+            />
+            <div className="grid grid-cols-12 gap-4 items-center mt-4">
+              <label className="col-span-3 text-sm font-medium text-left">
+                You’ve written
+              </label>
+              <div className="col-span-9 outputField">{value}</div>
+            </div>
+          </>
+        );
+      }}
+    </InteractionSandbox>
+  ),
+};
+
+MobileView.parameters = {
+  viewport: {
+    defaultViewport: "mobile1",
+  },
+};

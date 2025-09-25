@@ -132,3 +132,42 @@ export const Compact: Story = {
     </InteractionSandbox>
   ),
 };
+
+
+export const MobileView: Story = {
+  render: () => (
+    <InteractionSandbox>
+      {(appendText) => {
+        const [selectedValue, setSelectedValue] = useState("ACTIVE");
+
+        return (
+          <>
+            <Dropdown
+              label="Change status"
+              value={selectedValue}
+              options={stringOptions}
+              onChange={(newValue) => {
+                setSelectedValue(newValue);
+                appendText(`Dropdown updated to: ${newValue}`);
+              }}
+              getOptionValue={(option) => option}
+              getOptionLabel={(option) => option}
+            />
+            <div className="grid grid-cols-12 gap-4 items-center mt-4">
+              <label className="col-span-3 text-sm font-medium text-left">
+                User status
+              </label>
+              <div className="col-span-9 outputField">{selectedValue}</div>
+            </div>
+          </>
+        );
+      }}
+    </InteractionSandbox>
+  ),
+};
+
+MobileView.parameters = {
+  viewport: {
+    defaultViewport: "mobile1",
+  },
+};

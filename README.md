@@ -53,9 +53,16 @@ A modular task management system built with a C# backend and two distinct fronte
 
 All modules support Docker-based execution:
 
-- 🖥️ **Docker Desktop**: build and run each project individually
-- 🧩 **Docker Compose**: orchestrate frontend and backend together (optional)
-- 🔐 **HTTPS Setup**: NGINX proxy with local certificates for secure API routing
+- 💻 **Docker Desktop**: build and run each project individually using local Dockerfiles
+- 🧩 **Docker Compose**: launch all services together from the project root with:
+
+  ```bash
+    docker compose up --build
+  ```
+
+  This command starts the entire stack — frontends, storybook, backend, and database — fully networked and ready to use.
+
+- ✨ **Unified Environment**: no manual setup required — all services are orchestrated and discoverable via internal Docker networking
 
 ## 📊 Port Mapping
 
@@ -65,9 +72,6 @@ All modules support Docker-based execution:
 | AngularJS FE | 8080         | 8081          |
 | Next.js FE   | 3000         | 3001          |
 | Storybook    | 6006         | 6007          |
-| NGINX Proxy  | 443          | 444           |
-
-**Note:** Frontend access (both AngularJS and Next.js) is routed through the NGINX proxy, which listens on port 444 of the host machine. This ensures HTTPS termination and unified routing across modules.
 
 ## 🧪 Developer Installation
 
@@ -79,11 +83,9 @@ Each module includes its own README with setup instructions:
 - ⚛️ [Next.js Frontend](./todolist-fe-nextjs/README.md#installation-and-launch)
 - 📚 [Storybook Workspace](./todolist-storybook/README.md#installation-and-launch)
 
-## 🧵 NPM vs Yarn — Compatibility Notes
-
-<!-- actual anchor -->
-
 <a name="npm-vs-yarn"></a>
+
+## 🧵 NPM vs Yarn — Compatibility Notes
 
 During development of the Next.js frontend and Storybook workspace, several inconsistencies emerged when using npm as the package manager:
 
@@ -110,7 +112,7 @@ As a result, Yarn was explicitly locked to version 1.22.19 to guarantee full com
 | `clean-install`         | Performs a clean install by removing `node_modules` and rebuilding reinstalling modules              |
 | `copy-shared-resources` | Copies shared resources (shims, binaries, yarn.lock) into each project for Docker compatibility      |
 
-> ⚠️ Note on workspace dependencies
+**⚠️ Note on workspace dependencies**
 
 The `yarn.lock` file is automatically regenerated whenever dependencies are added, removed, or updated within any workspace. This may cause misalignment between shared resources and the Storybook environment.  
 To ensure consistency, always run `yarn run copy-shared-resources` after modifying dependencies. This step syncs the lockfile and ensures Docker builds and local scripts remain stable.

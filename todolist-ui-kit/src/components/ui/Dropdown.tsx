@@ -1,6 +1,7 @@
 import React, { useId } from "react";
+import { useResponsiveVisibility } from "../../hooks";
 
-export type DropdownVariant = "expanded" | "compact";
+export type DropdownVariant = "grid" | "compact";
 
 export interface DropdownProps<T> {
   variant?: DropdownVariant;
@@ -80,59 +81,71 @@ export default function Dropdown<T>({
   error = false,
   helperText,
 }: DropdownProps<T>) {
+  const { sm } = useResponsiveVisibility();
   const generatedId = useId();
   const selectId = `dropdown-${generatedId}`;
 
+  const LabelComponent = (
+    <label htmlFor={selectId} className="text-left text-sm font-medium">
+      {label}
+    </label>
+  );
+  const SelectContainer = (
+    <div className="w-full">
+      <SelectComponent
+        selectId={selectId}
+        value={value}
+        options={options}
+        onChange={onChange}
+        onBlur={onBlur}
+        label={label}
+        getOptionValue={getOptionValue}
+        getOptionLabel={getOptionLabel}
+        error={error}
+        helperText={helperText}
+      />
+
+      {helperText && (
+        <p
+          className="flex justify-start text-xs text-red-500 mt-1"
+          role="alert"
+        >
+          {helperText}
+        </p>
+      )}
+    </div>
+  );
+
   return variant === "compact" ? (
     <div className="w-fit">
-        <SelectComponent
-          selectId={selectId}
-          value={value}
-          options={options}
-          onChange={onChange}
-          onBlur={onBlur}
-          label={label}
-          getOptionValue={getOptionValue}
-          getOptionLabel={getOptionLabel}
-          error={error}
-          helperText={helperText}
-        />
+      <SelectComponent
+        selectId={selectId}
+        value={value}
+        options={options}
+        onChange={onChange}
+        onBlur={onBlur}
+        label={label}
+        getOptionValue={getOptionValue}
+        getOptionLabel={getOptionLabel}
+        error={error}
+        helperText={helperText}
+      />
 
-        {helperText && (
-          <p className="text-xs text-red-500 mt-1" role="alert">
-            {helperText}
-          </p>
-        )}
-      </div>
+      {helperText && (
+        <p className="text-xs text-red-500 mt-1" role="alert">
+          {helperText}
+        </p>
+      )}
+    </div>
+  ) : sm ? (
+    <div className="flex flex-col gap-2 w-full">
+      {LabelComponent}
+      {SelectContainer}
+    </div>
   ) : (
     <div className="grid grid-cols-12 gap-4 items-center my-2 w-full">
-      <label
-        htmlFor={selectId}
-        className="col-span-3 text-left text-sm font-medium"
-      >
-        {label}
-      </label>
-
-      <div className="col-span-9 w-full">
-        <SelectComponent
-          selectId={selectId}
-          value={value}
-          options={options}
-          onChange={onChange}
-          onBlur={onBlur}
-          label={label}
-          getOptionValue={getOptionValue}
-          getOptionLabel={getOptionLabel}
-          error={error}
-          helperText={helperText}
-        />
-
-        {helperText && (
-          <p className="flex justify-start text-xs text-red-500 mt-1" role="alert">
-            {helperText}
-          </p>
-        )}
-      </div>
+      <div className="col-span-3">{LabelComponent}</div>
+      <div className="col-span-9 w-full">{SelectContainer}</div>
     </div>
   );
 }
