@@ -65,7 +65,7 @@ services:
       dockerfile: Dockerfile.local
     container_name: todolist-fe-nextjs
     ports:
-      - 444:443
+      - 3001:3000
     depends_on:
       - todolist-be-csharp
     networks:

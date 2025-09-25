@@ -27,22 +27,6 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
 
-  // ──────────────────────────────────────────────────────────────
-  // 🔁 API proxy rewrites
-  // Redirects all `/api/*` requests to the backend running on HTTPS todolist-be-csharp:5000
-  // Helps avoid CORS issues and centralizes routing logic
-  async rewrites() {
-    return [
-      {
-        // Match any request starting with /api/
-        source: "/api/:path*",
-
-        // Redirect it to the backend running on HTTPS localhost port 5000
-        // This avoids CORS issues and lets Next.js handle the proxy server-side
-        destination: "https://localhost:5000/api/:path*",
-      },
-    ];
-  },
 };
 
 module.exports = nextConfig;

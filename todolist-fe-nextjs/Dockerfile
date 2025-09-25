@@ -1,48 +1,51 @@
 # ──────────────────────────────────────────────
 # Stage 1 — Build Next.js app
 # ──────────────────────────────────────────────
-FROM node:20-alpine AS builder
 
-WORKDIR /app
+# Lightweight Node.js base image for build stage
+FROM node:20-alpine AS builder  
 
-# Copy workspace-specific package.json and lockfile
-COPY ./package.json ./package.json
-COPY shared-resources/yarn.lock ./yarn.lock
+# Set working directory inside the container
+WORKDIR /app  
 
-# Install dependencies
-RUN yarn install --frozen-lockfile
+# Copy project manifest
+COPY ./package.json ./package.json  
 
-# Copy source files and shared resources
-COPY . .
-COPY shared-resources ./shared-resources
+# Use shared lockfile for consistent installs
+COPY shared-resources/yarn.lock ./yarn.lock  
 
-# Replace next.config.cjs with next.config.Production.cjs
-COPY ./next.config.Production.cjs ./next.config.cjs
+# Install dependencies without modifying lockfile
+RUN yarn install --frozen-lockfile  
 
-# Copy environment config
-COPY .env.production .env.local
+# Copy full project into container
+COPY . .  
 
-# Build the Next.js app
-RUN yarn build
+# Include shared code/assets
+COPY shared-resources ./shared-resources  
 
-# Build the Next.js app
-RUN yarn build && yarn export
+# Use production config
+COPY ./next.config.cjs ./next.config.cjs  
+
+# Set production environment variables
+COPY .env.production .env.local  
+
+RUN yarn build  # Compile the Next.js app
 
 # ──────────────────────────────────────────────
-# Stage 2 — Serve static files
+# Stage 2 — Run Next.js app
 # ──────────────────────────────────────────────
-FROM node:20-alpine
 
-WORKDIR /app
+# Clean runtime image
+FROM node:20-alpine  
 
-# Install static file server
-RUN yarn global add serve
+# Set working directory
+WORKDIR /app  
 
-# Copy exported static files
-COPY --from=builder /app/out ./out
+# Copy everything from build stage
+COPY --from=builder /app /app  
 
-# Expose frontend port
-EXPOSE 3000
+# Open port 3000 for incoming traffic
+EXPOSE 3000  
 
-# Serve static files
-CMD serve -s out -l 3000
+# Start Next.js server in production mode
+CMD yarn start  
