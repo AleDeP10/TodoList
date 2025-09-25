@@ -29,7 +29,8 @@ COPY ./next.config.cjs ./next.config.cjs
 # Set production environment variables
 COPY .env.production .env.local  
 
-RUN yarn build  # Compile the Next.js app
+# Compile the Next.js app
+RUN yarn build  
 
 # ──────────────────────────────────────────────
 # Stage 2 — Run Next.js app
