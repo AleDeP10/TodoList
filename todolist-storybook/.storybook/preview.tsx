@@ -7,7 +7,7 @@ const preview: Preview = {
       <UIKitProvider>
         <Story />
       </UIKitProvider>
-    )
+    ),
   ],
   parameters: {
     actions: { argTypesRegex: "^on[A-Z].*" },

@@ -3,7 +3,7 @@ import type { StorybookConfig } from "@storybook/react-webpack5";
 import type { TransformOptions } from "@babel/core";
 
 const storybookConf: StorybookConfig = {
-  stories: ["../src/**/*.stories.@(js|jsx|ts|tsx)"],
+  stories: ["../src/**/*.stories.@(js|jsx|ts|tsx)", "../src/stories/**/*.mdx"],
   addons: [
     "@storybook/addon-docs",
     "@storybook/addon-links",
