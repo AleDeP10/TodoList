@@ -1,4 +1,5 @@
 import type { Meta, StoryFn } from "@storybook/react";
+import { StoryObj } from "@storybook/nextjs-vite";
 import { getCSSVariable } from "../lib/utils/getCSSVariable";
 import { Icons } from "../lib/components/Icons";
 import { Button, ButtonProps } from "../lib/components/ui/Button";
@@ -21,35 +22,9 @@ const meta: Meta<ButtonProps> = {
     docs: {
       description: {
         component: `
-⚠️ Known issue: The 'MobileView' story renders correctly in the frontend and in the Storybook 'Example' view, but does not behave as expected in the Docs preview.
+⚠️ Note: On small screens, buttons automatically suppress the label, leaving it visible only to screen readers. This rule is bypassed for buttons without an icon, which would otherwise appear empty. The 'Disabled' story demonstrates this exception.
 
-Symptoms:
-- The responsive hook \`useResponsiveVisibility()\` detects a desktop viewport in Docs, even when the preview is resized
-- As a result, the button displays both icon and label, instead of icon-only
-- This breaks the intended mobile-only behavior
-
-Cause:
-- The Docs renderer uses a fixed iframe resolution that does not match the Storybook viewport settings
-- Responsive hooks relying on \`window.innerWidth\` or media queries may return inconsistent values
-
-✅ Behavior is correct in 'Example' and in the live application.
-
-✅ The story is valid and does not require changes.
-
-⚠️ Additional mobile issue: Buttons without an icon may appear visually empty on mobile devices.
-
-Symptoms:
-- When rendered on small screens, buttons that lack an icon may collapse to zero width or height
-- This results in invisible or non-interactive buttons, especially when label visibility is suppressed by responsive rules
-
-Example:
-- The 'Disabled' story intentionally omits the icon to showcase this issue
-
-Cause:
-- The frontend applies mobile-specific styles that hide the label and rely on the icon for visual presence
-- Without an icon, the button has no visible content and may be skipped by layout engines or accessibility tools
-
-✅ Frontend convention: All buttons must include an icon to ensure consistent rendering across viewports.
+✅ Convention: All buttons in the frontend include an icon to ensure consistent rendering across viewports.
 `,
       },
     },
@@ -61,6 +36,8 @@ Cause:
 };
 
 export default meta;
+
+type Story = StoryObj<typeof meta>;
 
 export const Confirm: StoryFn<ButtonProps> = () => (
   <InteractionSandbox>
@@ -142,9 +119,8 @@ export const CustomColors: StoryFn<ButtonProps> = () => (
   </InteractionSandbox>
 );
 
-
-export const MobileView: StoryFn = () => {
-  return (
+export const MobileView: Story = {
+  render: () => (
     <InteractionSandbox>
       {(appendText) => (
         <Button
@@ -155,12 +131,25 @@ export const MobileView: StoryFn = () => {
         />
       )}
     </InteractionSandbox>
-  );
-};
+  ),
+  parameters: {
+    viewport: {
+      defaultViewport: "mobile1",
+    },
+    docs: {
+      description: {
+        story: `
+⚠️ Known issue: The story does not render correctly in the Docs preview: the button displays both icon and label, instead of icon-only.
 
-MobileView.parameters = {
-  viewport: {
-    defaultViewport: "mobile1",
+Cause:
+- The Docs renderer uses a fixed iframe resolution that doesn't match the Storybook viewport settings
+- Responsive hook relying on \`window.innerWidth\` returns then inconsistent values
+
+✅ Behavior is correct in 'Example' and in the live application.
+
+`,
+      },
+    },
   },
 };
 

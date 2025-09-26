@@ -128,7 +128,7 @@ export const Button = ({
         )}
         {hasLabel && (
           <span
-            className={`${sm ? "sr-only" : ""} leading-none align-middle`}
+            className={`${sm && icon ? "sr-only" : ""} leading-none align-middle`}
           >
             {label}
           </span>

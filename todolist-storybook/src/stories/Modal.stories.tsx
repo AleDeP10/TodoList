@@ -24,6 +24,7 @@ Symptoms:
 This is a limitation of the Docs renderer and does not affect production usage.
 
 ✅ Layout and behavior are correct in 'Example' and in the live application.
+
 ✅ To mitigate this in Storybook, the Modal component supports a 'disableAnimation' prop to bypass AnimatePresence when needed.
 `,
       },

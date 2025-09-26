@@ -139,10 +139,22 @@ export const MobileView: Story = {
       }}
     </InteractionSandbox>
   ),
-};
+  parameters: {
+    viewport: {
+      defaultViewport: "mobile1",
+    },
+    docs: {
+      description: {
+        story: `
+⚠️ Known issue: The 'MobileView' story does not render correctly in the Docs preview: the Label remains positioned to the left of the TextField, instead of stacking vertically.
 
-MobileView.parameters = {
-  viewport: {
-    defaultViewport: "mobile1",
+Cause:
+- The Docs renderer uses a fixed iframe resolution that doesn't match the Storybook viewport settings
+- Responsive hook relying on \`window.innerWidth\` returns then inconsistent values
+
+✅ Behavior is correct in 'Example' and in the live application.
+      `,
+      },
+    },
   },
 };
