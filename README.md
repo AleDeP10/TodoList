@@ -47,7 +47,7 @@ A modular task management system built with a C# backend and two distinct fronte
 | Next.js FE   | Next.js 14, TailwindCSS, Redux Toolkit  |
 | UI Testing   | Storybook 7                             |
 | Styling      | SCSS (AngularJS), TailwindCSS (Next.js) |
-| Container    | Docker, NGINX                           |
+| Container    | Docker, NGINX, Express                  |
 
 ## 🐳 Docker Execution
 

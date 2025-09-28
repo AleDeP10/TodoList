@@ -20,12 +20,13 @@
     "lint": "eslint . --ext .ts,.tsx,.js,.cjs --ignore-pattern storybook-static/",
     "prebuild": "node shared-resources/postcss-cli/index.js ./src/styles/tailwind.input.css -o public/styles/globals.css",
     "build-storybook": "node shared-resources/@storybook/cli/bin/index.js build",
-    "storybook": "node shared-resources/serve/build/main.js storybook-static -l 6006",
+    "storybook": "cross-env STORYBOOK_ENV=local node server.cjs",
     "validate-storybook": "node ../dist/scripts/validateStorybook.js"
   },
   "dependencies": {
     "@storybook/nextjs-vite": "^9.0.0",
     "@storybook/react-webpack5": "7.6.0",
+    "express": "^5.1.0",
     "framer-motion": "12.23.6",
     "lucide-react": "^0.544.0",
     "react": "18.2.0",

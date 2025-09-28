@@ -1,35 +1,35 @@
-# ─────────────────────────────────────────────────────────────────────────────
-# Dockerfile — Single-stage for Render deployment
-# ─────────────────────────────────────────────────────────────────────────────
+# ───────────────────────────────────────────────────
+# Dockerfile — Build and Serve Storybook in one stage
+# ───────────────────────────────────────────────────
 
 FROM node:20-alpine
 
-# Set working directory
 WORKDIR /app
 
-# Copy Yarn shim and write .yarnrc to enforce Yarn v1.22.19
+# Enforce Yarn v1.22.19 via shim
 COPY shared-resources/scripts/shims/yarn-1.22.19.cjs ./yarn.cjs
 RUN echo 'yarn-path "./yarn.cjs"' > .yarnrc
 
-# Copy workspace-specific package manifest and lockfile
+# Install dependencies
 COPY package.json ./package.json
 COPY shared-resources/yarn.lock ./yarn.lock
-
-# Install dependencies using the shimmed Yarn
 RUN yarn install --frozen-lockfile
 
-# Copy source files and shared resources
+# Copy source and shared resources
 COPY . .
 COPY shared-resources ./shared-resources
-
-# Copy public/ directory for Storybook staticDirs
-COPY public ./public
 
 # Build Storybook static output
 RUN yarn run build-storybook
 
+# Copy custom server
+COPY server.cjs ./
+
 # Expose Storybook port
 EXPOSE 6006
 
-# Start Storybook using custom Node server
-CMD ["node", "server.js"]
+# Set environment for production mode
+ENV STORYBOOK_ENV=production
+
+# Start Storybook server
+CMD ["node", "server.cjs"]

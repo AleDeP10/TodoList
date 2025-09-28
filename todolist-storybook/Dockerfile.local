@@ -49,10 +49,13 @@ COPY shared-resources/yarn.lock ./yarn.lock
 RUN yarn install --frozen-lockfile
 
 # Copy custom server script
-COPY server.js ./
+COPY server.cjs ./
 
 # Expose Storybook port
 EXPOSE 6006
 
+# Set environment variable to activate Docker mode
+ENV STORYBOOK_ENV=docker
+
 # Start Storybook using custom Node server
-CMD ["node", "server.js"]
+CMD ["node", "server.cjs"]

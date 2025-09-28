@@ -2,8 +2,6 @@
 
 A fully dockerized Storybook environment for showcasing and testing UI components from the todolist-ui-kit library. This project is used to validate visual consistency, behavior, and accessibility of shared components before integration into frontend applications.
 
-⚠️ **Warning**: Refreshing the browser with F5 won't work due to a `serve`-related limitation. After running yarn run storybook, wait for the terminal confirmation and manually paste http://localhost:6006 (automatically copied into clipboard) into your browser. Once Storybook loads, reselect the desired story from the sidebar.
-
 ## 🌐 Live Version
 
 The project is available on Render at: 👉 https://todolist-storybook.onrender.com
@@ -38,6 +36,7 @@ THEMING: ThemeSwitcher
 | Storybook  | Storybook 7.6.0        |
 | Language   | TypeScript 5.5.2       |
 | Tooling    | ESLint 9, PostCSS      |
+| Server     | Express                |
 | Build Tool | yarn 1.22.19 (shimmed) |
 | Container  | Docker                 |
 

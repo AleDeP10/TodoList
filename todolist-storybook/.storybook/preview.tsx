@@ -29,6 +29,19 @@ const preview: Preview = {
         unsafeTocbotOptions: { orderedList: false },
       },
     },
+    options: {
+      storySort: {
+        order: [
+          "ACCESS",
+          "CONTROLS",
+          "LAYOUT",
+          "FEEDBACK",
+          "INTERNATIONALIZATION",
+          "THEMING",
+        ],
+        method: "alphabetical",
+      },
+    },
   },
 };
 
