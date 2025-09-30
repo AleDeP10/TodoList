@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { UserDto } from "@/lib/types/dto/UserDto";
 import { UserStatus } from "@/lib/types/Status";
+import { TaskDto } from "@/lib/types/dto/TaskDto";
+import { UserDto } from "@/lib/types/dto/UserDto";
 import { useTranslation } from "@/lib/hooks/useTranslation";
 import { useIsUsernameUnique } from "@/hooks/useUsers";
 import { useFieldValidation } from "@/lib/hooks/useFieldValidation";
@@ -29,26 +30,49 @@ export default function UserModal({ currentUser, onClose, onSubmit }: Props) {
     password: currentUser?.password ?? "",
     isAdmin: currentUser?.isAdmin ?? false,
     status: currentUser?.status ?? "ACTIVE",
+    tasks: currentUser?.tasks ?? [],
   });
 
   const checkUsernameUnique = useIsUsernameUnique();
 
-  const { isFormValid, markTouched, hasError, getHelperText } =
-    useFieldValidation(
-      {
-        fullName: formState.fullName,
-        username: formState.username,
-        password: formState.password,
+  const inProgress = () => {
+    return formState.tasks.filter((task) => task.status === "IN PROGRESS")
+      .length;
+  };
+
+  const { isFormValid, markTouched, hasError, getHelper } = useFieldValidation(
+    {
+      fullName: formState.fullName,
+      username: formState.username,
+      password: formState.password,
+      status: formState.status,
+    },
+    ["fullName", "username", "password"],
+    {
+      username: {
+        displayRule: (username) =>
+          username.trim() !== "" &&
+          !checkUsernameUnique(username, formState.id),
+        helper: { type: "error", text: t("user.username.duplicate") },
       },
-      ["fullName", "username", "password"],
-      {
-        username: {
-          validate: (val) =>
-            val.trim() !== "" && checkUsernameUnique(val, formState.id),
-          helperText: t("user.username.duplicate"),
+      status: {
+        displayRule: (status) => status === "BLOCKED" && inProgress() > 0,
+        helper: {
+          type: "warning",
+          text: t("user.status.blocked", { inProgress: inProgress() }),
         },
-      }
-    );
+      },
+    }
+  );
+
+  if (process.env.NEXT_PUBLIC_ENV !== "production") {
+    console.log("UserModal", {
+      formState,
+      inProgress: formState.tasks.filter(
+        (task: TaskDto) => task.status === "IN PROGRESS"
+      ),
+    });
+  }
 
   return (
     <Modal
@@ -66,7 +90,7 @@ export default function UserModal({ currentUser, onClose, onSubmit }: Props) {
           icon: Icons.save,
           variant: "primary" as ButtonVariant,
           onClick: () => {
-            ["fullName", "username", "password"].forEach(markTouched);
+            ["fullName", "username", "password", "status"].forEach(markTouched);
             if (isFormValid) {
               onSubmit(formState);
             }
@@ -88,7 +112,7 @@ export default function UserModal({ currentUser, onClose, onSubmit }: Props) {
           }
           onBlur={() => markTouched("fullName")}
           error={hasError("fullName")}
-          helperText={getHelperText("fullName")}
+          helper={getHelper("fullName")}
           placeholder={t("user.fullName.placeholder")}
         />
 
@@ -104,7 +128,7 @@ export default function UserModal({ currentUser, onClose, onSubmit }: Props) {
           }
           onBlur={() => markTouched("username")}
           error={hasError("username")}
-          helperText={getHelperText("username")}
+          helper={getHelper("username")}
           placeholder={t("user.username.placeholder")}
         />
 
@@ -121,7 +145,7 @@ export default function UserModal({ currentUser, onClose, onSubmit }: Props) {
           }
           onBlur={() => markTouched("password")}
           error={hasError("password")}
-          helperText={getHelperText("password")}
+          helper={getHelper("password")}
           placeholder={t("user.password.placeholder")}
         />
 
@@ -141,14 +165,18 @@ export default function UserModal({ currentUser, onClose, onSubmit }: Props) {
         {/* Status */}
         <Dropdown<UserStatus>
           label={t("user.status")}
-          onChange={(selectedValue) =>
+          onChange={(selectedValue) => {
             setFormState((u: UserDto) => ({
               ...u,
               status: selectedValue!,
-            }))
-          }
+            }));
+            markTouched("status");
+          }}
+          onBlur={() => markTouched("status")}
           value={formState.status}
           options={["ACTIVE", "BLOCKED"]}
+          error={hasError("status")}
+          helper={getHelper("status")}
         />
       </div>
     </Modal>

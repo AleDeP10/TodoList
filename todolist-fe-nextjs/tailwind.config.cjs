@@ -19,6 +19,13 @@ module.exports = {
     "gap-3",
     "gap-x-2",
 
+    // Grid
+    "grid",
+    "grid-cols-12",
+    "col-span-3",
+    "col-span-9",
+    "col-start-4",
+
     // Spacing
     "p-1",
     "p-2",
@@ -81,6 +88,7 @@ module.exports = {
     "text-[var(--navbar-fg)]",
     "text-white",
     "text-red-500",
+    "text-orange-500",
     "text-yellow-400",
     "!text-black",
 

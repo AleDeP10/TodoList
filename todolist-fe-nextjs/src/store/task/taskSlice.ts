@@ -8,6 +8,7 @@ const initialState = {
     statusMap: {
       TODO: true,
       "IN PROGRESS": true,
+      PAUSED: true,
       DONE: false,
     },
   } as TaskFilters,

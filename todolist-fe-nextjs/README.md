@@ -8,12 +8,17 @@ The project is available on Render at: 👉 https://todolist-fe-nextjs.onrender.
 
 ## 🧩 Features
 
-    • 🌍 Language toggle (IT / EN)
-    • 🎨 Theme switcher (light / dark / custom)
-    • 📁 Navigation with dropdowns for Features and About
-    • 👥 User management with filtering, validation, and confirmation modals
-    • ✅ Task management adds status progression and assignments
-    • 🔔 Toast notifications and loading spinner for visual feedback
+- 🌍 Language toggle (IT / EN)
+- 🎨 Theme switcher (light / dark / custom)
+- 📁 Navigation with dropdowns for Features and About
+- 👥 User management with filtering, validation, and confirmation modals
+- ✅ Task management adds status progression and assignments
+- 🔔 Toast notifications and loading spinner for visual feedback
+- ⏸️ Task status management:
+  - Supports four states: TODO, IN PROGRESS, PAUSED, DONE
+  - Automatic transition to PAUSED when assignee becomes BLOCKED
+  - Manual override available via modal
+  - Validation prevents IN PROGRESS if assignee is BLOCKED
 
 ## 🛠 Tech Stack
 
@@ -35,10 +40,10 @@ The project is available on Render at: 👉 https://todolist-fe-nextjs.onrender.
 
 ## 🧪 Compatibility
 
-    • Node.js ≥ 20.x
-    • Yarn 1.22.19 (shimmed)
-    • TypeScript 5.5
-    • React 18.2
+    - Node.js ≥ 20.x
+    - Yarn 1.22.19 (shimmed)
+    - TypeScript 5.5
+    - React 18.2
 
 ⚠️ In order to grant the compatibility with Storybook and maintain consistency across the workspace, this project uses a local Yarn 1.x shim. Execution is blocked if Yarn is not resolved via the shim, and Yarn 2+ (Berry) is explicitly unsupported.
 
@@ -79,8 +84,8 @@ Then access the app at: 📍 http://localhost:3001
 
 #### Prerequisites
 
-    • Node.js ≥ 20.x
-    • Yarn 1.22.19 (shimmed)
+    - Node.js ≥ 20.x
+    - Yarn 1.22.19 (shimmed)
 
 #### Launch
 
@@ -99,11 +104,11 @@ Access the app at: 📍 http://localhost:3000
 
 ## 🧾 General Notes
 
-    • `.env.local` defines `NEXT_PUBLIC_API_URL=/api` for secure backend proxying
-    • `nginx.conf` handles local routing and HTTPS via custom certificates
-    • Dockerfile uses multi-stage build with Node and NGINX to serve static output
-    • Yarn 1.22.19 shim is enforced for compatibility with Storybook and shared tooling
-    • Project tested on Windows 10 with Node.js ≥ 20.x
+    - `.env.local` defines `NEXT_PUBLIC_API_URL=/api` for secure backend proxying
+    - `nginx.conf` handles local routing and HTTPS via custom certificates
+    - Dockerfile uses multi-stage build with Node and NGINX to serve static output
+    - Yarn 1.22.19 shim is enforced for compatibility with Storybook and shared tooling
+    - Project tested on Windows 10 with Node.js ≥ 20.x
 
 ## 📁 Project Structure
 

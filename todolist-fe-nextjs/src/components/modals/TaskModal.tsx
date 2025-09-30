@@ -2,15 +2,16 @@
 
 import { useMemo, useState } from "react";
 import { TaskStatus } from "@/lib/types/Status";
+import { Helper } from "@/lib/types/Validation";
 import { TaskDto } from "@/lib/types/dto/TaskDto";
 import { UserDto } from "@/lib/types/dto/UserDto";
 import { useTranslation } from "@/lib/hooks/useTranslation";
 import { useFieldValidation } from "@/lib/hooks/useFieldValidation";
 import { Icons } from "@/lib/components/Icons";
-import Modal from "@/lib/components/ui/Modal";
 import { ButtonVariant } from "@/lib/components/ui/Button";
-import TextField from "@/lib/components/ui/TextField";
 import Dropdown from "@/lib/components/ui/Dropdown";
+import Modal from "@/lib/components/ui/Modal";
+import TextField from "@/lib/components/ui/TextField";
 import { useUserList } from "@/hooks/useUsers";
 
 interface Props {
@@ -27,6 +28,7 @@ export default function TaskModal({ currentTask, onClose, onSubmit }: Props) {
     description: currentTask?.description ?? "",
     assigneeId: currentTask?.assigneeId ?? undefined,
     status: currentTask?.status ?? "TODO",
+    assignee: currentTask?.assignee ?? null,
   });
 
   const noAssigneeLabel = t("task.noAssignee");
@@ -39,6 +41,7 @@ export default function TaskModal({ currentTask, onClose, onSubmit }: Props) {
       password: "",
       isAdmin: false,
       status: "ACTIVE",
+      tasks: [],
     }),
     [noAssigneeLabel]
   );
@@ -52,25 +55,104 @@ export default function TaskModal({ currentTask, onClose, onSubmit }: Props) {
   const selectedUser =
     users.find((u) => u.id === formState.assigneeId) ?? dummyUser;
 
-  const { isFormValid, markTouched, hasError, getHelperText } =
-    useFieldValidation(
-      {
-        description: formState.description,
-        assigneeId: String(formState.assigneeId ?? ""),
-        status: formState.status,
-      },
-      ["description"],
-      {
-        status: {
-          validate: (status) => {
-            const normalized = status.trim().toUpperCase();
-            if (normalized === "TODO") return true;
-            return !!formState.assigneeId;
-          },
-          helperText: t("task.status.requiresAssignee"),
+  const evalStatusHelper = (): Helper | null => {
+    const normalized = formState.status.trim().toUpperCase();
+    const hasAssignee = !!formState.assigneeId;
+    const isBlocked = formState.assignee?.status === "BLOCKED";
+
+    if (process.env.NEXT_PUBLIC_ENV !== "production") {
+      console.log("TaskModal.evalHelper", {
+        normalized,
+        assignee: formState.assignee,
+        isBlocked,
+        errorBlockedAssignee: normalized === "IN PROGRESS" && isBlocked,
+        warningRequiresAssignee:
+          ["DONE", "IN PROGRESS"].includes(normalized) && !hasAssignee,
+      });
+    }
+
+    if (normalized === "IN PROGRESS" && isBlocked) {
+      return { type: "error", text: t("task.status.blockedAssignee") };
+    }
+    if (["DONE", "IN PROGRESS"].includes(normalized) && !hasAssignee) {
+      return { type: "error", text: t("task.status.requiresAssignee") };
+    }
+    return null;
+  };
+
+  const { isFormValid, markTouched, hasError, getHelper } = useFieldValidation(
+    {
+      description: formState.description,
+      assignee: String(formState.assigneeId ?? ""),
+      status: formState.status,
+    },
+    ["description"],
+    {
+      assignee: {
+        displayRule: (assigneeId) => {
+          const hasAssignee = !!assigneeId;
+          const isBlocked = formState.assignee?.status === "BLOCKED";
+
+          if (process.env.NEXT_PUBLIC_ENV !== "production") {
+            console.log("assignee.displayRule", {
+              assigneeId,
+              assignee: formState.assignee,
+              hasAssignee,
+              isBlocked,
+              showForInProgress: !hasAssignee || isBlocked,
+              showForDone: !hasAssignee,
+            });
+          }
+
+          switch (formState.status) {
+            case "IN PROGRESS": {
+              return !hasAssignee || isBlocked;
+            }
+            case "DONE": {
+              return !hasAssignee;
+            }
+          }
+          return false;
         },
-      }
-    );
+        helper: { type: "error", text: "" },
+      },
+      status: {
+        displayRule: (status) => {
+          const normalized = status.trim().toUpperCase();
+          const hasAssignee = !!formState.assigneeId;
+          const isBlocked = formState.assignee?.status === "BLOCKED";
+
+          if (process.env.NEXT_PUBLIC_ENV !== "production") {
+            console.log("status.displayRule", {
+              normalized,
+              assigneeId: formState.assigneeId,
+              assignee: formState.assignee,
+              hasAssignee,
+              isBlocked,
+              showForInProgress: !hasAssignee || isBlocked,
+              showForDone: !hasAssignee,
+            });
+          }
+
+          switch (normalized) {
+            case "IN PROGRESS":
+              return !hasAssignee || isBlocked;
+            case "DONE":
+              return !hasAssignee;
+            default:
+              return false;
+          }
+        },
+        helper: (() => {
+          const helper = evalStatusHelper();
+          if (process.env.NEXT_PUBLIC_ENV !== "production") {
+            console.log("status.helper", { helper });
+          }
+          return helper;
+        })(),
+      },
+    }
+  );
 
   return (
     <Modal
@@ -110,14 +192,17 @@ export default function TaskModal({ currentTask, onClose, onSubmit }: Props) {
           }
           onBlur={() => markTouched("description")}
           error={hasError("description")}
-          helperText={getHelperText("description")}
+          helper={getHelper("description")}
           placeholder={t("task.description.placeholder")}
         />
 
         {/* Assignee */}
         <Dropdown<UserDto>
           value={selectedUser}
-          options={users.filter((user: UserDto) => user.status==="ACTIVE")}
+          options={users.filter(
+            (user: UserDto) =>
+              user.status === "ACTIVE" || user.id === currentTask?.assigneeId
+          )}
           getOptionValue={(user) => String(user.id)}
           getOptionLabel={(user) => user.fullName}
           label={t("task.assignee")}
@@ -125,17 +210,18 @@ export default function TaskModal({ currentTask, onClose, onSubmit }: Props) {
             setFormState((prev) => ({
               ...prev,
               assigneeId: user.id,
+              assignee: user,
             }));
-            markTouched("status");
+            markTouched("assignee");
           }}
-          onBlur={() => markTouched("status")}
-          error={hasError("status")}
+          onBlur={() => markTouched("assignee")}
+          error={hasError("assignee")}
         />
 
         {/* Status */}
         <Dropdown<TaskStatus>
           value={formState.status}
-          options={["TODO", "IN PROGRESS", "DONE"]}
+          options={["TODO", "IN PROGRESS", "PAUSED", "DONE"]}
           label={t("task.status")}
           onChange={(status) => {
             setFormState((prev) => ({
@@ -146,7 +232,7 @@ export default function TaskModal({ currentTask, onClose, onSubmit }: Props) {
           }}
           onBlur={() => markTouched("status")}
           error={hasError("status")}
-          helperText={getHelperText("status")}
+          helper={getHelper("status")}
         />
       </div>
     </Modal>

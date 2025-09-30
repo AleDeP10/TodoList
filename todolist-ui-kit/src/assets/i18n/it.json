@@ -9,7 +9,7 @@
   "button.cancel": "Annulla",
   "button.confirm": "Conferma",
 
-  "dropdown.label": "Scegli un'opzione",
+  "dropdown.label": "Scegli un’opzione",
 
   "mandatory.field": "Questo campo è obbligatorio",
 
@@ -27,6 +27,7 @@
   "user.password": "Password",
   "user.fullName": "Nome completo",
   "user.status": "Stato",
+  "user.status.blocked": "Tutti i task IN PROGRESS associati verranno automaticamente impostati su PAUSED (rilevati {{inProgress}})",
   "user.isAdmin": "Amministratore",
   "user.role": "Ruolo",
   "user.role.admin": "Amministratore",
@@ -52,13 +53,15 @@
   "task.allAssignees": "-- Tutti --",
   "task.nextStatus": "Passa allo stato successivo",
   "task.nextStatus.disabled": "Assegna per passare allo stato successivo",
+  "task.nextStatus.blockedUser": "Riassegna o sblocca l’utente per procedere",
   "task.nextStatus.success": "Task passato allo stato {{status}}",
   "task.filter.title": "Filtra task",
   "task.create.title": "Crea task",
   "task.edit.title": "Modifica task",
   "task.delete.confirmTitle": "Conferma eliminazione",
-  "task.delete.confirmBody": "Sei sicuro di voler eliminare {{description}}? Questa operazione è irreversibile.",
-  "task.status.requiresAssignee": "Per avanzare lo stato, il task deve essere assegnato",
+  "task.delete.confirmBody": "Sei sicuro di voler eliminare ’{{description}}’? Questa operazione è irreversibile.",
+  "task.status.requiresAssignee": "Lo stato selezionato necessita di un assegnatario",
+  "task.status.blockedAssignee": "Impossibile impostare lo stato a IN PROGRESS se l’utente è bloccato",
   "task.description.placeholder": "Descrivi il task",
 
   "menu.section.functionalities": "Funzionalità",

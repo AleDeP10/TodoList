@@ -116,6 +116,7 @@ Open Storybook at: 📍 http://localhost:6006
 └── package.json
 └── postcss.config.cjs
 ├── public
+│   └── index.html
 │   ├── styles
 │   │   └── globals.css
 │   │   ├── themes
@@ -123,7 +124,7 @@ Open Storybook at: 📍 http://localhost:6006
 │   │   │   └── dark-theme.css
 │   │   │   └── light-theme.css
 └── README.md
-└── server.js
+└── server.cjs
 ├── src
 │   ├── providers
 │   │   └── UIKitProvider.tsx
@@ -133,6 +134,7 @@ Open Storybook at: 📍 http://localhost:6006
 │   │   └── FormValidation.stories.tsx
 │   │   └── IconButton.stories.tsx
 │   │   └── InteractionSandbox.tsx
+│   │   └── Introduction.stories.tsx
 │   │   └── LangSwitcher.stories.tsx
 │   │   └── LoadingSpinner.stories.tsx
 │   │   └── MenuGroup.stories.tsx
@@ -152,7 +154,7 @@ Open Storybook at: 📍 http://localhost:6006
 
 📊 Tree Summary
 📁 Folders: 10
-📄 Files: 38
+📄 Files: 40
 ```
 
 ## 🔗 Related Documentation

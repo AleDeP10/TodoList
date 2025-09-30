@@ -14,12 +14,14 @@
 
   --task-todo-bg-rgba: rgba(247, 185, 85, 0.3);
   --task-in-progress-bg-rgba: rgba(63, 146, 201, 0.3);
+  --task-paused-bg-rgba: rgba(255, 229, 100, 0.2);
   --task-done-bg-rgba: rgba(39, 183, 44, 0.3);
   --user-active-rgba: rgba(118, 181, 234, 0.3);
   --user-blocked-rgba: rgba(217, 118, 118, 0.3);
 
   --task-todo-border: #f7b955;
   --task-in-progress-border: #3f92c9;
+  --task-paused-border: #ffd700;
   --task-done-border: #27b72c;
   --user-active: #76b5ea;
   --user-blocked: #d97676;
@@ -33,6 +35,11 @@
 .task--in-progress {
   background-color: var(--task-in-progress-bg-rgba);
   border-left: 4px solid var(--task-in-progress-border);
+}
+
+.task--paused {
+  background-color: var(--task-paused-bg-rgba);
+  border-left: 4px solid var(--task-paused-border);
 }
 
 .task--done {

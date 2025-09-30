@@ -35,16 +35,18 @@
 
 import { useCallback } from "react";
 import { useSelector } from "react-redux";
+import { TaskDto } from "@/lib/types/dto/TaskDto";
+import type { UserDto } from "@/lib/types/dto/UserDto";
+import { fetchUsers, createUser, updateUser, deleteUser } from "@/api/users";
+import { getUserFilters } from "@/store/user/getUserFilters";
+import { UserFilters } from "@/lib/types/filters/UserFilters";
 import {
   useDeleteEntity,
   useEntities,
   useFilteredEntities,
   useSaveEntity,
 } from "./useEntities";
-import type { UserDto } from "@/lib/types/dto/UserDto";
-import { fetchUsers, createUser, updateUser, deleteUser } from "@/api/users";
-import { getUserFilters } from "@/store/user/getUserFilters";
-import { UserFilters } from "@/lib/types/filters/UserFilters";
+import { useTasks } from "./useTasks";
 
 /**
  * Applies user filters for fullName, username and status.
@@ -76,12 +78,36 @@ export const useUsers = () =>
   useEntities<UserDto>("user", fetchUsers, ["users"]);
 
 /**
+ * Hook to fetch all users and enrich them with their associated tasks.
+ *
+ * Each user is extended with a `tasks` property containing all tasks
+ * where the user's ID matches the task's `assigneeId`.
+ *
+ * This hook relies on `useUsers` and `useTasks`, and merges their data
+ * to provide a complete view of user-task relationships.
+ */
+export const useEnrichedUsers = () => {
+  const { data: users = [], ...userQuery } = useUsers();
+  const { data: tasks = [] } = useTasks();
+
+  const enrichedUsers = users.map((user) => ({
+    ...user,
+    tasks: tasks.filter((task: TaskDto) => task.assigneeId === user.id),
+  }));
+
+  return {
+    data: enrichedUsers,
+    ...userQuery,
+  };
+};
+
+/**
  * Hook to fetch and filter users based on current Redux filters.
  */
 export const useFilteredUsers = () => {
   const filters = useSelector(getUserFilters);
   return useFilteredEntities<UserDto, UserFilters>(
-    useUsers,
+    useEnrichedUsers,
     filters,
     evalFilter
   );

@@ -27,6 +27,8 @@
   "user.password": "Password",
   "user.fullName": "Full name",
   "user.status": "Status",
+  "user.status.blocked": "All associated IN PROGRESS tasks will be automatically set to PAUSED ({{inProgress}} detected)",
+
   "user.isAdmin": "Administrator",
   "user.role": "Role",
   "user.role.admin": "Administrator",
@@ -51,6 +53,7 @@
   "task.allAssignees": "-- All --",
   "task.nextStatus": "Move to next status",
   "task.nextStatus.disabled": "Assign someone to move to the next status",
+  "task.nextStatus.blockedUser": "Reassign or unblock the user to proceed",
   "task.nextStatus.success": "Task moved to {{status}} status",
   "task.filter.title": "Filter tasks",
   "task.create.title": "Create task",
@@ -58,6 +61,7 @@
   "task.delete.confirmTitle": "Confirm deletion",
   "task.delete.confirmBody": "Are you sure you want to delete \"{{description}}\"? This action cannot be undone.",
   "task.status.requiresAssignee": "To change status, the task must be assigned",
+  "task.status.blockedAssignee": "Unable to set status to IN PROGRESS while the assignee is blocked",
   "task.description.placeholder": "Describe the task",
 
   "menu.section.functionalities": "Features",
@@ -68,7 +72,7 @@
   "menu.about.portfolio": "Portfolio",
 
   "author.title": "Alessandro De Prato",
-  "author.line1": "I'm a curious and versatile fullstack developer, constantly exploring innovative technologies. I love to learn independently, experimenting with new solutions by building complete and polished projects where every detail matters.",
+  "author.line1": "I’m a curious and versatile fullstack developer, constantly exploring innovative technologies. I love to learn independently, experimenting with new solutions by building complete and polished projects where every detail matters.",
   "author.line2": "I enjoy crafting interfaces that are user-centered, supported by solid architecture and thoughtful design. Behind every feature lies a drive to combine performance, clean code, and modularity. I believe in continuous refactoring and scalability as engines of innovation — it’s not just about making things work, but about making them work well, today and tomorrow.",
   "author.line3": "With this project, I wanted to prove that even a ToDo app can have soul: precision in every detail, thoughtful choices, and a touch of character."
 }

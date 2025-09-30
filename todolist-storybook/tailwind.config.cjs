@@ -23,6 +23,13 @@ module.exports = {
     "gap-3",
     "gap-x-2",
 
+    // Grid
+    "grid",
+    "grid-cols-12",
+    "col-span-3",
+    "col-span-9",
+    "col-start-4",
+
     // Spacing
     "p-1",
     "p-2",
@@ -83,10 +90,11 @@ module.exports = {
     "text-[var(--fg)]",
     "text-[var(--menu-fg)]",
     "text-[var(--navbar-fg)]",
-    "text-white",
+    "text-black",
+    "text-orange-500",
     "text-red-500",
+    "text-white",
     "text-yellow-400",
-    "!text-black",
 
     // Effects & Transitions
     "transition",

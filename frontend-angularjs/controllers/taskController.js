@@ -41,10 +41,17 @@ window.registerTaskController = function (app) {
           localStorage.getItem("showFilterPanel") === "true";
         TaskService.getAll()
           .then((response) => {
-            $scope.setTasks(response.data); // Always update Redux
+            const data = [];
+            response.data.forEach((task) => {
+              data.push({
+                ...task,
+                status: task.status === "PAUSED" ? "IN PROGRESS" : task.status,
+              });
+            });
+            $scope.setTasks(data); // Always update Redux
 
             if ($scope.filterMode === "api") {
-              $scope.tasks = response.data; // also populate local variable
+              $scope.tasks = data; // also populate local variable
             }
             $scope.isLoading = false; // Hide the spinner when data is loaded
           })
@@ -98,7 +105,14 @@ window.registerTaskController = function (app) {
           $scope.apiFilters.stateFilter = selectedStatuses;
 
           TaskService.filter($scope.apiFilters).then((res) => {
-            $scope.tasks = res.data;
+            const data = [];
+            response.data.forEach((task) => {
+              data.push({
+                ...task,
+                status: task.status === "PAUSED" ? "IN PROGRESS" : task.status,
+              });
+            });
+            $scope.tasks = data;
           });
         } else {
           // Client-side mode: update local filters

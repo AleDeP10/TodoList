@@ -23,7 +23,7 @@
  * - `evalFilter`: applies compound logic for filtering tasks based on multiple fields,
  *   including fuzzy match on description, assignation and conditional status mapping
  * - `useNextStatus`: encapsulates status progression logic (`TODO → IN PROGRESS → DONE`)
- *   and provides user feedback via toast notifications
+ *   and provides user feedback via toast notifications. PAUSED items become IN PROGRESS.
  *
  * 📦 Usage:
  * ```tsx
@@ -48,6 +48,7 @@ import {
   useDeleteEntity,
   useFilteredEntities,
 } from "@/hooks/useEntities";
+import { useUsers } from "./useUsers";
 
 /**
  * Applies task filters for description, assignee and status.
@@ -82,12 +83,37 @@ export const useTasks = () =>
   useEntities<TaskDto>("task", fetchTasks, ["tasks"]);
 
 /**
+ * Hook to fetch all tasks and enrich them with their assigned user.
+ *
+ * Each task is extended with an `assignee` property containing the full
+ * `UserDto` object whose ID matches the task's `assigneeId`.
+ * If no matching user is found, `assignee` is set to `null`.
+ *
+ * This hook relies on `useEntities("task")` and `useUsers`, and merges
+ * their data to provide a complete view of task ownership.
+ */
+export const useEnrichedTasks = () => {
+  const { data: tasks = [], ...taskQuery } = useEntities<TaskDto>("task", fetchTasks, ["tasks"]);
+  const { data: users = [] } = useUsers();
+
+  const enrichedTasks = tasks.map((task) => ({
+    ...task,
+    assignee: users.find((u) => u.id === task.assigneeId) ?? null,
+  }));
+
+  return {
+    data: enrichedTasks,
+    ...taskQuery,
+  };
+}
+
+/**
  * Hook to fetch and filter tasks based on current Redux filters.
  */
 export const useFilteredTasks = () => {
   const filters = useSelector(getTaskFilters);
   return useFilteredEntities<TaskDto, TaskFilters>(
-    useTasks,
+    useEnrichedTasks,
     filters,
     evalFilter
   );
@@ -114,7 +140,7 @@ export const useNextStatus = () => {
   const t = useTranslation();
 
   const nextStatus = (task: TaskDto) => {
-    return task.status === "TODO"
+    return ["TODO", "PAUSED"].includes(task.status)
       ? "IN PROGRESS"
       : task.status === "IN PROGRESS"
       ? "DONE"
@@ -154,7 +180,10 @@ export const useNextStatus = () => {
           }),
         })
       );
-      console.error({ err: error, stack: error.stack }, "error while moving the task to the next status");
+      console.error(
+        { err: error, stack: error.stack },
+        "error while moving the task to the next status"
+      );
     },
   });
 };

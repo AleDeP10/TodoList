@@ -47,7 +47,12 @@ export default function TasksView() {
       setTaskFilters({
         description: "",
         assigneeId: -1,
-        statusMap: { TODO: true, "IN PROGRESS": true, DONE: false },
+        statusMap: {
+          TODO: true,
+          "IN PROGRESS": true,
+          PAUSED: true,
+          DONE: false,
+        },
       })
     );
   };
@@ -55,6 +60,7 @@ export default function TasksView() {
   const statusClass = {
     TODO: "task--todo",
     "IN PROGRESS": "task--in-progress ",
+    PAUSED: "task--paused ",
     DONE: "task--done",
   };
 
@@ -77,6 +83,7 @@ export default function TasksView() {
               description: "",
               assigneeId: undefined,
               status: "TODO",
+              assignee: null,
             })
           }
         />
@@ -134,12 +141,20 @@ export default function TasksView() {
                   tooltip={
                     task.status === "DONE" || !task.assigneeId
                       ? t("task.nextStatus.disabled")
+                      : task.status === "PAUSED" &&
+                        task.assignee &&
+                        task.assignee.status == "BLOCKED"
+                      ? t("task.nextStatus.blockedUser")
                       : t("task.nextStatus")
                   }
                   icon={Icons.arrowRight}
                   size="small"
                   variant="primary"
-                  disabled={task.status === "DONE" || !task.assigneeId}
+                  disabled={
+                    task.status === "DONE" ||
+                    !task.assigneeId ||
+                    task.assignee?.status === "BLOCKED"
+                  }
                   onClick={() => nextStatus(task)}
                 />
                 <Button

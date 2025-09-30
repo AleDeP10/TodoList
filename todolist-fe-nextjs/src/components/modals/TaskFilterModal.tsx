@@ -29,7 +29,7 @@ export default function TaskFilterModal({
   onApply,
 }: Props) {
   const t = useTranslation();
-  const statusOptions: TaskStatus[] = ["TODO", "IN PROGRESS", "DONE"];
+  const statusOptions: TaskStatus[] = ["TODO", "IN PROGRESS", "PAUSED", "DONE"];
 
   const allAssigneesLabel = t("task.allAssignees");
   const noAssigneeLabel = t("task.noAssignee");
@@ -42,6 +42,7 @@ export default function TaskFilterModal({
       password: "",
       isAdmin: false,
       status: "ACTIVE",
+      tasks: [],
     }),
     [allAssigneesLabel]
   );
@@ -54,6 +55,7 @@ export default function TaskFilterModal({
       password: "",
       isAdmin: false,
       status: "ACTIVE",
+      tasks: [],
     }),
     [noAssigneeLabel]
   );
@@ -110,7 +112,7 @@ export default function TaskFilterModal({
           onChange={(user) =>
             onChange({
               ...filters,
-              assigneeId: user.id, 
+              assigneeId: user.id,
             })
           }
         />

@@ -1,9 +1,15 @@
 import React, { useId } from "react";
 import { useResponsiveVisibility } from "../../hooks";
+import { Control, Helper } from "../../types/Validation";
+import ValidationRenderer from "../ValidationRenderer";
 
 export type DropdownVariant = "grid" | "compact";
 
-export interface DropdownProps<T> {
+/**
+ * Props for the Dropdown control.
+ * Extends the base Control type and adds selection-specific fields.
+ */
+export interface DropdownProps<T> extends Control {
   variant?: DropdownVariant;
   value: T;
   options: T[];
@@ -13,7 +19,7 @@ export interface DropdownProps<T> {
   label: string;
   error?: boolean;
   onBlur?: (e: React.FocusEvent<HTMLSelectElement>) => void;
-  helperText?: string;
+  helper?: Helper | null;
 }
 
 interface SelectComponentProps<T> {
@@ -25,7 +31,6 @@ interface SelectComponentProps<T> {
   getOptionLabel?: (option: T) => string;
   label: string;
   error?: boolean;
-  helperText?: string;
   onBlur?: (e: React.FocusEvent<HTMLSelectElement>) => void;
 }
 
@@ -79,7 +84,7 @@ export default function Dropdown<T>({
   getOptionLabel = (option: T) => String(option),
   label,
   error = false,
-  helperText,
+  helper = null,
 }: DropdownProps<T>) {
   const { sm } = useResponsiveVisibility();
   const generatedId = useId();
@@ -90,6 +95,7 @@ export default function Dropdown<T>({
       {label}
     </label>
   );
+
   const SelectContainer = (
     <div className="w-full">
       <SelectComponent
@@ -102,50 +108,42 @@ export default function Dropdown<T>({
         getOptionValue={getOptionValue}
         getOptionLabel={getOptionLabel}
         error={error}
-        helperText={helperText}
       />
-
-      {helperText && (
-        <p
-          className="flex justify-start text-xs text-red-500 mt-1"
-          role="alert"
-        >
-          {helperText}
-        </p>
-      )}
     </div>
   );
 
-  return variant === "compact" ? (
-    <div className="w-fit">
-      <SelectComponent
-        selectId={selectId}
-        value={value}
-        options={options}
-        onChange={onChange}
-        onBlur={onBlur}
-        label={label}
-        getOptionValue={getOptionValue}
-        getOptionLabel={getOptionLabel}
-        error={error}
-        helperText={helperText}
-      />
+  if (process.env.NEXT_PUBLIC_ENV !== "production") {
+    console.log("Dropdown", { label, value, error, helper });
+  }
 
-      {helperText && (
-        <p className="text-xs text-red-500 mt-1" role="alert">
-          {helperText}
-        </p>
+  return (
+    <>
+      {variant === "compact" ? (
+        <div className="w-fit">
+          <SelectComponent
+            selectId={selectId}
+            value={value}
+            options={options}
+            onChange={onChange}
+            onBlur={onBlur}
+            label={label}
+            getOptionValue={getOptionValue}
+            getOptionLabel={getOptionLabel}
+            error={error}
+          />
+        </div>
+      ) : sm ? (
+        <div className="flex flex-col gap-2 w-full">
+          {LabelComponent}
+          {SelectContainer}
+        </div>
+      ) : (
+        <div className="grid grid-cols-12 gap-4 items-center my-2 w-full">
+          <div className="col-span-3">{LabelComponent}</div>
+          <div className="col-span-9 w-full">{SelectContainer}</div>
+        </div>
       )}
-    </div>
-  ) : sm ? (
-    <div className="flex flex-col gap-2 w-full">
-      {LabelComponent}
-      {SelectContainer}
-    </div>
-  ) : (
-    <div className="grid grid-cols-12 gap-4 items-center my-2 w-full">
-      <div className="col-span-3">{LabelComponent}</div>
-      <div className="col-span-9 w-full">{SelectContainer}</div>
-    </div>
+      <ValidationRenderer helper={helper} layout={variant} />
+    </>
   );
 }

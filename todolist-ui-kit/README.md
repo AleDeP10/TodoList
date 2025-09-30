@@ -15,6 +15,40 @@ A shared component and style library used by both todolist-fe-nextjs and todolis
 - 🧾 Types: DTOs, filters, enums, shared interfaces
 - 🛠 Utilities: i18n helpers, CSS variable access
 
+## ✅ Validation System
+The UI Kit includes a centralized validation system designed to provide consistent feedback across all form controls.
+
+### 🔍 Field-Level Validation
+- The `useFieldValidation` hook handles both mandatory and custom validation logic:
+- Tracks user interaction (onBlur) to avoid premature error display
+- Validates required fields and applies custom rules per field
+- Returns:
+    - `isFormValid`: overall form validity
+    - `markTouched(fieldName)`: marks a field as interacted
+    - `hasError(fieldName)`: boolean flag for error state
+    - `getHelper(fieldName)`: contextual helper message (error or warning)
+
+### 🧠 Custom Rules
+Each field can define a displayRule and a helper message:
+
+```
+{
+  username: {
+    displayRule: (val) => val !== "" && taken.includes(val),
+    helper: { type: "error", text: "Username already exists" },
+  },
+  status: {
+    displayRule: (val) => val === "BLOCKED",
+    helper: { type: "warning", text: "Assigned tasks will be paused" },
+  }
+}
+```
+
+### 🎯 Helper Messaging
+Validation messages are rendered using the `ValidationRenderer` component:
+- Supports both compact and grid layouts
+- Styled consistently across TextField, Dropdown, and Switch
+
 ## 🛠 Tech Stack
 
 | Layer     | Technology         |
@@ -72,6 +106,7 @@ A shared component and style library used by both todolist-fe-nextjs and todolis
 │   │   │   └── ThemeSwitcher.tsx
 │   │   │   └── ToggleButton.tsx
 │   │   │   └── ToggleButtonGroup.tsx
+│   │   └── ValidationRenderer.tsx
 │   ├── hooks
 │   │   └── index.ts
 │   │   └── useFieldValidation.ts
@@ -94,6 +129,7 @@ A shared component and style library used by both todolist-fe-nextjs and todolis
 │   │   │   └── dark-theme.css
 │   │   │   └── light-theme.css
 │   ├── types
+│   │   └── declarations.d.ts
 │   │   ├── dto
 │   │   │   └── index.ts
 │   │   │   └── TaskDto.ts
@@ -111,6 +147,7 @@ A shared component and style library used by both todolist-fe-nextjs and todolis
 │   │   └── menu.ts
 │   │   └── Status.ts
 │   │   └── ThemeName.ts
+│   │   └── Validation.ts
 │   │   └── vite-plugin-next.d.ts
 │   ├── utils
 │   │   └── getCSSVariable.ts
@@ -120,7 +157,7 @@ A shared component and style library used by both todolist-fe-nextjs and todolis
 
 📊 Tree Summary
 📁 Folders: 13
-📄 Files: 64
+📄 Files: 67
 ```
 
 ## 🔗 Related Documentation

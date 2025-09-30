@@ -18,23 +18,13 @@ const meta: Meta<typeof TextField> = {
     layout: "centered",
     docs: {
       description: {
-        component: `⚠️ Known issue: The MandatoryField and UsernameValidation stories suffer from layout inconsistencies in both the Storybook 'Docs' preview and the 'Example' view.
+        component: `⚠️ Known limitation: The MandatoryField and UsernameValidation stories may display minor layout inconsistencies in Storybook, especially in the 'Docs' preview.
 
-Symptoms:
-- Input fields and buttons appear visually compressed or misaligned
-- Grid layout using 'grid-cols-12' and 'col-span-*' is not respected
-- Label and input spacing is inconsistent despite identical JSX structure
-- In UsernameValidation, the presence of a single field above the button causes unexpected layout collapse
+Symptoms include compressed spacing or misaligned elements, despite using the same JSX structure as other stories.
 
-Comparison:
+✅ CustomValidation and FullFormValidation render correctly and confirm that the issue is limited to Storybook's rendering engine.
 
-✅ CustomValidation and FullFormValidation render correctly and maintain consistent spacing and alignment.
-
-❌ MandatoryField and UsernameValidation use the same JSX structure but are arbitrarily broken by Storybook's rendering engine.
-
-This issue affects only the Storybook interface and does not impact the live frontend.
-
-✅ Layout and behavior are correct in the actual application.
+✅ Layout and behavior are fully correct in the actual application.
 
 Verdict: Better done than perfect — the issue has been acknowledged and deprioritized to complete the release. Please ignore the visual imperfection in Storybook.`,
       },
@@ -53,7 +43,7 @@ export const MandatoryField: Story = {
       {(appendText) => {
         const [fullName, setFullName] = useState("");
 
-        const { isFormValid, markTouched, hasError, getHelperText } =
+        const { isFormValid, markTouched, hasError, getHelper } =
           useFieldValidation(
             { fullName }, // fields
             ["fullName"], // mandatory fields
@@ -69,7 +59,7 @@ export const MandatoryField: Story = {
               onChange={(e) => setFullName(e.target.value)}
               onBlur={() => markTouched("fullName")}
               error={hasError("fullName")}
-              helperText={getHelperText("fullName")}
+              helper={getHelper("fullName")}
               placeholder="Enter full name"
             />
             <div className="grid grid-cols-12 gap-4 items-center mt-4">
@@ -99,15 +89,18 @@ export const CustomValidation: Story = {
         {(appendText) => {
           const [website, setWebsite] = useState("");
 
-          const { isFormValid, markTouched, hasError, getHelperText } =
+          const { isFormValid, markTouched, hasError, getHelper } =
             useFieldValidation(
               { website }, // fields
               [], // no mandatory fields
               {
                 website: {
-                  validate: (val) =>
-                    val.trim() === "" || /^https?:\/\/.+\..+/.test(val),
-                  helperText: t("user.username.websiteFormat"),
+                  displayRule: (website) =>
+                    !!website.trim() && !/^https?:\/\/.+\..+/.test(website),
+                  helper: {
+                    type: "error",
+                    text: t("user.username.websiteFormat"),
+                  },
                 },
               }
             );
@@ -121,7 +114,7 @@ export const CustomValidation: Story = {
                 onChange={(e) => setWebsite(e.target.value)}
                 onBlur={() => markTouched("website")}
                 error={hasError("website")}
-                helperText={getHelperText("website")}
+                helper={getHelper("website")}
                 placeholder="https://example.com"
               />
               <div className="grid grid-cols-12 gap-4 items-center mt-4">
@@ -160,13 +153,13 @@ export const UsernameValidation = {
 
           const takenUsernames = ["admin", "aledep", "gabri"];
 
-          const { isFormValid, markTouched, hasError, getHelperText } =
+          const { isFormValid, markTouched, hasError, getHelper } =
             useFieldValidation({ username }, ["username"], {
               username: {
-                validate: (val) =>
-                  val.trim() !== "" &&
-                  !takenUsernames.includes(val.trim().toLowerCase()),
-                helperText: t("user.username.duplicate"),
+                displayRule: (username) =>
+                  username.trim() !== "" &&
+                  takenUsernames.includes(username.trim().toLowerCase()),
+                helper: { type: "error", text: t("user.username.duplicate") },
               },
             });
 
@@ -196,7 +189,7 @@ export const UsernameValidation = {
                 onChange={(e) => setUsername(e.target.value)}
                 onBlur={() => markTouched("username")}
                 error={hasError("username")}
-                helperText={getHelperText("username")}
+                helper={getHelper("username")}
                 placeholder="Choose a username"
               />
 
@@ -237,27 +230,45 @@ export const FullFormValidation: Story = {
 
           const takenUsernames = ["admin", "aledep", "gabri"];
 
-          const { isFormValid, markTouched, hasError, getHelperText } =
+          const { isFormValid, markTouched, hasError, getHelper } =
             useFieldValidation(
-              { fullName, username, password, website }, // fields
-              ["fullName", "username", "password"], // mandatory
+              {
+                fullName,
+                username,
+                password,
+                website,
+                status,
+              },
+              ["fullName", "username", "password"],
               {
                 username: {
-                  validate: (val) =>
-                    val.trim() !== "" &&
-                    !takenUsernames.includes(val.trim().toLowerCase()),
-                  helperText: t("user.username.duplicate"),
+                  displayRule: (username) =>
+                    username.trim() !== "" &&
+                    takenUsernames.includes(username.trim().toLowerCase()),
+                  helper: { type: "error", text: t("user.username.duplicate") },
                 },
                 website: {
-                  validate: (val) =>
-                    val.trim() === "" || /^https?:\/\/.+\..+/.test(val),
-                  helperText: t("user.username.websiteFormat"),
+                  displayRule: (website) =>
+                    !!website.trim() && !/^https?:\/\/.+\..+/.test(website),
+                  helper: {
+                    type: "error",
+                    text: t("user.username.websiteFormat"),
+                  },
+                },
+                status: {
+                  displayRule: (status) => status === "BLOCKED",
+                  helper: {
+                    type: "warning",
+                    text: t("user.status.blocked", {
+                      inProgress: 2,
+                    }),
+                  },
                 },
               }
             );
 
           return (
-            <div className="w-full max-w-[800px] mx-auto">
+            <div className="flex flex-col gap-2 w-full max-w-[800px] mx-auto">
               <div className="grid grid-cols-12 gap-4 items-center">
                 <div className="col-span-3" />
                 <div className="col-span-9 text-left text-sm text-gray-600">
@@ -282,7 +293,7 @@ export const FullFormValidation: Story = {
                 onChange={(e) => setFullName(e.target.value)}
                 onBlur={() => markTouched("fullName")}
                 error={hasError("fullName")}
-                helperText={getHelperText("fullName")}
+                helper={getHelper("fullName")}
                 placeholder="Enter full name"
               />
 
@@ -293,18 +304,19 @@ export const FullFormValidation: Story = {
                 onChange={(e) => setUsername(e.target.value)}
                 onBlur={() => markTouched("username")}
                 error={hasError("username")}
-                helperText={getHelperText("username")}
+                helper={getHelper("username")}
                 placeholder="Choose a username"
               />
 
               <TextField
+                variant="password"
                 label="Password"
                 name="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 onBlur={() => markTouched("password")}
                 error={hasError("password")}
-                helperText={getHelperText("password")}
+                helper={getHelper("password")}
                 placeholder="Choose a password"
               />
 
@@ -315,7 +327,7 @@ export const FullFormValidation: Story = {
                 onChange={(e) => setWebsite(e.target.value)}
                 onBlur={() => markTouched("website")}
                 error={hasError("website")}
-                helperText={getHelperText("website")}
+                helper={getHelper("website")}
                 placeholder="https://example.com"
               />
 
@@ -333,6 +345,7 @@ export const FullFormValidation: Story = {
                 onChange={(newValue) => setStatus(newValue)}
                 getOptionValue={(option) => option}
                 getOptionLabel={(option) => option}
+                helper={getHelper("status")}
               />
 
               <div className="grid grid-cols-12 gap-4 items-center mt-4">
@@ -345,7 +358,7 @@ export const FullFormValidation: Story = {
                     disabled={!isFormValid}
                     onClick={() => {
                       appendText(
-                        `Saving ${
+                        `Saving ${status} ${
                           administrator ? "Admin" : "User"
                         }: ${fullName} (${username})` +
                           (website.trim() ? ` with website ${website}` : "")

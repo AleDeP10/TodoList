@@ -2,17 +2,19 @@
 
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { TaskDto } from "@/lib/types/dto/TaskDto";
 import { UserDto } from "@/lib/types/dto/UserDto";
 import { UserFilters } from "@/lib/types/filters/UserFilters";
 import { useTranslation } from "@/lib/hooks/useTranslation";
 import { Icons } from "@/lib/components/Icons";
 import { Button } from "@/lib/components/ui/Button";
 import LoadingSpinner from "@/lib/components/ui/LoadingSpinner";
+import { getCSSVariable } from "@/lib/utils/getCSSVariable";
+import { useSaveTask } from "@/hooks/useTasks";
 import { useFilteredUsers, useSaveUser, useDeleteUser } from "@/hooks/useUsers";
 import { getLoading } from "@/store/ui/getLoading";
 import { setUserFilters } from "@/store/user/userSlice";
 import { getUserFilters } from "@/store/user/getUserFilters";
-import { getCSSVariable } from "@/lib/utils/getCSSVariable";
 import UserModal from "@/components/modals/UserModal";
 import UserFilterModal from "@/components/modals/UserFilterModal";
 import UserDeleteConfirmModal from "@/components/modals/UserDeleteConfirmModal";
@@ -23,6 +25,7 @@ export default function UsersView() {
 
   const { mutate: saveUser } = useSaveUser();
   const { mutate: deleteUser } = useDeleteUser();
+  const { mutate: saveTask } = useSaveTask();
 
   const isLoading = useSelector(getLoading);
   const userFilters = useSelector(getUserFilters);
@@ -48,6 +51,16 @@ export default function UsersView() {
 
   const { data: filteredUsers = [] } = useFilteredUsers();
 
+  const save = (user: UserDto) => {
+    if (user.status === "BLOCKED") {
+      user.tasks.forEach((task: TaskDto) => {
+        task.status = "PAUSED";
+        saveTask({ entity: task})
+      });
+    }
+    saveUser({ entity: user });
+  };
+
   return (
     <section className="p-6 space-y-6 mx-auto">
       <h2 className="text-xl font-semibold text-center">
@@ -69,6 +82,7 @@ export default function UsersView() {
               password: "",
               isAdmin: false,
               status: "ACTIVE",
+              tasks: [],
             })
           }
         />
@@ -155,7 +169,7 @@ export default function UsersView() {
           currentUser={currentUser}
           onClose={() => setCurrentUser(undefined)}
           onSubmit={(user) => {
-            saveUser({ entity: user });
+            save(user);
             setCurrentUser(undefined);
           }}
         />

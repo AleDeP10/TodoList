@@ -39,8 +39,10 @@ const nextConfig = {
   // 🌍 Environment variable injection for client-side API calls
   // Ensures NEXT_PUBLIC_API_URL is embedded at build time,
   // allowing client-side fetches to target the correct backend.
+  // Forces NEXT_PUBLIC_ENV variable to prevent logging.
   env: {
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+    NEXT_PUBLIC_ENV: process.env.NEXT_PUBLIC_ENV
   },
 
 };

@@ -12,9 +12,12 @@ export const InteractionSandbox = ({ children }: InteractionSandboxProps) => {
   };
 
   return (
-    <div style={{ textAlign: "center" }}>
+    <div className="max-w-lg">
       {children(appendText)}
-      <p className="mt-6" style={{ color: "#047878", whiteSpace: "pre-line" }}>
+      <p
+        className="mt-6 text-center"
+        style={{ color: "#047878", whiteSpace: "pre-line" }}
+      >
         {text}
       </p>
     </div>

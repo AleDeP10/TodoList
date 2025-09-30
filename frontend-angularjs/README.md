@@ -15,6 +15,9 @@ The project is available on Render at: 👉 https://todolist-fe-angularjs.onrend
 - ⚡ Dual-mode filtering:
   - Server-side: default, efficient on large datasets
   - Client-side: reactive, based on Redux Classic
+- ⏩ Legacy compatibility:
+  - PAUSED tasks are treated as IN PROGRESS to preserve pre-existing behavior
+  - No refactoring required for legacy views or workflows
 - 🎨 Responsive UI with gradient theming and state-based styling
 - 🧠 Modular architecture with Redux store and dedicated services
 

@@ -15,7 +15,7 @@ A modular task management system built with a C# backend and two distinct fronte
 
 - ✅ Task CRUD: create, edit, delete, and view tasks
 - 👥 User assignment: link tasks to users
-- 🔄 Status management: TODO, IN PROGRESS, DONE
+- 🔄 Status management: TODO, IN PROGRESS, PAUSED, DONE
 - 🧪 Validation and confirmation modals
 - 🧾 Toast notifications and loading spinners
 - 🌐 Localization: dynamic switch between English and Italian
@@ -37,6 +37,7 @@ A modular task management system built with a C# backend and two distinct fronte
 - 🧠 Advanced filtering and validation
 - 🎨 Theming: light, dark, and custom variants
 - 🧩 UI Kit with reusable components, hooks, and providers
+- ⏸️ Task status: supports PAUSED state for blocked assignees
 
 ## 🛠 Tech Stack Summary
 
