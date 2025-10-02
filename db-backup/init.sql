@@ -108,7 +108,7 @@ ALTER TABLE ONLY public."User"
 
 COPY public."Task" (id, description, "assigneeId", status) FROM stdin;
 1	Refactor authentication logic for clarity and reuse	1	TODO
-2	Write unit tests for API endpoints	1	IN PROGRESS
+2	Write unit tests for API endpoints	4	PAUSED
 64	Migrate hardcoded properties to config file	1	TODO
 69	Implement loading spinner for async operations	3	IN PROGRESS
 117	Prepare the app for multilingual support	3	DONE

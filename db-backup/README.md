@@ -64,8 +64,7 @@ psql -U admin -d todolist -f ./db-backup/init.sql
 
 ```
 psql -U admin -d todolist
-\dt
-SELECT * FROM "User";
+   SELECT * FROM "User";
 ```
 
 5. **Configure your backend**
