@@ -19,7 +19,7 @@ const initialState = {
       TODO: true,
       "IN PROGRESS": true,
       PAUSED: true,
-      DONE: false,
+      DONE: true,
     },
   },
 };

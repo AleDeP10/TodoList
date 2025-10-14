@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useEffect } from "react";
 import { useTheme } from "../hooks/useTheme";
@@ -10,13 +10,13 @@ export const ThemeWrapper = ({ children }: { children: React.ReactNode }) => {
 
   // Apply theme to body class
   useEffect(() => {
+    //if (process.env.NODE_ENV !== "production") {
+    console.log(`[ThemeWrapper] active theme: ${theme}`);
+    //}
+    
     setTheme(theme);
-    document.body.classList.remove('midnight', 'sunleaf', 'skyline');
+    document.body.classList.remove("midnight", "sunleaf", "skyline");
     document.body.classList.add(theme);
-
-    if (process.env.NODE_ENV !== 'production') {
-      console.debug(`[ThemeWrapper] active theme: ${theme}`);
-    }
   }, [theme, setTheme]);
 
   return <>{children}</>;
