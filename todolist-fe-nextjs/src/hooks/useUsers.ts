@@ -46,17 +46,17 @@ import {
   useFilteredEntities,
   useSaveEntity,
 } from "./useEntities";
-import { useTasks } from "./useTasks";
+import { useSaveTask, useTasks } from "./useTasks";
 
 /**
  * Applies user filters for fullName, username and status.
  */
-const evalFilter = (task: UserDto, filters: UserFilters) => {
-  const fullNameMatch = task.fullName
+const evalFilter = (user: UserDto, filters: UserFilters) => {
+  const fullNameMatch = user.fullName
     .toLowerCase()
     .includes(filters.fullName.toLowerCase());
 
-  const usernameMatch = task.username
+  const usernameMatch = user.username
     .toLowerCase()
     .includes(filters.username.toLowerCase());
 
@@ -65,7 +65,7 @@ const evalFilter = (task: UserDto, filters: UserFilters) => {
     !Object.values(filters.statusMap).every((v) => v === false) &&
     !Object.values(filters.statusMap).every((v) => v === true)
   ) {
-    statusMatch = filters.statusMap[task.status];
+    statusMatch = filters.statusMap[user.status];
   }
 
   return fullNameMatch && usernameMatch && statusMatch;
@@ -87,7 +87,11 @@ export const useUsers = () =>
  * to provide a complete view of user-task relationships.
  */
 export const useEnrichedUsers = () => {
-  const { data: users = [], ...userQuery } = useUsers();
+  const { data: users = [], ...userQuery } = useEntities<UserDto>(
+    "task",
+    fetchUsers,
+    ["users"]
+  );
   const { data: tasks = [] } = useTasks();
 
   const enrichedUsers = users.map((user) => ({
@@ -116,14 +120,48 @@ export const useFilteredUsers = () => {
 /**
  * Hook to save a user (create or update) with feedback and cache invalidation.
  */
-export const useSaveUser = () =>
-  useSaveEntity<UserDto>("user", createUser, updateUser, ["users"]);
+export const useSaveUser = () => {
+  const { mutate: saveTask } = useSaveTask();
+
+  const postSave = (user: UserDto) => {
+    if (user.status === "BLOCKED") {
+      user.tasks.forEach((task) => {
+        if (task.status === "IN PROGRESS") {
+          task.status = "PAUSED";
+          saveTask({ entity: task });
+        }
+      });
+    }
+  };
+
+  return useSaveEntity<UserDto>(
+    "user",
+    createUser,
+    updateUser,
+    ["users"],
+    postSave
+  );
+};
 
 /**
  * Hook to delete a user with feedback and cache invalidation.
  */
-export const useDeleteUser = () =>
-  useDeleteEntity("user", deleteUser, ["users"]);
+export const useDeleteUser = () => {
+  const { mutate: saveTask } = useSaveTask();
+
+  const postDelete = (user: UserDto) => {
+    user.tasks.forEach((task) => {
+      if (task.status === "IN PROGRESS") {
+        task.assignee = null;
+        task.assigneeId = undefined;
+        task.status = "PAUSED";
+        saveTask({ entity: task });
+      }
+    });
+  };
+
+  return useDeleteEntity("user", deleteUser, ["users"], postDelete);
+};
 
 /**
  * Hook to check if a username is unique among existing users.

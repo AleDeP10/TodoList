@@ -23,8 +23,8 @@ export const ThemePreview = () => {
   const [, setTheme] = useTheme();
 
   useEffect(() => {
-    setTheme("custom");
-    localStorage.setItem("theme", "custom");
+    setTheme("skyline");
+    localStorage.setItem("theme", "skyline");
   }, [setTheme]);
 
   return (

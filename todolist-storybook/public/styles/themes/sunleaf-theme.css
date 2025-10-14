@@ -1,7 +1,7 @@
 :root {
   --bg: #f8f9f3;
   --fg: #252525;
-  --text-secondary: 	#767676;
+  --text-secondary: #767676;
 
   --navbar-start: #cddaa3;
   --navbar-end: #8fa352;
@@ -12,4 +12,8 @@
   --menu-fg: #1f1f1f;
 
   --modal-bg: #ffffff;
+}
+
+ul > li::marker {
+  color: #1a345e;
 }

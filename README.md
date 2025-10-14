@@ -35,7 +35,8 @@ A modular task management system built with a C# backend and two distinct fronte
   - Create, edit, delete users
   - Role and status handling
 - 🧠 Advanced filtering and validation
-- 🎨 Theming: light, dark, and custom variants
+- 🎨 Theming: sunleaf, midnight, and skyline variants
+- 📊 Dashboard: statuses and task assignments in a single dynamic view
 - 🧩 UI Kit with reusable components, hooks, and providers
 - ⏸️ Task status: supports PAUSED state for blocked assignees
 

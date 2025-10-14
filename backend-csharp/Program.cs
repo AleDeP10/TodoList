@@ -8,7 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
 builder.WebHost.ConfigureKestrel(options =>
 {
-    if (builder.Environment.IsDevelopment())
+    var isDev = builder.Environment.IsDevelopment();
+    var useHttps = File.Exists("https/aspnet-dev.pfx");
+    if (isDev && useHttps)
     {
         // Local development: enable HTTPS using dev certificate
         options.ListenAnyIP(int.Parse(port), listen =>
@@ -18,8 +20,7 @@ builder.WebHost.ConfigureKestrel(options =>
     }
     else
     {
-        // Docker or production: use plain HTTP, SSL handled by reverse proxy (e.g. NGINX)
-        options.ListenAnyIP(int.Parse(port));
+        options.ListenAnyIP(int.Parse(port)); // fallback to HTTP
     }
 });
 
@@ -65,9 +66,12 @@ try
 
     // 9. Enable Cross-Origin Resource Sharing to allow frontend access
     app.UseCors(policy =>
-        policy.AllowAnyOrigin()
-              .AllowAnyHeader()
-              .AllowAnyMethod());
+    policy.WithOrigins(
+        "http://localhost","https://localhost", 
+        "http://localhost:3000", "https://localhost:3000")
+          .AllowAnyHeader()
+          .AllowAnyMethod()
+          .AllowCredentials());
 
     // 10. Enable authorization middleware (keep even without Identity/Auth)
     app.UseAuthorization();

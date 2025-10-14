@@ -1,4 +1,5 @@
 import React from "react";
+import { useResponsiveVisibility } from "../hooks";
 import { Helper } from "../types/Validation";
 
 export type HelperLayout = "grid" | "compact";
@@ -25,10 +26,7 @@ export default function ValidationRenderer({
   helper, // Validation message to display
   layout, // Layout mode: "compact" or "grid"
 }: ValidationRendererProps) {
-  // Debug logging in development
-  if (process.env.NEXT_PUBLIC_ENV !== "production") {
-    console.log("ValidationRenderer", { helper, layout });
-  }
+  const { sm } = useResponsiveVisibility();
 
   // Render message if helper is present and has text
   if (helper) {
@@ -36,7 +34,7 @@ export default function ValidationRenderer({
     if (text) {
       const message = (
         <p
-          className={`text-xs ${
+          className={`text-left text-xs ${
             type === "error" ? "text-red-500" : "text-orange-500"
           }`}
           style={type === "warning" ? {color: "#f97316"} : {}}
@@ -46,8 +44,8 @@ export default function ValidationRenderer({
         </p>
       );
 
-      // Compact layout: inline block
-      if (layout === "compact") {
+      // Compact or mobile layout: inline block
+      if (layout === "compact" || sm) {
         return <div className="flex justify-start">{message}</div>;
       }
 

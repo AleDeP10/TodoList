@@ -94,13 +94,13 @@ export const WithUsers: Story = {
   ),
 };
 
-const themeOptions: ThemeName[] = ["dark", "custom", "light"];
+const themeOptions: ThemeName[] = ["midnight", "skyline", "sunleaf"];
 
 export const Compact: Story = {
   render: () => (
     <InteractionSandbox>
       {(appendText) => {
-        const [selectedValue, setSelectedValue] = useState("dark");
+        const [selectedValue, setSelectedValue] = useState("midnight");
 
         return (
           <>

@@ -86,7 +86,7 @@ export default function TextField({
         </div>
       ) : (
         <div className="grid grid-cols-12 gap-4 items-center my-2 w-full">
-          <div className="col-span-3">{LabelComponent}</div>
+          <div className="col-span-3 text-left">{LabelComponent}</div>
           <div className="col-span-9 w-full flex items-center gap-2">
             {InputContainer}
           </div>

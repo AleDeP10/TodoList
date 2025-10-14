@@ -11,7 +11,7 @@ A shared component and style library used by both todolist-fe-nextjs and todolis
 - 🧱 UI Components: buttons, modals, navbars, toggles, dropdowns, spinners, etc.
 - 🧠 Hooks: language switching, theme control, responsive visibility, field validation
 - 🧬 Providers: i18n, theme, view context
-- 🎨 Styles: global CSS and theme variants (light, dark, custom)
+- 🎨 Styles: global CSS and theme variants (sunleaf, midnight, skyline)
 - 🧾 Types: DTOs, filters, enums, shared interfaces
 - 🛠 Utilities: i18n helpers, CSS variable access
 
@@ -86,6 +86,7 @@ Validation messages are rendered using the `ValidationRenderer` component:
 │   │   └── Icons.tsx
 │   │   └── index.ts
 │   │   ├── ui
+│   │   │   └── Anchor.tsx
 │   │   │   └── button.css
 │   │   │   └── Button.tsx
 │   │   │   └── Dropdown.tsx
@@ -125,9 +126,9 @@ Validation messages are rendered using the `ValidationRenderer` component:
 │   │   └── globals-base.css
 │   │   └── globals.css
 │   │   ├── themes
-│   │   │   └── custom-theme.css
-│   │   │   └── dark-theme.css
-│   │   │   └── light-theme.css
+│   │   │   └── midnight-theme.css
+│   │   │   └── skyline-theme.css
+│   │   │   └── sunleaf-theme.css
 │   ├── types
 │   │   └── declarations.d.ts
 │   │   ├── dto
@@ -138,6 +139,7 @@ Validation messages are rendered using the `ValidationRenderer` component:
 │   │   │   └── UserFilterDto.ts
 │   │   └── Entity.ts
 │   │   ├── filters
+│   │   │   └── DashboardFilters.ts
 │   │   │   └── index.ts
 │   │   │   └── TaskFilters.ts
 │   │   │   └── UserFilters.ts
@@ -157,7 +159,7 @@ Validation messages are rendered using the `ValidationRenderer` component:
 
 📊 Tree Summary
 📁 Folders: 13
-📄 Files: 67
+📄 Files: 69
 ```
 
 ## 🔗 Related Documentation

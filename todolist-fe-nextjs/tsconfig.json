@@ -13,10 +13,9 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "baseUrl": "./src",
     "paths": {
-      "@/*": ["./*"],
-      "src/*": ["./*"]
+      "@/*": ["./src/*"],
+      "src/*": ["./src/*"]
     },
     "types": ["node", "react"],
     "plugins": [

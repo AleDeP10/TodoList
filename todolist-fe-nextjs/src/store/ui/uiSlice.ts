@@ -12,11 +12,13 @@ type ToastPayload = {
 
 type UIState = {
   loadingEntities: boolean;
+  loadedFirstTime: boolean;
   toast: null | ToastPayload;
 };
 
 const initialState: UIState = {
   loadingEntities: false,
+  loadedFirstTime: false,
   toast: null,
 };
 
@@ -26,6 +28,9 @@ const uiSlice = createSlice({
   reducers: {
     setLoading(state, action: PayloadAction<boolean>) {
       state.loadingEntities = action.payload;
+      if (!action.payload) {
+        state.loadedFirstTime = true;
+      }
     },
     showToast: (state, action: PayloadAction<ToastPayload>) => {
       state.toast = action.payload;

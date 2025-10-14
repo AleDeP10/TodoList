@@ -1,4 +1,5 @@
 import './button.css';
+export * from './Anchor';
 export * from './Button';
 export * from './Dropdown';
 export * from './IconButton';

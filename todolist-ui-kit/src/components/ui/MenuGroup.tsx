@@ -39,7 +39,7 @@ export default function MenuGroup({
       </button>
 
       {open && (
-        <div className="absolute top-full left-0 z-50 bg-[var(--menu-bg)] rounded shadow-md min-w-[140px] p-2">
+        <div className="absolute top-full left-0 z-50 bg-[var(--menu-bg)] rounded shadow-md min-w-[160px] p-2">
           <div className="flex flex-col gap-1">
             {items.map((item) => (
               <MenuItem

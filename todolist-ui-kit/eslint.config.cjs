@@ -30,9 +30,13 @@ module.exports = [
     },
   },
   {
-    files: ["frontend-angularjs/**/*.{ts,js}"],
+    files: ["**/*.json"],
+    languageOptions: {
+      parser: require("jsonc-eslint-parser"),
+    },
     rules: {
-      "no-console": "warn",
+      "no-unused-expressions": "off",
+      "@typescript-eslint/no-unused-expressions": "off",
     },
   },
 ];

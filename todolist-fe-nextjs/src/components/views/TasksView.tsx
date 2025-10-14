@@ -111,7 +111,7 @@ export default function TasksView() {
       {isLoading ? (
         <LoadingSpinner></LoadingSpinner>
       ) : (
-        <ul className="space-y-4">
+        <ol className="space-y-4">
           {filteredTasks.map((task) => (
             <li
               key={task.id}
@@ -139,8 +139,9 @@ export default function TasksView() {
                 />
                 <Button
                   tooltip={
-                    task.status === "DONE" || !task.assigneeId
-                      ? t("task.nextStatus.disabled")
+                    task.status === "DONE" ? t("task.nextStatus.done")
+                      : !task.assigneeId
+                      ? t("task.nextStatus.unassigned")
                       : task.status === "PAUSED" &&
                         task.assignee &&
                         task.assignee.status == "BLOCKED"
@@ -167,7 +168,7 @@ export default function TasksView() {
               </div>
             </li>
           ))}
-        </ul>
+        </ol>
       )}
 
       {/* 🔍 Filter modal */}
@@ -202,7 +203,7 @@ export default function TasksView() {
           task={taskToDelete}
           onClose={() => setTaskToDelete(undefined)}
           onConfirm={() => {
-            deleteTask(taskToDelete.id as number);
+            deleteTask({ entity: taskToDelete });
             setTaskToDelete(undefined);
           }}
         />

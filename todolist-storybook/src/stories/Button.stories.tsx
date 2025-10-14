@@ -39,7 +39,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Confirm: StoryFn<ButtonProps> = () => (
+export const Primary: StoryFn<ButtonProps> = () => (
   <InteractionSandbox>
     {(appendText) => (
       <Button
@@ -52,7 +52,7 @@ export const Confirm: StoryFn<ButtonProps> = () => (
   </InteractionSandbox>
 );
 
-export const Cancel: StoryFn<ButtonProps> = () => (
+export const Secondary: StoryFn<ButtonProps> = () => (
   <InteractionSandbox>
     {(appendText) => (
       <Button
@@ -65,7 +65,7 @@ export const Cancel: StoryFn<ButtonProps> = () => (
   </InteractionSandbox>
 );
 
-export const Delete: StoryFn<ButtonProps> = () => (
+export const Danger: StoryFn<ButtonProps> = () => (
   <InteractionSandbox>
     {(appendText) => (
       <Button

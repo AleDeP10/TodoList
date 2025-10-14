@@ -9,7 +9,7 @@ export const ThemeWrapper = ({ children }: { children: React.ReactNode }) => {
   // Apply theme to body class
   useEffect(() => {
     setTheme(theme);
-    document.body.classList.remove('dark', 'light', 'custom');
+    document.body.classList.remove('midnight', 'sunleaf', 'skyline');
     document.body.classList.add(theme);
 
     if (process.env.NODE_ENV !== 'production') {

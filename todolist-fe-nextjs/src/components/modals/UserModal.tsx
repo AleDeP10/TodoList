@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { UserStatus } from "@/lib/types/Status";
-import { TaskDto } from "@/lib/types/dto/TaskDto";
 import { UserDto } from "@/lib/types/dto/UserDto";
 import { useTranslation } from "@/lib/hooks/useTranslation";
 import { useIsUsernameUnique } from "@/hooks/useUsers";
@@ -64,15 +63,6 @@ export default function UserModal({ currentUser, onClose, onSubmit }: Props) {
       },
     }
   );
-
-  if (process.env.NEXT_PUBLIC_ENV !== "production") {
-    console.log("UserModal", {
-      formState,
-      inProgress: formState.tasks.filter(
-        (task: TaskDto) => task.status === "IN PROGRESS"
-      ),
-    });
-  }
 
   return (
     <Modal

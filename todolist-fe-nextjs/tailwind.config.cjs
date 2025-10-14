@@ -127,13 +127,22 @@ module.exports = {
     "max-w-lg",
     "h-5",
     "h-4",
-    "min-w-[140px]",
+    "min-w-[160px]",
 
     // Ring & Focus
     "focus:outline-none",
     "focus:ring-2",
     "focus:ring-offset-1",
     "focus:ring-[var(--fg)]",
+
+    // Anchor
+    "text-blue-600",
+    "text-blue-800",
+    "transition-colors",
+    "underline",
+    "underline-offset-2",
+    "decoration-blue-600",
+    "cursor-pointer",
 
     // Shadow
     "shadow-md",

@@ -17,7 +17,7 @@ This Storybook instance provides a live preview and testing ground for UI compon
 
 ## 📦 Component Sections
 
-CONTROLS: Button, Dropdown, FormValidation, IconButton, Switch, TextField
+CONTROLS: Anchor, Button, Dropdown, FormValidation, IconButton, Switch, TextField
 
 INTERNATIONALIZATION: LangSwitcher
 
@@ -36,8 +36,8 @@ THEMING: ThemeSwitcher
 | Storybook  | Storybook 7.6.0        |
 | Language   | TypeScript 5.5.2       |
 | Tooling    | ESLint 9, PostCSS      |
-| Server     | Express                |
 | Build Tool | yarn 1.22.19 (shimmed) |
+| Server     | Express                |
 | Container  | Docker                 |
 
 ## 🧪 Compatibility
@@ -120,15 +120,16 @@ Open Storybook at: 📍 http://localhost:6006
 │   ├── styles
 │   │   └── globals.css
 │   │   ├── themes
-│   │   │   └── custom-theme.css
-│   │   │   └── dark-theme.css
-│   │   │   └── light-theme.css
+│   │   │   └── midnight-theme.css
+│   │   │   └── skyline-theme.css
+│   │   │   └── sunleaf-theme.css
 └── README.md
 └── server.cjs
 ├── src
 │   ├── providers
 │   │   └── UIKitProvider.tsx
 │   ├── stories
+│   │   └── Anchor.stories.tsx
 │   │   └── Button.stories.tsx
 │   │   └── Dropdown.stories.tsx
 │   │   └── FormValidation.stories.tsx
@@ -154,7 +155,7 @@ Open Storybook at: 📍 http://localhost:6006
 
 📊 Tree Summary
 📁 Folders: 10
-📄 Files: 40
+📄 Files: 41
 ```
 
 ## 🔗 Related Documentation

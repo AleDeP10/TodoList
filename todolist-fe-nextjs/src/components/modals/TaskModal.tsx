@@ -60,17 +60,6 @@ export default function TaskModal({ currentTask, onClose, onSubmit }: Props) {
     const hasAssignee = !!formState.assigneeId;
     const isBlocked = formState.assignee?.status === "BLOCKED";
 
-    if (process.env.NEXT_PUBLIC_ENV !== "production") {
-      console.log("TaskModal.evalHelper", {
-        normalized,
-        assignee: formState.assignee,
-        isBlocked,
-        errorBlockedAssignee: normalized === "IN PROGRESS" && isBlocked,
-        warningRequiresAssignee:
-          ["DONE", "IN PROGRESS"].includes(normalized) && !hasAssignee,
-      });
-    }
-
     if (normalized === "IN PROGRESS" && isBlocked) {
       return { type: "error", text: t("task.status.blockedAssignee") };
     }
@@ -93,17 +82,6 @@ export default function TaskModal({ currentTask, onClose, onSubmit }: Props) {
           const hasAssignee = !!assigneeId;
           const isBlocked = formState.assignee?.status === "BLOCKED";
 
-          if (process.env.NEXT_PUBLIC_ENV !== "production") {
-            console.log("assignee.displayRule", {
-              assigneeId,
-              assignee: formState.assignee,
-              hasAssignee,
-              isBlocked,
-              showForInProgress: !hasAssignee || isBlocked,
-              showForDone: !hasAssignee,
-            });
-          }
-
           switch (formState.status) {
             case "IN PROGRESS": {
               return !hasAssignee || isBlocked;
@@ -122,18 +100,6 @@ export default function TaskModal({ currentTask, onClose, onSubmit }: Props) {
           const hasAssignee = !!formState.assigneeId;
           const isBlocked = formState.assignee?.status === "BLOCKED";
 
-          if (process.env.NEXT_PUBLIC_ENV !== "production") {
-            console.log("status.displayRule", {
-              normalized,
-              assigneeId: formState.assigneeId,
-              assignee: formState.assignee,
-              hasAssignee,
-              isBlocked,
-              showForInProgress: !hasAssignee || isBlocked,
-              showForDone: !hasAssignee,
-            });
-          }
-
           switch (normalized) {
             case "IN PROGRESS":
               return !hasAssignee || isBlocked;
@@ -143,13 +109,7 @@ export default function TaskModal({ currentTask, onClose, onSubmit }: Props) {
               return false;
           }
         },
-        helper: (() => {
-          const helper = evalStatusHelper();
-          if (process.env.NEXT_PUBLIC_ENV !== "production") {
-            console.log("status.helper", { helper });
-          }
-          return helper;
-        })(),
+        helper: (() => evalStatusHelper())(),
       },
     }
   );

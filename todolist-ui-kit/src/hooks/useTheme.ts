@@ -24,8 +24,8 @@
  * ```tsx
  * const [theme, setTheme] = useTheme();
  *
- * // Example: switch to dark theme
- * setTheme("dark");
+ * // Example: switch to midnight theme
+ * setTheme("midnight");
  * ```
  */
 
@@ -40,11 +40,11 @@ export function useTheme(): [ThemeName, (t: ThemeName) => void] {
       return (
         stored ??
         (window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? "dark"
-          : "custom")
+          ? "midnight"
+          : "skyline")
       );
     }
-    return "custom"; // fallback for SSR
+    return "skyline"; // fallback for SSR
   });
 
   // Apply theme CSS by injecting a <link> tag

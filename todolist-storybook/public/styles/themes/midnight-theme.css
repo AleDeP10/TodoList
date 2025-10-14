@@ -13,3 +13,7 @@
 
   --modal-bg: #3e3e4a;
 }
+
+ul > li::marker {
+  color: #82d4cb;
+}

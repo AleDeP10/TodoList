@@ -690,23 +690,23 @@
   --task-done-bg-rgba: rgba(39, 183, 44, 0.3);
   --user-active-rgba: rgba(118, 181, 234, 0.3);
   --user-blocked-rgba: rgba(217, 118, 118, 0.3);
-  --task-todo-border: #f7b955;
-  --task-in-progress-border: #3f92c9;
-  --task-done-border: #27b72c;
+  --task-todo: #f7b955;
+  --task-in-progress: #3f92c9;
+  --task-done: #27b72c;
   --user-active: #76b5ea;
   --user-blocked: #d97676;
 }
 .task--todo {
   background-color: var(--task-todo-bg-rgba);
-  border-left: 4px solid var(--task-todo-border);
+  border-left: 4px solid var(--task-todo);
 }
 .task--in-progress {
   background-color: var(--task-in-progress-bg-rgba);
-  border-left: 4px solid var(--task-in-progress-border);
+  border-left: 4px solid var(--task-in-progress);
 }
 .task--done {
   background-color: var(--task-done-bg-rgba);
-  border-left: 4px solid var(--task-done-border);
+  border-left: 4px solid var(--task-done);
 }
 .user--active {
   background-color: var(--user-active-rgba);

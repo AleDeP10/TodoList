@@ -30,7 +30,7 @@ The project is available on Render at: 👉 https://todolist-fe-angularjs.onrend
 | State      | Redux Classic (ng-redux)   |
 | Icons      | bootstrap-icons            |
 | Build Tool | npm                        |
-| Proxy      | nginx                      |
+| Server     | nginx                      |
 | Container  | Docker                     |
 
 ## 🧪 Compatibility

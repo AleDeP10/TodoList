@@ -55,6 +55,7 @@
     "cross-env": "^10.0.0",
     "eslint": "^9",
     "eslint-config-next": "15.4.1",
+    "jsonc-eslint-parser": "^2.4.1",
     "playwright": "^1.54.1",
     "postcss": "^8.5.6",
     "serve": "^14.2.4",

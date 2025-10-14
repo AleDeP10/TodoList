@@ -30,7 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const isPrerender = typeof window === "undefined";
 
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="midnight">
       <body className={`${inter.variable} antialiased`}>
         <Providers>
           {children}

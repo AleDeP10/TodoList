@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import Modal from "@/lib/components/ui/Modal";
 import { Icons } from "@/lib/components/Icons";
@@ -12,8 +12,16 @@ interface Props {
   onConfirm: () => void;
 }
 
-export default function UserDeleteConfirmModal({ user, onClose, onConfirm }: Props) {
+export default function UserDeleteConfirmModal({
+  user,
+  onClose,
+  onConfirm,
+}: Props) {
   const t = useTranslation();
+
+  const inProgress = user.tasks.filter(
+    (task) => task.status === "IN PROGRESS"
+  ).length;
 
   return (
     <Modal
@@ -41,7 +49,7 @@ export default function UserDeleteConfirmModal({ user, onClose, onConfirm }: Pro
           })}
         </p>
         <p className="text-xs text-gray-600">
-          {t("user.delete.noteSetNull")}
+          {t("user.delete.noteSetNull", { inProgress })}
         </p>
       </div>
     </Modal>

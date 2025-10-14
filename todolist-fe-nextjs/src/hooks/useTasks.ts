@@ -93,7 +93,11 @@ export const useTasks = () =>
  * their data to provide a complete view of task ownership.
  */
 export const useEnrichedTasks = () => {
-  const { data: tasks = [], ...taskQuery } = useEntities<TaskDto>("task", fetchTasks, ["tasks"]);
+  const { data: tasks = [], ...taskQuery } = useEntities<TaskDto>(
+    "task",
+    fetchTasks,
+    ["tasks"]
+  );
   const { data: users = [] } = useUsers();
 
   const enrichedTasks = tasks.map((task) => ({
@@ -105,7 +109,7 @@ export const useEnrichedTasks = () => {
     data: enrichedTasks,
     ...taskQuery,
   };
-}
+};
 
 /**
  * Hook to fetch and filter tasks based on current Redux filters.

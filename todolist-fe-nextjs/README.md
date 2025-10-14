@@ -9,8 +9,9 @@ The project is available on Render at: 👉 https://todolist-fe-nextjs.onrender.
 ## 🧩 Features
 
 - 🌍 Language toggle (IT / EN)
-- 🎨 Theme switcher (light / dark / custom)
+- 🎨 Theme switcher (sunleaf / midnight / skyline)
 - 📁 Navigation with dropdowns for Features and About
+- 📊 Dashboard view with real-time task assignment and status tracking
 - 👥 User management with filtering, validation, and confirmation modals
 - ✅ Task management adds status progression and assignments
 - 🔔 Toast notifications and loading spinner for visual feedback
@@ -34,8 +35,7 @@ The project is available on Render at: 👉 https://todolist-fe-nextjs.onrender.
 | HTTP       | Axios                  |
 | Tooling    | ESLint 9, PostCSS      |
 | Build Tool | yarn 1.22.19 (shimmed) |
-| Proxy      | Nginx                  |
-| Testing    | Vitest + Playwright    |
+| Server     | nginx                  |
 | Container  | Docker                 |
 
 ## 🧪 Compatibility
@@ -165,9 +165,9 @@ Access the app at: 📍 http://localhost:3000
 │   │   └── globals-base.css
 │   │   └── globals.css
 │   │   ├── themes
-│   │   │   └── custom-theme.css
-│   │   │   └── dark-theme.css
-│   │   │   └── light-theme.css
+│   │   │   └── midnight-theme.css
+│   │   │   └── skyline-theme.css
+│   │   │   └── sunleaf-theme.css
 │   └── vercel.svg
 │   └── window.svg
 └── README.md
@@ -188,9 +188,12 @@ Access the app at: 📍 http://localhost:3000
 │   ├── components
 │   │   ├── feedback
 │   │   │   └── ToastManager.tsx
+│   │   └── Footer.tsx
 │   │   └── MainContainer.tsx
 │   │   ├── modals
 │   │   │   └── AboutAuthorModal.tsx
+│   │   │   └── DashboardFilterModal.tsx
+│   │   │   └── ManualModal.tsx
 │   │   │   └── TaskDeleteConfirmModal.tsx
 │   │   │   └── TaskFilterModal.tsx
 │   │   │   └── TaskModal.tsx
@@ -198,18 +201,24 @@ Access the app at: 📍 http://localhost:3000
 │   │   │   └── UserFilterModal.tsx
 │   │   │   └── UserModal.tsx
 │   │   ├── views
+│   │   │   └── DashboardView.tsx
 │   │   │   └── TasksView.tsx
 │   │   │   └── UsersView.tsx
 │   ├── hooks
+│   │   └── useDashboardEntities.ts
 │   │   └── useEntities.ts
 │   │   └── useTasks.ts
 │   │   └── useUsers.ts
 │   ├── store
+│   │   ├── dashboard
+│   │   │   └── dashboardSlice.ts
+│   │   │   └── getDashboardFilters.ts
 │   │   └── store.ts
 │   │   ├── task
 │   │   │   └── getTaskFilters.ts
 │   │   │   └── taskSlice.ts
 │   │   ├── ui
+│   │   │   └── getLoadedFirstTime.ts
 │   │   │   └── getLoading.ts
 │   │   │   └── uiSlice.ts
 │   │   ├── user
@@ -219,14 +228,15 @@ Access the app at: 📍 http://localhost:3000
 │   │   └── declarations.d.ts
 │   ├── utils
 │   │   └── animationVariants.ts
+│   │   └── styledI18n.tsx
 └── tailwind.config.cjs
 └── tsconfig.json
 └── vite.config.cjs
 └── vitest.shims.d.ts
 
 📊 Tree Summary
-📁 Folders: 22
-📄 Files: 88
+📁 Folders: 23
+📄 Files: 97
 ```
 
 ## 🔗 Related Documentation

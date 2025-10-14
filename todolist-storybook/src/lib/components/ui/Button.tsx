@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import type { ReactNode } from "react";
 import { useResponsiveVisibility } from "../../hooks/useResponsiveVisibility";
+import { getCSSVariable } from "../../utils/getCSSVariable";
 import "./button.css";
 
 export type ButtonVariant = "primary" | "secondary" | "danger";
@@ -24,12 +25,6 @@ export interface ButtonProps {
   foregroundColor?: string;
   /** Click handler */
   onClick?: () => void;
-}
-
-function getCSSVariable(name: string): string {
-  if (typeof window === "undefined") return "";
-  const root = window.getComputedStyle(document.documentElement);
-  return root.getPropertyValue(name).trim();
 }
 
 export const Button = ({
@@ -98,9 +93,14 @@ export const Button = ({
   const customStyle = {
     backgroundColor: bgColor,
     color: fgColor,
-    transition: "background-color 0.2s ease",
-    filter: !disabled && isHovered ? "brightness(90%)" : undefined,
-    cursor: disabled ? "default" : "pointer",
+    transition: "background-color 0.2s ease, color 0.2s ease",
+    filter: disabled
+      ? "grayscale(100%) brightness(85%)"
+      : isHovered
+      ? "brightness(90%)"
+      : undefined,
+    opacity: disabled ? 0.6 : 1,
+    cursor: disabled ? "not-allowed" : "pointer",
   };
 
   return (
@@ -128,7 +128,9 @@ export const Button = ({
         )}
         {hasLabel && (
           <span
-            className={`${sm && icon ? "sr-only" : ""} leading-none align-middle`}
+            className={`${
+              sm && icon ? "sr-only" : ""
+            } leading-none align-middle`}
           >
             {label}
           </span>

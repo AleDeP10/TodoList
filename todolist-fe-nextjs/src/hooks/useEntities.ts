@@ -87,7 +87,10 @@ export const useEntities = <T extends Entity>(
         })
       );
 
-      console.error({ err: query.error, stack: query.error.stack }, `error while fetching ${entityName}`);
+      console.error(
+        { err: query.error, stack: query.error.stack },
+        `error while fetching ${entityName}`
+      );
     }
   }, [query.isFetching, query.isError, query.error, dispatch, t, entityName]);
 
@@ -101,7 +104,8 @@ export const useSaveEntity = <T extends Entity>(
   entityName: string,
   createFn: (entity: T) => Promise<T>,
   updateFn: (entity: T) => Promise<void>,
-  queryKey?: string[]
+  queryKey?: string[],
+  postSave?: (entity: T) => void
 ) => {
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
@@ -116,7 +120,8 @@ export const useSaveEntity = <T extends Entity>(
         return await createFn(entity); // 🆕 Create
       }
     },
-    onSuccess: () => {
+    onSuccess: (_data, { entity }) => {
+      if (postSave) postSave(entity); // 🧠 Custom logic
       dispatch(setLoading(false)); // 🚦 Spinner OFF
       queryClient.invalidateQueries({ queryKey: queryKey ?? [entityName] });
       dispatch(
@@ -139,7 +144,10 @@ export const useSaveEntity = <T extends Entity>(
           }),
         })
       );
-      console.error({ err: error, stack: error.stack }, `error while saving ${entityName}`);
+      console.error(
+        { err: error, stack: error.stack },
+        `error while saving ${entityName}`
+      );
     },
   });
 };
@@ -147,21 +155,23 @@ export const useSaveEntity = <T extends Entity>(
 /**
  * Hook to delete an entity with feedback and cache invalidation.
  */
-export const useDeleteEntity = (
+export const useDeleteEntity = <T extends Entity>(
   entityName: string,
   deleteFn: (id: number) => Promise<void>,
-  queryKey?: string[]
+  queryKey?: string[],
+  postDelete?: (entity: T) => void
 ) => {
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
   const t = useTranslation();
 
-  return useMutation<void, Error, number>({
-    mutationFn: async (id: number) => {
+  return useMutation<void, Error, { entity: T }>({
+    mutationFn: async ({ entity }) => {
       dispatch(setLoading(true)); // 🚦 Spinner ON
-      await deleteFn(id); // Execute deletion
+      await deleteFn(entity.id as number); // Delete by ID
     },
-    onSuccess: () => {
+    onSuccess: (_data, { entity }) => {
+      if (postDelete) postDelete(entity); // 🧠 Custom logic with full entity
       dispatch(setLoading(false)); // 🚦 Spinner OFF
       queryClient.invalidateQueries({ queryKey: queryKey ?? [entityName] });
       dispatch(
@@ -184,7 +194,10 @@ export const useDeleteEntity = (
           }),
         })
       );
-      console.error({ err: error, stack: error.stack }, `error while deleting ${entityName}`);
+      console.error(
+        { err: error, stack: error.stack },
+        `error while deleting ${entityName}`
+      );
     },
   });
 };

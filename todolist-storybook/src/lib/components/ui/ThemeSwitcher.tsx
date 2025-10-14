@@ -15,7 +15,7 @@ export default function ThemeSwitcher({}: ThemeSwitcherProps) {
       variant="compact"
       label={"theme"}
       value={theme}
-      options={["dark", "custom", "light"]}
+      options={["midnight", "skyline", "sunleaf"]}
       onChange={(newTheme) => setTheme(newTheme as ThemeName)} />
   );
 }

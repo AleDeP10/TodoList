@@ -14,37 +14,39 @@
 
   --task-todo-bg-rgba: rgba(247, 185, 85, 0.3);
   --task-in-progress-bg-rgba: rgba(63, 146, 201, 0.3);
-  --task-paused-bg-rgba: rgba(255, 229, 100, 0.2);
+  --task-paused-bg-rgba: rgba(160, 169, 179, 0.3);
   --task-done-bg-rgba: rgba(39, 183, 44, 0.3);
   --user-active-rgba: rgba(118, 181, 234, 0.3);
   --user-blocked-rgba: rgba(217, 118, 118, 0.3);
 
-  --task-todo-border: #f7b955;
-  --task-in-progress-border: #3f92c9;
-  --task-paused-border: #ffd700;
-  --task-done-border: #27b72c;
+  --task-todo: #f7b955;
+  --task-in-progress: #3f92c9;
+  --task-paused: #a0a9b3;
+  --task-done: #27b72c;
   --user-active: #76b5ea;
   --user-blocked: #d97676;
+  
+  --dashboard-bg-rgba: rgba(4, 120, 120, 0.3);
 }
 
 .task--todo {
   background-color: var(--task-todo-bg-rgba);
-  border-left: 4px solid var(--task-todo-border);
+  border-left: 4px solid var(--task-todo);
 }
 
 .task--in-progress {
   background-color: var(--task-in-progress-bg-rgba);
-  border-left: 4px solid var(--task-in-progress-border);
+  border-left: 4px solid var(--task-in-progress);
 }
 
 .task--paused {
   background-color: var(--task-paused-bg-rgba);
-  border-left: 4px solid var(--task-paused-border);
+  border-left: 4px solid var(--task-paused);
 }
 
 .task--done {
   background-color: var(--task-done-bg-rgba);
-  border-left: 4px solid var(--task-done-border);
+  border-left: 4px solid var(--task-done);
 }
 
 .user--active {
@@ -57,6 +59,50 @@
   border-left: 4px solid var(--user-blocked);
 }
 
+.marked {
+  display: inline-block;
+  padding: 0.1em 0.3em;
+  margin: 0 0.1em;
+  border-radius: 0.4em;
+  font-weight: bold;
+  background-color: #feeee2;
+  border: 1px solid #dac6b7;
+  color: #1a345e;
+}
+
+.divisor-sm {
+  width: 48px;
+}
+
+.divisor-md {
+  width: 72px;
+}
+
+.divisor-lg {
+  width: 86px;
+}
+
 body {
   font-family: var(--font-sans);
+}
+
+h2 {
+  font-size: larger;
+  font-weight: bold;
+}
+
+h3 {
+  font-size: large;
+  font-weight: bold;
+}
+
+ul {
+  list-style-type: disc;
+  padding-left: 1.5em;
+}
+
+ul > li {
+  display: list-item;
+  list-style-position: outside;
+  unicode-bidi: isolate;
 }

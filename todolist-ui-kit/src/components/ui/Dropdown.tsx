@@ -112,10 +112,6 @@ export default function Dropdown<T>({
     </div>
   );
 
-  if (process.env.NEXT_PUBLIC_ENV !== "production") {
-    console.log("Dropdown", { label, value, error, helper });
-  }
-
   return (
     <>
       {variant === "compact" ? (
@@ -139,8 +135,8 @@ export default function Dropdown<T>({
         </div>
       ) : (
         <div className="grid grid-cols-12 gap-4 items-center my-2 w-full">
-          <div className="col-span-3">{LabelComponent}</div>
-          <div className="col-span-9 w-full">{SelectContainer}</div>
+          <div className="col-span-3 text-left">{LabelComponent}</div>
+          <div className="col-span-9">{SelectContainer}</div>
         </div>
       )}
       <ValidationRenderer helper={helper} layout={variant} />

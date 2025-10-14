@@ -3,8 +3,8 @@
   --fg: #1f1f2a;
   --text-secondary: #374151;
 
-  --navbar-start: #5ac2ca;
-  --navbar-end: #346e76;
+  --navbar-start: #8edee3;;
+  --navbar-end: #5a9eb0;;
   --navbar-fg: #1a345e;
 
   --menu-bg: #a9d4ec;
@@ -12,4 +12,8 @@
   --menu-fg: #1a345e;
 
   --modal-bg: #f4f4f7;
+}
+
+ul > li::marker {
+  color: #2c4a5a;
 }

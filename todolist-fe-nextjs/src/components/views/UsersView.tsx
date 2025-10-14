@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { TaskDto } from "@/lib/types/dto/TaskDto";
 import { UserDto } from "@/lib/types/dto/UserDto";
 import { UserFilters } from "@/lib/types/filters/UserFilters";
 import { useTranslation } from "@/lib/hooks/useTranslation";
@@ -10,7 +9,6 @@ import { Icons } from "@/lib/components/Icons";
 import { Button } from "@/lib/components/ui/Button";
 import LoadingSpinner from "@/lib/components/ui/LoadingSpinner";
 import { getCSSVariable } from "@/lib/utils/getCSSVariable";
-import { useSaveTask } from "@/hooks/useTasks";
 import { useFilteredUsers, useSaveUser, useDeleteUser } from "@/hooks/useUsers";
 import { getLoading } from "@/store/ui/getLoading";
 import { setUserFilters } from "@/store/user/userSlice";
@@ -25,7 +23,6 @@ export default function UsersView() {
 
   const { mutate: saveUser } = useSaveUser();
   const { mutate: deleteUser } = useDeleteUser();
-  const { mutate: saveTask } = useSaveTask();
 
   const isLoading = useSelector(getLoading);
   const userFilters = useSelector(getUserFilters);
@@ -52,12 +49,6 @@ export default function UsersView() {
   const { data: filteredUsers = [] } = useFilteredUsers();
 
   const save = (user: UserDto) => {
-    if (user.status === "BLOCKED") {
-      user.tasks.forEach((task: TaskDto) => {
-        task.status = "PAUSED";
-        saveTask({ entity: task})
-      });
-    }
     saveUser({ entity: user });
   };
 
@@ -110,7 +101,7 @@ export default function UsersView() {
       {isLoading ? (
         <LoadingSpinner />
       ) : (
-        <ul className="space-y-4">
+        <ol className="space-y-4">
           {filteredUsers.map((user) => (
             <li
               key={user.id}
@@ -146,7 +137,7 @@ export default function UsersView() {
               </div>
             </li>
           ))}
-        </ul>
+        </ol>
       )}
 
       {/* 🔍 Filter modal */}
@@ -181,7 +172,7 @@ export default function UsersView() {
           user={userToDelete}
           onClose={() => setUserToDelete(undefined)}
           onConfirm={() => {
-            deleteUser(userToDelete.id as number);
+            deleteUser({ entity: userToDelete });
             setUserToDelete(undefined);
           }}
         />

@@ -77,7 +77,7 @@ export default function Switch({
         </div>
       ) : (
         <div className="grid grid-cols-12 gap-4 items-center my-2">
-          <div className="col-span-3">{LabelComponent}</div>
+          <div className="col-span-3 text-left">{LabelComponent}</div>
           <div className="col-span-9 text-left">{SwitchComponent}</div>
         </div>
       )}

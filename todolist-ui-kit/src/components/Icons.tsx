@@ -18,6 +18,10 @@ import {
   Eye,
   EyeOff,
   SquareArrowOutUpRight,
+  BookText,
+  LayoutDashboard,
+  SquareCheck,
+  User,
 } from "lucide-react";
 
 export const Icons = {
@@ -48,8 +52,27 @@ export const Icons = {
 };
 
 export const MenuIcons = {
+  dashboard: <LayoutDashboard size={16} />,
   tasks: <ListChecks size={16} />,
   users: <Users size={16} />,
+  manual: <BookText size={16} />,
   author: <UserCircle size={16} />,
   portfolio: <FolderGit2 size={16} />,
+};
+
+export const DashboardIcons = {
+  user: ({
+    color = "#999",
+  }: {
+    color?: string;
+  } = {}) => (
+    <User size={16} style={{color}} />
+  ),
+  task: ({
+    color = "#999",
+  }: {
+    color?: string;
+  } = {}) => (
+    <SquareCheck size={16} style={{color}} />
+  ),
 };

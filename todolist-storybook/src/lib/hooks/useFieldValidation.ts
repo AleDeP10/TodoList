@@ -89,21 +89,6 @@ export function useFieldValidation(
     const value = fields[fieldName]?.trim() ?? "";
     const touchedField = touched[fieldName];
 
-    // Debug logging in non-production environments
-    if (process.env.NEXT_PUBLIC_ENV !== "production") {
-      console.log("useFieldValidation.hasError", {
-        touched,
-        fieldName,
-        value,
-        touchedField,
-        customRule: customRules?.[fieldName],
-        displayCustom:
-          customRules?.[fieldName]?.displayRule(value) &&
-          customRules?.[fieldName]?.helper?.type === "error",
-        displayMandatory: mandatory.includes(fieldName) && value === "",
-      });
-    }
-
     // Custom rule check
     const rule = customRules?.[fieldName];
     if (rule?.displayRule(value) && rule?.helper?.type === "error") {
@@ -124,18 +109,6 @@ export function useFieldValidation(
     const value = fields[fieldName]?.trim() ?? "";
     const touchedField = touched[fieldName];
 
-    // Debug logging
-    if (process.env.NEXT_PUBLIC_ENV !== "production") {
-      console.log("useFieldValidation.getHelper", {
-        touched,
-        fieldName,
-        value,
-        touchedField,
-        customRule: customRules?.[fieldName],
-        displayCustom: customRules?.[fieldName]?.displayRule(value),
-        displayMandatory: mandatory.includes(fieldName) && value === "",
-      });
-    }
     // Custom rule helper
     const rule = customRules?.[fieldName];
     if (rule?.displayRule(value)) {
@@ -155,26 +128,8 @@ export function useFieldValidation(
 
   // Determines if the entire form is valid
   const isFormValid = useMemo(() => {
-    if (process.env.NEXT_PUBLIC_ENV !== "production") {
-      console.log("useFieldValidation.isFormValid", {
-        fields,
-        mandatory,
-        customRules,
-      });
-    }
-
     return Object.entries(fields).every(([fieldName, value]) => {
       const trimmed = value.trim();
-
-      // Debug logging per field
-      if (process.env.NEXT_PUBLIC_ENV !== "production") {
-        console.log("useFieldValidation.isFormValid", {
-          fieldName,
-          trimmed,
-          rule: customRules?.[fieldName],
-          dispay: customRules?.[fieldName]?.displayRule(trimmed),
-        });
-      }
 
       // Mandatory check
       if (mandatory.includes(fieldName) && trimmed === "") return false;
