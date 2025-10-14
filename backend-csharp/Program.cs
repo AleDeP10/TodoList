@@ -67,6 +67,7 @@ try
     // 9. Enable Cross-Origin Resource Sharing to allow frontend access
     app.UseCors(policy =>
     policy.WithOrigins(
+        "https://todolist-be-csharp.onrender.com/",
         "http://localhost","https://localhost", 
         "http://localhost:3000", "https://localhost:3000",
         "http://localhost:3001", "https://localhost:3001")
