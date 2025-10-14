@@ -20,7 +20,8 @@ builder.WebHost.ConfigureKestrel(options =>
     }
     else
     {
-        options.ListenAnyIP(int.Parse(port)); // fallback to HTTP
+        // Production or Docker: fallback to HTTP
+        options.ListenAnyIP(int.Parse(port));
     }
 });
 
@@ -45,47 +46,55 @@ builder.Services.AddControllers(options =>
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddCors();
+
+// 6. Register CORS policy explicitly
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins(
+            "https://todolist-fe-nextjs.onrender.com", // ✅ frontend origin
+            "http://localhost", "https://localhost",
+            "http://localhost:3000", "https://localhost:3000",
+            "http://localhost:3001", "https://localhost:3001"
+        )
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowCredentials();
+    });
+});
 
 try
 {
     var app = builder.Build();
 
-    // 6. Enable Swagger UI in every environment (no data to protect in a portfolio project)
+    // 7. Enable Swagger UI in every environment (no data to protect in a portfolio project)
     app.UseSwagger();
     app.UseSwaggerUI();
 
-    // 7. Configure the request handling pipeline
+    // 8. Configure the request handling pipeline
     app.UseRouting();
 
-    // 8. Redirect HTTP requests to HTTPS (optional but encouraged)
+    // 9. Redirect HTTP requests to HTTPS (optional but encouraged)
     if (app.Environment.IsDevelopment())
     {
         app.UseHttpsRedirection();
     }
 
-    // 9. Enable Cross-Origin Resource Sharing to allow frontend access
-    app.UseCors(policy =>
-    policy.WithOrigins(
-        "https://todolist-be-csharp.onrender.com",
-        "http://localhost","https://localhost", 
-        "http://localhost:3000", "https://localhost:3000",
-        "http://localhost:3001", "https://localhost:3001")
-          .AllowAnyHeader()
-          .AllowAnyMethod()
-          .AllowCredentials());
+    // 10. Enable Cross-Origin Resource Sharing to allow frontend access
+    app.UseCors(); // ✅ uses the default policy registered above
 
-    // 10. Enable authorization middleware (keep even without Identity/Auth)
+    // 11. Enable authorization middleware (keep even without Identity/Auth)
     app.UseAuthorization();
 
-    // 11. Map controller routes (e.g., /api/Task)
+    // 12. Map controller routes (e.g., /api/Task)
     app.MapControllers();
 
-    // 12. Serve static homepage with link to Swagger
+    // 13. Serve static homepage with link to Swagger
     app.UseDefaultFiles(); // Enables default file mapping (e.g., index.html)
     app.UseStaticFiles();  // Serves files from wwwroot 
 
-    // 13. Start the application
+    // 14. Start the application
     app.Logger.LogInformation($"🌐 HTTPS server listening on port {port}");
     app.Run();
 }
