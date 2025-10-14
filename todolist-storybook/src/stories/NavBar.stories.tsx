@@ -1,5 +1,6 @@
 import type { Meta, StoryFn } from "@storybook/react";
 import { useTranslation } from "../lib/hooks/useTranslation";
+import { MenuIcons } from "../lib/components/Icons";
 import NavBar, { NavBarProps } from "../lib/components/ui/NavBar";
 import { MenuTestWrapper } from "./MenuTestWrapper";
 
@@ -56,21 +57,25 @@ const Layout = () => {
               menuItems={{
                 Functionalities: [
                   {
+                    label: t("menu.functionalities.dashboard"),
+                    icon: MenuIcons.dashboard,
+                    onClick: () => setContent("Dashboard"),
+                  },
+                  {
                     label: t("menu.functionalities.tasks"),
+                    icon: MenuIcons.tasks,
                     onClick: () => setContent("Tasks"),
                   },
                   {
                     label: t("menu.functionalities.users"),
+                    icon: MenuIcons.users,
                     onClick: () => setContent("Users"),
                   },
                 ],
                 About: [
                   {
-                    label: t("menu.about.onAuthor"),
-                    onClick: () => setContent("Author"),
-                  },
-                  {
                     label: t("menu.about.portfolio"),
+                    icon: MenuIcons.portfolio,
                     href: "https://aledep10.github.io",
                   },
                 ],

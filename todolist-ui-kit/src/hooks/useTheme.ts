@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * useTheme.ts
  *
@@ -36,13 +38,7 @@ export function useTheme(): [ThemeName, (t: ThemeName) => void] {
   // Initialize theme from localStorage or system preference
   const [theme, setThemeRaw] = useState<ThemeName>(() => {
     if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("theme") as ThemeName | null;
-      return (
-        stored ??
-        (window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? "midnight"
-          : "skyline")
-      );
+      return (localStorage.getItem("theme") || "skyline") as ThemeName;
     }
     return "skyline"; // fallback for SSR
   });

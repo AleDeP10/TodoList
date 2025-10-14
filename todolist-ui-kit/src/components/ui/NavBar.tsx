@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from "../../hooks/useTranslation";
 import { useResponsiveVisibility } from "../../hooks/useResponsiveVisibility";
 import { MenuSections } from "../../types/menu";
@@ -14,7 +14,9 @@ export interface NavBarProps {
 
 export default function NavBar({ menuItems }: NavBarProps) {
   const t = useTranslation();
-  const { sm} = useResponsiveVisibility();
+  const { sm } = useResponsiveVisibility();
+
+  const [activeMenu, setActiveMenu] = useState<string | null>(null);
 
   return sm ? (
     <nav className="grid gap-6 px-4 py-4 border-b text-[var(--navbar-fg)] bg-gradient-to-r from-[var(--navbar-start)] to-[var(--navbar-end)] overflow-visible">
@@ -30,6 +32,9 @@ export default function NavBar({ menuItems }: NavBarProps) {
             key={section}
             label={t(`menu.section.${section.toLowerCase()}`)}
             items={items}
+            isActive={activeMenu === section}
+            onActivate={() => setActiveMenu(section)}
+            onDeactivate={() => setActiveMenu(null)}
           />
         ))}
       </div>
@@ -42,6 +47,9 @@ export default function NavBar({ menuItems }: NavBarProps) {
             key={section}
             label={t(`menu.section.${section.toLowerCase()}`)}
             items={items}
+            isActive={activeMenu === section}
+            onActivate={() => setActiveMenu(section)}
+            onDeactivate={() => setActiveMenu(null)}
           />
         ))}
       </div>

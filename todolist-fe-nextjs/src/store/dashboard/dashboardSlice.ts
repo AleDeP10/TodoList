@@ -1,40 +1,40 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { DashboardFilters } from "@/lib/types/filters/DashboardFilters";
+import {
+  DashboardFilters,
+  UnassignedPolicy,
+} from "@/lib/types/filters/DashboardFilters";
 
-const loadStoredFilters = () => {
-  const value = localStorage.getItem("dashboardFilters");
-  if (value) {
-    return JSON.parse(value as string) as DashboardFilters;
-  }
-  return {
-    filters: {
-      unassignedPolicy: "TO_TOP",
-      username: "",
-      fullName: "",
-      userStatus: {
-        ACTIVE: true,
-        BLOCKED: true,
-      },
-      description: "",
-      taskStatus: {
-        TODO: true,
-        "IN PROGRESS": true,
-        PAUSED: true,
-        DONE: false,
-      },
-    } as DashboardFilters,
-  };
+// ✅ Default filters used during SSR or when no localStorage is available
+const initialState = {
+  filters: {
+    unassignedPolicy: "TO_TOP" as UnassignedPolicy,
+    username: "",
+    fullName: "",
+    userStatus: {
+      ACTIVE: true,
+      BLOCKED: true,
+    },
+    description: "",
+    taskStatus: {
+      TODO: true,
+      "IN PROGRESS": true,
+      PAUSED: true,
+      DONE: false,
+    },
+  },
 };
 
 const dashboardSlice = createSlice({
   name: "dashboard",
-  initialState: loadStoredFilters(),
+  initialState,
   reducers: {
     setDashboardFilters(state, action: PayloadAction<DashboardFilters>) {
-      localStorage.setItem(
-        "dashboardFilters",
-        JSON.stringify({ filters: action.payload })
-      );
+      if (typeof window !== "undefined") {
+        localStorage.setItem(
+          "dashboardFilters",
+          JSON.stringify({ filters: action.payload })
+        );
+      }
       state.filters = action.payload;
     },
   },

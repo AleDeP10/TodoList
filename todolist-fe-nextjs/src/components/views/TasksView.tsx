@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { TaskDto } from "@/lib/types/dto/TaskDto";
 import { UserDto } from "@/lib/types/dto/UserDto";
@@ -36,6 +36,7 @@ export default function TasksView() {
   const isLoading = useSelector(getLoading);
   const taskFilters = useSelector(getTaskFilters);
   const [tmpFilters, setTmpFilters] = useState<TaskFilters>(taskFilters);
+  const [filtersLoaded, setFiltersLoaded] = useState<boolean>(false);
   const [currentTask, setCurrentTask] = useState<TaskDto>();
   const [taskToDelete, setTaskToDelete] = useState<TaskDto>();
   const [showFilterModal, setShowFilterModal] = useState(false);
@@ -56,6 +57,19 @@ export default function TasksView() {
       })
     );
   };
+
+  useEffect(() => {
+    if (!filtersLoaded && typeof window !== "undefined") {
+      console.log("TasksView", { filtersLoaded });
+      const stored = localStorage.getItem("taskFilters");
+      if (stored) {
+        const parsed = JSON.parse(stored).filters as TaskFilters;
+        console.log("TasksView", { stored, parsed });
+        dispatch(setTaskFilters(parsed));
+        setFiltersLoaded(true);
+      }
+    }
+  }, [dispatch, filtersLoaded]);
 
   const statusClass = {
     TODO: "task--todo",
@@ -139,7 +153,8 @@ export default function TasksView() {
                 />
                 <Button
                   tooltip={
-                    task.status === "DONE" ? t("task.nextStatus.done")
+                    task.status === "DONE"
+                      ? t("task.nextStatus.done")
                       : !task.assigneeId
                       ? t("task.nextStatus.unassigned")
                       : task.status === "PAUSED" &&

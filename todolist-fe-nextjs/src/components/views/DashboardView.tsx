@@ -14,7 +14,7 @@ import { UserDto } from "@/lib/types/dto/UserDto";
 import { DashboardFilters } from "@/lib/types/filters/DashboardFilters";
 import { useTranslation } from "@/lib/hooks/useTranslation";
 import { useResponsiveVisibility } from "@/lib/hooks/useResponsiveVisibility";
-import { getCSSVariable } from "@/lib/utils/getCSSVariable";
+import { getCSSVariable, getCSSVariableAsync } from "@/lib/utils/getCSSVariable";
 import { DashboardIcons, Icons } from "@/lib/components/Icons";
 import { Anchor } from "@/lib/components/ui/Anchor";
 import { Button } from "@/lib/components/ui/Button";
@@ -45,6 +45,9 @@ export default function DashboardView() {
   const dashboardFilters = useSelector(getDashboardFilters);
   const [tmpFilters, setTmpFilters] =
     useState<DashboardFilters>(dashboardFilters);
+  const [filtersLoaded, setFiltersLoaded] = useState<boolean>(false);
+  const [filterColor, setFilterColor] = useState<string>();
+  const [removeFilterColor, setRemoveFilterColor] = useState<string>();
   const [currentTask, setCurrentTask] = useState<TaskDto>();
   const [currentUser, setCurrentUser] = useState<UserDto>();
   const [showFilterModal, setShowFilterModal] = useState(false);
@@ -179,6 +182,34 @@ export default function DashboardView() {
     );
   };
 
+  useEffect(() => {
+    if (!filtersLoaded && typeof window !== "undefined") {
+      const stored = localStorage.getItem("dashboardFilters");
+      if (stored) {
+        const parsed = JSON.parse(stored).filters as DashboardFilters;
+        dispatch(setDashboardFilters(parsed));
+        setFiltersLoaded(true);
+      }
+    }
+  }, [dispatch, filtersLoaded]);
+
+  useEffect(() => {
+    getCSSVariableAsync("--filter-bg")
+      .then((color) => {
+        setFilterColor(color);
+      })
+      .catch((err) => {
+        console.warn(err.message);
+      });
+    getCSSVariableAsync("--remove-filter-bg")
+      .then((color) => {
+        setRemoveFilterColor(color);
+      })
+      .catch((err) => {
+        console.warn(err.message);
+      });
+  }, []);
+
   return (
     <div className="sm:px-2 md:px-4 lg:px-6 py-6 space-y-6 mx-auto text-center">
       <h2 className="text-xl font-semibold text-center">
@@ -192,7 +223,7 @@ export default function DashboardView() {
               label={t("button.filter")}
               icon={Icons.filter}
               size="small"
-              backgroundColor={getCSSVariable("--filter-bg")}
+              backgroundColor={filterColor}
               onClick={() => setShowFilterModal(true)}
             />
             <Button
@@ -200,7 +231,7 @@ export default function DashboardView() {
               label={t("button.filter.remove")}
               icon={Icons.removeFilter}
               size="small"
-              backgroundColor={getCSSVariable("--remove-filter-bg")}
+              backgroundColor={removeFilterColor}
               onClick={clearFilters}
             />
           </div>

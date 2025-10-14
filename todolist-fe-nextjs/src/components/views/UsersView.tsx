@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { UserDto } from "@/lib/types/dto/UserDto";
 import { UserFilters } from "@/lib/types/filters/UserFilters";
@@ -27,6 +27,7 @@ export default function UsersView() {
   const isLoading = useSelector(getLoading);
   const userFilters = useSelector(getUserFilters);
   const [tmpFilters, setTmpFilters] = useState<UserFilters>(userFilters);
+  const [filtersLoaded, setFiltersLoaded] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useState<UserDto>();
   const [userToDelete, setUserToDelete] = useState<UserDto>();
   const [showFilterModal, setShowFilterModal] = useState(false);
@@ -40,6 +41,17 @@ export default function UsersView() {
       })
     );
   };
+
+  useEffect(() => {
+    if (!filtersLoaded && typeof window !== "undefined") {
+      const stored = localStorage.getItem("userFilters");
+      if (stored) {
+        const parsed = JSON.parse(stored).filters as UserFilters;
+        dispatch(setUserFilters(parsed));
+        setFiltersLoaded(true);
+      }
+    }
+  }, [dispatch, filtersLoaded]);
 
   const statusClass = {
     ACTIVE: "user--active",

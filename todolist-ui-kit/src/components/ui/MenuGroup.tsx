@@ -1,51 +1,87 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import MenuItem from "./MenuItem";
 import type { MenuItemData } from "../../types/menu";
 
 export default function MenuGroup({
   label,
   items,
+  isActive,
+  onActivate,
+  onDeactivate,
 }: {
   label: string;
   items: MenuItemData[];
+  isActive: boolean;
+  onActivate: () => void;
+  onDeactivate: () => void;
 }) {
-  const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isTouch, setIsTouch] = useState(false);
 
-  const handleItemClick = (item: MenuItemData) => {
-    item.onClick?.();
-    setOpen(false);
+  // Chiudi al click esterno
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(e.target as Node)
+      ) {
+        onDeactivate();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [onDeactivate]);
+
+  // Toggle manuale
+  const handleToggle = () => {
+    if (isActive) {
+      onDeactivate();
+    } else {
+      onActivate();
+    }
   };
 
   return (
     <div
       className="relative"
       ref={containerRef}
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
+      onMouseEnter={() => {
+        if (!isTouch) onActivate();
+      }}
+      onMouseLeave={() => {
+        if (!isTouch) onDeactivate();
+      }}
     >
       <button
         className="px-3 py-2 bg-[var(--menu-bg)] text-[var(--menu-fg)] text-sm font-semibold rounded hover:brightness-110"
-        onTouchStart={() => setOpen((prev) => !prev)} 
-        onPointerDown={(e) => {
-          if (e.pointerType === "touch") {
-            setOpen((prev) => !prev);
-          }
+        onTouchStart={() => {
+          setIsTouch(true);
+          handleToggle();
+        }}
+        onTouchEnd={() => {
+          setIsTouch(false);
+        }}
+        onClick={() => {
+          if (!isTouch) handleToggle();
         }}
       >
         {label}
       </button>
 
-      {open && (
+      {isActive && (
         <div className="absolute top-full left-0 z-50 bg-[var(--menu-bg)] rounded shadow-md min-w-[160px] p-2">
           <div className="flex flex-col gap-1">
             {items.map((item) => (
               <MenuItem
                 key={item.label}
                 {...item}
-                onClick={() => handleItemClick(item)}
+                onClick={() => {
+                  item.onClick?.();
+                  onDeactivate();
+                }}
               />
             ))}
           </div>
