@@ -34,7 +34,7 @@ export default function RootLayout({
   const isPrerender = typeof window === "undefined";
 
   return (
-    <html lang="en" className="midnight">
+    <html lang="en" className="skyline">
       <head>
         <script
           dangerouslySetInnerHTML={{

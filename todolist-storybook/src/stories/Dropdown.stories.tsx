@@ -100,7 +100,7 @@ export const Compact: Story = {
   render: () => (
     <InteractionSandbox>
       {(appendText) => {
-        const [selectedValue, setSelectedValue] = useState("midnight");
+        const [selectedValue, setSelectedValue] = useState("skyline");
 
         return (
           <>

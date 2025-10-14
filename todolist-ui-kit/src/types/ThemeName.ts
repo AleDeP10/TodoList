@@ -1,1 +1,1 @@
-export type ThemeName = 'midnight' | 'sunleaf' | 'skyline';
+export type ThemeName = "midnight" | "sunleaf" | "skyline";
