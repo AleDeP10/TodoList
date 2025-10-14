@@ -17,6 +17,7 @@
  * - Injects `/styles/themes/{theme}-theme.css` into the document head
  * - Persists theme changes to localStorage
  * - Ensures theme is applied before first paint using `useLayoutEffect`
+ * - Sets `data-theme` attribute on <html> for immediate fallback styling
  *
  * - Returns:
  *   - `theme`: current theme name
@@ -43,10 +44,13 @@ export function useTheme(): [ThemeName, (t: ThemeName) => void] {
     return "skyline"; // fallback for SSR
   });
 
-  // Apply theme CSS by injecting a <link> tag
+  // Apply theme CSS by injecting a <link> tag and setting data-theme attribute
   const applyThemeCss = useCallback((newTheme: ThemeName) => {
     // Remove any previously injected theme styles
     document.querySelectorAll("link[data-theme]").forEach((el) => el.remove());
+
+    // Set data-theme attribute for immediate fallback styling
+    document.documentElement.setAttribute("data-theme", newTheme);
 
     // Inject the new theme stylesheet
     const link = document.createElement("link");

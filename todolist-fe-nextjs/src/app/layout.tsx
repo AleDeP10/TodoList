@@ -6,7 +6,6 @@ import "@/lib/styles/globals.css";
 import { Providers } from "./providers";
 import ToastManager from "@/components/feedback/ToastManager";
 
-
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -23,14 +22,36 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "ToDoList - Next.js implementation",
-  description: "Modular task management app built with Next.js, Docker, and Storybook. Designed for multi-frontend integration and scalable deployment.",
+  description:
+    "Modular task management app built with Next.js, Docker, and Storybook. Designed for multi-frontend integration and scalable deployment.",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const isPrerender = typeof window === "undefined";
 
   return (
     <html lang="en" className="midnight">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                var theme = localStorage.getItem("theme") || "skyline";
+                document.documentElement.setAttribute("data-theme", theme);
+                var link = document.createElement("link");
+                link.rel = "stylesheet";
+                link.href = "/styles/themes/" + theme + "-theme.css";
+                link.setAttribute("data-theme", "true");
+                document.head.appendChild(link);
+              })();
+            `,
+          }}
+        />
+      </head>
       <body className={`${inter.variable} antialiased`}>
         <Providers>
           {children}
@@ -40,4 +61,3 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }
-
