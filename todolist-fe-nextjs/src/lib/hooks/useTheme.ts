@@ -17,6 +17,7 @@
  * - Injects `/styles/themes/{theme}-theme.css` into the document head
  * - Persists theme changes to localStorage
  * - Ensures theme is applied before first paint using `useLayoutEffect`
+ * - Sets `data-theme` attribute on <html> for immediate fallback styling
  *
  * - Returns:
  *   - `theme`: current theme name
@@ -35,7 +36,9 @@ import { useLayoutEffect, useState, useCallback } from "react";
 import { ThemeName } from "../types/ThemeName";
 
 export function useTheme(): [ThemeName, (t: ThemeName) => void] {
-  // Initialize theme from localStorage or system preference
+  const [firstApplication, setFirstApplication] = useState(true);
+
+  // Initialize theme from localStorage or use skyline for default
   const [theme, setThemeRaw] = useState<ThemeName>(() => {
     if (typeof window !== "undefined") {
       return (localStorage.getItem("theme") || "skyline") as ThemeName;
@@ -43,10 +46,13 @@ export function useTheme(): [ThemeName, (t: ThemeName) => void] {
     return "skyline"; // fallback for SSR
   });
 
-  // Apply theme CSS by injecting a <link> tag
+  // Apply theme CSS by injecting a <link> tag and setting data-theme attribute
   const applyThemeCss = useCallback((newTheme: ThemeName) => {
     // Remove any previously injected theme styles
     document.querySelectorAll("link[data-theme]").forEach((el) => el.remove());
+
+    // Set data-theme attribute for immediate fallback styling
+    document.documentElement.setAttribute("data-theme", newTheme);
 
     // Inject the new theme stylesheet
     const link = document.createElement("link");
@@ -59,10 +65,11 @@ export function useTheme(): [ThemeName, (t: ThemeName) => void] {
   // Update theme state and persist to localStorage
   const setTheme = useCallback(
     (newTheme: ThemeName) => {
-      if (newTheme === theme) return;
+      if (!firstApplication && newTheme === theme) return;
       setThemeRaw(newTheme);
       localStorage.setItem("theme", newTheme);
       applyThemeCss(newTheme);
+      setFirstApplication(false);
     },
     [theme, applyThemeCss]
   );

@@ -36,7 +36,9 @@ import { useLayoutEffect, useState, useCallback } from "react";
 import { ThemeName } from "../types/ThemeName";
 
 export function useTheme(): [ThemeName, (t: ThemeName) => void] {
-  // Initialize theme from localStorage or system preference
+  const [firstApplication, setFirstApplication] = useState(true);
+
+  // Initialize theme from localStorage or use skyline for default
   const [theme, setThemeRaw] = useState<ThemeName>(() => {
     if (typeof window !== "undefined") {
       return (localStorage.getItem("theme") || "skyline") as ThemeName;
@@ -63,10 +65,11 @@ export function useTheme(): [ThemeName, (t: ThemeName) => void] {
   // Update theme state and persist to localStorage
   const setTheme = useCallback(
     (newTheme: ThemeName) => {
-      if (newTheme === theme) return;
+      if (!firstApplication && newTheme === theme) return;
       setThemeRaw(newTheme);
       localStorage.setItem("theme", newTheme);
       applyThemeCss(newTheme);
+      setFirstApplication(false);
     },
     [theme, applyThemeCss]
   );
