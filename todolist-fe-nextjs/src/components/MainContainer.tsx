@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { ThemeName } from "@/lib/types/ThemeName";
+import { useTheme } from "@/lib/hooks/useTheme";
 import { useTranslation } from "@/lib/hooks/useTranslation";
 import { useView } from "@/lib/hooks/useView";
 import { MenuIcons } from "@/lib/components/Icons";
@@ -19,6 +21,7 @@ export default function MainContainer() {
   const dispatch = useDispatch();
   const t = useTranslation();
   const { view, setView } = useView();
+  const [, setTheme] = useTheme();
   const loadedFirstTime = useSelector(getLoadedFirstTime);
 
   const [showManualModal, setShowManualModal] = useState(false);
@@ -63,6 +66,7 @@ export default function MainContainer() {
 
   useEffect(() => {
     if (!loadedFirstTime) {
+      setTheme((localStorage.getItem("theme") || "skyline") as ThemeName);
       dispatch(
         showToast({
           type: "startup",
