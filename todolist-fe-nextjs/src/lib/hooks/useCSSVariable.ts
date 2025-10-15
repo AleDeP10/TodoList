@@ -22,6 +22,7 @@ export function useCssVariable(name: string): string | undefined {
   useEffect(() => {
     const root = window.getComputedStyle(document.documentElement);
     const raw = root.getPropertyValue(name).trim();
+    console.log(`[useCssVariable] computed ${raw} for ${name}`);
     setValue(raw || undefined);
   }, [name]);
 
