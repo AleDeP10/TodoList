@@ -1,4 +1,3 @@
-export * from './useCSSVariable';
 export * from './useFieldValidation';
 export * from './useLang';
 export * from './useResponsiveVisibility';
