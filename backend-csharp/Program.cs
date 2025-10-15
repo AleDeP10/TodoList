@@ -8,21 +8,21 @@ var builder = WebApplication.CreateBuilder(args);
 var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
 builder.WebHost.ConfigureKestrel(options =>
 {
-    var isDev = builder.Environment.IsDevelopment();
-    var useHttps = File.Exists("https/aspnet-dev.pfx");
-    if (isDev && useHttps)
-    {
-        // Local development: enable HTTPS using dev certificate
-        options.ListenAnyIP(int.Parse(port), listen =>
-        {
-            listen.UseHttps("https/aspnet-dev.pfx", "WebS3cur1ty2025!");
-        });
-    }
-    else
-    {
+    //var isDev = builder.Environment.IsDevelopment();
+    //var useHttps = File.Exists("https/aspnet-dev.pfx");
+    //if (isDev && useHttps)
+    //{
+    //    // Local development: enable HTTPS using dev certificate
+    //    options.ListenAnyIP(int.Parse(port), listen =>
+    //    {
+    //        listen.UseHttps("https/aspnet-dev.pfx", "WebS3cur1ty2025!");
+    //    });
+    //}
+    //else
+    //{
         // Production or Docker: fallback to HTTP
         options.ListenAnyIP(int.Parse(port));
-    }
+    //}
 });
 
 // 3. Load appsettings files and environment variables

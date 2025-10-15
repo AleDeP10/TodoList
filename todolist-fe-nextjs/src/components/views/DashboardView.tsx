@@ -14,7 +14,7 @@ import { UserDto } from "@/lib/types/dto/UserDto";
 import { DashboardFilters } from "@/lib/types/filters/DashboardFilters";
 import { useTranslation } from "@/lib/hooks/useTranslation";
 import { useResponsiveVisibility } from "@/lib/hooks/useResponsiveVisibility";
-import { getCSSVariable, getCSSVariableAsync } from "@/lib/utils/getCSSVariable";
+import { getCSSVariable } from "@/lib/utils/getCSSVariable";
 import { DashboardIcons, Icons } from "@/lib/components/Icons";
 import { Anchor } from "@/lib/components/ui/Anchor";
 import { Button } from "@/lib/components/ui/Button";
@@ -29,6 +29,7 @@ import DashboardFilterModal from "@/components/modals/DashboardFilterModal";
 import ManualModal from "@/components/modals/ManualModal";
 import TaskModal from "@/components/modals/TaskModal";
 import UserModal from "@/components/modals/UserModal";
+import { useCssVariable } from "@/lib/hooks/useCssVariable";
 
 export default function DashboardView() {
   const queryClient = useQueryClient();
@@ -46,8 +47,6 @@ export default function DashboardView() {
   const [tmpFilters, setTmpFilters] =
     useState<DashboardFilters>(dashboardFilters);
   const [filtersLoaded, setFiltersLoaded] = useState<boolean>(false);
-  const [filterColor, setFilterColor] = useState<string>();
-  const [removeFilterColor, setRemoveFilterColor] = useState<string>();
   const [currentTask, setCurrentTask] = useState<TaskDto>();
   const [currentUser, setCurrentUser] = useState<UserDto>();
   const [showFilterModal, setShowFilterModal] = useState(false);
@@ -193,22 +192,9 @@ export default function DashboardView() {
     }
   }, [dispatch, filtersLoaded]);
 
-  useEffect(() => {
-    getCSSVariableAsync("--filter-bg")
-      .then((color) => {
-        setFilterColor(color);
-      })
-      .catch((err) => {
-        console.warn(err.message);
-      });
-    getCSSVariableAsync("--remove-filter-bg")
-      .then((color) => {
-        setRemoveFilterColor(color);
-      })
-      .catch((err) => {
-        console.warn(err.message);
-      });
-  }, []);
+  const filterColor = useCssVariable("--filter-bg");
+  const removeFilterColor = useCssVariable("--remove-filter-bg");
+  const showButtons = filterColor && removeFilterColor;
 
   return (
     <div className="sm:px-2 md:px-4 lg:px-6 py-6 space-y-6 mx-auto text-center">
@@ -217,7 +203,7 @@ export default function DashboardView() {
       </h2>
       <div>
         <div className="flex justify-end w-full">
-          <div className="flex gap-2">
+          <div className={`${showButtons ? "flex  gap-2" : "hidden"}`}>
             <Button
               variant="primary"
               label={t("button.filter")}

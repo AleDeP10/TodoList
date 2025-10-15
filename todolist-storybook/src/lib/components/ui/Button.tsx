@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import type { ReactNode } from "react";
+import { useCssVariable } from "../../hooks/useCssVariable";
 import { useResponsiveVisibility } from "../../hooks/useResponsiveVisibility";
-import { getCSSVariable } from "../../utils/getCSSVariable";
 import "./button.css";
 
 export type ButtonVariant = "primary" | "secondary" | "danger";
@@ -41,43 +41,69 @@ export const Button = ({
   const { sm } = useResponsiveVisibility();
   const [isHovered, setIsHovered] = useState(false);
 
-  // 🔧 Background color logic
-  let bgColor: string = "";
-  if (backgroundColor) {
-    bgColor = backgroundColor;
-  } else if (variant) {
-    switch (variant) {
-      case "primary":
-        bgColor = getCSSVariable("--color-blue-600");
-        break;
-      case "secondary":
-        bgColor = getCSSVariable("--color-gray-300");
-        break;
-      case "danger":
-        bgColor = getCSSVariable("--color-red-600");
-        break;
-      default:
-        bgColor = getCSSVariable("--color-gray-400");
-    }
-  }
+  const rawBg = useCssVariable(
+    backgroundColor
+      ? backgroundColor
+      : variant === "primary"
+      ? "--color-blue-600"
+      : variant === "secondary"
+      ? "--color-gray-300"
+      : variant === "danger"
+      ? "--color-red-600"
+      : "--color-gray-400"
+  );
 
-  // 🎨 Foreground color logic
-  let fgColor: string = "";
-  if (foregroundColor) {
-    fgColor = foregroundColor;
-  } else if (variant) {
-    switch (variant) {
-      case "primary":
-      case "danger":
-        fgColor = "#ffffff";
-        break;
-      case "secondary":
-        fgColor = getCSSVariable("--color-gray-800");
-        break;
-      default:
-        fgColor = "#000000";
-    }
-  }
+  const rawFg = useCssVariable(
+    foregroundColor
+      ? foregroundColor
+      : variant === "secondary"
+      ? "--color-gray-800"
+      : "" // fallback for primary/danger/default
+  );
+
+  const bgColor = backgroundColor || rawBg || "transparent";
+  const fgColor =
+    foregroundColor ||
+    rawFg ||
+    (variant === "secondary" ? "#000000" : "#ffffff");
+
+  // 🔧 Background color logic
+  // let bgColor: string = "";
+  // if (backgroundColor) {
+  //   bgColor = backgroundColor;
+  // } else if (variant) {
+  //   switch (variant) {
+  //     case "primary":
+  //       bgColor = getCSSVariable("--color-blue-600");
+  //       break;
+  //     case "secondary":
+  //       bgColor = getCSSVariable("--color-gray-300");
+  //       break;
+  //     case "danger":
+  //       bgColor = getCSSVariable("--color-red-600");
+  //       break;
+  //     default:
+  //       bgColor = getCSSVariable("--color-gray-400");
+  //   }
+  // }
+
+  // // 🎨 Foreground color logic
+  // let fgColor: string = "";
+  // if (foregroundColor) {
+  //   fgColor = foregroundColor;
+  // } else if (variant) {
+  //   switch (variant) {
+  //     case "primary":
+  //     case "danger":
+  //       fgColor = "#ffffff";
+  //       break;
+  //     case "secondary":
+  //       fgColor = getCSSVariable("--color-gray-800");
+  //       break;
+  //     default:
+  //       fgColor = "#000000";
+  //   }
+  // }
 
   const baseClasses = "rounded inline-flex items-center transition";
 
@@ -91,8 +117,8 @@ export const Button = ({
   const hasLabel = !!label;
 
   const customStyle = {
-    backgroundColor: bgColor,
-    color: fgColor,
+    backgroundColor: bgColor || "transparent",
+    color: fgColor || "inherit",
     transition: "background-color 0.2s ease, color 0.2s ease",
     filter: disabled
       ? "grayscale(100%) brightness(85%)"

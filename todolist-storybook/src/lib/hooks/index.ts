@@ -1,3 +1,4 @@
+export * from './useCssVariable';
 export * from './useFieldValidation';
 export * from './useLang';
 export * from './useResponsiveVisibility';

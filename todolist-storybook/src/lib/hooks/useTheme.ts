@@ -54,7 +54,6 @@ export function useTheme(): [ThemeName, (t: ThemeName) => void] {
     // Set data-theme attribute for immediate fallback styling
     document.documentElement.setAttribute("data-theme", newTheme);
 
-    console.log("useTheme.applyThemeCss", {newTheme});
     // Inject the new theme stylesheet
     const link = document.createElement("link");
     link.rel = "stylesheet";
@@ -66,19 +65,27 @@ export function useTheme(): [ThemeName, (t: ThemeName) => void] {
   // Update theme state and persist to localStorage
   const setTheme = useCallback(
     (newTheme: ThemeName) => {
-      console.log("useTheme.setTheme", {firstApplication, newTheme});
-      if (!firstApplication && newTheme === theme) return;
+      newTheme =
+        (newTheme as string) === "light"
+          ? "sunleaf"
+          : (newTheme as string) === "dark"
+          ? "midnight"
+          : newTheme;
+      console.log("useTheme", {newTheme});
+      if (!firstApplication) {
+        if (newTheme === theme) return;
+      } else {
+        setFirstApplication(false);
+      }
       setThemeRaw(newTheme);
       localStorage.setItem("theme", newTheme);
       applyThemeCss(newTheme);
-      setFirstApplication(false);
     },
-    [theme, applyThemeCss]
+    [theme, firstApplication, applyThemeCss]
   );
 
   // Ensure theme CSS is applied before first paint
   useLayoutEffect(() => {
-    console.log("useTheme.useLayoutEffect", {firstApplication, theme});
     applyThemeCss(theme);
   }, [theme, applyThemeCss]);
 

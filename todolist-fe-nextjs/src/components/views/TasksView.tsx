@@ -60,11 +60,9 @@ export default function TasksView() {
 
   useEffect(() => {
     if (!filtersLoaded && typeof window !== "undefined") {
-      console.log("TasksView", { filtersLoaded });
       const stored = localStorage.getItem("taskFilters");
       if (stored) {
         const parsed = JSON.parse(stored).filters as TaskFilters;
-        console.log("TasksView", { stored, parsed });
         dispatch(setTaskFilters(parsed));
         setFiltersLoaded(true);
       }

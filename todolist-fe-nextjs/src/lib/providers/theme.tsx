@@ -10,10 +10,6 @@ export const ThemeWrapper = ({ children }: { children: React.ReactNode }) => {
 
   // Apply theme to body class
   useEffect(() => {
-    //if (process.env.NODE_ENV !== "production") {
-    console.log(`[ThemeWrapper] active theme: ${theme}`);
-    //}
-    
     setTheme(theme);
     document.body.classList.remove("midnight", "sunleaf", "skyline");
     document.body.classList.add(theme);
