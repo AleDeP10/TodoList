@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 /**
- * useCSSVariable
+ * useCssVariable
  *
  * 🎯 Purpose:
  * Safely reads a CSS variable from :root after hydration.
@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
  *
  * 📦 Usage:
  * ```tsx
- * const bg = useCSSVariable("--filter-bg");
+ * const bg = useCssVariable("--filter-bg");
  * ```
  *
  * 🔁 Returns:

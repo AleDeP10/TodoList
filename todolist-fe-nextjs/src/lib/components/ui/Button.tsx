@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { ReactNode } from "react";
-import { useCssVariable } from "../../hooks/useCSSVariable";
+import { useCssVariable } from "../../hooks/useCssVariable";
 import { useResponsiveVisibility } from "../../hooks/useResponsiveVisibility";
 import "./button.css";
 

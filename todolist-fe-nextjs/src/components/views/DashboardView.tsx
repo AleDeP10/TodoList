@@ -29,7 +29,7 @@ import DashboardFilterModal from "@/components/modals/DashboardFilterModal";
 import ManualModal from "@/components/modals/ManualModal";
 import TaskModal from "@/components/modals/TaskModal";
 import UserModal from "@/components/modals/UserModal";
-import { useCssVariable } from "@/lib/hooks/useCSSVariable";
+import { useCssVariable } from "@/lib/hooks/useCssVariable";
 
 export default function DashboardView() {
   const queryClient = useQueryClient();
