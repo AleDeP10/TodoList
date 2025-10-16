@@ -53,7 +53,8 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(policy =>
     {
         policy.WithOrigins(
-            "https://todolist-fe-nextjs.onrender.com", // ✅ frontend origin
+            "https://todolist-fe-nextjs.onrender.com",
+            "https://todolist-fe-angularjs.onrender.com",
             "http://localhost", "https://localhost",
             "http://localhost:3000", "https://localhost:3000",
             "http://localhost:3001", "https://localhost:3001"
