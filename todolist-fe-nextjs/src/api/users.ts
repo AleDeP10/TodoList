@@ -12,7 +12,7 @@ export const createUser = async (user: UserDto): Promise<UserDto> => {
 };
 
 export const updateUser = async (user: UserDto): Promise<void> => {
-  await axiosClient.put(`/User/${user.id}`, {... user, tasks: null});
+  await axiosClient.put(`/User/${user.id}`, {... user, tasks: []});
 };
 
 export const deleteUser = async (id: number): Promise<void> => {
