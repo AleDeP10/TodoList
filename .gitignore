@@ -31,6 +31,9 @@ backend-csharp/.vs/
 packages/
 temp/
 
+# SpringBoot (java version server)
+todolist-be-springboot/target/
+
 # 🌐 AngularJS (legacy frontend)
 frontend-angularjs/node_modules/
 frontend-angularjs/dist/
@@ -54,7 +57,7 @@ todolist-fe-nextjs/temp/
 *storybook.log
 storybook-static
 
-# 💾 Backup / Temporanei
+# 💾 Backup
 *~
 *.bak
 *.old
