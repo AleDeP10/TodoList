@@ -1,7 +1,10 @@
 "use client";
 
 import { TaskStatus, UserStatus } from "@/lib/types/Status";
-import { DashboardFilters, UnassignedPolicy } from "@/lib/types/filters/DashboardFilters";
+import {
+  DashboardFilters,
+  UnassignedPolicy,
+} from "@/lib/types/filters/DashboardFilters";
 import { useTranslation } from "@/lib/hooks/useTranslation";
 import { Icons } from "@/lib/components/Icons";
 import type { ButtonVariant } from "@/lib/components/ui/Button";
@@ -26,7 +29,11 @@ export default function UserFilterModal({
   onApply,
 }: Props) {
   const t = useTranslation();
-  const unassignedPolicies: UnassignedPolicy[] = ["TO_TOP", "HIDE", "TO_BOTTOM"];
+  const unassignedPolicies: UnassignedPolicy[] = [
+    "TO_TOP",
+    "HIDE",
+    "TO_BOTTOM",
+  ];
   const userStatusOptions: UserStatus[] = ["ACTIVE", "BLOCKED"];
   const taskStatusOptions: TaskStatus[] = [
     "TODO",
@@ -58,21 +65,6 @@ export default function UserFilterModal({
       ]}
     >
       <div className="space-y-4">
-        {/* Show Unassigned */}
-        <Dropdown
-          label={t("dashboard.unassignedPolicy")}
-          value={filters.unassignedPolicy}
-          options={unassignedPolicies}
-          getOptionValue={(policy) => policy}
-          getOptionLabel={(policy) => t(`dashboard.unassignedPolicy.${policy}`)}
-          onChange={(policy) =>
-            onChange({
-              ...filters,
-              unassignedPolicy: policy,
-            })
-          }
-        />
-
         <h3>{t("entity.user")}</h3>
 
         {/* Full name */}
@@ -151,6 +143,21 @@ export default function UserFilterModal({
             ))}
           </div>
         </div>
+
+        {/* Show Unassigned */}
+        <Dropdown
+          label={t("dashboard.unassignedPolicy")}
+          value={filters.unassignedPolicy}
+          options={unassignedPolicies}
+          getOptionValue={(policy) => policy}
+          getOptionLabel={(policy) => t(`dashboard.unassignedPolicy.${policy}`)}
+          onChange={(policy) =>
+            onChange({
+              ...filters,
+              unassignedPolicy: policy,
+            })
+          }
+        />
       </div>
     </Modal>
   );
