@@ -149,7 +149,7 @@ SELECT pg_catalog.setval('public.task_id_seq', 10, true);
 -- Name: user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public.user_id_seq', 8, true);
+SELECT pg_catalog.setval('public.user_id_seq', 4, true);
 
 
 --
