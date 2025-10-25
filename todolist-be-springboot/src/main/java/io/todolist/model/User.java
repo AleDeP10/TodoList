@@ -3,7 +3,7 @@ package io.todolist.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "\"User\"")
+@Table(name = "\"user\"")
 public class User {
 
     @Id
@@ -11,16 +11,16 @@ public class User {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "fullName", length = 50)
+    @Column(name = "full_name", length = 50)
     private String fullName;
 
-    @Column(name = "username", length = 10, nullable = false)
+    @Column(name = "username", length = 20, nullable = false)
     private String username;
 
-    @Column(name = "password", length = 10, nullable = false)
+    @Column(name = "password", length = 20, nullable = false)
     private String password;
 
-    @Column(name = "isAdmin")
+    @Column(name = "is_admin")
     private Boolean isAdmin = false;
 
     @Column(name = "status", length = 20, nullable = false)

@@ -36,4 +36,4 @@ COPY config.Docker.json ./config.json
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Expose internal container port served by NGINX
-EXPOSE 8080
+EXPOSE 4200

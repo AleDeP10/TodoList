@@ -2,19 +2,24 @@ package io.todolist.mapper;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import io.todolist.BaseTest;
 import io.todolist.dto.UserDto;
 import io.todolist.mapper.UserMapper;
 import io.todolist.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-public class UserMapperTest {
+public class UserMapperTest extends BaseTest {
 
     private UserMapper userMapper;
 
     @BeforeEach
     public void setUp() {
-        userMapper = new UserMapper();
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+        context.scan("io.todolist.mapper");
+        context.refresh();
+        userMapper = context.getBean(UserMapper.class);
     }
 
     @Test

@@ -36,6 +36,19 @@ services:
       - todolist-net
 
 # ──────────────────────────────────────────────
+# 🧠 Backend API (Springboot)
+# ──────────────────────────────────────────────
+  todolist-be-springboot:
+    restart: unless-stopped
+    build:
+      context: ./todolist-be-springboot
+    container_name: todolist-be-springboot
+    ports:
+      - 8081:8080
+    networks:
+      - todolist-net
+
+# ──────────────────────────────────────────────
 # 🖥️ Legacy Frontend (AngularJS)
 # ──────────────────────────────────────────────
   todolist-fe-angularjs:
@@ -47,7 +60,7 @@ services:
         ENV: docker
     container_name: todolist-fe-angularjs
     ports:
-      - 8081:8080
+      - 4201:4200
     depends_on:
       - todolist-be-csharp
     environment:

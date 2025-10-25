@@ -3,7 +3,7 @@ package io.todolist.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "\"Task\"")
+@Table(name = "\"task\"")
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,11 +13,11 @@ public class Task {
     @Column(name = "description", length = 50, nullable = false)
     private String description;
 
-    @Column(name = "assigneeId")
+    @Column(name = "assignee_id")
     private Integer assigneeId;
 
 
-    @Column(name = "status", length = 12, columnDefinition = "varchar(12) default 'TODO'")
+    @Column(name = "status", length = 20, columnDefinition = "varchar(20) default 'TODO'")
     private String status = "TODO";
 
     // Constructors

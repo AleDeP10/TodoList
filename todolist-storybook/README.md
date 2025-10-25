@@ -72,12 +72,13 @@ If the shim is not detected, add <root>/dist/scripts/shims at the top to your sy
 
 ### 🐳 Using Docker
 
-Use Docker Desktop or run Storybook locally with:
+To run the full ecosystem seamlessly, navigate to the root folder of the ToDoList project (which contains the docker-compose.yml file) and run:
 
 ```
-docker build -t todolist-ui-storybook
-docker run -p 6007:6006 todolist-ui-storybook
+docker compose up --build
 ```
+
+This will build and start all required containers, including the Storybook instance.
 
 Open Storybook at: 📍 http://localhost:6007
 

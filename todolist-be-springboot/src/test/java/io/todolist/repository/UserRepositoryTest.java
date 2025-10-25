@@ -9,18 +9,19 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.List;
 import java.util.Optional;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@ActiveProfiles("test")
 public class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private UserRepositoryCustom userRepositoryCustom;
 
     @Test
     public void testSaveAndFindById() {
@@ -55,7 +56,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void testFilter() {
+    public void testFindAllAndFilter() {
         User user1 = new User();
         user1.setFullName("Alice Smith");
         user1.setUsername("asmith");
@@ -77,11 +78,17 @@ public class UserRepositoryTest {
         filterDto.setIsAdmin(true);
         filterDto.setStateFilter(new String[]{"ACTIVE"});
 
-        var filteredUsers = userRepositoryCustom.filter(filterDto);
+        var filteredUsers = userRepository.filter(filterDto);
 
         assertThat(filteredUsers).isNotEmpty();
         assertThat(filteredUsers).allMatch(u -> u.getUsername().toLowerCase().contains("smith"));
         assertThat(filteredUsers).allMatch(User::getIsAdmin);
         assertThat(filteredUsers).allMatch(u -> "ACTIVE".equals(u.getStatus()));
+
+        List<User> allUsers = userRepository.findAll();
+        filteredUsers = userRepository.filter(new UserFilterDto());
+
+        assertThat(filteredUsers).isNotEmpty();
+        assertThat(allUsers.size()).isEqualTo(filteredUsers.size());
     }
 }

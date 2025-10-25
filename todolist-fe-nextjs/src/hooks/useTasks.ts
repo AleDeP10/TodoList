@@ -180,7 +180,7 @@ export const useNextStatus = () => {
           type: "error",
           message: t("entity.save.error", {
             entity: t("entity.task"),
-            message: error.message,
+            error: error.message,
           }),
         })
       );

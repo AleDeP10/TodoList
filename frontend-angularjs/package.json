@@ -23,7 +23,7 @@
     "build-css": "sass styles/style.scss dist/style.css",
     "copy-static": "node copy-static.js",
     "build": "npm run clean && npm run build-css && npm run copy-static",
-    "serve": "npm run build && echo. && echo Server started. && echo Visit http://localhost:8080/ to explore the application && nginx -p . -c nginx.dev.conf -g \"daemon off;\""
+    "serve": "npm run build && echo. && echo Server started. && echo Visit http://localhost:4200/ to explore the application && nginx -p . -c nginx.dev.conf -g \"daemon off;\""
   },
   "devDependencies": {
     "fs-extra": "^11.3.0",

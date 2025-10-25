@@ -1,6 +1,6 @@
 window.registerTaskService = function (app) {
   app.service("TaskService", function ($http, AppConfig) {
-    const API_URL = AppConfig.API_BASE_URL + "/Task"; 
+    const API_URL = AppConfig.API_BASE_URL + "/task"; 
 
     this.getAll = function () {
       return $http.post(API_URL + "/filter", {});

@@ -8,11 +8,10 @@ The project is available on Render at: 👉 https://todolist-be-csharp.onrender.
 
 ## 🧩 Features
 
-- ✅ Create, update, delete tasks and users
+- ✍️ Create, update, delete tasks and users
 - 🔍 Filter tasks and users by multiple criteria
-- 👥 Assign tasks to users
-- 🧠 Entity Framework with PostgreSQL
-- 🔐 HTTPS support with dev certificate
+- 🤝 Assign tasks to users
+- 🗄️ Entity Framework with PostgreSQL
 - 🧪 Tested on .NET 8.0
 
 ## Tech Stack
@@ -30,16 +29,19 @@ The project is available on Render at: 👉 https://todolist-be-csharp.onrender.
 
 ### 🐳 Using Docker
 
-Use Docker Desktop or run the API locally with:
+The backend API depends on a PostgreSQL database container (todolist-db) to function properly. 
+
+To run the full ecosystem seamlessly, navigate to the root folder of the ToDoList project (which contains the docker-compose.yml file) and run:
 
 ```
-docker build -t todolist-be-csharp .
-docker run -p 5001:5000 todolist-be-csharp
+docker compose up --build
 ```
 
-Then access the API at: 📍 https://localhost:5001
+This will build and start all required containers, including the database and backend API.
 
-Built-in client at: 📍 https://localhost:5001/swagger
+API will be accessible at: 📍 http://localhost:5001/api
+
+Built-in client at: 📍 http://localhost:5001/swagger
 
 ### 🧰 Using Visual Studio
 
@@ -55,7 +57,9 @@ Swagger UI will be available at: 📍 http://localhost:5000/swagger
 
 ### ⚙️ Configuration
 
-The API uses the following environment configuration:
+The file `appsettings.Development.json` containing the database configuration is not included in the repository.
+
+To run the backend successfully, you need to create this file with the following structure:
 
 ```
 {
@@ -65,12 +69,15 @@ The API uses the following environment configuration:
 }
 ```
 
+Make sure to adapt the `Username` and `Password` values to match your local database credentials.
+
 ## 📌 General Notes
 
 - ✔ Compatible with .NET 8.0
-- ✔ Uses HTTP
 - ✔ Dockerfile includes build and runtime stages
 - ✔ PostgreSQL connection via environment config
+- ✔ Project includes Visual Studio configuration for immediate use
+- ✔ Database todolist is required and must be running for the backend to function properly
 
 ## 📁 Project Structure
 

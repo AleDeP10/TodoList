@@ -4,8 +4,8 @@ public class TaskDto {
 
     private Integer id;
     private String description;
-    private String status;
     private Integer assigneeId;
+    private String status;
 
     public TaskDto() {
     }
@@ -33,19 +33,19 @@ public class TaskDto {
         this.description = description;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public Integer getAssigneeId() {
         return assigneeId;
     }
 
     public void setAssigneeId(Integer assigneeId) {
         this.assigneeId = assigneeId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

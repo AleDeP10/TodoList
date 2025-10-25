@@ -2,11 +2,12 @@ package io.todolist.repository;
 
 import io.todolist.dto.UserFilterDto;
 import io.todolist.model.User;
-import org.springframework.stereotype.Repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.*;
+import org.springframework.stereotype.Repository;
+
 import java.util.ArrayList;
 import java.util.List;
 

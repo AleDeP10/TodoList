@@ -9,6 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
@@ -18,12 +19,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@ActiveProfiles("test")
 public class TaskRepositoryTest {
-
     @Autowired
     private TaskRepository taskRepository;
-    @Autowired
-    private TaskRepositoryCustom taskRepositoryCustom;
 
     @Autowired
     private UserRepository userRepository;
@@ -55,16 +54,20 @@ public class TaskRepositoryTest {
         Optional<Task> foundTask = taskRepository.findById(savedTask.getId());
         assertThat(foundTask).isPresent();
         assertThat(foundTask.get().getDescription()).isEqualTo("Test Task");
+    }
 
-        Task updatedTask = new Task(
-                savedTask.getId(),
-                "Updated Task",
-                savedTask.getAssigneeId(),
-                savedTask.getStatus());
+    @Test
+    public void testUpdateAndFindById() {
+        Task task = new Task();
+        task.setDescription("To Update Task");
+        task.setAssigneeId(assigneeId);
+        task.setStatus("TODO");
 
-        taskRepository.save(updatedTask);
+        Task savedTask = taskRepository.save(task);
+        savedTask.setDescription("Updated Task");
+        Task updatedTask = taskRepository.save(savedTask);
 
-        foundTask = taskRepository.findById(updatedTask.getId());
+        Optional<Task> foundTask = taskRepository.findById(updatedTask.getId());
         assertThat(foundTask).isPresent();
         assertThat(foundTask.get().getDescription()).isEqualTo("Updated Task");
     }
@@ -102,11 +105,20 @@ public class TaskRepositoryTest {
         filterDto.setAssigneeId(assigneeId);
         filterDto.setStateFilter(new String[]{"IN PROGRESS"});
 
-        var filteredTasks = taskRepositoryCustom.filter(filterDto);
+        var filteredTasks = taskRepository.filter(filterDto);
 
         assertThat(filteredTasks).isNotEmpty();
         assertThat(filteredTasks).allMatch(t -> t.getDescription().toLowerCase().contains("task"));
         assertThat(filteredTasks).allMatch(t -> t.getAssigneeId().equals(assigneeId));
         assertThat(filteredTasks).allMatch(t -> "IN PROGRESS".equals(t.getStatus()));
+
+        // Test getAll (findAll) and filter with empty filter
+        var allTasks = taskRepository.findAll();
+        var emptyFilter = new TaskFilterDto();
+        var filteredAllTasks = taskRepository.filter(emptyFilter);
+
+        assertThat(allTasks).isNotEmpty();
+        assertThat(filteredAllTasks).isNotEmpty();
+        assertThat(filteredAllTasks.size()).isEqualTo(allTasks.size());
     }
 }

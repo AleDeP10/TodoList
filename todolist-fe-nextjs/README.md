@@ -71,12 +71,16 @@ If the shim is not detected, add <root>/dist/scripts/shims at the top to your sy
 
 ### 🐳 Using Docker
 
-Use Docker Desktop or run the app locally with:
+
+The Next.js frontend accesses the database through the ASP.NET backend, which acts as the intermediary API layer handling all data operations and business logic.
+
+To run the full ecosystem seamlessly, navigate to the root folder of the ToDoList project (which contains the docker-compose.yml file) and run:
 
 ```
-docker build -t todolist-fe-nextjs .
-docker run -p 3001:3000 todolist-fe-nextjs
+docker compose up --build
 ```
+
+This will build and start all required containers, including the database, backend API and frontend.
 
 Then access the app at: 📍 http://localhost:3001
 
