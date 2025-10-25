@@ -1,15 +1,16 @@
 # 🧾 ToDoList — Fullstack Project Overview
 
-A modular task management system built with a C# backend and two distinct frontend implementations: AngularJS and Next.js. The project also includes a dedicated Storybook workspace for UI documentation and testing.
+A modular task management system featuring two equivalent backend implementations, in Spring Boot and ASP.NET, each supporting a dedicated frontend written respectively in AngularJS and Next.js. The project also includes a Storybook workspace for UI documentation and testing of layouts, interactivity, and accessibility. 
 
 ## 🌐 Live Deployments
 
-| Module          | Live URL                                        |
-| --------------- | ----------------------------------------------- |
-| 🧠 Backend (C#) | https://todolist-be-csharp.onrender.com/swagger |
-| 📘 AngularJS FE | https://todolist-fe-angularjs.onrender.com      |
-| ⚛️ Next.js FE   | https://todolist-fe-nextjs.onrender.com         |
-| 📚 Storybook    | https://todolist-storybook.onrender.com         |
+| Module              | Live URL                                        |
+| ------------------- | ----------------------------------------------- |
+| 🧠 ASP.NET BE       | https://todolist-be-csharp.onrender.com/swagger |
+| 🧠 Spring Boot BE   | https://todolist-be-springboot.onrender.com/    |
+| 📘 AngularJS FE     | https://todolist-fe-angularjs.onrender.com      |
+| ⚛️ Next.js FE       | https://todolist-fe-nextjs.onrender.com         |
+| 📚 Storybook        | https://todolist-storybook.onrender.com         |
 
 ## 🧩 Common Features
 
@@ -44,12 +45,13 @@ A modular task management system built with a C# backend and two distinct fronte
 
 | Layer        | Technology                              |
 | ------------ | --------------------------------------- |
-| Backend      | ASP.NET Core, Entity Framework          |
-| AngularJS FE | AngularJS 1.x, Redux Classic, Bootstrap |
-| Next.js FE   | Next.js 14, TailwindCSS, Redux Toolkit  |
-| UI Testing   | Storybook 7                             |
-| Styling      | SCSS (AngularJS), TailwindCSS (Next.js) |
-| Container    | Docker, NGINX, Express                  |
+| ASP.NET BE     | ASP.NET Core, Entity Framework          |
+| Spring Boot FE | Java 17, Spring Boot, Hiberante         |
+| AngularJS FE   | AngularJS 1.x, Redux Classic, Bootstrap |
+| Next.js FE     | Next.js 14, TailwindCSS, Redux Toolkit  |
+| UI Testing     | Storybook 7                             |
+| Styling        | SCSS (AngularJS), TailwindCSS (Next.js) |
+| Container      | Docker, NGINX, Express                  |
 
 ## 🐳 Docker Execution
 
@@ -62,25 +64,27 @@ All modules support Docker-based execution:
     docker compose up --build
   ```
 
-  This command starts the entire stack — frontends, storybook, backend, and database — fully networked and ready to use.
+  This command starts the entire stack — frontends, storybook, backends, and database — fully networked and ready to use.
 
 - ✨ **Unified Environment**: no manual setup required — all services are orchestrated and discoverable via internal Docker networking
 
 ## 📊 Port Mapping
 
-| Module       | Port (Local) | Port (Docker) |
-| ------------ | ------------ | ------------- |
-| Backend (C#) | 5000         | 5001          |
-| AngularJS FE | 8080         | 8081          |
-| Next.js FE   | 3000         | 3001          |
-| Storybook    | 6006         | 6007          |
+| Module                | Port (Local) | Port (Docker) |
+| --------------------- | ------------ | ------------- |
+| Spring Boot BE        | 8080         | 8081          |
+| ASP.NET BE            | 5000         | 5001          |
+| AngularJS FE          | 4200         | 4201          |
+| Next.js FE            | 3000         | 3001          |
+| Storybook             | 6006         | 6007          |
 
 ## 🧪 Developer Installation
 
 Each module includes its own README with setup instructions:
 
 - 🧠 [Database](./db-backup/README.md#restore-instructions)
-- 🧠 [Backend C#](./backend-csharp/README.md#installation-and-launch)
+- 🧠 [Spring Boot Backend](./backend-csharp/README.md#installation-and-launch)
+- 🧠 [ASP.NET Backend](./backend-csharp/README.md#installation-and-launch)
 - 📘 [AngularJS Frontend](./frontend-angularjs/README.md#installation-and-launch)
 - ⚛️ [Next.js Frontend](./todolist-fe-nextjs/README.md#installation-and-launch)
 - 📚 [Storybook Workspace](./todolist-storybook/README.md#installation-and-launch)
@@ -139,7 +143,7 @@ Each package in the monorepo defines its own `eslint.config.cjs` using ESLint v9
 
 ## 🧾 General Notes
 
-- ✔ Local certificates are stored in `nginx/certs` and used for secure proxying
+
 - ✔ Yarn 1.22.19 shim is enforced for compatibility across frontend projects
 - ✔ Logging is handled via Pino (Next.js) and console middleware (AngularJS)
 - ✔ Custom React hooks are used wherever reusability and separation of concerns are beneficial
@@ -149,7 +153,9 @@ Each package in the monorepo defines its own `eslint.config.cjs` using ESLint v9
 
 📖 See [Database README](./db-backup/README.md) for schema overview, local restore instructions, and Docker initialization.
 
-📖 See [Backend C# README](./backend-csharp/README.md) for API setup, HTTPS configuration, and shared development scripts.
+📖 See [Spring Boot Backend README](./todolist-be-springboot/README.md) for API setup, HTTPS configuration, and shared development scripts.
+
+📖 See [ASP.NET Backend  README](./backend-csharp/README.md) for API setup, HTTPS configuration, and shared development scripts.
 
 📖 See [AngularJS Frontend README](./frontend-angularjs/README.md) for SCSS theming, dual-mode filtering, and local installation steps.
 

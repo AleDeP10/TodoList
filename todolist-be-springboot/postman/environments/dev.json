@@ -1,0 +1,15 @@
+{
+	"id": "40682598-8dad-423d-a8b9-7d97dd217e8b",
+	"name": "dev",
+	"values": [
+		{
+			"key": "base_url",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2025-10-24T21:00:44.877Z",
+	"_postman_exported_using": "Postman/11.66.5"
+}

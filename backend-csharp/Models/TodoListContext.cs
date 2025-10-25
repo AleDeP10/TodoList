@@ -23,12 +23,12 @@ public partial class TodoListContext : DbContext
     {
         modelBuilder.Entity<Task>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("Task_pkey");
+            entity.HasKey(e => e.Id).HasName("task_pkey");
 
-            entity.ToTable("Task");
+            entity.ToTable("task");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.AssigneeId).HasColumnName("assigneeId");
+            entity.Property(e => e.AssigneeId).HasColumnName("assignee_id");
             entity.Property(e => e.Description)
                 .HasMaxLength(50)
                 .HasColumnName("description");
@@ -40,20 +40,20 @@ public partial class TodoListContext : DbContext
             entity.HasOne(d => d.Assignee).WithMany(p => p.Tasks)
                 .HasForeignKey(d => d.AssigneeId)
                 .OnDelete(DeleteBehavior.SetNull)
-                .HasConstraintName("FK_Task_User");
+                .HasConstraintName("task_assignee");
         });
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("User_pkey");
+            entity.HasKey(e => e.Id).HasName("user_pkey");
 
-            entity.ToTable("User");
+            entity.ToTable("user");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.IsAdmin).HasColumnName("isAdmin");
+            entity.Property(e => e.IsAdmin).HasColumnName("is_admin");
             entity.Property(e => e.FullName)
                 .HasMaxLength(50)
-                .HasColumnName("fullName");
+                .HasColumnName("full_name");
             entity.Property(e => e.Password)
                 .HasMaxLength(10)
                 .HasColumnName("password");

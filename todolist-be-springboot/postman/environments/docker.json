@@ -1,0 +1,15 @@
+{
+	"id": "5e74bdbe-d0e6-4b96-b916-906021c6307e",
+	"name": "docker",
+	"values": [
+		{
+			"key": "base_url",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2025-10-24T21:01:09.855Z",
+	"_postman_exported_using": "Postman/11.66.5"
+}

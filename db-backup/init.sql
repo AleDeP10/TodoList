@@ -21,24 +21,24 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: Task; Type: TABLE; Schema: public; Owner: admin
+-- Name: task; Type: TABLE; Schema: public; Owner: admin
 --
 
-CREATE TABLE public."Task" (
+CREATE TABLE public.task (
     id integer NOT NULL,
     description character varying(150) NOT NULL,
-    status character varying(12) DEFAULT 'TODO'::character varying,
-    "assigneeId" integer
+    assignee_id integer,
+    status character varying(15)
 );
 
 
-ALTER TABLE public."Task" OWNER TO admin;
+ALTER TABLE public.task OWNER TO admin;
 
 --
--- Name: Task_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+-- Name: task_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
-CREATE SEQUENCE public."Task_id_seq"
+CREATE SEQUENCE public.task_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -47,36 +47,36 @@ CREATE SEQUENCE public."Task_id_seq"
     CACHE 1;
 
 
-ALTER TABLE public."Task_id_seq" OWNER TO admin;
+ALTER TABLE public.task_id_seq OWNER TO admin;
 
 --
--- Name: Task_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+-- Name: task_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
-ALTER SEQUENCE public."Task_id_seq" OWNED BY public."Task".id;
+ALTER SEQUENCE public.task_id_seq OWNED BY public.task.id;
 
 
 --
--- Name: User; Type: TABLE; Schema: public; Owner: admin
+-- Name: user; Type: TABLE; Schema: public; Owner: admin
 --
 
-CREATE TABLE public."User" (
+CREATE TABLE public."user" (
     id integer NOT NULL,
-    username character varying(10) NOT NULL,
-    password character varying(10) NOT NULL,
-    status character varying(20) NOT NULL,
-    "fullName" character varying(50) NOT NULL,
-    "isAdmin" boolean DEFAULT false NOT NULL
+    full_name character varying(50) NOT NULL,
+    username character varying(20) NOT NULL,
+    password character varying(20) NOT NULL,
+    is_admin boolean NOT NULL,
+    status character varying(15) NOT NULL
 );
 
 
-ALTER TABLE public."User" OWNER TO admin;
+ALTER TABLE public."user" OWNER TO admin;
 
 --
--- Name: User_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+-- Name: user_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
-CREATE SEQUENCE public."User_id_seq"
+CREATE SEQUENCE public.user_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -85,95 +85,103 @@ CREATE SEQUENCE public."User_id_seq"
     CACHE 1;
 
 
-ALTER TABLE public."User_id_seq" OWNER TO admin;
+ALTER TABLE public.user_id_seq OWNER TO admin;
 
 --
--- Name: User_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+-- Name: user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
-ALTER SEQUENCE public."User_id_seq" OWNED BY public."User".id;
-
-
---
--- Name: Task id; Type: DEFAULT; Schema: public; Owner: admin
---
-
-ALTER TABLE ONLY public."Task" ALTER COLUMN id SET DEFAULT nextval('public."Task_id_seq"'::regclass);
+ALTER SEQUENCE public.user_id_seq OWNED BY public."user".id;
 
 
 --
--- Name: User id; Type: DEFAULT; Schema: public; Owner: admin
+-- Name: task id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
-ALTER TABLE ONLY public."User" ALTER COLUMN id SET DEFAULT nextval('public."User_id_seq"'::regclass);
+ALTER TABLE ONLY public.task ALTER COLUMN id SET DEFAULT nextval('public.task_id_seq'::regclass);
 
 
 --
--- Data for Name: Task; Type: TABLE DATA; Schema: public; Owner: admin
+-- Name: user id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
-COPY public."Task" (id, description, status, "assigneeId") FROM stdin;
-163	Introduce role-based access control for admin-only operations	TODO	\N
-2	Write unit tests for API endpoints	DONE	2
-161	Design dashboard with user and task statuses, and assignments	IN PROGRESS	3
-1	Refactor authentication logic for clarity and reuse	PAUSED	2
-162	Implement localStorage persistence for user-defined filters	TODO	\N
-117	Prepare the app for multilingual support	PAUSED	34
-69	Implement loading spinner for async operations	IN PROGRESS	3
-160	Create inline manual synchronized with current view	IN PROGRESS	30
-64	Migrate hardcoded properties to config file	DONE	30
-121	Deploy the Dockerized application to Render	IN PROGRESS	30
+ALTER TABLE ONLY public."user" ALTER COLUMN id SET DEFAULT nextval('public.user_id_seq'::regclass);
+
+
+--
+-- Data for Name: task; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.task (id, description, assignee_id, status) FROM stdin;
+1	Refactor authentication logic for clarity and reuse	1	IN PROGRESS
+2	Write unit tests for API endpoints	1	DONE
+3	Migrate hardcoded properties to config file	2	DONE
+4	Implement loading spinner for async operations	3	IN PROGRESS
+5	Prepare the app for multilingual support	4	PAUSED
+6	Deploy the Dockerized application to Render	2	PAUSED
+7	Create inline manual synchronized with current view	2	IN PROGRESS
+8	Design dashboard with user and task statuses, and assignments	3	IN PROGRESS
+9	Implement localStorage persistence for user-defined filters	\N	TODO
+10	Introduce role-based access control for admin-only operations	\N	TODO
 \.
 
 
 --
--- Data for Name: User; Type: TABLE DATA; Schema: public; Owner: admin
+-- Data for Name: user; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-COPY public."User" (id, username, password, status, "fullName", "isAdmin") FROM stdin;
-34	marty	marty	BLOCKED	Martina Damiani	f
-3	gabri	gabri	ACTIVE	Gabriela Belmani	f
-30	aledep	aledep	ACTIVE	Alessandro De Prato	f
-2	admin	admin	ACTIVE	Administrator	t
+COPY public."user" (id, full_name, username, password, is_admin, status) FROM stdin;
+1	Administrator	admin	admin	t	ACTIVE
+2	Alessandro De Prato	aledep	aledep	f	ACTIVE
+3	Gabriela Belmani	gabri	gabri	f	ACTIVE
+4	Martina Damiani	marty	marty	f	BLOCKED
 \.
 
 
 --
--- Name: Task_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+-- Name: task_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public."Task_id_seq"', 163, true);
-
-
---
--- Name: User_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
---
-
-SELECT pg_catalog.setval('public."User_id_seq"', 47, true);
+SELECT pg_catalog.setval('public.task_id_seq', 10, true);
 
 
 --
--- Name: Task Task_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+-- Name: user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-ALTER TABLE ONLY public."Task"
-    ADD CONSTRAINT "Task_pkey" PRIMARY KEY (id);
-
-
---
--- Name: User User_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
---
-
-ALTER TABLE ONLY public."User"
-    ADD CONSTRAINT "User_pkey" PRIMARY KEY (id);
+SELECT pg_catalog.setval('public.user_id_seq', 8, true);
 
 
 --
--- Name: Task FK_Task_User; Type: FK CONSTRAINT; Schema: public; Owner: admin
+-- Name: task task_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
-ALTER TABLE ONLY public."Task"
-    ADD CONSTRAINT "FK_Task_User" FOREIGN KEY ("assigneeId") REFERENCES public."User"(id) ON UPDATE CASCADE ON DELETE SET NULL;
+ALTER TABLE ONLY public.task
+    ADD CONSTRAINT task_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user user_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public."user"
+    ADD CONSTRAINT user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user user_username; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public."user"
+    ADD CONSTRAINT user_username UNIQUE (username);
+
+
+--
+-- Name: task task_assignee; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.task
+    ADD CONSTRAINT task_assignee FOREIGN KEY (assignee_id) REFERENCES public."user"(id) ON UPDATE CASCADE ON DELETE SET NULL NOT VALID;
 
 
 --

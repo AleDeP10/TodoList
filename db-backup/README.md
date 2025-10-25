@@ -25,11 +25,12 @@ Additional features:
 
 ### 🐳 Using Docker
 
-To restore the database using Docker:
+For the ToDoList projects to operate correctly on Docker, it is essential that the database is installed and running inside the todolist-db container.
+
+To run the full ecosystem seamlessly, navigate to the root folder of the ToDoList project (which contains the docker-compose.yml file) and run:
 
 ```
-docker build -t todolist-db ./db-backup
-docker run -d -p 5432:5432 --name todolist-db todolist-db
+docker compose up --build
 ```
 
 This will:

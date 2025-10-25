@@ -140,7 +140,7 @@ export const useSaveEntity = <T extends Entity>(
           type: "error",
           message: t("entity.save.error", {
             entity: t(`entity.${entityName}`),
-            message: error.message,
+            error: error.message,
           }),
         })
       );
@@ -190,7 +190,7 @@ export const useDeleteEntity = <T extends Entity>(
           type: "error",
           message: t("entity.delete.error", {
             entity: t(`entity.${entityName}`),
-            message: error.message,
+            error: error.message,
           }),
         })
       );

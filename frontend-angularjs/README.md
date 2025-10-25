@@ -37,7 +37,6 @@ The project is available on Render at: 👉 https://todolist-fe-angularjs.onrend
 
 - Node.js ≥ 20.x
 - npm ≥ 10.x
-- TypeScript 5.5
 - AngularJS 1.8.3
 
 ## ⚙️ Scripts
@@ -56,14 +55,17 @@ The project is available on Render at: 👉 https://todolist-fe-angularjs.onrend
 
 ### 🐳 Using Docker
 
-Use Docker Desktop or run the app locally with:
+The AngularJS frontend accesses the database exclusively through the Spring Boot backend, which acts as the intermediary API layer handling all data operations and business logic.
+
+To run the full ecosystem seamlessly, navigate to the root folder of the ToDoList project (which contains the docker-compose.yml file) and run:
 
 ```
-docker build -t todolist-fe-angularjs .
-docker run -p 8081:8080 todolist-fe-angularjs
+docker compose up --build
 ```
 
-Open the frontend at: 📍 http://localhost:8081/index.html
+This will build and start all required containers, including the database, backend API and frontend.
+
+Open the frontend at: 📍 http://localhost:4201/index.html
 
 ### 🧪 Local Setup (without Docker)
 
@@ -79,7 +81,7 @@ npm install
 npm run serve
 ```
 
-Open: 📍 http://localhost:8080/index.html
+Open: 📍 http://localhost:4200/index.html
 
 ## 🧾 General Notes
 
