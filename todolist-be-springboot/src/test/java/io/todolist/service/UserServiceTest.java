@@ -59,7 +59,9 @@ public class UserServiceTest extends BaseTest {
     @Test
     public void testFilter() {
         UserFilterDto filterDto = new UserFilterDto();
+        filterDto.setFullName("Test User");
         filterDto.setUsername("testuser");
+        filterDto.setStateFilter(new String[]{"ACTIVE"});
         List<UserDto> filteredUsers = userService.filter(filterDto);
         assertThat(filteredUsers).isNotEmpty();
         assertThat(filteredUsers.stream().allMatch(u -> u.getUsername().contains("testuser"))).isTrue();

@@ -2,19 +2,28 @@ package io.todolist.dto;
 
 public class UserFilterDto {
 
-    private String username;
+
     private String fullName;
+    private String username;
     private Boolean isAdmin;
     private String[] stateFilter;
 
     public UserFilterDto() {
     }
 
-    public UserFilterDto(String username, String fullName, Boolean isAdmin, String[] stateFilter) {
-        this.username = username;
+    public UserFilterDto(String fullName, String username, Boolean isAdmin, String[] stateFilter) {
         this.fullName = fullName;
+        this.username = username;
         this.isAdmin = isAdmin;
         this.stateFilter = stateFilter;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getUsername() {
@@ -25,13 +34,6 @@ public class UserFilterDto {
         this.username = username;
     }
 
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
 
     public Boolean getIsAdmin() {
         return isAdmin;

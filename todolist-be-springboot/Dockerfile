@@ -18,6 +18,10 @@ RUN mvn clean package -DskipTests
 FROM eclipse-temurin:17-jdk-alpine
 WORKDIR /app
 
+# Add a healthcheck probe to monitor container health and enable automatic restart on failure
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD curl -f http://localhost:8080/actuator/health || exit 1
+
 # 📅 Copy the built jar from the build stage
 COPY --from=build /app/target/*.jar ./app.jar
 
@@ -26,4 +30,3 @@ EXPOSE 8080
 
 # 🌟 Run the Spring Boot app
 ENTRYPOINT ["java", "-jar", "app.jar", "--spring.profiles.active=docker"]
-

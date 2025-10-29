@@ -1,0 +1,11 @@
+# Global configuration for Prometheus
+global:
+  # How often to scrape targets by default
+  scrape_interval: 15s  # Frequency of scraping metrics
+
+# Configuration for scraping metrics from targets
+scrape_configs:
+  - job_name: 'spring-boot'  # Job name for identification in Prometheus UI
+    metrics_path: '/actuator/prometheus'  # Endpoint exposed by Spring Boot Actuator for Prometheus metrics
+    static_configs:
+      - targets: ['host.docker.internal:8081']  # Address and port of the Spring Boot microservice
