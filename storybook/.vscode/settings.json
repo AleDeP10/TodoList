@@ -1,0 +1,12 @@
+{
+  "eslint.options": {
+    "overrideConfigFile": "eslint.config.cjs"
+  },
+  "eslint.validate": ["javascript", "typescript", "typescriptreact"],
+  "eslint.workingDirectories": [
+    { "mode": "auto" }
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always"
+  }
+}

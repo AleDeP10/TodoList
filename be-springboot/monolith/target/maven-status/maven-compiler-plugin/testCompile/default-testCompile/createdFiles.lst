@@ -1,0 +1,7 @@
+io\todolist\service\TaskServiceTest.class
+io\todolist\repository\UserRepositoryTest.class
+io\todolist\mapper\UserMapperTest.class
+io\todolist\service\UserServiceTest.class
+io\todolist\mapper\TaskMapperTest.class
+io\todolist\repository\TaskRepositoryTest.class
+io\todolist\BaseTest.class

@@ -20,12 +20,12 @@
 !**/appsettings.Docker.json
 
 # 🧠 Visual Studio / .NET (server)
-backend-csharp/bin/
-backend-csharp/obj/
-backend-csharp/out/
-backend-csharp/*.user
-backend-csharp/*.suo
-backend-csharp/.vs/
+be-aspnet/monolith/bin/
+be-aspnet/monolith/obj/
+be-aspnet/monolith/out/
+be-aspnet/monolith/*.user
+be-aspnet/monolith/*.suo
+be-aspnet/monolith/.vs/
 *.nupkg
 *.snupkg
 packages/
@@ -35,23 +35,23 @@ temp/
 todolist-be-springboot/target/
 
 # 🌐 AngularJS (legacy frontend)
-frontend-angularjs/node_modules/
-frontend-angularjs/dist/
-frontend-angularjs/logs/
-frontend-angularjs/.angular/
-frontend-angularjs/.env
+fe-angularjs/monolith/node_modules/
+fe-angularjs/monolith/dist/
+fe-angularjs/monolith/logs/
+fe-angularjs/monolith/.angular/
+fe-angularjs/monolith/.env
 
 # 🧪 Testing
 /coverage
 *.tsbuildinfo
 next-env.d.ts
 
-# 🚀 Next.js (current frontend: todolist-fe-nextjs)
-todolist-fe-nextjs/.next/
-todolist-fe-nextjs/out/
-todolist-fe-nextjs/build/
-todolist-fe-nextjs/logs/
-todolist-fe-nextjs/temp/
+# 🚀 Next.js (current frontend: fe-reactjs)
+fe-reactjs/monolith/.next/
+fe-reactjs/monolith/out/
+fe-reactjs/monolith/build/
+fe-reactjs/monolith/logs/
+fe-reactjs/monolith/temp/
 
 # 🧙‍♂️ Storybook
 *storybook.log

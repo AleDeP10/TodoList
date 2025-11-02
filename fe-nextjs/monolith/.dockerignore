@@ -1,0 +1,19 @@
+# Node modules and build
+node_modules
+.next
+out
+dist
+logs
+
+# Vite and Storybook
+storybook-static
+coverage
+
+# OS and IDE
+.DS_Store
+*.swp
+*.swo
+*.log
+.vscode
+.idea
+

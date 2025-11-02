@@ -82,9 +82,9 @@ All modules support Docker-based execution:
 
 Each module includes its own README with setup instructions:
 
-- 🧠 [Database](./db-backup/README.md#restore-instructions)
-- 🧠 [Spring Boot Backend](./backend-csharp/README.md#installation-and-launch)
-- 🧠 [ASP.NET Backend](./backend-csharp/README.md#installation-and-launch)
+- 🗄️ [Database](./db-backup/README.md#restore-instructions)
+- ☕ [Spring Boot Backend](./backend-csharp/README.md#installation-and-launch)
+- 💻 [ASP.NET Backend](./backend-csharp/README.md#installation-and-launch)
 - 📘 [AngularJS Frontend](./frontend-angularjs/README.md#installation-and-launch)
 - ⚛️ [Next.js Frontend](./todolist-fe-nextjs/README.md#installation-and-launch)
 - 📚 [Storybook Workspace](./todolist-storybook/README.md#installation-and-launch)

@@ -1,0 +1,14 @@
+:root {
+  --bg: #e1ecf4;
+  --fg: #1f1f2a;
+  --text-secondary: #4a5568;
+
+  --navbar-start: #5ac2ca;
+  --navbar-end: #346e76;
+  --navbar-fg: #1a345e;
+
+  --menu-bg: #99cce9;
+  --menu-hover-bg: #82d4cb;
+
+  --modal-bg: #f4f4f7;
+}
