@@ -9,7 +9,7 @@
 .vercel
 *.pem
 
-# 📦 Output e log della root
+# 📦 Output and logs into root
 /dist/
 /logs/
 
@@ -20,26 +20,28 @@
 !**/appsettings.Docker.json
 
 # 🧠 Visual Studio / .NET (server)
-be-aspnet/monolith/bin/
-be-aspnet/monolith/obj/
-be-aspnet/monolith/out/
-be-aspnet/monolith/*.user
-be-aspnet/monolith/*.suo
-be-aspnet/monolith/.vs/
+**/bin/
+**/obj/
+**/out/
+**/*.user
+**/*.suo
+**/.vs/
 *.nupkg
 *.snupkg
 packages/
 temp/
 
-# SpringBoot (java version server)
-todolist-be-springboot/target/
+# SpringBoot (Java version server)
+**/target/
+*.iml
+**/application-dev.properties 
 
 # 🌐 AngularJS (legacy frontend)
-fe-angularjs/monolith/node_modules/
-fe-angularjs/monolith/dist/
-fe-angularjs/monolith/logs/
-fe-angularjs/monolith/.angular/
-fe-angularjs/monolith/.env
+**/node_modules/
+**/dist/
+**/logs/
+**/.angular/
+**/.env
 
 # 🧪 Testing
 /coverage
@@ -47,11 +49,11 @@ fe-angularjs/monolith/.env
 next-env.d.ts
 
 # 🚀 Next.js (current frontend: fe-reactjs)
-fe-reactjs/monolith/.next/
-fe-reactjs/monolith/out/
-fe-reactjs/monolith/build/
-fe-reactjs/monolith/logs/
-fe-reactjs/monolith/temp/
+**/.next/
+**/out/
+**/build/
+**/logs/
+**/temp/
 
 # 🧙‍♂️ Storybook
 *storybook.log
