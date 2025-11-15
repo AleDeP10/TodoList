@@ -3,7 +3,7 @@ CREATE SCHEMA IF NOT EXISTS task AUTHORIZATION admin;
 
 -- Create enum type for task status
 CREATE TYPE task.task_status 
-    AS ENUM ('TODO', 'IN_PROGRESS', 'IN_REVIEW', 'DONE', 'PAUSED', 'REJECTED');
+    AS ENUM ('TODO', 'IN_PROGRESS', 'IN_REVIEW', 'DONE', 'PAUSED', 'REJECTED', 'BACKLOG');
 
 -- Create sequence for task IDs
 CREATE SEQUENCE task.tasks_id_seq

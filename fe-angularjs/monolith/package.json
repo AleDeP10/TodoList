@@ -1,6 +1,6 @@
 {
   "name": "todolistangularjs",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "private": true,
   "main": "app.js",
   "description": "AngularJS implementation of the ToDoList frontend with dual-mode filtering and SCSS theming",

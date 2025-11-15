@@ -5,12 +5,12 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 
 # ⬇️ Copy and restore project dependencies
-COPY TodoList.csproj ./
+COPY ToDoList.csproj ./
 RUN dotnet restore
 
 # 📆 Copy all source files and publish the app
 COPY . ./
-RUN dotnet publish TodoList.csproj -c Release -o /app/publish
+RUN dotnet publish ToDoList.csproj -c Release -o /app/publish
 
 # ────────────────────────────────────────────────────────────────
 # 🚀 Stage 2: Runtime image
@@ -28,4 +28,4 @@ COPY https/aspnet-dev.pfx /app/https/aspnet-dev.pfx
 EXPOSE 5000
 
 # 🌟 Run the API directly (no entrypoint script)
-CMD ["dotnet", "TodoList.dll"]
+CMD ["dotnet", "ToDoList.dll"]

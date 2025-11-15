@@ -2,6 +2,7 @@ package io.todolist.repository;
 
 import io.todolist.dto.TaskFilterDto;
 import io.todolist.model.Task;
+import io.todolist.model.TaskStatus;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -10,6 +11,7 @@ import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TaskRepositoryCustomImpl implements TaskRepositoryCustom {
@@ -37,7 +39,10 @@ public class TaskRepositoryCustomImpl implements TaskRepositoryCustom {
 
         // Filter by status values if provided
         if (dto.getStateFilter() != null && dto.getStateFilter().length > 0) {
-            predicates.add(task.get("status").in((Object[]) dto.getStateFilter()));
+            TaskStatus[] statuses = Arrays.stream(dto.getStateFilter())
+                    .map(TaskStatus::valueOf)
+                    .toArray(TaskStatus[]::new);
+            predicates.add(task.get("status").in((Object[]) statuses));
         }
 
         cq.where(predicates.toArray(new Predicate[0]));

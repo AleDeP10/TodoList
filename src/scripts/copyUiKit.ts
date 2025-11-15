@@ -3,8 +3,8 @@
  *
  * 🔄 UI Kit Synchronization Script
  *
- * Copies shared components, hooks, styles, and utilities from `todolist-ui-kit/src`
- * into the `todolist-storybook` and `todolist-fe-nextjs` workspaces.
+ * Copies shared components, hooks, styles, and utilities from `ui-kit/src`
+ * into the `storybook` and `fe-nextjs` workspaces.
  *
  * ✅ Ensures visual and functional consistency across frontend and Storybook
  * ✅ Automatically invoked during `yarn run setup`
@@ -18,7 +18,7 @@
  * Usage:
  *   yarn run copy-ui-kit
  *
- * Note: it is mandatory to run this script after every update affecting todolist-ui-kit
+ * Note: it is mandatory to run this script after every update affecting ui-kit
  */
 
 import { cp } from "fs/promises";
@@ -36,12 +36,12 @@ const toLib = [
 ];
 
 // Source base directory (UI Kit)
-const sourceBase = resolve("./todolist-ui-kit/src");
+const sourceBase = resolve("./ui-kit/src");
 
-// === COPY TO todolist-storybook ===
+// === COPY TO storybook ===
 try {
-  const libDestination = resolve("./todolist-storybook/src/lib");
-  const publicDestination = resolve("./todolist-storybook/public");
+  const libDestination = resolve("./storybook/src/lib");
+  const publicDestination = resolve("./storybook/public");
 
   // Copy lib folders
   for (const item of toLib) {
@@ -63,17 +63,17 @@ try {
     { recursive: true }
   );
 
-  console.log("✅ UI Kit copied successfully to todolist-storybook");
+  console.log("✅ UI Kit copied successfully to storybook");
 } catch (err) {
-  console.error("❌ Error while copying UI Kit to todolist-storybook:", err);
+  console.error("❌ Error while copying UI Kit to storybook:", err);
   process.exit(1);
 }
 
-// === COPY TO todolist-fe-nextjs ===
+// === COPY TO fe-nextjs ===
 try {
-  const libDestination = resolve("./todolist-fe-nextjs/src/lib");
+  const libDestination = resolve("./fe-nextjs/monolith/src/lib");
   const stylesLib = resolve(libDestination, "styles");
-  const publicDestination = resolve("./todolist-fe-nextjs/public/styles");
+  const publicDestination = resolve("./fe-nextjs/monolith/public/styles");
 
   // Copy lib folders
   for (const item of toLib) {
@@ -109,8 +109,8 @@ try {
     { recursive: true }
   );
 
-  console.log("✅ UI Kit copied successfully to todolist-fe-nextjs");
+  console.log("✅ UI Kit copied successfully to nextjs");
 } catch (err) {
-  console.error("❌ Error while copying UI Kit to todolist-fe-nextjs:", err);
+  console.error("❌ Error while copying UI Kit to nextjs:", err);
   process.exit(1);
 }

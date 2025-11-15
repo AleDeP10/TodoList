@@ -45,7 +45,7 @@ window.registerTaskController = function (app) {
             response.data.forEach((task) => {
               data.push({
                 ...task,
-                status: task.status === "PAUSED" ? "IN PROGRESS" : task.status,
+                status: ["PAUSED", "IN_REVIEW", "REJECTED"].includes(task.status) ? "IN_PROGRESS" : task.status,
               });
             });
             $scope.setTasks(data); // Always update Redux
@@ -109,7 +109,7 @@ window.registerTaskController = function (app) {
             response.data.forEach((task) => {
               data.push({
                 ...task,
-                status: task.status === "PAUSED" ? "IN PROGRESS" : task.status,
+                status: ["PAUSED", "IN_REVIEW", "REJECTED"].includes(task.status) ? "IN_PROGRESS" : task.status,
               });
             });
             $scope.tasks = data;
@@ -144,7 +144,7 @@ window.registerTaskController = function (app) {
       };
 
       $scope.cssStatus = function (task) {
-        return task.status === "IN PROGRESS"
+        return task.status === "IN_PROGRESS"
           ? "in-progress"
           : task.status.toLowerCase();
       };
@@ -224,7 +224,7 @@ window.registerTaskController = function (app) {
       };
 
       $scope.nextStatus = function (task) {
-        const statusCycle = ["TODO", "IN PROGRESS", "DONE"];
+        const statusCycle = ["TODO", "IN_PROGRESS", "DONE"];
         const currentIndex = statusCycle.indexOf(task.status);
         const nextIndex = (currentIndex + 1) % statusCycle.length;
 

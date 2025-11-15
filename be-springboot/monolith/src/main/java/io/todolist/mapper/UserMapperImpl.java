@@ -2,6 +2,7 @@ package io.todolist.mapper;
 
 import io.todolist.dto.UserDto;
 import io.todolist.model.User;
+import io.todolist.model.UserStatus;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,7 +14,7 @@ public class UserMapperImpl implements UserMapper {
                 user.getUsername(),
                 user.getPassword(),
                 user.getIsAdmin(),
-                user.getStatus()
+                String.valueOf(user.getStatus())
         );
     }
 
@@ -24,7 +25,7 @@ public class UserMapperImpl implements UserMapper {
                 userDto.getUsername(),
                 userDto.getPassword(),
                 userDto.getIsAdmin(),
-                userDto.getStatus()
+                UserStatus.valueOf(userDto.getStatus())
         );
     }
 }

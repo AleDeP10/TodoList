@@ -4,12 +4,19 @@
 FROM maven:3.9.4-eclipse-temurin-17 AS build
 WORKDIR /app
 
-# ⬇️ Copy the pom.xml and restore dependencies
-COPY pom.xml ./
+# Copy the parent pom.xml from the root of be-springboot
+COPY pom.xml ./pom.xml
+
+# Copy the monolith module folder entirely
+COPY monolith ./monolith
+
+# Change working directory to monolith for build commands
+WORKDIR /app/monolith
+
+# Download dependencies offline
 RUN mvn dependency:go-offline
 
-# 📆 Copy all source files and build the app
-COPY src ./src
+# Build the project skipping tests
 RUN mvn clean package -DskipTests
 
 # ────────────────────────────────────────────────────────────────
@@ -23,7 +30,7 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
   CMD curl -f http://localhost:8080/actuator/health || exit 1
 
 # 📅 Copy the built jar from the build stage
-COPY --from=build /app/target/*.jar ./app.jar
+COPY --from=build /app/monolith/target/*.jar ./app.jar
 
 # 🌐 Expose the HTTP port
 EXPOSE 8080

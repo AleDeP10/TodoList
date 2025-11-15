@@ -6,6 +6,7 @@ import io.todolist.BaseTest;
 import io.todolist.dto.UserDto;
 import io.todolist.mapper.UserMapper;
 import io.todolist.model.User;
+import io.todolist.model.UserStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -30,7 +31,7 @@ public class UserMapperTest extends BaseTest {
         user.setUsername("mrossi");
         user.setPassword("secret");
         user.setIsAdmin(true);
-        user.setStatus("ACTIVE");
+        user.setStatus(UserStatus.ACTIVE);
 
         UserDto dto = userMapper.toDto(user);
 
@@ -40,7 +41,7 @@ public class UserMapperTest extends BaseTest {
         assertEquals(user.getUsername(), dto.getUsername());
         assertEquals(user.getPassword(), dto.getPassword());
         assertEquals(user.getIsAdmin(), dto.getIsAdmin());
-        assertEquals(user.getStatus(), dto.getStatus());
+        assertEquals(user.getStatus().toString(), dto.getStatus());
     }
 
     @Test
@@ -51,7 +52,7 @@ public class UserMapperTest extends BaseTest {
         dto.setUsername("lbianchi");
         dto.setPassword("secret");
         dto.setIsAdmin(false);
-        dto.setStatus("INACTIVE");
+        dto.setStatus(String.valueOf(UserStatus.BLOCKED));
 
         User user = userMapper.toEntity(dto);
 
@@ -61,6 +62,6 @@ public class UserMapperTest extends BaseTest {
         assertEquals(dto.getUsername(), user.getUsername());
         assertEquals(dto.getPassword(), user.getPassword());
         assertEquals(dto.getIsAdmin(), user.getIsAdmin());
-        assertEquals(dto.getStatus(), user.getStatus());
+        assertEquals(dto.getStatus(), user.getStatus().toString());
     }
 }

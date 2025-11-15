@@ -1,6 +1,6 @@
 {
   "name": "todolist",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "private": true,
   "type": "module",
   "author": "AleDeP10 <alessandro.deprato@outlook.com>",
@@ -9,7 +9,7 @@
   "workspaces": [
     "ui-kit",
     "storybook",
-    "fe-nextjs"
+    "fe-nextjs/monolith"
   ],
   "scripts": {
     "setup": "yarn run build-scripts && yarn run build-shims && yarn run enforce-yarn-shim && yarn run check-versions && yarn run copy-ui-kit",

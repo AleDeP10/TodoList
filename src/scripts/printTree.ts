@@ -60,7 +60,7 @@ const ignore = [
 ];
 
 // List of file extensions to ignore (typically build artifacts or logs)
-const ignoreExtensions = [".log", ".map"];
+const ignoreExtensions = [".log", ".map", ".iml"];
 
 // Counters for statistics
 let fileCount = 0;

@@ -16,7 +16,7 @@ The project is available on Render at: 👉 https://todolist-fe-angularjs.onrend
   - Server-side: default, efficient on large datasets
   - Client-side: reactive, based on Redux Classic
 - ⏩ Legacy compatibility:
-  - PAUSED tasks are treated as IN PROGRESS to preserve pre-existing behavior
+  - PAUSED tasks are treated as IN_PROGRESS to preserve pre-existing behavior
   - No refactoring required for legacy views or workflows
 - 🎨 Responsive UI with gradient theming and state-based styling
 - 🧠 Modular architecture with Redux store and dedicated services
@@ -159,4 +159,4 @@ Open: 📍 http://localhost:4200/index.html
 
 ## 🔗 Related Documentation
 
-📖 See [Main README](../README.md) for global setup and shared scripts.
+📖 See [Main README](../../README.md) for global setup and shared scripts.

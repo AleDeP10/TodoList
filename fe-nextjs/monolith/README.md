@@ -104,7 +104,7 @@ On a second terminal, activate the proxy to the backend via nginx with
 yarn run serve-nginx
 ```
 
-Access the app at: 📍 http://localhost:3000
+Access the app at: 📍 http://localhost
 
 ## 🧾 General Notes
 
@@ -245,6 +245,6 @@ Access the app at: 📍 http://localhost:3000
 
 ## 🔗 Related Documentation
 
-📖 See [Main README](../README.md) for global setup and shared scripts.
+📖 See [Main README](../../README.md) for global setup and shared scripts.
 
-📖 See [ui-kit README](../todolist-ui-kit/README.md) for the details about shared items.
+📖 See [ui-kit README](../../ui-kit/README.md) for the details about shared items.

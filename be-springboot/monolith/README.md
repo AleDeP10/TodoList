@@ -50,7 +50,7 @@ You can use Postman test it using Postman or your favorite client.
 
 To run the backend with IntelliJ IDEA:
 
-1. Open the project folder todolist-be-springboot in IntelliJ IDEA. The included .idea folder ensures the project is immediately configured and ready to run.
+1. Open the project folder be-springboot/monolith/ in IntelliJ IDEA. The included .idea folder ensures the project is immediately configured and ready to run.
 2. Locate the TodoListApplication class in the io.todolist package under src/main/java.
 3. Right-click on TodoListApplication and select Run 'TodoListApplication.main()'. Alternatively, use the green play button in the top-right toolbar.
 
@@ -68,7 +68,7 @@ spring.datasource.url=jdbc:postgresql://localhost:5432/todolist
 spring.datasource.username=admin
 spring.datasource.password=admin
 spring.datasource.driver-class-name=org.postgresql.Driver
-spring.jpa.hibernate.ddl-auto=update
+spring.jpa.hibernate.ddl-auto=none
 spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
 ```
 Make sure to adapt the `username` and `password` values to match your local database credentials.
@@ -119,6 +119,7 @@ This setup helps you quickly validate the backend API functionality without manu
 │   │   └── dev.json
 │   │   └── docker.json
 │   │   └── prod.json
+└── prometheus.yml
 └── README.md
 ├── src
 │   ├── main
@@ -137,6 +138,11 @@ This setup helps you quickly validate the backend API functionality without manu
 │   │   │   │   │   │   └── TaskFilterDto.java
 │   │   │   │   │   │   └── UserDto.java
 │   │   │   │   │   │   └── UserFilterDto.java
+│   │   │   │   │   ├── hibernate
+│   │   │   │   │   │   ├── type
+│   │   │   │   │   │   │   └── PostgreSQLEnumType.java
+│   │   │   │   │   │   │   └── TaskStatusType.java
+│   │   │   │   │   │   │   └── UserStatusType.java
 │   │   │   │   │   ├── mapper
 │   │   │   │   │   │   └── TaskMapper.java
 │   │   │   │   │   │   └── TaskMapperImpl.java
@@ -144,7 +150,9 @@ This setup helps you quickly validate the backend API functionality without manu
 │   │   │   │   │   │   └── UserMapperImpl.java
 │   │   │   │   │   ├── model
 │   │   │   │   │   │   └── Task.java
+│   │   │   │   │   │   └── TaskStatus.java
 │   │   │   │   │   │   └── User.java
+│   │   │   │   │   │   └── UserStatus.java
 │   │   │   │   │   ├── repository
 │   │   │   │   │   │   └── TaskRepository.java
 │   │   │   │   │   │   └── TaskRepositoryCustom.java
@@ -155,11 +163,17 @@ This setup helps you quickly validate the backend API functionality without manu
 │   │   │   │   │   ├── service
 │   │   │   │   │   │   └── TaskService.java
 │   │   │   │   │   │   └── UserService.java
-│   │   │   │   │   └── TodoListApplication.java
+│   │   │   │   │   └── ToDoListApplication.java
+│   │   │   ├── utils
+│   │   │   │   └── ProfileUtils.java
 │   │   ├── resources
 │   │   │   └── application-dev.properties
 │   │   │   └── application-docker.properties
 │   │   │   └── application.properties
+│   │   │   ├── db
+│   │   │   │   └── schema-h2.sql
+│   │   │   │   └── schema-postgres.sql
+│   │   │   │   └── schema.sql
 │   ├── test
 │   │   ├── java
 │   │   │   ├── io
@@ -169,6 +183,7 @@ This setup helps you quickly validate the backend API functionality without manu
 │   │   │   │   │   │   └── TaskMapperTest.java
 │   │   │   │   │   │   └── UserMapperTest.java
 │   │   │   │   │   ├── repository
+│   │   │   │   │   │   └── BaseRepositoryTest.java
 │   │   │   │   │   │   └── TaskRepositoryTest.java
 │   │   │   │   │   │   └── UserRepositoryTest.java
 │   │   │   │   │   ├── service
@@ -178,6 +193,10 @@ This setup helps you quickly validate the backend API functionality without manu
 │   │   │   └── application-test.properties
 
 📊 Tree Summary
-📁 Folders: 24
-📄 Files: 42
+📁 Folders: 28
+📄 Files: 53
 ```
+
+## 🔗 Related Documentation
+
+📖 See [Main README](../../README.md) for global setup.

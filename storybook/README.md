@@ -163,4 +163,4 @@ Open Storybook at: 📍 http://localhost:6006
 
 📖 See Main [Main README](../README.md) for global setup and shared scripts.
 
-📖 See [ui-kit README](../todolist-ui-kit/README.md) for the details about shared items.
+📖 See [ui-kit README](../ui-kit/README.md) for the details about shared items.

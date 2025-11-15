@@ -1,9 +1,11 @@
 package io.todolist.model;
 
+import io.todolist.hibernate.type.TaskStatusType;
 import jakarta.persistence.*;
+import org.hibernate.annotations.Type;
 
 @Entity
-@Table(name = "\"task\"")
+@Table(name = "tasks", schema = "task")
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,15 +18,15 @@ public class Task {
     @Column(name = "assignee_id")
     private Integer assigneeId;
 
-
-    @Column(name = "status", length = 20, columnDefinition = "varchar(20) default 'TODO'")
-    private String status = "TODO";
+    @Type(value = TaskStatusType.class)
+    @Column(name = "status", nullable = false, columnDefinition = "task_status")
+    private TaskStatus status = TaskStatus.TODO;
 
     // Constructors
     public Task() {
     }
 
-    public Task(Integer id, String description, Integer assigneeId, String status) {
+    public Task(Integer id, String description, Integer assigneeId, TaskStatus status) {
         this.id = id;
         this.description = description;
         this.assigneeId = assigneeId;
@@ -57,11 +59,11 @@ public class Task {
         this.assigneeId = assigneeId;
     }
 
-    public String getStatus() {
+    public TaskStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(TaskStatus status) {
         this.status = status;
     }
 }

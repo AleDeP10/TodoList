@@ -83,11 +83,11 @@ All modules support Docker-based execution:
 Each module includes its own README with setup instructions:
 
 - 🗄️ [Database](./db-backup/README.md#restore-instructions)
-- ☕ [Spring Boot Backend](./backend-csharp/README.md#installation-and-launch)
-- 💻 [ASP.NET Backend](./backend-csharp/README.md#installation-and-launch)
-- 📘 [AngularJS Frontend](./frontend-angularjs/README.md#installation-and-launch)
-- ⚛️ [Next.js Frontend](./todolist-fe-nextjs/README.md#installation-and-launch)
-- 📚 [Storybook Workspace](./todolist-storybook/README.md#installation-and-launch)
+- ☕ [Spring Boot Backend](./be-springboot/monolith/README.md#installation-and-launch)
+- 💻 [ASP.NET Backend](./be-aspnet/monolith/README.md#installation-and-launch)
+- 📘 [AngularJS Frontend](./fe-angularjs/monolith/README.md#installation-and-launch)
+- ⚛️ [Next.js Frontend](./fe-nextjs/monolith/README.md#installation-and-launch)
+- 📚 [Storybook Workspace](./storybook/README.md#installation-and-launch)
 
 <a name="npm-vs-yarn"></a>
 
@@ -153,14 +153,14 @@ Each package in the monorepo defines its own `eslint.config.cjs` using ESLint v9
 
 📖 See [Database README](./db-backup/README.md) for schema overview, local restore instructions, and Docker initialization.
 
-📖 See [Spring Boot Backend README](./todolist-be-springboot/README.md) for API setup, HTTPS configuration, and shared development scripts.
+📖 See [Spring Boot Backend README](./be-springboot/monolith/README.md) for API setup, HTTPS configuration, and shared development scripts.
 
-📖 See [ASP.NET Backend  README](./backend-csharp/README.md) for API setup, HTTPS configuration, and shared development scripts.
+📖 See [ASP.NET Backend  README](./be-aspnet/monolith/README.md) for API setup, HTTPS configuration, and shared development scripts.
 
-📖 See [AngularJS Frontend README](./frontend-angularjs/README.md) for SCSS theming, dual-mode filtering, and local installation steps.
+📖 See [AngularJS Frontend README](./fe-angularjs/monolith/README.md) for SCSS theming, dual-mode filtering, and local installation steps.
 
-📖 See [UI Kit README](./todolist-ui-kit/README.md) for reusable components, hooks, providers, motion utilities, and integration notes.
+📖 See [UI Kit README](./ui-kit/README.md) for reusable components, hooks, providers, motion utilities, and integration notes.
 
-📖 See [Storybook README](./todolist-storybook/README.md) to explore component validation, theming previews, and accessibility testing.
+📖 See [Storybook README](./storybook/README.md) to explore component validation, theming previews, and accessibility testing.
 
-📖 See [Next.js Frontend README](./todolist-fe-nextjs/README.md) for task and user management, API integration, and advanced UI composition.
+📖 See [Next.js Frontend README](./fe-nextjs/monolith/README.md) for task and user management, API integration, and advanced UI composition.

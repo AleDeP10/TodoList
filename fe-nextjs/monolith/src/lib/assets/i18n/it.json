@@ -125,7 +125,7 @@
   "manual.management3": "Filtri predefiniti",
   "manual.management3.1": "Task: TODO, IN PROGRESS, PAUSED.",
   "manual.management3.2": "Utenti: ACTIVE.",
-  "manual.management4": "Ogni riga include pulsanti per modifica, avanzamento e cancellazione.",
+  "manual.management4": "Ogni riga include pulsanti per modifica, avanzamento (solo Attività) e cancellazione.",
   "manual.management5": "Se le regole non sono rispettate, salvataggi e avanzamenti vengono disabilitati.",
 
   "author.title": "Alessandro De Prato",

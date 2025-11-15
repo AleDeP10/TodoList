@@ -2,30 +2,32 @@ package io.todolist.repository;
 
 import io.todolist.dto.TaskFilterDto;
 import io.todolist.model.Task;
+import io.todolist.model.TaskStatus;
 import io.todolist.model.User;
+import io.todolist.model.UserStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ExtendWith(SpringExtension.class)
-@DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@ActiveProfiles("test")
-public class TaskRepositoryTest {
+public class TaskRepositoryTest extends BaseRepositoryTest {
+
+    public static Logger logger = LoggerFactory.getLogger(TaskRepositoryTest.class);
+
     @Autowired
     private TaskRepository taskRepository;
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     private Integer assigneeId;
 
@@ -36,7 +38,7 @@ public class TaskRepositoryTest {
         user.setUsername("mrossi");
         user.setPassword("password");
         user.setIsAdmin(false);
-        user.setStatus("ACTIVE");
+        user.setStatus(UserStatus.ACTIVE);
 
         User savedUser = userRepository.save(user);
         assigneeId = savedUser.getId();
@@ -47,7 +49,7 @@ public class TaskRepositoryTest {
         Task task = new Task();
         task.setDescription("Test Task");
         task.setAssigneeId(assigneeId);
-        task.setStatus("TODO");
+        task.setStatus(TaskStatus.TODO);
 
         Task savedTask = taskRepository.save(task);
 
@@ -61,7 +63,7 @@ public class TaskRepositoryTest {
         Task task = new Task();
         task.setDescription("To Update Task");
         task.setAssigneeId(assigneeId);
-        task.setStatus("TODO");
+        task.setStatus(TaskStatus.TODO);
 
         Task savedTask = taskRepository.save(task);
         savedTask.setDescription("Updated Task");
@@ -77,7 +79,7 @@ public class TaskRepositoryTest {
         Task task = new Task();
         task.setDescription("Delete Task");
         task.setAssigneeId(assigneeId);
-        task.setStatus("TODO");
+        task.setStatus(TaskStatus.TODO);
 
         Task savedTask = taskRepository.save(task);
         taskRepository.delete(savedTask);
@@ -91,26 +93,26 @@ public class TaskRepositoryTest {
         Task task1 = new Task();
         task1.setDescription("Task 1");
         task1.setAssigneeId(assigneeId);
-        task1.setStatus("IN PROGRESS");
+        task1.setStatus(TaskStatus.IN_PROGRESS);
         taskRepository.save(task1);
 
         Task task2 = new Task();
         task2.setDescription("Task 2");
         task2.setAssigneeId(assigneeId);
-        task2.setStatus("TODO");
+        task2.setStatus(TaskStatus.TODO);
         taskRepository.save(task2);
 
         TaskFilterDto filterDto = new TaskFilterDto();
         filterDto.setDescription("Task");
         filterDto.setAssigneeId(assigneeId);
-        filterDto.setStateFilter(new String[]{"IN PROGRESS"});
+        filterDto.setStateFilter(new String[]{TaskStatus.IN_PROGRESS.toString()});
 
         var filteredTasks = taskRepository.filter(filterDto);
 
         assertThat(filteredTasks).isNotEmpty();
         assertThat(filteredTasks).allMatch(t -> t.getDescription().toLowerCase().contains("task"));
         assertThat(filteredTasks).allMatch(t -> t.getAssigneeId().equals(assigneeId));
-        assertThat(filteredTasks).allMatch(t -> "IN PROGRESS".equals(t.getStatus()));
+        assertThat(filteredTasks).allMatch(t -> TaskStatus.IN_PROGRESS.equals(t.getStatus()));
 
         // Test getAll (findAll) and filter with empty filter
         var allTasks = taskRepository.findAll();

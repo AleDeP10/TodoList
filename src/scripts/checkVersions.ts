@@ -172,9 +172,9 @@ try {
 
 // Define workspaces to check
 const workspaces = [
-  "todolist-ui-kit",
-  "todolist-storybook",
-  "todolist-fe-nextjs",
+  "ui-kit",
+  "storybook",
+  "fe-nextjs/monolith",
 ];
 
 // Define Storybook-related packages to validate

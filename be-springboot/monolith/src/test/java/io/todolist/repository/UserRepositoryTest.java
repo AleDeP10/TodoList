@@ -4,22 +4,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import io.todolist.dto.UserFilterDto;
 import io.todolist.model.User;
+import io.todolist.model.UserStatus;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 import java.util.Optional;
 
-@ExtendWith(SpringExtension.class)
-@DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@ActiveProfiles("test")
-public class UserRepositoryTest {
+public class UserRepositoryTest extends BaseRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
@@ -30,7 +22,7 @@ public class UserRepositoryTest {
         user.setUsername("testuser");
         user.setPassword("password");
         user.setIsAdmin(false);
-        user.setStatus("ACTIVE");
+        user.setStatus(UserStatus.ACTIVE);
 
         User savedUser = userRepository.save(user);
 
@@ -46,7 +38,7 @@ public class UserRepositoryTest {
         user.setUsername("deleteuser");
         user.setPassword("password");
         user.setIsAdmin(false);
-        user.setStatus("ACTIVE");
+        user.setStatus(UserStatus.ACTIVE);
 
         User savedUser = userRepository.save(user);
         userRepository.delete(savedUser);
@@ -62,7 +54,7 @@ public class UserRepositoryTest {
         user1.setUsername("asmith");
         user1.setPassword("pass1");
         user1.setIsAdmin(true);
-        user1.setStatus("ACTIVE");
+        user1.setStatus(UserStatus.ACTIVE);
         userRepository.save(user1);
 
         User user2 = new User();
@@ -70,20 +62,20 @@ public class UserRepositoryTest {
         user2.setUsername("bjohnson");
         user2.setPassword("pass2");
         user2.setIsAdmin(false);
-        user2.setStatus("BLOCKED");
+        user2.setStatus(UserStatus.BLOCKED);
         userRepository.save(user2);
 
         UserFilterDto filterDto = new UserFilterDto();
         filterDto.setUsername("smith");
         filterDto.setIsAdmin(true);
-        filterDto.setStateFilter(new String[]{"ACTIVE"});
+        filterDto.setStateFilter(new String[]{UserStatus.ACTIVE.toString()});
 
         var filteredUsers = userRepository.filter(filterDto);
 
         assertThat(filteredUsers).isNotEmpty();
         assertThat(filteredUsers).allMatch(u -> u.getUsername().toLowerCase().contains("smith"));
         assertThat(filteredUsers).allMatch(User::getIsAdmin);
-        assertThat(filteredUsers).allMatch(u -> "ACTIVE".equals(u.getStatus()));
+        assertThat(filteredUsers).allMatch(u -> UserStatus.ACTIVE.equals(u.getStatus()));
 
         List<User> allUsers = userRepository.findAll();
         filteredUsers = userRepository.filter(new UserFilterDto());

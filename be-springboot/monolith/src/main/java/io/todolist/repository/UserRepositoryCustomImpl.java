@@ -1,14 +1,17 @@
 package io.todolist.repository;
 
 import io.todolist.dto.UserFilterDto;
+import io.todolist.model.TaskStatus;
 import io.todolist.model.User;
 
+import io.todolist.model.UserStatus;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -46,7 +49,10 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
 
         // Filter by status values if provided
         if (dto.getStateFilter() != null && dto.getStateFilter().length > 0) {
-            predicates.add(user.get("status").in((Object[]) dto.getStateFilter()));
+            UserStatus[] statuses = Arrays.stream(dto.getStateFilter())
+                    .map(UserStatus::valueOf)
+                    .toArray(UserStatus[]::new);
+            predicates.add(user.get("status").in((Object[]) statuses));
         }
 
         cq.where(predicates.toArray(new Predicate[0]));

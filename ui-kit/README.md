@@ -166,6 +166,6 @@ Validation messages are rendered using the `ValidationRenderer` component:
 
 📖 See [Main README](../README.md) for global setup and shared scripts.
 
-📖 See [storybook README](../todolist-storybook/README.md) to check how components are validated.
+📖 See [storybook README](../storybook/README.md) to check how components are validated.
 
-📖 See [nextjs README](../todolist-fe-nextjs/README.md) to discover how components are used in frontend.
+📖 See [nextjs README](../fe-nextjs/README.md) to discover how components are used in frontend.

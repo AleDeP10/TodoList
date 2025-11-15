@@ -3,6 +3,7 @@ package io.todolist.service;
 import io.todolist.BaseTest;
 import io.todolist.dto.UserDto;
 import io.todolist.dto.UserFilterDto;
+import io.todolist.model.UserStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class UserServiceTest extends BaseTest {
         userDto.setUsername("testuser");
         userDto.setPassword("testuser");
         userDto.setIsAdmin(false);
-        userDto.setStatus("ACTIVE");
+        userDto.setStatus(String.valueOf(UserStatus.ACTIVE));
         return userDto;
     }
 
@@ -46,7 +47,7 @@ public class UserServiceTest extends BaseTest {
         assertThat(foundUser.getUsername()).isEqualTo("testuser");
         assertThat(foundUser.getPassword()).isEqualTo("testuser");
         assertThat(foundUser.getIsAdmin()).isEqualTo(false);
-        assertThat(foundUser.getStatus()).isEqualTo("ACTIVE");
+        assertThat(foundUser.getStatus()).isEqualTo(String.valueOf(UserStatus.ACTIVE));
     }
 
     @Test
@@ -61,7 +62,7 @@ public class UserServiceTest extends BaseTest {
         UserFilterDto filterDto = new UserFilterDto();
         filterDto.setFullName("Test User");
         filterDto.setUsername("testuser");
-        filterDto.setStateFilter(new String[]{"ACTIVE"});
+        filterDto.setStateFilter(new String[]{String.valueOf(UserStatus.ACTIVE)});
         List<UserDto> filteredUsers = userService.filter(filterDto);
         assertThat(filteredUsers).isNotEmpty();
         assertThat(filteredUsers.stream().allMatch(u -> u.getUsername().contains("testuser"))).isTrue();

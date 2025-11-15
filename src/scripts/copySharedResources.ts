@@ -69,8 +69,8 @@ async function copyResources(project: string, extras: boolean = false) {
 // Execute copy for both projects
 (async () => {
   try {
-    await copyResources("todolist-fe-nextjs");
-    await copyResources("todolist-storybook", true);
+    await copyResources("fe-nextjs/monolith");
+    await copyResources("storybook", true);
     log("✅ Shared resources copied for frontend and storybook.");
   } catch (err) {
     console.error("❌ Failed to copy resources:", err);

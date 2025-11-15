@@ -23,15 +23,15 @@ services:
   # ──────────────────────────────────────────────
   # 🧠 Backend API (ASP.NET Core)
   # ──────────────────────────────────────────────
-  todolist-be-csharp:
+  todolist-be-aspnet:
     restart: unless-stopped
     build:
-      context: ./backend-csharp
-    container_name: todolist-be-csharp
+      context: ./be-aspnet/monolith
+    container_name: todolist-be-aspnet
     ports:
       - 5001:5000
     depends_on:
-    - todolist-db
+      - todolist-db
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
     networks:
@@ -43,12 +43,13 @@ services:
   todolist-be-springboot:
     restart: unless-stopped
     build:
-      context: ./todolist-be-springboot
+      context: ./be-springboot # Use root folder containing parent pom.xml
+      dockerfile: monolith/Dockerfile # Specify Dockerfile location inside monolith
     container_name: todolist-be-springboot
     ports:
       - 8081:8080
     depends_on:
-    - todolist-db
+      - todolist-db
     networks:
       - todolist-net
     healthcheck:
@@ -64,7 +65,7 @@ services:
   todolist-fe-angularjs:
     restart: unless-stopped
     build:
-      context: ./frontend-angularjs
+      context: ./fe-angularjs/monolith
       dockerfile: Dockerfile.local
       args:
         ENV: docker
@@ -84,13 +85,13 @@ services:
   todolist-fe-nextjs:
     restart: unless-stopped
     build:
-      context: ./todolist-fe-nextjs
+      context: ./fe-nextjs/monolith
       dockerfile: Dockerfile.local
     container_name: todolist-fe-nextjs
     ports:
       - 3001:3000
     depends_on:
-      - todolist-be-csharp
+      - todolist-be-aspnet
     networks:
       - todolist-net
 
@@ -100,7 +101,7 @@ services:
   todolist-storybook:
     restart: unless-stopped
     build:
-      context: ./todolist-storybook
+      context: ./storybook
       dockerfile: Dockerfile.local
       target: storybook
     container_name: todolist-storybook

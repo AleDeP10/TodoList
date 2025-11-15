@@ -5,6 +5,8 @@ import io.todolist.dto.TaskDto;
 import io.todolist.dto.TaskFilterDto;
 import io.todolist.dto.UserDto;
 import java.util.Optional;
+
+import io.todolist.model.UserStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,7 @@ public class TaskServiceTest extends BaseTest {
         user.setUsername("mrossi");
         user.setPassword("password");
         user.setIsAdmin(false);
-        user.setStatus("ACTIVE");
+        user.setStatus(String.valueOf(UserStatus.ACTIVE));
 
         UserDto savedUser = userService.save(user);
         assigneeId = savedUser.getId();

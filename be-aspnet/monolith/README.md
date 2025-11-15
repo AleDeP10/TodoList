@@ -119,4 +119,4 @@ Make sure to adapt the `Username` and `Password` values to match your local data
 
 ## 🔗 Related Documentation
 
-📖 See [Main README](../README.md) for global setup and shared scripts.
+📖 See [Main README](../../README.md) for global setup.

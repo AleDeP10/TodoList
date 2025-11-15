@@ -124,7 +124,7 @@
   "manual.management3": "Default filters",
   "manual.management3.1": "Tasks: TODO, IN PROGRESS, PAUSED.",
   "manual.management3.2": "Users: ACTIVE.",
-  "manual.management4": "Each row includes buttons for editing, progressing, and deleting.",
+  "manual.management4": "Each row includes buttons for editing, progressing (Task only), and deleting.",
   "manual.management5": "Saving and progression are disabled if the rules are not met.",
 
   "author.title": "Alessandro De Prato",
