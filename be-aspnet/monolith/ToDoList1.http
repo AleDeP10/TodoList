@@ -1,0 +1,98 @@
+@ToDoList_HostAddress = http://localhost:5179
+
+### UserController - Get user by ID
+GET {{ToDoList_HostAddress}}/user/by-id/1
+Accept: application/json
+
+###
+
+### UserController - Filter users
+POST {{ToDoList_HostAddress}}/user/filter
+Content-Type: application/json
+
+{
+  "Username": "john",
+  "FullName": "John Doe",
+  "IsAdmin": true,
+  "StateFilter": [1, 2]
+}
+
+###
+
+### UserController - Create user
+POST {{ToDoList_HostAddress}}/user
+Content-Type: application/json
+
+{
+  "Username": "newuser",
+  "FullName": "New User",
+  "Password": "password123",
+  "Status": 1,
+  "IsAdmin": false
+}
+
+###
+
+### UserController - Update user
+PUT {{ToDoList_HostAddress}}/user/1
+Content-Type: application/json
+
+{
+  "Username": "updateduser",
+  "FullName": "Updated User",
+  "Password": "newpassword",
+  "Status": 2,
+  "IsAdmin": true
+}
+
+###
+
+### UserController - Delete user
+DELETE {{ToDoList_HostAddress}}/user/1
+
+###
+
+### TaskController - Get task by ID
+GET {{ToDoList_HostAddress}}/task/by-id/1
+Accept: application/json
+
+###
+
+### TaskController - Filter tasks
+POST {{ToDoList_HostAddress}}/task/filter
+Content-Type: application/json
+
+{
+  "Description": "meeting",
+  "StateFilter": [1, 3],
+  "AssigneeId": 2
+}
+
+###
+
+### TaskController - Create task
+POST {{ToDoList_HostAddress}}/task
+Content-Type: application/json
+
+{
+  "Description": "Finish report",
+  "Status": 1,
+  "AssigneeId": 2
+}
+
+###
+
+### TaskController - Update task
+PUT {{ToDoList_HostAddress}}/task/1
+Content-Type: application/json
+
+{
+  "Description": "Finish updated report",
+  "Status": 2,
+  "AssigneeId": 3
+}
+
+###
+
+### TaskController - Delete task
+DELETE {{ToDoList_HostAddress}}/task/1

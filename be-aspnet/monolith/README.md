@@ -47,8 +47,8 @@ Built-in client at: 📍 http://localhost:5001/swagger
 
 To run the backend with Visual Studio:
 
-1. Open the solution file TodoList.sln in Visual Studio.
-2. In the toolbar, locate the green play button next to the project name TodoList.
+1. Open the solution file ToDoList.sln in Visual Studio.
+2. In the toolbar, locate the green play button next to the project name ToDoList.
 3. Click the play button to launch the backend API.
 
 The API will start and be accessible at: 📍 http://localhost:5000
@@ -97,16 +97,16 @@ Make sure to adapt the `Username` and `Password` values to match your local data
 │   └── aspnet-dev.pfx
 ├── Models
 │   └── Task.cs
-│   └── TodoListContext.cs
+│   └── ToDoListContext.cs
 │   └── User.cs
 └── Program.cs
 ├── Properties
 │   └── launchSettings.json
 └── README.md
-└── TodoList.csproj
-└── TodoList.csproj.user
-└── TodoList.http
-└── TodoList.sln
+└── ToDoList.csproj
+└── ToDoList.csproj.user
+└── ToDoList.http
+└── ToDoList.sln
 ├── Utils
 │   └── RoutePrefixConvention .cs
 ├── wwwroot

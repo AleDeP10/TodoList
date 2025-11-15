@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using TodoList.Models;
+using ToDoList.Models;
 
-namespace TodoList.Controllers
+namespace ToDoList.Controllers
 {
 
     [ApiController]
     [Route("health")]
     public class HealthController : ControllerBase
     {
-        private readonly TodoListContext _db;
+        private readonly ToDoListContext _db;
 
-        public HealthController(TodoListContext db)
+        public HealthController(ToDoListContext db)
         {
             _db = db;
         }

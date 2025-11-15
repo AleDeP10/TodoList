@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TodoList.Models;
+using ToDoList.Models;
 
 // 1. Set up the application builder
 var builder = WebApplication.CreateBuilder(args);
@@ -35,7 +35,7 @@ builder.Configuration
 var defaultConnection = Environment.GetEnvironmentVariable("DefaultConnection")
                      ?? builder.Configuration.GetConnectionString("DefaultConnection");
 
-builder.Services.AddDbContext<TodoListContext>(options =>
+builder.Services.AddDbContext<ToDoListContext>(options =>
     options.UseNpgsql(defaultConnection));
 
 // 5. Register core ASP.NET services

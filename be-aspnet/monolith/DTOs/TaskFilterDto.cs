@@ -1,4 +1,4 @@
-﻿namespace TodoList.DTOs;
+﻿namespace ToDoList.DTOs;
 
 public class TaskFilterDto
 {

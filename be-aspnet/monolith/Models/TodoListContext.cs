@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace TodoList.Models;
+namespace ToDoList.Models;
 
-public partial class TodoListContext : DbContext
+public partial class ToDoListContext : DbContext
 {
-    public TodoListContext()
+    public ToDoListContext()
     {
     }
 
-    public TodoListContext(DbContextOptions<TodoListContext> options)
+    public ToDoListContext(DbContextOptions<ToDoListContext> options)
         : base(options)
     {
     }

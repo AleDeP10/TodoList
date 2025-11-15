@@ -1,18 +1,18 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using TodoList.DTOs;
-using TodoList.Models;
+using ToDoList.DTOs;
+using ToDoList.Models;
 
-namespace TodoList.Controllers;
+namespace ToDoList.Controllers;
 
 [ApiController]
 [Route("[controller]")]
 public class UserController : ControllerBase
 {
     private readonly ILogger<UserController> _logger;
-    private readonly TodoListContext _context;
+    private readonly ToDoListContext _context;
 
-    public UserController(ILogger<UserController> logger, TodoListContext context)
+    public UserController(ILogger<UserController> logger, ToDoListContext context)
     {
         _logger = logger;
         _context = context;
