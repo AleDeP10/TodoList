@@ -19,7 +19,8 @@
     "check-versions": "node dist/scripts/checkVersions.js",
     "copy-ui-kit": "node dist/scripts/copyUiKit.js",
     "clean-install": "node dist/scripts/cleanInstall.js",
-    "copy-shared-resources": "node dist/scripts/copySharedResources.js"
+    "copy-shared-resources": "node dist/scripts/copySharedResources.js",
+    "copy-h2-scripts": "node dist/scripts/copyH2Scripts.js"
   },
   "keywords": [
     "todo-list",

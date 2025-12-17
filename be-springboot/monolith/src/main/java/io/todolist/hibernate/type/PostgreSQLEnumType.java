@@ -1,10 +1,11 @@
 package io.todolist.hibernate.type;
 
+import io.todolist.utils.ProfileUtils;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.type.SqlTypes;
 import org.hibernate.usertype.UserType;
 import org.postgresql.util.PGobject;
-import utils.ProfileUtils;
+
 
 import java.io.Serializable;
 import java.sql.PreparedStatement;

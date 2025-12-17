@@ -14,6 +14,10 @@
     <artifactId>monolith</artifactId>
     <packaging>jar</packaging>
 
+    <name>todolist-be-monolith</name>
+    <url>https://github.com/AleDeP10/TodoList/tree/main/be-springboot/monolith</url>
+    <description>Monolithic backend implementation of the ToDoList application, providing all features in a single deployable unit.</description>
+
     <dependencies>
         <!-- Spring Boot Starter Web: provides Spring MVC and embedded Tomcat -->
         <dependency>
@@ -57,12 +61,6 @@
             <artifactId>jackson-databind</artifactId>
         </dependency>
 
-        <!-- H2 Database: in-memory database for testing -->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-        </dependency>
-
         <!-- Spring Boot Starter Test: testing utilities and frameworks -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -88,6 +86,12 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <!-- H2 Database: in-memory database for testing -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
         </dependency>
     </dependencies>
 

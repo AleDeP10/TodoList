@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.Type;
 
 @Entity
-@Table(name = "tasks", schema = "task")
+@Table(name = "tasks", schema = "public")
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

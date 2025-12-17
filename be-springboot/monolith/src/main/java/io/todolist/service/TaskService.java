@@ -23,6 +23,7 @@ public class TaskService {
 
     /**
      * Saves or updates a task starting from a TaskDto.
+     *
      * @param taskDto the task DTO to save
      * @return the saved TaskDto with any updates (e.g., generated id)
      */
@@ -34,6 +35,7 @@ public class TaskService {
 
     /**
      * Deletes a task by id.
+     *
      * @param id the id of the task to delete
      */
     public void deleteById(Integer id) {
@@ -42,6 +44,7 @@ public class TaskService {
 
     /**
      * Finds a task by id.
+     *
      * @param id the task id
      * @return an Optional containing the TaskDto if found
      */
@@ -52,6 +55,7 @@ public class TaskService {
 
     /**
      * Returns all tasks.
+     *
      * @return list of TaskDto
      */
     public List<TaskDto> findAll() {
@@ -63,6 +67,7 @@ public class TaskService {
 
     /**
      * Filters tasks using the custom filter.
+     *
      * @param filterDto DTO with filter criteria
      * @return list of filtered TaskDto
      */

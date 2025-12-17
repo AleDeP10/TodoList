@@ -1,4 +1,4 @@
-package utils;
+package io.todolist.utils;
 
 public class ProfileUtils {
 

@@ -1,13 +1,11 @@
--- Create schemas if they do not exist
-CREATE SCHEMA IF NOT EXISTS "user";
-CREATE SCHEMA IF NOT EXISTS task;
+CREATE SCHEMA IF NOT EXISTS public;
 
 -- Drop tables if they exist to start fresh
-DROP TABLE IF EXISTS "user".users;
-DROP TABLE IF EXISTS task.tasks;
+DROP TABLE IF EXISTS public.tasks;
+DROP TABLE IF EXISTS public.users;
 
 -- Create users table with auto-increment primary key
-CREATE TABLE "user".users
+CREATE TABLE public.users
 (
     id        INT AUTO_INCREMENT PRIMARY KEY,
     username  VARCHAR(50)  NOT NULL UNIQUE,
@@ -18,11 +16,11 @@ CREATE TABLE "user".users
 );
 
 -- Create tasks table with auto-increment primary key and foreign key to users
-CREATE TABLE task.tasks
+CREATE TABLE public.tasks
 (
     id          INT AUTO_INCREMENT PRIMARY KEY,
     description VARCHAR(150) NOT NULL,
     assignee_id INT,
     status      VARCHAR(20),
-    CONSTRAINT fk_assignee FOREIGN KEY (assignee_id) REFERENCES "user".users (id) ON UPDATE CASCADE ON DELETE SET NULL
+    CONSTRAINT fk_assignee FOREIGN KEY (assignee_id) REFERENCES public.users (id) ON UPDATE CASCADE ON DELETE SET NULL
 );

@@ -6,11 +6,11 @@ import Modal from "@/lib/components/ui/Modal";
 import { ButtonVariant } from "@/lib/components/ui/Button";
 import { renderHeaders, renderList } from "@/utils/styledI18n";
 
-interface AboutAuthorModalProps {
+interface ManualModalProps {
   onClose: () => void;
 }
 
-export default function ManualModal({ onClose }: AboutAuthorModalProps) {
+export default function ManualModal({ onClose }: ManualModalProps) {
   const t = useTranslation();
   const sections = [
     "manual.model",

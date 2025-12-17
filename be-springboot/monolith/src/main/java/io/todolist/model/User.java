@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.Type;
 
 @Entity
-@Table(name = "users", schema = "\"user\"")
+@Table(name = "users", schema = "public")
 public class User {
 
     @Id

@@ -7,6 +7,34 @@
     <artifactId>be-springboot</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
+    <name>todolist-be-springboot</name>
+    <description>Parent POM for the ToDoList Spring Boot backend microservices project, managing common dependencies and configurations.</description>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>AleDeP10</id>
+            <name>Alessandro De Prato</name>
+            <email>alessandro.deprato@outlook.com</email>
+            <roles>
+                <role>software architect</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:https://github.com/AleDeP10/todolist.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:AleDeP10/todolist.git</developerConnection>
+        <url>https://github.com/AleDeP10/todolist</url>
+        <tag>HEAD</tag>
+    </scm>
 
     <properties>
         <!-- Java version for compilation -->
@@ -84,18 +112,41 @@
                 <version>1.11.0</version>
             </dependency>
 
-            <!-- Jackson Databind: JSON serialization/deserialization -->
+            <!-- Spring Boot Starter AMQP for RabbitMQ -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-amqp</artifactId>
+                <version>3.1.9</version>
+            </dependency>
+
+            <!-- Jackson Databind: Core JSON serialization/deserialization library used for API and messaging -->
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
                 <version>${jackson.version}</version>
             </dependency>
-
-            <!-- H2 Database: in-memory database for testing -->
             <dependency>
-                <groupId>com.h2database</groupId>
-                <artifactId>h2</artifactId>
-                <version>2.1.214</version>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <!-- Lombok: Reduces boilerplate code (getters, setters, constructors) across all modules -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.42</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-redis</artifactId>
+                <version>${spring.boot.version}</version>
             </dependency>
 
             <!-- Spring Boot Starter Test: testing utilities and frameworks -->
@@ -118,13 +169,29 @@
                 <artifactId>junit-jupiter-engine</artifactId>
                 <version>${junit.jupiter.version}</version>
             </dependency>
+
+            <!-- H2 Database: in-memory database for testing -->
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>2.1.214</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-core</artifactId>
+                <version>9.16.1</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
     <modules>
         <module>monolith</module>
-        <!-- <module>user</module> -->
-        <!-- <module>task</module> -->
+        <module>common-contracts</module>
+        <module>common-core</module>
+        <module>control-tower</module>
+        <module>users</module>
+        <module>tasks</module>
     </modules>
 
 </project>

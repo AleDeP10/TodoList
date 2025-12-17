@@ -1,0 +1,42 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>io.todolist</groupId>
+        <artifactId>be-springboot</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>control-tower</artifactId>
+    <packaging>jar</packaging>
+
+    <name>todolist-be-control-tower</name>
+    <url>https://github.com/AleDeP10/TodoList/tree/main/be-springboot/control-tower</url>
+    <description>Backend Control Tower module for ToDoList application, responsible for orchestrating microservices communication, event routing, and API exposure.</description>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <!-- Common-contracts: shared DTOs, messages, errors and dependencies -->
+        <dependency>
+            <groupId>io.todolist</groupId>
+            <artifactId>common-contracts</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <!-- Spring Boot Starter Data Redis: in-memory caching support specific to Control Tower -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
+        <!-- Spring Boot Starter Test: testing utilities and frameworks -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>
