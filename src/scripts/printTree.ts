@@ -57,6 +57,9 @@ const ignore = [
   "temp",
   "shared-resources",
   "lib",
+  ".obsidian",
+  ".nomadsync-workspace",
+  ".nomadsync-vault",
 ];
 
 // List of file extensions to ignore (typically build artifacts or logs)
