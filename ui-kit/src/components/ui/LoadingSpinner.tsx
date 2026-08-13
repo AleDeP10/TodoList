@@ -13,6 +13,8 @@ const LoadingSpinner = ({
 }: LoadingSpinnerProps) => {
   return (
     <div
+      role="status"
+      aria-label="Loading"
       className="flex justify-center items-center"
       style={{ minHeight: "calc(100vh - 180px)" }}
     >

@@ -47,7 +47,11 @@ export const Icons = {
     color?: string;
     className?: string;
   } = {}) => (
-    <Loader2 className={`animate-spin ${color} ${className}`} size={size} />
+    <Loader2
+      data-testid="spinner-icon"
+      className={`animate-spin ${color} ${className}`}
+      size={size}
+    />
   ),
 };
 

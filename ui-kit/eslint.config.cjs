@@ -30,6 +30,13 @@ module.exports = [
     },
   },
   {
+    files: ["**/*.cjs"],
+    rules: {
+      "@typescript-eslint/no-require-imports": "off",
+      "@typescript-eslint/no-var-requires": "off",
+    },
+  },
+  {
     files: ["**/*.json"],
     languageOptions: {
       parser: require("jsonc-eslint-parser"),
