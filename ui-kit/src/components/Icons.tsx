@@ -22,6 +22,7 @@ import {
   LayoutDashboard,
   SquareCheck,
   User,
+  Rocket,
 } from "lucide-react";
 
 export const Icons = {
@@ -38,6 +39,7 @@ export const Icons = {
   open: <SquareArrowOutUpRight size={16} />,
   showPassword: <Eye size={16} />,
   hidePassword: <EyeOff size={16} />,
+  startup: <Rocket size={16} />,
   spinner: ({
     size = 64,
     color = "text-yellow-400",

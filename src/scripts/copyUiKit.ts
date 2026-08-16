@@ -24,6 +24,10 @@
 import { cp } from "fs/promises";
 import { resolve } from "path";
 
+// Excludes test files from the copy: they belong to ui-kit only, never to the
+// generated copies in storybook/fe-nextjs, which are not test-runner targets.
+const filter = (src: string) => !/\.test\.(ts|tsx)$/.test(src);
+
 // Folders to copy into src/lib/
 const toLib = [
   "assets",
@@ -47,6 +51,7 @@ try {
   for (const item of toLib) {
     await cp(resolve(sourceBase, item), resolve(libDestination, item), {
       recursive: true,
+      filter,
     });
   }
 
@@ -79,6 +84,7 @@ try {
   for (const item of toLib) {
     await cp(resolve(sourceBase, item), resolve(libDestination, item), {
       recursive: true,
+      filter,
     });
   }
 

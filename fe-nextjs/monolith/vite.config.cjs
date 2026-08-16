@@ -1,4 +1,7 @@
-const svgr = require("vite-plugin-svgr");
+const svgrImport = require("vite-plugin-svgr");
+const svgr = svgrImport.default || svgrImport;
+const react = require("@vitejs/plugin-react");
+const path = require("path");
 
 /** @type {import('vite').UserConfig} */
 module.exports = {
@@ -13,6 +16,10 @@ module.exports = {
       {
         find: "next/image",
         replacement: "./.storybook/mock/image.tsx",
+      },
+      {
+        find: "@",
+        replacement: path.resolve(__dirname, "./src"),
       },
     ],
   },
@@ -44,6 +51,17 @@ module.exports = {
             instances: [{ browser: "chromium" }],
           },
           setupFiles: [".storybook/vitest.setup.ts"],
+        },
+      },
+      {
+        extends: true,
+        plugins: [react()],
+        test: {
+          name: "unit",
+          environment: "jsdom",
+          globals: true,
+          setupFiles: ["./src/test/setup.ts"],
+          include: ["src/**/*.test.{ts,tsx}"],
         },
       },
     ],

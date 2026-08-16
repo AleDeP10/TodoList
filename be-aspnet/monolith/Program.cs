@@ -56,6 +56,7 @@ builder.Services.AddCors(options =>
             "https://todolist-fe-nextjs.onrender.com",
             "https://todolist-fe-angularjs.onrender.com",
             "http://localhost", "https://localhost",
+            "http://localhost:3000",
             "http://localhost:3001",
             "http://localhost:4200",
             "http://localhost:4201"

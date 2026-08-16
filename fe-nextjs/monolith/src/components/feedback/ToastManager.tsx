@@ -6,12 +6,13 @@ import { toast as baseToast, ToastContainer } from "react-toastify";
 import { selectToast, clearToast } from "@/store/ui/uiSlice";
 import { getCSSVariable } from "@/lib/utils/getCSSVariable";
 import "react-toastify/dist/ReactToastify.css";
+import { Icons } from "@/lib/components/Icons";
 
 const icons = {
-  startup: <span style={{ fontSize: "1.2rem" }}>🚀</span>,
-  success: <span style={{ fontSize: "1.2rem" }}>✅</span>,
-  error: <span style={{ fontSize: "1.2rem" }}>❌</span>,
-  delete: <span style={{ fontSize: "1.2rem" }}>🗑️</span>,
+  startup: Icons.startup,
+  success: Icons.confirm,
+  error: Icons.cancel,
+  delete: Icons.delete,
 };
 
 const ToastManager = () => {

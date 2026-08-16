@@ -55,21 +55,10 @@ export default function Switch({
   return (
     <>
       {variant === "compact" ? (
-        <label className="flex items-center gap-2 cursor-pointer">
-          <div
-            className={`relative w-10 h-5 rounded-full transition-colors ${
-              checked ? "bg-yellow-500" : "bg-gray-300"
-            }`}
-            onClick={() => onChange(!checked)}
-          >
-            <div
-              className={`absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-white transition-transform ${
-                checked ? "translate-x-5" : ""
-              }`}
-            ></div>
-          </div>
+        <div className="flex items-center gap-2">
+          {SwitchComponent}
           {label && LabelComponent}
-        </label>
+        </div>
       ) : sm ? (
         <div className="flex flex-col gap-2 w-full">
           {LabelComponent}
