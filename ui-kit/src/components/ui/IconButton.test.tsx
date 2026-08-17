@@ -80,4 +80,19 @@ describe("IconButton", () => {
     await user.click(screen.getByRole("button", { name: "Close" }));
     expect(onClickMock).not.toHaveBeenCalled();
   });
+
+  it("does not submit a surrounding form when clicked", async () => {
+  const onSubmitMock = vi.fn((e) => e.preventDefault());
+  const user = userEvent.setup();
+
+  render(
+    <form onSubmit={onSubmitMock}>
+      <IconButton icon={Icons.close} ariaLabel="Close" onClick={() => {}} />
+    </form>
+  );
+
+  await user.click(screen.getByRole("button", { name: "Close" }));
+
+  expect(onSubmitMock).not.toHaveBeenCalled();
+});
 });

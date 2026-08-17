@@ -38,7 +38,7 @@ export default function ValidationRenderer({
             type === "error" ? "text-red-500" : "text-orange-500"
           }`}
           style={type === "warning" ? {color: "#f97316"} : {}}
-          role={type === "error" ? "alert" : "alert"}
+          role={type === "error" ? "alert" : "status"}
         >
           {text}
         </p>

@@ -31,7 +31,7 @@ describe("ToastManager", () => {
 		}); 
 		expect(store.getState().ui.toast).toBe(null);
     });
-    
+
 	it("does not dispatch anything when there is no toast", () => {
 	  const store = configureStore({
 		reducer: { ui: uiReducer },

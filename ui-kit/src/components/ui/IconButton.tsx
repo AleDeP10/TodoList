@@ -27,6 +27,7 @@ export default function IconButton({
 
   return (
     <button
+      type="button"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className="rounded-full p-1 transition"

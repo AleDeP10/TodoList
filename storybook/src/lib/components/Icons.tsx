@@ -37,8 +37,8 @@ export const Icons = {
   confirm: <CheckCircle size={16} />,
   save: <Save size={16} />,
   open: <SquareArrowOutUpRight size={16} />,
-  showPassword: <Eye size={16} />,
-  hidePassword: <EyeOff size={16} />,
+  showPassword: <Eye data-testid="show-password-icon" size={16} />,
+  hidePassword: <EyeOff data-testid="hide-password-icon" size={16} />,
   startup: <Rocket size={16} />,
   spinner: ({
     size = 64,
